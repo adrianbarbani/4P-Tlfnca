@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomObjectTranslation xmlns="http://soap.sforce.com/2006/04/metadata">
+    <caseValues>
+        <plural>false</plural>
+        <value>4PlanningProPresupuesto</value>
+    </caseValues>
+    <caseValues>
+        <plural>true</plural>
+        <value>4PlanningProPresupuestos</value>
+    </caseValues>
+    <fields>
+        <label><!-- Año --></label>
+        <name>Anio__c</name>
+    </fields>
+    <fields>
+        <label><!-- Añoo --></label>
+        <name>Anioo__c</name>
+    </fields>
+    <fields>
+        <label><!-- Categoria --></label>
+        <name>Categoria__c</name>
+        <picklistValues>
+            <masterLabel>Convergente</masterLabel>
+            <translation><!-- Convergente --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Digital - Cloud</masterLabel>
+            <translation><!-- Digital - Cloud --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Digital - IoT</masterLabel>
+            <translation><!-- Digital - IoT --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Digital - Seguridad</masterLabel>
+            <translation><!-- Digital - Seguridad --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Fijo</masterLabel>
+            <translation><!-- Fijo --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Móvil</masterLabel>
+            <translation><!-- Móvil --></translation>
+        </picklistValues>
+    </fields>
+    <fields>
+        <label><!-- FourPlanning --></label>
+        <name>FourPlanning__c</name>
+        <relationshipLabel><!-- 4PlanningProPresupuestos --></relationshipLabel>
+    </fields>
+    <fields>
+        <label><!-- Presupuesto Competencia --></label>
+        <name>Presupuesto_Competencia__c</name>
+    </fields>
+    <fields>
+        <label><!-- Presupuesto Disponible --></label>
+        <name>Presupuesto_Disponible__c</name>
+    </fields>
+    <fields>
+        <label><!-- Presupuesto Nosotros --></label>
+        <name>Presupuesto_Nosotros__c</name>
+    </fields>
+    <fields>
+        <label><!-- Presupuesto Total --></label>
+        <name>Presupuesto_Total__c</name>
+    </fields>
+    <gender>Masculine</gender>
+</CustomObjectTranslation>

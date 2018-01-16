@@ -1,0 +1,512 @@
+<apex:page controller="FourPlanningController" tabStyle="Strategic_Client_Plan__tab" sidebar="false" showHeader="true" docType="html-5.0" >
+    
+
+    <c:SCPMenu ></c:SCPMenu>
+
+    
+    <style>
+        .pbSubheader h3 {
+        display: inline;
+        margin-left: 5px;
+        font-weight: bold;
+        }
+        
+        .icon-sectors-botonera {
+        width: 38px;            
+        }
+        
+        .separator {
+        width: 100%;
+        margin-top: 20px;
+        }
+        
+        #big-deal-tab-content th {
+        width : 50%;
+        text-align : left;
+        padding-left : 20%;
+        font-size: 14px;
+        font-weight: normal;
+        }
+        
+        
+        #big-deal-tab-content th label {
+        font-size: 14px;
+        font-weight: normal;
+        }
+        
+        .icon-sectors {
+        width: 90px;            
+        }
+        
+        #ul-menu-img2 {
+        width: 100% ! important;
+        border-bottom: 0px solid #cfd0d2;
+        
+        }
+        
+        #ul-menu-img2 li {
+        text-align: center;
+        width: 14.2%;
+        height: 185px;
+        min-height: 190px;
+        max-height: 190px;
+        text-transform: none ! important;
+        }
+        
+        #ul-menu-img2 li:hover, #ul-menu-img2 li.active {
+        border: 2px solid #539fc6;
+        
+        }
+        
+        #ul-menu-img2 li a, #ul-menu-img2 li a:hover {
+        border: 0px solid #539fc6 ! important;
+        
+        }
+        
+        
+        
+        
+        
+        #ul-menu-img {
+        width: 100% ! important;
+        border-bottom: 0px solid #cfd0d2;
+        }
+        
+        #ul-menu-img li {
+        text-align: center;
+        width: 16.6%;
+        height: 185px;
+        min-height: 190px;
+        max-height: 190px;
+        text-transform: none ! important;
+        }
+        
+        #ul-menu-img li:hover, #ul-menu-img li.active {
+        border: 2px solid #539fc6;            
+        }
+        
+        #ul-menu-img li a, #ul-menu-img li a:hover {
+        border: 0px solid #539fc6 ! important;
+        }
+        
+        
+        .ocultar{
+        display:none;
+        }
+        
+        .bordesDeTabla{
+        border-bottom: 1px solid #ececec;
+        border-bottom-width: 1px;
+        border-bottom-style: solid;
+        }
+        
+        .tituloLabel{
+        text-align: left;
+        padding-left: 15% !important;
+        }
+        
+        .esCero{
+        background-color: black !important;
+        }
+        
+        .menorDeSetenta{
+        background-color:#F1E100 !important;
+        }
+        
+        .menorDeVeinte{
+        background-color:#FF0009 !important;
+        }
+        .menorDeCincuenta{
+        background-color:#FF0009 !important;
+        }
+        
+        .completo{
+        background-color:#009813 !important;
+        }
+        
+        .casiCompleto{
+        background-color:#55C500 !important;
+        }
+        
+        #custom-handle {
+        width: 3em;
+        height: 1.6em;
+        top: 50%;
+        margin-top: -.8em;
+        text-align: center;
+        line-height: 1.6em;
+        }
+        
+        #custom-handle-nosotros {
+        width: 3em;
+        height: 1.6em;
+        top: 50%;
+        margin-top: -.8em;
+        text-align: center;
+        line-height: 1.6em;
+        }
+        
+        #custom-handle-competencia {
+        width: 3em;
+        height: 1.6em;
+        top: 50%;
+        margin-top: -.8em;
+        text-align: center;
+        line-height: 1.6em;
+        }
+        
+        #custom-handle-porcentajeFijo {
+        width: 3em;
+        height: 1.6em;
+        top: 50%;
+        margin-top: -.8em;
+        text-align: center;
+        line-height: 1.6em;
+        }
+        
+        #custom-handle-porcentajeVariable {
+        width: 3em;
+        height: 1.6em;
+        top: 50%;
+        margin-top: -.8em;
+        text-align: center;
+        line-height: 1.6em;
+        }
+        
+        #circle {
+        width: 20px;
+        height: 20px;
+        -webkit-border-radius: 25px;
+        -moz-border-radius: 25px;
+        border-radius: 25px;
+        float:left;
+        }
+        
+        .datePicker {
+        z-index: 9999;/*Changed this css property which was 100 prior*/
+        position: absolute;
+        display: none;
+        top: 0;
+        left: 0;
+        width: 17em;
+        background-color: #b7c6b2;
+        border-bottom: 1px solid #000;
+        border-right: 1px solid #000;
+        margin: 0;
+        padding: 1px 1px 2px 2px;
+        }
+        
+        .modal-dialog{
+        overflow-y: initial !important
+        }
+        .modal-body{
+        height: 250px;
+        overflow-y: auto;
+        }
+        
+    </style>
+    
+    
+    
+    <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css"/>
+    <link rel="stylesheet" href="/resources/demos/style.css"/>
+    <apex:includeScript value="{!$Resource.Ploty}"/>
+    
+    <apex:form >
+        
+        <apex:outputpanel styleClass="container-fluid bootstrap-sf1" id="pageContent">
+            
+            <div class="panel panel-default">
+                <div class="panel-heading" style="height: 130px;">
+                    <h2 class="panel-title">
+                        <span style="float:left;">
+                            4You
+                        </span>
+                    </h2>
+                    
+                    
+                    <div class="row paddingRight">
+                        <div class="btn-group pull-right" role="group" aria-label="...">
+                            
+                            <apex:outputPanel id="buttonPanel">
+                                
+                                <apex:actionFunction action="{!irAPlanDeAccion}" name="irAPlanDeAccion"/>
+                                <apex:actionFunction action="{!calcularPorcentajeCuestionarioCompleto}" name="calcularPorcentajeCuestionarioCompleto" reRender="porcentajeCuenta"/>
+                                <apex:actionFunction action="{!irADesarrolloCuenta}" name="irADesarrolloCuenta"/>
+                                <apex:actionFunction action="{!irAEjesDeTrabajo}" name="irAEjesDeTrabajo"/>
+                                <apex:actionFunction action="{!irACuestionario}" name="irACuestionario" status="renderMeStatus"/>
+                                <apex:actionFunction action="{!irAForYou}" name="irAForYou"/>
+                                <apex:actionFunction action="{!irAInicio}" name="irAInicio"/>
+                                
+                                
+                                
+                                <div class="btn-group pull-right" role="group" aria-label="...">
+                                    
+                                    <button type="button" class="btn btn-default btn-sm" onclick="irAInicio()">
+                                        <!--<apex:image style="height:35px;" url="{!URLFOR($Resource.icono4Planning)}" styleClass="icon-sectors-botonera"/>-->
+                                        <span class="glyphicon glyphicon-home"></span>&nbsp; 4Planning
+                                    </button>
+                                    
+                                    <button type="button" class="btn btn-default btn-sm" onclick="irAPlanDeAccion()">
+                                        <!--<apex:image url="{!URLFOR($Resource.iconoHitos)}" styleClass="icon-sectors-botonera"/>-->
+                                        <span class="glyphicon glyphicon-calendar icon-btn-left"></span>&nbsp;{!$Label.Hitos}
+                                    </button> 
+                                    
+                                    
+                                    <button type="button" class="btn btn-default btn-sm" onclick="irADesarrolloCuenta()">
+                                        <!--<apex:image url="{!URLFOR($Resource.Iconos, '256/flow-market-icon.png')}" styleClass="icon-sectors-botonera"/>-->
+                                        <span class="glyphicon glyphicon-stats"></span>&nbsp;{!$Label.Coeficiente_Cuenta}
+                                    </button> 
+                                    
+                                    <button type="button" class="btn btn-default btn-sm" onclick="irAEjesDeTrabajo()">
+                                        <!--<apex:image url="{!URLFOR($Resource.iconoRetos)}" styleClass="icon-sectors-botonera"/>-->
+                                        <span class="glyphicon glyphicon-list"></span>&nbsp;{!$Label.Retos}
+                                    </button>  
+                                    
+                                    <button disabled="true" type="button" class="btn btn-default btn-sm" onclick="irAForYou()">
+                                        <!--<apex:image style="height:35px;" url="{!URLFOR($Resource.iconoForYou)}" styleClass="icon-sectors-botonera"/>-->
+                                        <span class="glyphicon glyphicon-gift"></span>&nbsp;4You
+                                    </button> 
+                                    
+                                </div>
+                            </apex:outputPanel>  
+                            
+                            
+                            <div class="btn-group pull-right" style="position: absolute;right: 0px;margin-top: 15px;">
+                                <!--<div style="margin-top: 5%; position: absolute;right: 25px;">-->
+                                <br/>
+                                
+                                
+                                
+                                <button  type="button" class="btn btn-default btn-sm" onclick="SaveChanges()">
+                                    <!-- <apex:image url="{!URLFOR($Resource.grabar)}" styleClass="icon-sectors-botonera"/>-->
+                                    <span class="glyphicon glyphicon-floppy-disk icon-btn-left"></span>&nbsp;{!$Label.Guardar_Datos}
+                                    
+                                </button>
+                                
+                                <button  type="button" class="btn btn-default btn-sm" onclick="irACuestionario()">
+                                    <span class="glyphicon glyphicon-arrow-left icon-btn-left"></span>&nbsp;{!$Label.Cuestionario}
+                                </button>            
+                                
+                                
+                            </div>
+                            
+                            
+                            
+                            
+                            
+                        </div>
+                    </div>
+                    
+                    
+                </div>
+                <br/>
+                <div style = "width: 98%;" class="center-block alert alert-info" role="alert">
+                    <span class="glyphicon glyphicon-info-sign" aria-hidden="true"></span>
+                    {!$Label.Recibiras_Informacion}
+                </div>
+                
+                
+                
+                <!-- BackShop --------------------------------------------------------------------------------- -->
+                
+                
+                <br/>
+                
+                
+                <apex:repeat value="{!wppEventos}" var="wppEvento" >                                        
+                    <apex:outputPanel >
+                        <br/>
+                        
+                        <div style="width:90%;margin-left:5%; background-color: rgb(245, 223, 223)">
+                            <div class="panel panel-default">
+                                
+                                <div class="panel-heading" style="background-color: rgb(255, 155, 155)">
+                                    <apex:outputField value="{!wppEvento.evento.name}" />
+                                    
+                                    
+                                </div>
+                                <div class="panel-body" style="background-color: rgb(245, 223, 223)">
+                                    <p><apex:outputField value="{!wppEvento.evento.Descripcion__c}"/></p>
+                                </div>
+                                
+                            </div>
+                            
+                            <ul class="list-group">
+                                <li class="list-group-item"><apex:outputField value="{!wppEvento.evento.Link__c}" /></li>
+                                <apex:outputPanel id="panelBotonBackShop" >
+                                    <apex:outputPanel rendered="{!wppEvento.historial == null}">
+                                        <li class="list-group-item">
+                                            {!$Label.certa_scp__informacion_utilidad}
+                                            
+                                            <apex:commandButton style="margin-left:1%" styleClass="btn btn-default btn-xs" value="{!$Label.certa_scp__si}" reRender="eventosBackShop, panelBotonBackShop, panelRespuestaBackShop" action="{!crearEventoUtil}">
+                                                <apex:param assignTo="{!idDelEvento}" name="idDelEvento" value="{!wppEvento.evento.id}"/>
+                                            </apex:commandButton>
+                                            
+                                            <apex:commandButton style="margin-left:1%" styleClass="btn btn-default btn-xs" value="{!$Label.certa_scp__no}" reRender="eventosBackShop, panelBotonBackShop, panelRespuestaBackShop" action="{!crearEventoInutil}">
+                                                <apex:param assignTo="{!idDelEvento}" name="idDelEvento" value="{!wppEvento.evento.id}"/>
+                                            </apex:commandButton>
+                                            
+                                        </li>
+                                    </apex:outputPanel>
+                                </apex:outputPanel>
+                                <apex:outputPanel id="panelRespuestaBackShop"  >
+                                    <apex:outputPanel rendered="{!wppEvento.historial != null}">
+                                        
+                                        <li class="list-group-item">
+                                            {!$Label.certa_scp__informacion_utilidad}
+                                            
+                                            <apex:outputText rendered="{!wppEvento.historial.Es_de_utilidad__c}">
+                                                {!$Label.certa_scp__si} 
+                                                
+                                                <apex:commandButton style="margin-left:1%" styleClass="btn btn-default btn-xs" value="{!$Label.certa_scp__no}" reRender="eventosBackShop, panelBotonBackShop, panelRespuestaBackShop" action="{!actualizarEventoUtil}">
+                                                    <apex:param assignTo="{!idDelEvento}" name="idDelEvento" value="{!wppEvento.evento.id}"/>
+                                                    
+                                                </apex:commandButton> 
+                                                
+                                                <li class="list-group-item" >
+                                                    
+                                                    <apex:outputText rendered="{! !wppEvento.historial.NoSeUtilizo__c}">
+                                                        {!$Label.certa_scp__informacion_ayuda_negocio}
+                                                        
+                                                        <apex:commandButton style="margin-left:1%" styleClass="btn btn-default btn-xs" value="{!$Label.certa_scp__si}" reRender="eventosBackShop, panelBotonBackShop, panelRespuestaBackShop"  action="{!IdentificaNegocio}" oncomplete="botonSi();">
+                                                            <apex:param assignTo="{!idDelEvento}" name="idDelEvento" value="{!wppEvento.evento.id}"/>
+                                                        </apex:commandButton>
+                                                        
+                                                        <apex:commandButton style="margin-left:1%" styleClass="btn btn-default btn-xs" value="{!$Label.certa_scp__no}" reRender="eventosBackShop, panelBotonBackShop, panelRespuestaBackShop" action="{!NoIdentificaNegocio}">
+                                                            <apex:param assignTo="{!idDelEvento}" name="idDelEvento" value="{!wppEvento.evento.id}"/>
+                                                        </apex:commandButton>
+                                                    </apex:outputText>
+                                                    
+                                                    <apex:outputText rendered="{!wppEvento.historial.NoSeUtilizo__c}">
+                                                        {!$Label.certa_scp__informacion_ayuda_negocio}  
+                                                        <apex:outputText rendered="{! wppEvento.historial.Identificar_Negocio__c}">
+                                                            {!$Label.certa_scp__si}
+                                                            
+                                                            <apex:commandButton style="margin-left:1%" styleClass="btn btn-default btn-xs" value="{!$Label.certa_scp__no}" reRender="eventosBackShop, panelBotonBackShop, panelRespuestaBackShop" action="{!NoIdentificaNegocio}">
+                                                                <apex:param assignTo="{!idDelEvento}" name="idDelEvento" value="{!wppEvento.evento.id}"/>
+                                                            </apex:commandButton>
+                                                        </apex:outputText>
+                                                        
+                                                        <apex:outputText rendered="{! !wppEvento.historial.Identificar_Negocio__c}">
+                                                            {!$Label.certa_scp__no}
+                                                            
+                                                            <apex:commandButton style="margin-left:1%" styleClass="btn btn-default btn-xs" value="{!$Label.certa_scp__si}" reRender="eventosBackShop, panelBotonBackShop, panelRespuestaBackShop" action="{!IdentificaNegocio}" oncomplete="botonSi();">
+                                                                <apex:param assignTo="{!idDelEvento}" name="idDelEvento" value="{!wppEvento.evento.id}"/>
+                                                            </apex:commandButton>
+                                                            <li class="list-group-item">
+                                                                
+                                                                {!$Label.certa_scp__por_que}
+                                                                <br/>
+                                                                
+                                                                <apex:inputField label="dasdasd" style="width:35%" value="{!wppEvento.historial.Por_que_no_negocio__c}"/>
+                                                                
+                                                                
+                                                            </li>
+                                                        </apex:outputText>
+                                                        
+                                                        
+                                                    </apex:outputText>   
+                                                </li>
+                                                
+                                                
+                                                
+                                            </apex:outputText>
+                                            
+                                            <apex:outputText rendered="{! !wppEvento.historial.Es_de_utilidad__c}">
+                                                {!$Label.certa_scp__no} 
+                                                
+                                                <apex:commandButton style="margin-left:1%" styleClass="btn btn-default btn-xs" value="{!$Label.certa_scp__si}" reRender="eventosBackShop, panelBotonBackShop, panelRespuestaBackShop" action="{!actualizarEventoInutil}">
+                                                    <apex:param assignTo="{!idDelEvento}" name="idDelEvento" value="{!wppEvento.evento.id}"/>
+                                                </apex:commandButton>
+                                                
+                                                <li class="list-group-item">
+                                                    
+                                                    {!$Label.certa_scp__por_que}
+                                                    <br/>
+                                                    
+                                                    <apex:inputField style="width:35%" value="{!wppEvento.historial.Por_que_no_util__c}"/>
+                                                    
+                                                    
+                                                </li>  
+                                                
+                                                
+                                            </apex:outputText>
+                                        </li>
+                                        
+                                    </apex:outputPanel>
+                                </apex:outputPanel>
+                            </ul>
+                        </div>
+                    </apex:outputPanel>
+                    
+                </apex:repeat>                                   
+                
+                
+                
+                <div class="row paddingRight">
+                    <div class="btn-group pull-right" role="group" aria-label="...">
+                        
+                        <apex:outputPanel id="buttonPanel2">
+                            <div class="btn-group pull-right" role="group" aria-label="...">
+                                
+                                <button type="button" class="btn btn-default btn-sm" onclick="irAInicio()">
+                                    <!--<apex:image style="height:35px;" url="{!URLFOR($Resource.icono4Planning)}" styleClass="icon-sectors-botonera"/>-->
+                                    <span class="glyphicon glyphicon-home"></span>&nbsp; 4Planning
+                                </button>
+                                
+                                <button type="button" class="btn btn-default btn-sm" onclick="irAPlanDeAccion()">
+                                    <!--<apex:image url="{!URLFOR($Resource.iconoHitos)}" styleClass="icon-sectors-botonera"/>-->
+                                    <span class="glyphicon glyphicon-calendar icon-btn-left"></span>&nbsp;{!$Label.Hitos}
+                                </button> 
+                                
+                                
+                                <button type="button" class="btn btn-default btn-sm" onclick="irADesarrolloCuenta()">
+                                    <!--<apex:image url="{!URLFOR($Resource.Iconos, '256/flow-market-icon.png')}" styleClass="icon-sectors-botonera"/>-->
+                                    <span class="glyphicon glyphicon-stats"></span>&nbsp;{!$Label.Coeficiente_Cuenta}
+                                </button> 
+                                
+                                <button  type="button" class="btn btn-default btn-sm" onclick="irAEjesDeTrabajo()">
+                                    <!-- <apex:image url="{!URLFOR($Resource.iconoRetos)}" styleClass="icon-sectors-botonera"/>-->
+                                    <span class="glyphicon glyphicon-list"></span>&nbsp;{!$Label.Retos}
+                                </button>  
+                                
+                                <button disabled="true" type="button" class="btn btn-default btn-sm" onclick="irAForYou()">
+                                    <!--<apex:image style="height:35px;" url="{!URLFOR($Resource.iconoForYou)}" styleClass="icon-sectors-botonera"/>-->
+                                    <span class="glyphicon glyphicon-gift"></span>&nbsp;4You
+                                </button> 
+                            </div>
+                        </apex:outputPanel>
+                        
+                        
+                        
+                        <div class="btn-group pull-right" style="position: absolute;right: 0px;margin-top: 15px;">
+                            <br/>
+                            <br/>
+                            
+                            
+                            <button  type="button" class="btn btn-default btn-sm" onclick="SaveChanges()">
+                                <!-- <apex:image url="{!URLFOR($Resource.grabar)}" styleClass="icon-sectors-botonera"/>-->
+                                <span class="glyphicon glyphicon-floppy-disk icon-btn-left"></span>&nbsp;{!$Label.Guardar_Datos}
+                                
+                            </button>
+                            
+                            <button  type="button" class="btn btn-default btn-sm" onclick="irACuestionario()">
+                                <span class="glyphicon glyphicon-arrow-left icon-btn-left"></span>&nbsp;{!$Label.Cuestionario}
+                            </button>  
+                            <br/><br/>
+                            
+                        </div>
+                        <br/>
+                        <br/>
+                        
+                        
+                    </div>
+                    <br/>
+                </div></div>
+            
+        </apex:outputpanel>
+        <br/>
+    </apex:form>
+    <br/>
+</apex:page>

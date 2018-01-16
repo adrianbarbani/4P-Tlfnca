@@ -1,0 +1,26 @@
+<messaging:emailTemplate subject="Your daily dose of Taskfeed" recipientType="User" relatedToType="User">
+<messaging:htmlEmailBody >
+    <c:EmailDailySummaryComponent userId="{!recipient.Id}" />
+
+    <c:EmailFooterComponent />
+
+    <!-- this is included for tracability of the email and also to instanitiate these variable-->
+    <table border="0" cellpadding="0" cellspacing="10" width="100%" style="min-width: 100% !important;">
+        <tbody>
+            <tr>
+                <td align="center">
+                    <table border="0" cellpadding="0" cellspacing="0" width="600" style="background-color: #FFF;">
+                        <tbody>
+                            <tr>
+                                <td align="center">
+                                    <span style="color: #8d8d8d;padding: 9px;font-family: Helvetica;text-align: left;font-size:12px">This email was sent to Salesforce user {!recipient.Username} at email {!recipient.Email} ({!recipient.Id}) from {!$Organization.Name} ({!$Organization.Id}). This was sent because you have subscribed to Daily Summary Emails.</span>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</messaging:htmlEmailBody>
+</messaging:emailTemplate>

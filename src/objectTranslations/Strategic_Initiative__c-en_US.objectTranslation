@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomObjectTranslation xmlns="http://soap.sforce.com/2006/04/metadata">
+    <caseValues>
+        <plural>false</plural>
+        <value>Strategic Initiative</value>
+    </caseValues>
+    <caseValues>
+        <plural>true</plural>
+        <value>Strategic Initiatives</value>
+    </caseValues>
+    <fields>
+        <label>Account</label>
+        <name>Account__c</name>
+        <relationshipLabel>Strategic Initiatives</relationshipLabel>
+    </fields>
+    <fields>
+        <label>Link to Strategic Initiatives</label>
+        <name>Strategic_Initiative_URL__c</name>
+    </fields>
+    <fields>
+        <label>Strategic Initiatives</label>
+        <name>Strategic_Initiative__c</name>
+    </fields>
+    <fields>
+        <label>Title</label>
+        <name>Title__c</name>
+    </fields>
+    <fields>
+        <label><!-- Titulo Iniciativa --></label>
+        <name>Titulo_Iniciativa__c</name>
+        <picklistValues>
+            <masterLabel>Aumentar la participación de mercado</masterLabel>
+            <translation>Increase market share</translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Eficiencia en sus procesos</masterLabel>
+            <translation>Process Efficiency</translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Expansión Internacional</masterLabel>
+            <translation>International Expansion</translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Fidelización de clientes</masterLabel>
+            <translation>Increase Client´s Loyalty</translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Gestión de la Transformación Digital</masterLabel>
+            <translation>Digital Transformation Management</translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Innovación Tecnológica</masterLabel>
+            <translation>Technological Innovation</translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Mejorar modelo de atención</masterLabel>
+            <translation>Improve Customer Service Model</translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Otro</masterLabel>
+            <translation>Other</translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Reducción de costes</masterLabel>
+            <translation>Reduce Costs</translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Seguridad de la información</masterLabel>
+            <translation>Information Security</translation>
+        </picklistValues>
+    </fields>
+    <startsWith>Consonant</startsWith>
+</CustomObjectTranslation>

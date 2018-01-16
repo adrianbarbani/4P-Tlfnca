@@ -1,0 +1,244 @@
+<apex:page sidebar="false" controller="InformeSectorizacionController">
+    
+    <c:SCPMenu />
+    <style>
+        .scrollingSolutionTable{
+        overflow:auto;
+        max-height:400px;
+        }
+        .scrollingDiv{
+        overflow:auto;
+        max-height:400px;
+        max-width:1300px;
+        }
+        
+    </style>
+    <script>
+    $j = jQuery.noConflict();        
+    
+
+    function initSecondFilterTable(){
+       
+            $j('.need').click(function(){
+                
+                $j( ".need-"+$j(this).parent().attr("id") ).prop('checked', $j(this).prop('checked') );
+                $j( ".need-"+$j(this).parent().attr("id") ).trigger('change');                
+            });   
+            
+            $j(".opportunity").change(function(){
+                
+                $j( ".opportunity-"+$j(this).parent().attr("id") ).prop('checked', $j(this).prop('checked') );
+            });
+            
+            $j("#mostrarfiltros").click(function(){
+                var collapsediv = $j("#collapseDiv");
+                
+                if( collapsediv.css("display") == "none"){
+                    collapsediv.fadeIn();            
+                }else{
+                    collapsediv.fadeOut();
+                }
+                
+            });
+            
+            $j(".buttonColapse").click(function(){
+                $j("#mostrarfiltros").click();
+            }); 
+    }
+
+    </script>
+    
+    <apex:outputpanel styleClass="container-fluid bootstrap-sf1">
+    <apex:form id="Content">
+        {!$Label.certa_scp__region}:
+        <apex:selectList multiselect="false" size="1" value="{!regionId}">
+            <apex:selectOptions value="{!Regions}"/>
+        </apex:selectList>       
+        &nbsp;&nbsp;
+        {!$ObjectType.Account.fields.Industry.Label}:
+        <apex:inputField value="{!criterialAccountFilter.Industry}"/>
+        &nbsp;&nbsp;        
+        {!$ObjectType.Account.fields.Micro_Industry__c.Label}:
+        <apex:inputField value="{!criterialAccountFilter.Micro_Industry__c}"/>
+        &nbsp;&nbsp;
+        <apex:commandButton styleClass="btn btn-default btn-sm" value="{!$Label.certa_scp__select}" oncomplete="initSecondFilterTable();" action="{!doPanelFilter}" reRender="tableStates, errorLabel, solRepeat, needRepeat, oppRepeat ,secondFilter"/>
+        <br/><br/>
+    </apex:form>
+    
+    <apex:form >
+        
+            
+            
+            <!-- ---------------------------------------------------- -->
+            <!-- tabla filtro necesidad, oportunidad y solucion -->
+        	<apex:outputPanel Id="secondFilter">
+            <apex:outputPanel rendered="{!todasLasSoluciones.size > 0}">
+            <div class="panel panel-default">
+                <div class="panel-heading" role="tab" id="headingTwo">
+                    <h4 class="panel-title">
+                        <a id= "mostrarfiltros" class="btn btn-default btn-xs">
+                            Filtros Por Soluciones
+                        </a>
+                    </h4>
+                </div>
+                <div id="collapseDiv" class="" style="display:none;" >
+                    <div class="panel-body ">
+                        
+                        <!-- tables -->
+                        
+                        <apex:outputPanel id="checkboxTable" >
+                            <div class="scrollingSolutionTable">
+                                
+                            <!-- tabla necesidades -->
+                            <div class="col-md-4">
+                                <div class="table-responsive">
+                                    <table id="mainTable" class="table table-striped table-bordered table-condensed">
+                                        <thead>
+                                            <tr>
+                                                <th style="padding-right: 20px;">
+                                                    Necesidades
+                                                </th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>   
+                                            <!-- necesidades -->  
+                                            <apex:repeat value="{!wrapperNeeds}" var="wrpp" id="needRepeat">                				
+                                                <tr>
+                                                    <td style="white-space: nowrap;">
+                                                        {!wrpp.trend.Title__c}<br/>
+                                                    </td>
+                                                    <td id = "{!wrpp.trend.id}">
+                                                        <apex:inputCheckbox value="{!wrpp.checkBox}" styleClass="need">
+
+                                                        </apex:inputCheckbox>
+                                                    </td>                					
+                                                </tr> 
+                                            </apex:repeat>   
+                                        </tbody>
+                                    </table>
+                                </div>    
+                            </div>                        
+                            
+                            <!-- opportunity table -->
+                            <div class="col-md-4">
+                                <div class="table-responsive">
+                                    <table id="opportunityTable" class="table table-striped table-bordered table-condensed">
+                                        <thead>
+                                            <tr>
+                                                <th style="padding-right: 20px;">
+                                                    Oportunidades
+                                                </th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>   
+                                            <!-- tabla oportunidades -->  
+                                            <apex:repeat value="{!wrapperOpportunitys}" var="wrpp" id="oppRepeat">                				
+                                                <tr>
+                                                    <td style="white-space: nowrap;">
+                                                        {!wrpp.trend.Title__c}<br/>
+                                                    </td>
+                                                    <td id="{!wrpp.trend.id}">
+                                                        <apex:inputCheckbox value="{!wrpp.checkBox}" styleClass="opportunity need-{!wrpp.trend.RelatedTo__c}">
+                                                            <!--apex:actionSupport event="onchange" action="{!automaticCheck}" rerender="checkboxTable"/-->
+                                                        </apex:inputCheckbox>    
+                                                    </td>                					
+                                                </tr> 
+                                            </apex:repeat>   
+                                        </tbody>
+                                    </table>
+                                </div>   
+                            </div>
+                            
+                            <!-- tabla soluciones -->
+                            <div class="row">
+                                <div class = "col-md-4">
+                                    <div class="table-responsive">
+                                        <table id="mainTable" class="table table-striped table-bordered table-condensed ">
+                                            <thead>
+                                                <tr>
+                                                    <th style="padding-right: 20px;">
+                                                        Soluciones
+                                                    </th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>   
+                                                <!-- soluciones -->  
+                                                <apex:repeat value="{!wrapperSolution}" var="wrpp" id="solRepeat">                				
+                                                    <tr>
+                                                        <td style="white-space: nowrap;">
+                                                            {!wrpp.trend.Title__c}<br/>
+                                                        </td>
+                                                        <td>
+                                                            <apex:inputCheckbox value="{!wrpp.checkBox}" styleClass="opportunity-{!wrpp.trend.RelatedTo__c}"/>
+                                                        </td>                					
+                                                    </tr> 
+                                                </apex:repeat>   
+                                            </tbody>
+                                        </table>
+                                    </div>   
+                                </div>
+                                </div>
+                            
+                        </div>
+                                <apex:commandButton styleClass="btn btn-default btn-xs buttonColapse" action="{!doFilter}"  reRender="tableStates" value="Filtrar soluciones" /> 
+                                
+                            
+                        </apex:outputPanel>
+                        
+                    </div>
+                </div>
+            </div>        
+            </apex:outputPanel>
+                </apex:outputPanel>
+            <!-- ------------------------------------------------------- -->
+            <apex:outputPanel id="errorLabel">
+                <apex:outputPanel rendered="{!errors.size > 0}">
+				<apex:repeat value="{!errors}" var="error" >
+                    <div class="alert alert-warning" role="alert">
+                        <p class="alert-link"> {!error} </p>
+                    </div>
+                </apex:repeat>
+                </apex:outputPanel>    
+            </apex:outputPanel>
+            
+            
+            <!-- -------------------------------------------------------- -->
+            
+            <apex:outputPanel id="tableStates">
+                
+                <div class="scrollingDiv">
+                    
+                    <table id="mainOppsTable" class="table table-striped table-bordered table-condensed" style="width:100%;">
+                        
+                        <thead>
+                            <tr>
+                                <th></th>
+                                <apex:repeat value="{!todasLasSoluciones}" var="solution" id="repeatSolution">
+                                    <th>{!solution.Title__c}</th>
+                                </apex:repeat>
+                            </tr>
+                        </thead>
+                        
+                        <apex:repeat value="{!accountWrapper}" var="wrapper">
+                            
+                            <tr>
+                                <td>
+                                    {!wrapper.account.name}   	                     
+                                </td>
+                                
+                                <apex:repeat value="{!wrapper.colorList}" var="color">
+									<td style="background-color:{!color}">
+                                        
+                                    </td>	
+                                </apex:repeat>
+                            </tr>
+                        </apex:repeat>
+                        
+                    </table>
+                </div>
+            </apex:outputPanel>
+            
+        </apex:form>
+        </apex:outputPanel>
+    
+</apex:page>

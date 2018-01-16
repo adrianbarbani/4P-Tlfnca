@@ -1,0 +1,222 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomObjectTranslation xmlns="http://soap.sforce.com/2006/04/metadata">
+    <caseValues>
+        <plural>false</plural>
+        <value><!-- FourPlanning Solucion --></value>
+    </caseValues>
+    <caseValues>
+        <plural>true</plural>
+        <value><!-- FourPlanning Solucion --></value>
+    </caseValues>
+    <fields>
+        <label><!-- Competidor --></label>
+        <name>Competidor__c</name>
+    </fields>
+    <fields>
+        <label><!-- Lista de Soluciones --></label>
+        <name>Lista_de_Soluciones__c</name>
+        <picklistValues>
+            <masterLabel>Big Data</masterLabel>
+            <translation><!-- Big Data --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Cloud</masterLabel>
+            <translation><!-- Cloud --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Comunicaciones Fijas</masterLabel>
+            <translation><!-- Comunicaciones Fijas --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Comunicaciones Móviles</masterLabel>
+            <translation><!-- Comunicaciones Móviles --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>IT</masterLabel>
+            <translation><!-- IT --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>IoT</masterLabel>
+            <translation><!-- IoT --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Seguridad</masterLabel>
+            <translation><!-- Seguridad --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Soluciones Sectoriales</masterLabel>
+            <translation><!-- Soluciones Sectoriales --></translation>
+        </picklistValues>
+    </fields>
+    <fields>
+        <label><!-- Nivel de Desarrollo --></label>
+        <name>Nivel_de_Desarrollo__c</name>
+        <picklistValues>
+            <masterLabel>Disponible</masterLabel>
+            <translation><!-- Disponible --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>En Desarrollo</masterLabel>
+            <translation><!-- En Desarrollo --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>No Disponible</masterLabel>
+            <translation><!-- No Disponible --></translation>
+        </picklistValues>
+    </fields>
+    <fields>
+        <label><!-- Observación sobre el producto --></label>
+        <name>Observaci_n_sobre_el_producto__c</name>
+    </fields>
+    <fields>
+        <label><!-- Otra Solucion --></label>
+        <name>Otra_Solucion__c</name>
+    </fields>
+    <fields>
+        <label><!-- FourPlanning Reto --></label>
+        <name>Reto__c</name>
+        <relationshipLabel><!-- FourPlanning Soluciones --></relationshipLabel>
+    </fields>
+    <fields>
+        <label><!-- SubcategoriaSolucion --></label>
+        <name>SubcategoriaSolucion__c</name>
+        <picklistValues>
+            <masterLabel>Atención Ciudadana / 911</masterLabel>
+            <translation><!-- Atención Ciudadana / 911 --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Big Data (Infraestructura, Servicios, Consultoría, Synergic Partnert)</masterLabel>
+            <translation><!-- Big Data (Infraestructura, Servicios, Consultoría, Synergic Partnert) --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Call/Contact Center</masterLabel>
+            <translation><!-- Call/Contact Center --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Ciberseguridad</masterLabel>
+            <translation><!-- Ciberseguridad --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Cloud Hibrida (Servicios gestionados, Multicloud)</masterLabel>
+            <translation><!-- Cloud Hibrida (Servicios gestionados, Multicloud) --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Comunicaciones Unificadas</masterLabel>
+            <translation><!-- Comunicaciones Unificadas --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Conectividad Gestionada (M2M, alarmas, contadores, silos, barcos, POS, contenedores, ascensores..)</masterLabel>
+            <translation><!-- Conectividad Gestionada (M2M, alarmas, contadores, silos, barcos, POS, contenedores, ascensores..) --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Consolidación de Datacenter (Hosting, Housing, HW y SW Reselling)</masterLabel>
+            <translation><!-- Consolidación de Datacenter (Hosting, Housing, HW y SW Reselling) --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Datos</masterLabel>
+            <translation><!-- Datos --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Digitalización y Gestión Documental</masterLabel>
+            <translation><!-- Digitalización y Gestión Documental --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>E-learning</masterLabel>
+            <translation><!-- E-learning --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Educación Digital</masterLabel>
+            <translation><!-- Educación Digital --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Eficiencia energética</masterLabel>
+            <translation><!-- Eficiencia energética --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Gestión de empleados (geogestión)</masterLabel>
+            <translation><!-- Gestión de empleados (geogestión) --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Gestión de flotas (asset Traking, GPS, etc)</masterLabel>
+            <translation><!-- Gestión de flotas (asset Traking, GPS, etc) --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Go to Cloud (migración a Servidores Virtuales, VDC, OpenCloud, SAP Gestionado, Office 365)</masterLabel>
+            <translation><!-- Go to Cloud (migración a Servidores Virtuales, VDC, OpenCloud, SAP Gestionado, Office 365) --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Internet</masterLabel>
+            <translation><!-- Internet --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Marketing Dinámico / On The Spot / Cartelería Digital</masterLabel>
+            <translation><!-- Marketing Dinámico / On The Spot / Cartelería Digital --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Mesas de Dinero y Grabación</masterLabel>
+            <translation><!-- Mesas de Dinero y Grabación --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Otros</masterLabel>
+            <translation><!-- Otros --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Outsourcing</masterLabel>
+            <translation><!-- Outsourcing --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Puesto de Trabajo</masterLabel>
+            <translation><!-- Puesto de Trabajo --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Red de Datos (WAN, Fibra, MPLS, etc.)</masterLabel>
+            <translation><!-- Red de Datos (WAN, Fibra, MPLS, etc.) --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>SVA (MDM, SMS, etc)</masterLabel>
+            <translation><!-- SVA (MDM, SMS, etc) --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Seguridad Ciudadana</masterLabel>
+            <translation><!-- Seguridad Ciudadana --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Seguridad embebida (SMDM, AntiDDoS, Identidad Digital)</masterLabel>
+            <translation><!-- Seguridad embebida (SMDM, AntiDDoS, Identidad Digital) --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Seguridad gestionada</masterLabel>
+            <translation><!-- Seguridad gestionada --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Servicio de Red inteligente (0800, 900, etc.)</masterLabel>
+            <translation><!-- Servicio de Red inteligente (0800, 900, etc.) --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Smart Digits (autenticación, seguridad, identidad)</masterLabel>
+            <translation><!-- Smart Digits (autenticación, seguridad, identidad) --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Smart Steps (transito, audiencia, store, turismo)</masterLabel>
+            <translation><!-- Smart Steps (transito, audiencia, store, turismo) --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Terminales</masterLabel>
+            <translation><!-- Terminales --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Videoconferencia (telepresencia, webconference, etc)</masterLabel>
+            <translation><!-- Videoconferencia (telepresencia, webconference, etc) --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Videovigilancia y Seguridad Perimetral</masterLabel>
+            <translation><!-- Videovigilancia y Seguridad Perimetral --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Voz</masterLabel>
+            <translation><!-- Voz --></translation>
+        </picklistValues>
+    </fields>
+    <gender><!-- Feminine --></gender>
+    <nameFieldLabel><!-- Nombre de FourPlanning Solucion --></nameFieldLabel>
+</CustomObjectTranslation>

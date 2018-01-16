@@ -1,0 +1,14 @@
+<apex:page title="Taskfeed" tabStyle="Taskfeed__tab" sidebar="false" docType="html-5.0" showHeader="{!if($CurrentPage.parameters.header=='false',false,true)}" standardStylesheets="false">
+    <div id="taskfeedComponentWrapper"><!-- bit of a fix for the salsforce header pading -->
+        <c:Taskboard boardId="{!$CurrentPage.parameters.boardId}" 
+                     recordId="{!$CurrentPage.parameters.recordId}" 
+                     relationshipName="{!$CurrentPage.parameters.relationshipName}" 
+                     showHeader="{!if($CurrentPage.parameters.header=='false',false,true)}" 
+                     showFilters="true"
+                     showBoardSwitcher="true"
+                     embeddedIframesAllowed="true"
+                     touchScope="{!if($CurrentPage.parameters.touchScope=='true',true,false)}"
+                     redirectToNewBoard="true">
+         </c:Taskboard>
+    </div>
+</apex:page>

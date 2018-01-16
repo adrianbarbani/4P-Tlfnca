@@ -1,0 +1,420 @@
+<apex:page controller="taskfeed1.UserSettingsController" showHeader="false" standardStylesheets="false" sidebar="false" applyHtmlTag="false" applyBodyTag="false" docType="html-5.0">    
+
+<html xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">    
+
+<head>
+    <title>My Personal Settings — Taskfeed</title>
+    <apex:includeScript value="{!URLFOR($Resource.taskfeed1__jquery, '/js/jquery-1.10.2.js')}"/>
+    <apex:includeScript value="{!URLFOR($Resource.taskfeed1__typeaheadjs, 'handlebars.js')}"/>
+    <apex:includeScript value="{!URLFOR($Resource.taskfeed1__taskfeed, '/js/taskfeed.js')}"/>
+    <apex:stylesheet value="{!URLFOR($Resource.taskfeed1__lightning_design_system, 'assets/styles/salesforce-lightning-design-system-vf.css')}" />
+    <style>
+        html,body { margin: 0px; }
+    </style>
+</head>    
+
+<body>
+   
+  <!-- REQUIRED SLDS WRAPPER -->
+  <div class="slds">    
+
+    <!-- PAGE HEADER -->
+    <div class="slds-page-header" role="banner">
+    
+      <!-- LAYOUT GRID -->
+      <div class="slds-grid">
+    
+        <!-- GRID COL -->
+        <div class="slds-col">
+    
+          <!-- HEADING AREA -->
+            <!-- MEDIA OBJECT = FIGURE + BODY -->
+            <div class="slds-media">
+            
+              <div class="slds-media__figure">
+              <svg aria-hidden="true" class="slds-icon slds-icon--medium slds-icon-action-new-custom-8">
+                <use xlink:href="{!URLFOR($Resource.lightning_design_system, '/assets/icons/utility-sprite/svg/symbols.svg#settings')}"></use>
+              </svg>
+            </div>
+            
+              <div class="slds-media__body">
+                <p class="slds-text-heading--label">Settings</p>
+                <h1 class="slds-text-heading--medium">My Personal Settings</h1>
+              </div>
+            
+            </div>
+            <!-- / MEDIA OBJECT -->
+          <!-- /HEADING AREA -->
+
+    
+        </div>
+    
+        <!-- GRID COL -->
+        <div class="slds-col slds-no-flex slds-align-middle">
+        </div>
+        <!-- / GRID COL -->
+    
+      </div>
+      <!-- / LAYOUT GRID -->
+        
+    </div>
+    <!-- / PAGE HEADER -->
+
+
+    <!-- MASTHEAD -->
+    <div class="slds-m-around--medium">
+        <nav role="navigation">
+            <p id="bread-crumb-label" class="slds-assistive-text">You are here:</p>
+                <ol class="slds-breadcrumb slds-list--horizontal" aria-labelledby="bread-crumb-label">
+                    <li class="slds-list__item slds-text-heading--label"><a href="/apex/taskfeed">Taskfeed</a></li>
+                    <li class="slds-list__item slds-text-heading--label"><a href="#">My Personal Settings</a></li>
+                </ol>
+        </nav>
+    </div>
+    <!-- / MASTHEAD --> 
+
+    <div id="notificationPlaceholder"></div>
+
+    <!-- PRIMARY CONTENT WRAPPER -->
+    <div class="myapp">
+
+        <!-- GRID SYSTEM -->    
+        <div class="slds-grid slds-wrap">
+
+            <div class="slds-col slds-col--padded slds-size--1-of-1 slds-medium-size--1-of-1 slds-large-size--1-of-2">
+    
+                 <!-- NOTIFICATION SECTION -->
+                  <div aria-labelledby="notificationform">
+                
+                    <!-- BOXED AREA -->
+                    <fieldset class="slds-box slds-theme--default slds-container">
+                
+                      <legend id="notificationform" class="slds-text-heading--medium slds-p-vertical--medium">
+
+                        <span>
+                          <svg aria-hidden="true" class="slds-icon slds-icon--small slds-icon-text-default">
+                            <use xlink:href="{!URLFOR($Resource.lightning_design_system, '/assets/icons/utility-sprite/svg/symbols.svg#notification')}"></use>
+                          </svg>
+                          <span class="slds-assistive-text">Announcement Icon</span>
+                        </span>
+                        Notifications
+                      </legend>
+                
+                      <!-- NOTIFICATION FORM -->
+                      <form id="notificationForm" class="slds-form--stacked">
+                
+                        
+
+                      </form>
+                      <!-- / NOTIFICATION FORM -->
+                
+                    </fieldset>
+                    <!-- / BOXED AREA -->
+                
+                  </div>
+                  <!-- / NOTIFICATION SECTION -->
+
+      </div>
+
+      <div class="slds-col slds-col--padded slds-size--1-of-1 slds-medium-size--1-of-1 slds-large-size--1-of-2">
+
+          <!-- CALENDAR SECTION -->
+          <div aria-labelledby="callabel">
+        
+            <!-- BOXED AREA -->
+            <fieldset class="slds-box slds-theme--default slds-container">
+        
+              <legend id="callabel" class="slds-text-heading--medium slds-p-vertical--medium">
+
+                <span>
+                  <svg aria-hidden="true" class="slds-icon slds-icon--small slds-icon-text-default">
+                    <use xlink:href="{!URLFOR($Resource.lightning_design_system, '/assets/icons/utility-sprite/svg/symbols.svg#event')}"></use>
+                  </svg>
+                </span>
+                Calendar Sync
+              </legend>
+        
+              <!-- CAL FORM -->
+              <form id="calform" class="slds-form--stacked">
+
+              </form>
+              <!-- / CAL FORM -->
+        
+            </fieldset>
+            <!-- / BOXED AREA -->
+        
+          </div>
+          <!-- / CALENDAR SECTION -->
+
+      </div>
+
+      </div>
+      <!-- / GRID SYSTEM -->
+
+    </div>
+    <!-- / PRIMARY CONTENT WRAPPER -->
+
+  
+
+    <!-- FOOTER -->
+    <footer role="contentinfo" class="slds-p-around--large">
+      <!-- LAYOUT GRID -->
+      <!-- / LAYOUT GRID -->
+    </footer>
+    <!-- / FOOTER -->
+      
+
+  </div>
+  <!-- / REQUIRED SLDS WRAPPER -->    
+
+</body>    
+
+<!-- JAVASCRIPT -->
+<script>
+    var $j = jQuery.noConflict();
+
+    $j(document).ready(function() {
+        setNamespaceForTaskfeed('{!$RemoteAction.UserSettingsController.getUserNotificationSettings}');
+        loadUserNotificationSettings();
+        getCalendarURL();
+    });
+
+    function popNotification (isSuccess, notifcationMessage) {
+        var closeIcon = '{!URLFOR($Resource.lightning_design_system, "/assets/icons/utility-sprite/svg/symbols.svg#close")}';
+        var successIcon = '{!URLFOR($Resource.lightning_design_system, "/assets/icons/utility-sprite/svg/symbols.svg#success")}';
+        var errorIcon = '{!URLFOR($Resource.lightning_design_system, "/assets/icons/utility-sprite/svg/symbols.svg#warning")}';
+        
+        var html =  
+                ' <div class="slds-notify-container">' +
+                ' <div class="slds-notify slds-notify--toast {{theme}}" role="alert">' +
+                '   <span class="slds-assistive-text">Info</span>' +
+                '    <button class="slds-button slds-button--icon-inverse slds-notify__close" onClick="clearNotifications();">' +
+                '      <svg aria-hidden="true" class="slds-button__icon button__icon--inverse">' +
+                '        <use xlink:href="{{closeIcon}}"></use>' +
+                '      </svg>' +
+                '      <span class="slds-assistive-text">Close</span>' +
+                '    </button>' +
+                '    <div class="notify__content slds-grid">' +
+                '        <svg aria-hidden="true" class="slds-icon slds-icon--small slds-m-right--small slds-col slds-no-flex">' +
+                '            <use xlink:href="{{icon}}"></use>' +
+                '        </svg>' +
+                '        <div class="slds-col slds-align-middle">' +
+                '            <h2 class="slds-text-heading--small">{{message}}</h2>' +
+                '        </div>' +
+                '    </div>' +
+                '  </div>' +
+                '</div>';
+        
+        var template = Handlebars.compile(html);
+
+        var view = {
+            theme: (isSuccess) ? 'slds-theme--success' : 'slds-theme--error',
+            icon: (isSuccess) ? successIcon : errorIcon,
+            closeIcon: closeIcon,
+            message: notifcationMessage,
+        };
+
+        var result = template(view);
+        $j('#notificationPlaceholder').html(result);
+    }
+
+    function clearNotifications() {
+        $j('#notificationPlaceholder').html('');
+    }
+
+    function loadUserNotificationSettings() {
+        Visualforce.remoting.Manager.invokeAction(
+            PACK_NS_REMOTE+'UserSettingsController.getUserNotificationSettings',
+            null,
+            function(response, event )  {
+                if( event.status )  {
+                    drawNotificationSettings(response.results);
+                }  else  {
+                    
+                }
+            },
+            { buffer: false, escape: true, timeout: 30000 }
+        );
+    }
+
+    function saveNotificationSettings() {
+
+        var userNotificationSettings = [];
+        $j('.userNotificationSetting').each(function( index ) {
+            var id = $j(this).attr('data-id');
+            var inAppVal = $j('#'+id+'-in-app').is(':checked');
+            var inAppFieldName = $j('#'+id+'-in-app').attr('data-fieldName');
+            var emailVal = $j('#'+id+'-email').is(':checked');
+            var emailFieldName = $j('#'+id+'-email').attr('data-fieldName');
+
+            var userNotificationSetting = {
+                id: id,
+                inAppValue: inAppVal,
+                emailValue: emailVal,
+                settingInAppFieldName: inAppFieldName,
+                settingEmailFieldName: emailFieldName,
+            };
+            userNotificationSettings.push(userNotificationSetting);
+        });
+
+        var requestWrapper = {
+            JSONdata: JSON.stringify(userNotificationSettings),
+        };
+
+        Visualforce.remoting.Manager.invokeAction(
+            PACK_NS_REMOTE+'UserSettingsController.setUserNotificationSettings',
+            requestWrapper,
+            function(response, event )  {
+                if( event.status )  {
+                    drawNotificationSettings(response.results);
+                    popNotification(response.isSuccess, response.responseMessage);
+                }  
+            },
+            { buffer: false, escape: true, timeout: 30000 }
+        );
+    }
+
+    function drawNotificationSettings (notificationSettings) {
+        var html = '<div class="slds-scrollable--x">' +
+               '    <table class="slds-table slds-table--bordered">' +
+               '        <thead>' + 
+               '            <tr class="slds-text-heading--label">' + 
+               '                <th scope="col"><span class="slds-truncate">Type</span></th>' + 
+               '                <th scope="col"><span class="slds-truncate">In-App</span></th>' + 
+               '                <th scope="col"><span class="slds-truncate">Email</span></th>' + 
+               '            </tr>' + 
+               '        </thead>' + 
+               '        <tbody>' + 
+               '{{#each notificationSettings}}' +
+               '            <tr class="slds-hint-parent userNotificationSetting" data-id="{{id}}">' + 
+               '                <th data-label="notification-type" role="row"><span class="slds-truncate">{{label}}</span></th>' + 
+               '                <td class="slds-row-select">' + 
+               '{{#if settingInAppFieldName}}' +
+               '                    <label class="slds-checkbox" for="{{id}}-in-app">' + 
+               '                        <input name="{{id}}-in-app" type="checkbox" id="{{id}}-in-app" data-fieldName="{{settingInAppFieldName}}" {{#if inAppValue}} checked{{/if}} />' +
+               '                        <span class="slds-checkbox--faux"></span>' + 
+               '                        <span class="slds-form-element__label slds-assistive-text">{{label}} In-App Notification</span>' +
+               '                    </label>' + 
+               '{{/if}}' +
+               '                </td>' + 
+               '                <td class="slds-row-select">' + 
+               '{{#if settingEmailFieldName}}' +
+               '                    <label class="slds-checkbox" for="{{id}}-email">' + 
+               '                        <input name="{{id}}-email" type="checkbox" id="{{id}}-email" data-fieldName="{{settingEmailFieldName}}" {{#if emailValue}} checked{{/if}} />' + 
+               '                        <span class="slds-checkbox--faux"></span>' + 
+               '                        <span class="slds-form-element__label slds-assistive-text">{{label}} Email Notification</span>' +
+               '                    </label>' + 
+               '{{/if}}' +
+               '                </td>' + 
+               '            </tr>' + 
+               '{{/each}}' +
+               '        </tbody>' +
+               '    </table>' +
+               '</div>' +
+               '<button class="slds-button slds-button--brand slds-m-top--medium" type="button" onClick="saveNotificationSettings()">Save</button>' +
+               '';
+               
+        
+        var template = Handlebars.compile(html);
+
+        var view = {
+            notificationSettings: [],
+        };
+
+        view.notificationSettings = notificationSettings;
+
+        var result = template(view);
+        $j('#notificationForm').html(result);
+    }
+
+    function regenerateCalURL() {
+
+        Visualforce.remoting.Manager.invokeAction(
+            PACK_NS_REMOTE+'UserSettingsController.regenerateUserToken',
+            null,
+            function(response, event )  {
+                if( event.status )  {
+                    if (response.responseMessage) {
+                        popNotification(response.isSuccess, response.responseMessage);
+                    }
+                    drawCalSettings(response);
+                } 
+            },
+            { buffer: false, escape: true, timeout: 30000 }
+        );
+    }
+
+    function getCalendarURL() {
+
+        Visualforce.remoting.Manager.invokeAction(
+            PACK_NS_REMOTE+'UserSettingsController.getUserCalURI',
+            null,
+            function(response, event )  {
+                if( event.status )  {
+                    if( response.isSuccess )  {
+                        drawCalSettings(response);
+                    } else {
+                        drawCalSettingsDisabled();
+                    }
+                }  else  {
+                    drawCalSettingsDisabled();
+                }
+            },
+            { buffer: false, escape: true, timeout: 30000 }
+        );
+    }
+
+    function drawCalSettings (response) {
+        var linkIcon = '{!URLFOR($Resource.lightning_design_system, "/assets/icons/utility-sprite/svg/symbols.svg#link")}';
+        var html =  
+                '<div class="slds-form-element">' +
+                '   <span class="slds-form-element__label slds-text-heading--label">Copy and paste this link into your calendar app.</span>' +
+                '   <div class="slds-form-element__control">' +
+                '       <input id="calUrl" class="slds-input" type="text" value="{{{calURL}}}"></input>' +
+                '   </div>' +
+                '</div>' +
+                '<div class="slds-form-element">' +
+                '<button class="slds-button slds-button--brand slds-m-top--medium" type="button" onClick="regenerateCalURL()">' +
+                '   <svg aria-hidden="true" class="slds-button__icon slds-button__icon--left">' +
+                '       <use xlink:href="'+linkIcon+'"></use>' +
+                '   </svg>' +
+                '   Re-create link' +
+                '</button>' +
+                '</div>' +
+                '';
+               
+        
+        var template = Handlebars.compile(html);
+
+        var view = {
+            calURL: response.results[0],
+        };
+
+        var result = template(view);
+        $j('#calform').html(result);
+    }
+
+    function drawCalSettingsDisabled () {
+        var warningIcon = '{!URLFOR($Resource.lightning_design_system, "/assets/icons/utility-sprite/svg/symbols.svg#warning")}';
+        var html =  
+        '<div class="slds-media slds-media--center slds-m-around--medium">' +
+        '   <div class="slds-media__figure">' +
+        '       <span class="slds-icon__container">' +
+        '           <svg aria-hidden="true" class="slds-icon slds-icon-text-warning">' +
+        '               <use xlink:href="'+warningIcon+'"></use>' +
+        '           </svg>' +
+        '           <span class="slds-assistive-text">Warning Icon</span>' +
+        '       </span>' +
+        '   </div>' +
+        '   <div class="slds-media__body">' +
+        '       <p>Calendar Sync is not enabled. Please speak to your Salesforce Administrator or contact support@taskfeedapp.com.</p>' +
+        '   </div>' +
+        '</div>';
+        $j('#calform').html(html);
+    }
+</script>
+<!-- / JAVASCRIPT -->
+ 
+
+</html>
+</apex:page>

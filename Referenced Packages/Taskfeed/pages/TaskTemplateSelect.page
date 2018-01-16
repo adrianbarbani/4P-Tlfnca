@@ -1,0 +1,129 @@
+<apex:page standardController="taskfeed1__Board__c"  extensions="taskfeed1.TaskTemplateSelectControllerExtension" showHeader="false" sidebar="false">
+
+<style>
+
+body { /* this removes any horizontal scroll  */
+    overflow-x:hidden;
+    height:100%;
+}
+
+</style>
+
+<apex:form id="selectTemplateForm">
+	<apex:outputPanel id="messagesAndScript">
+		<apex:pageMessages id="msgs"/>
+
+		<script>
+			function refreshAndClose() {
+			    //will refresh the board and close modal
+			    if ({!actionSuccessful}) {
+			    	//then reload parent frame
+			    	BOARDS.loadAll();
+                	closeFrameModal();
+			    }
+			}
+		</script>
+	</apex:outputPanel>
+
+	<apex:outputPanel id="templateList">
+		<apex:outputPanel id="templateListContainer" rendered="{!ISNULL(previewTasksSize)}">
+			<div class="alert alert-info" role="alert">
+				Select a template from the list below. New templates can be added to the Taskfeed Templates folder, you may need to ask your local Salesforce admin to do this for you.
+			</div>
+
+			<div class="list-group" style="min-width: 400px">
+				<apex:commandLink id="selectTemplateNone" 
+										action="{!selectTemplate}" 
+										value="-- None --" 
+										styleClass="list-group-item"
+										rerender="previewSection, templateList, messagesAndScript" >
+						<apex:param name="templateIdParamNone" value="" assignTo="{!SelectedTemplateId}" />
+					</apex:commandLink>
+
+
+				<apex:repeat value="{!templates}" var="template" id="templateRepeat">
+					<apex:commandLink id="selectTemplate" 
+										action="{!selectTemplate}" 
+										value="{!template.Name} - {!template.taskfeed1__Description__c}"
+										styleClass="list-group-item"
+										rerender="previewSection, templateList, messagesAndScript" >
+    					<apex:param name="templateIdParam" value="{!template.Id}" assignTo="{!SelectedTemplateId}" />
+					</apex:commandLink>
+				</apex:repeat>
+			</div>
+		</apex:outputPanel>
+	</apex:outputPanel>
+
+	<apex:outputPanel id="previewSection">
+		<apex:outputPanel id="previewSectionContainer" rendered="{!NOT(ISNULL(previewTasksSize))}">
+			<apex:outputPanel id="noPreview" rendered="{!AND(previewTasksSize!=null,previewTasksSize=0)}">
+				<div class="alert alert-warning" role="alert">
+					No tasks found for this template
+				</div>
+			</apex:outputPanel>
+			<apex:outputPanel id="previewTable" rendered="{!AND(previewTasksSize!=null,previewTasksSize>0)}">
+				<div class="alert alert-info" role="alert">
+					Preview showing {!PREVIEW_TASK_LENGTH} of {!previewTasksSize} tasks to be created.
+				</div>
+
+				<apex:outputPanel id="tooManyTasksWarning" rendered="{!AND(previewTasksSize!=null,previewTasksSize>maxTasks)}">
+					<div class="alert alert-warning" role="alert">
+						Boards have a limit of {!maxTasks} tasks. This template has too many tasks.
+					</div>
+				</apex:outputPanel>
+
+				<div class="table-responsive">
+					<table class="table table-striped">
+						<thead>
+							<tr>
+								<th>Name</th>
+								<th>Board</th>
+								<th>List</th>
+								<th>Owner</th>
+							</tr>
+						</thead>
+						<tbody>
+							<apex:repeat value="{!previewTasks}" var="task" id="previewTasksRepeat">
+								<tr>
+									<td><apex:outputField value="{!task.Name}" /></td>
+									<td><apex:outputField value="{!task.taskfeed1__Board__c}" /></td>
+									<td><apex:outputField value="{!task.taskfeed1__List__c}" /></td>
+									<td><apex:outputField value="{!task.taskfeed1__Owner__c}" /></td>
+								</tr>
+							</apex:repeat>
+						</tbody>
+					</table>
+				</div>
+			</apex:outputPanel>
+
+			<apex:actionStatus id="saveStatus">
+	            <apex:facet name="stop">
+	                <apex:commandLink id="confirmTemplate" 
+								action="{!confirmTemplate}" 
+								oncomplete="refreshAndClose();" 
+								styleClass="boot-btn boot-btn-success"
+								value="Create all {!previewTasksSize} Tasks"
+								rendered="{!AND(previewTasks!=null,previewTasks.size>0)}"
+								rerender="previewSection, templateList, messagesAndScript"
+								status="saveStatus"  />
+	            </apex:facet>
+	            <apex:facet name="start">
+	                <apex:commandLink id="confirmTemplateLoading" 
+								styleClass="boot-btn boot-btn-success"
+								value="Creating all {!previewTasksSize} Tasks..."
+								status="saveStatus" />
+	            </apex:facet>
+	        </apex:actionStatus>
+
+	        <apex:commandLink id="backToSelect" 
+									action="{!selectTemplate}" 
+									value="Back" 
+									styleClass="boot-btn boot-btn-link"
+									rerender="previewSection, templateList, messagesAndScript" >
+					<apex:param name="templateIdParamBack" value="" assignTo="{!SelectedTemplateId}" />
+			</apex:commandLink>
+		</apex:outputPanel>
+	</apex:outputPanel>
+</apex:form>
+<c:intercom />
+</apex:page>

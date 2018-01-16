@@ -1,0 +1,360 @@
+<apex:page standardController="Account" extensions="CadenaDeValorController" tabStyle="Strategic_Client_Plan__tab" sidebar="false" showHeader="true" docType="html-5.0" action="{!setear4ValoresPorDefaultSiNoExisteNinguno}" >
+    
+    <c:SCPMenu ></c:SCPMenu>
+    
+    <apex:includeScript value="{!$Resource.html2canvas}"/>
+    
+    <style>
+        .pbSubheader h3 {
+        display: inline;
+        margin-left: 5px;
+        font-weight: bold;
+        }
+        
+        .tableHeader{
+        text-align: center !important; 
+        width: 15.5% ;
+        }
+        
+        .contenidoTabla{
+        text-transform: capitalize;
+        color:black;
+        }
+        
+        .cabeceraTabla{
+        background-color:hsla(203,68%,37%,1);
+        color:white;
+        }
+        
+        .bordesDeCuerpo{
+        border: 1px solid black !important;
+        }
+        
+        .sinBordes{
+        border-bottom-color: hsla(203,68%,37%,1) !important;
+        }
+        
+        .Mala{
+        background-color: #c00 !important;
+        }
+        
+        .Regular{
+        background-color: #ff9600 !important;
+        }
+        
+        .medioBuena{
+        background-color: #feff00 !important;
+        }
+        
+        .Buena{
+        background-color: #09ce0c !important;
+        }
+        
+        .aca{
+        min-height: 105px;
+        }
+        
+        .otraClase{
+            width: 100%;
+        }
+    </style>
+
+    <script  type="text/javascript">
+    $j = jQuery.noConflict();
+    
+    $j(document).ready(function() {
+                
+        //Bajar linea como imagen
+        $j(".generateImg").click(function(){
+            zoom=1;
+            $j("#ImagenAGenerar").animate({ 'zoom': zoom }, 0);
+            var chartArea = $j('#ImagenAGenerar');
+            html2canvas(chartArea, {
+                onrendered: function(canvas) {          
+                    var img = canvas.toDataURL("image/png");
+                    //window.location.href = img.replace('image/png', 'image/octet-stream');
+                    var ua = window.navigator.userAgent;
+                    if (ua.indexOf("Chrome") > 0) {
+                        var link = document.createElement('a');
+                        link.download = "{!$Label.Ejes_de_Trabajo}.png";
+                        link.href = img.replace('image/png', 'image/octet-stream');
+                        link.click();
+                    } else {
+                        window.location.href = img.replace('image/png', 'image/octet-stream');
+                    }
+                }
+            });    
+        });
+        
+        
+    });
+    
+    </script>
+    
+    <apex:outputpanel styleClass="container-fluid bootstrap-sf1" id="pageContent">
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                <h2 class="panel-title">
+                    <span style="float:left;">
+                        {!$Label.cadena_de_valor}
+                    </span>
+                </h2>
+                
+                <div class="row paddingRight">
+                    <div class="btn-group pull-right" role="group" aria-label="...">
+                        
+                        <apex:outputPanel id="buttonPanel">
+                            <div class="btn-group pull-right" role="group" aria-label="...">
+                                
+                                <button type="button" class="btn btn-default btn-sm generateImg" data-value="saveImg" data-msg="{!$Label.save_msg}">
+                                    <span class="glyphicon glyphicon-picture icon-btn-left"></span>&nbsp;{!$Label.save_image}
+                                </button>
+                                
+                                <button type="button" class="btn btn-default btn-sm" data-toggle="modal" data-target="#myModalArea">
+                                    <span class="glyphicon glyphicon-plus icon-btn-left"></span>&nbsp;{!$Label.Nueva_Area}
+                                </button>
+                                
+			                    <button type="button" class="btn btn-default btn-sm" onclick="SaveChanges()">
+			   						<span class="glyphicon glyphicon-floppy-disk icon-btn-left"></span>&nbsp;{!$Label.save}
+			                    </button>                              
+                                                                
+                            </div>
+                        </apex:outputPanel>  
+                        
+                    </div>
+                </div>
+                
+            </div>
+            
+            <!--
+            <apex:form >
+                <apex:actionFunction action="{!irADesarrolloCuenta}" name="irADesarrolloCuenta" status="renderMeStatus"/>
+                <apex:actionFunction action="{!irACuestionario}" name="irACuestionario" status="renderMeStatus"/>
+                <apex:actionFunction action="{!irAPlanDeAccion}" name="irAPlanDeAccion" status="renderMeStatus"/>
+                <apex:actionFunction action="{!irAInicio}" name="irAInicio"/>
+            </apex:form>  -->          
+            
+            <apex:form >
+                
+                <apex:actionFunction action="{!SaveChanges}" name="SaveChanges" reRender="cadenaDeValorTabla" status="renderMeStatus"/>
+                <apex:actionFunction action="{!nuevaArea}" name="nuevaArea" reRender="cadenaDeValorTabla"/>
+                
+                <apex:outputPanel id="cadenaDeValorTabla" >
+                    
+                    <br/>
+                    <br/>
+                    <div id="ImagenAGenerar">
+                        <div class="alert alert-info" role="alert">	
+                            <span class="glyphicon glyphicon-info-sign"></span>	    				
+                            <span class="messageText"><span style="font-weight:bold;  margin:5px">{!$Label.Asignaci_n_para_Cadena_de_Valor}</span><br/>
+                                
+                                <br/>									
+                                
+                                <table style="text-align:center;margin-left:40%; width: 15%;">
+                                    
+                                    <tr class="Mala">
+                                        <td>
+                                            {!$Label.Bajo}
+                                        </td>
+                                    </tr>
+                                    <tr class="medioBuena">
+                                        <td>
+                                            {!$Label.Medio}
+                                        </td>
+                                    </tr>
+                                    <tr class="Buena">
+                                        <td>
+                                            {!$Label.Alto}
+                                        </td>
+                                    </tr>
+                                </table>
+                                
+                            </span>
+                        </div>
+                        
+                        <br/><br/>
+                        
+                        
+                        <table id="solTable" style="background-color:hsla(220,3%,92%,1);" class="table table-bordered table-condensed solutionTable">
+                            
+                            <thead> 
+                                <tr>
+                                    <th class="tableHeader bordesDeCuerpo cabeceraTabla">
+                                        {!$Label.certa_scp__area}
+                                    </th>
+                                    <th class="tableHeader bordesDeCuerpo cabeceraTabla">
+                                        {!$Label.certa_scp__reto}
+                                    </th>
+                                    <th class="tableHeader bordesDeCuerpo cabeceraTabla">
+                                        {!$Label.certa_scp__contacto}
+                                    </th>
+                                    <th class="tableHeader bordesDeCuerpo cabeceraTabla">
+                                        {!$Label.certa_scp__interes}
+                                    </th>
+                                    <th class="tableHeader bordesDeCuerpo cabeceraTabla">
+                                        {!$Label.Solucion_telefonica_value}
+                                    </th>
+                                    <th class="tableHeader bordesDeCuerpo cabeceraTabla">
+                                    	{!$Label.Nivel_Conocimiento}
+                                    </th>
+                                    <th class="tableHeader bordesDeCuerpo cabeceraTabla" style="width: 7% !important;">
+                                    
+                                    </th>
+                                </tr>
+                            </thead>
+                            
+                            <tbody style="background-color: white;text-align: center;">
+                                
+                                <apex:repeat value="{!areasDeCadenaDeValor}" var="area">
+                                    <tr>
+                                        <td>
+                                            {!area.Area__c}
+                                            <apex:outputPanel rendered="{!area.Conocimiento__c == 'Alto'}">
+                                                <apex:image value="{!$Resource.semaforo3}" width="20" height="40" style="position: relative;float: left;margin-left: 2%;" />
+                                            </apex:outputPanel>
+                                            
+                                            <apex:outputPanel rendered="{!area.Conocimiento__c == 'Medio'}">
+                                                <apex:image value="{!$Resource.semaforo2}" width="20" height="40" style="position: relative;float: left;margin-left: 2%;" />
+                                            </apex:outputPanel>
+                                            
+                                            <apex:outputPanel rendered="{!area.Conocimiento__c == 'Bajo'}">
+                                                <apex:image value="{!$Resource.semaforo1}" width="20" height="40" style="position: relative;float: left;margin-left: 2%;" />
+                                            </apex:outputPanel>
+                                        </td>
+                                        <td>
+                                            <apex:outputField style="width: 100%;" value="{!area.Reto__c}">
+                                                <apex:inlineEditSupport event="ondblclick"/>
+                                            </apex:outputField> 
+                                        </td>
+                                        <td>
+                                            <apex:outputField value="{!area.Contacto__c}">
+                                                <apex:inlineEditSupport event="ondblclick"/>
+                                            </apex:outputField>
+                                        </td>
+                                        <td>
+                                            <apex:outputField value="{!area.Interes__c}">
+                                                <apex:inlineEditSupport event="ondblclick"/>
+                                            </apex:outputField>
+                                        </td>
+                                        <td>
+                                            <apex:outputField value="{!area.Solucion__c}">
+                                                <apex:inlineEditSupport event="ondblclick"/>
+                                            </apex:outputField>
+                                        </td>
+                                        <td>
+                                            <apex:outputField value="{!area.Conocimiento__c}">
+                                                <apex:inlineEditSupport event="ondblclick"/>
+                                            </apex:outputField>
+                                        </td>
+                                        <td>
+                                            <apex:commandButton styleClass="btn btn-default btn-sm" value="{!$Label.certa_scp__delete}" reRender="cadenaDeValorTabla" action="{!borrarArea}">
+                                                <apex:param assignTo="{!areaABorarId}" name="delid" value="{!area.id}"/>
+                                            </apex:commandButton>
+                                        </td>
+                                    </tr>
+                                </apex:repeat>
+                                
+                            </tbody>
+                        </table>
+ 
+                    </div>
+                </apex:outputPanel>
+                
+                <!-- Modal -->
+                <div class="modal fade" id="myModalArea" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+                    <div class="modal-dialog" style="z-index:9999;">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                                <h4 class="modal-title" id="myModalLabel">{!$Label.nueva_area}</h4>
+                            </div>
+                            <div class="modal-body">
+
+                                <table style="border-collapse: separate;border-spacing: 5px;width:80%">
+                                    <tr>
+                                        <td style="text-align: right;">
+                                            <apex:outputText value="{!$Label.certa_scp__area}" />:
+                                        </td>
+                                        <td>
+                                            <apex:inputField styleClass="resetHito tipoDeContacto" style="width: 100%;" value="{!nuevaArea.Area__c}"/><br/> 
+                                        </td>
+                                    </tr>
+                                    
+                                    <tr>
+                                        <td style="text-align: right;">
+                                            <apex:outputText value="{!$Label.certa_scp__reto}" />:
+                                        </td>
+                                        <td>
+                                            <apex:inputField styleClass="resetHito" style="width:100%" value="{!nuevaArea.Reto__c}"/><br/>
+                                        </td>
+                                    </tr>
+                                    
+                                    <tr style="text-align: right;">
+                                        <td style="text-align: right;">
+                                            <apex:outputText value="{!$Label.certa_scp__contacto}" />:
+                                        </td>
+                                        <td>
+                                            <apex:inputField styleClass="resetHito" style="width: 100%;" value="{!nuevaArea.Contacto__c}"/><br/> 
+                                        </td>
+                                    </tr>
+                                    
+                                    <tr>
+                                        <td style="text-align: right;">
+                                            <apex:outputText value="{!$Label.certa_scp__interes}" />:
+                                        </td>
+                                        <td>
+                                            <apex:inputField styleClass="resetHito" style="width:100%" value="{!nuevaArea.Interes__c}"/><br/>
+                                        </td>
+                                    </tr>
+                                    
+                                    <tr>
+                                        <td style="text-align: right;">
+                                            <apex:outputText value="{!$Label.certa_scp__soluci_n}:" />
+                                        </td>
+                                        <td>
+                                            <apex:inputField styleClass="resetHito" style="width:100%" value="{!nuevaArea.Solucion__c}"/><br/>
+                                        </td>
+                                    </tr>
+                                    
+                                    <tr>
+                                        <td style="text-align: right;">
+                                            <apex:outputText value="{!$Label.certa_scp__conocimiento}:" />
+                                        </td>
+                                        <td>
+                                            <apex:inputField styleClass="resetHito" style="width:100%" value="{!nuevaArea.Conocimiento__c}"/><br/>
+                                            
+                                        </td>
+                                    </tr>
+                                    
+                                </table>
+
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-default" data-dismiss="modal">{!$Label.Close}</button>
+                                <button type="button" class="btn btn-primary" data-dismiss="modal" onclick="nuevaArea();">{!$Label.add_buttom}</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+            </apex:form>
+            
+            <br/>
+            <apex:actionRegion >
+                <apex:pageBlock mode="maindetail">
+                    <apex:pageBlockSection columns="1">         
+                        <apex:relatedList list="CombinedAttachments"  />
+                    </apex:pageBlockSection>
+                </apex:pageBlock>
+            </apex:actionRegion>
+            
+            <br/><br/>
+            
+
+            <c:FastTask page="{!$Label.certa_scp__trend}" account="{!idCuenta}"></c:FastTask>
+            <chatter:feed entityId="{!idCuenta}" />
+
+
+        </div>
+    </apex:outputpanel>
+</apex:page>

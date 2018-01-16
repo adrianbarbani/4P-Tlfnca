@@ -1,0 +1,36 @@
+<apex:component controller="estrategiaDeCrecimientoResumenController" >
+    
+    <style>
+        .headerRow {    
+        background-color: #F2F3F3;          
+        color: #000000;
+        font-size: 0.9em;
+        font-weight: bold;
+        padding: 5px 2px;
+        text-align: center;         
+        } 
+    </style>    
+    <span style="font-weight: bold; font-size: 14px;">Resumen {!$Label.Estrategias_de_crecimiento_de_la_cuenta}</span>
+    
+    <apex:outputPanel layout="block" styleClass="panel-body" id="pageContent">
+        <apex:pageBlock title="" mode="maindetail">
+            <apex:pageBlockSection columns="1">
+                
+                <apex:outputText >{!$Label.Cuales_son_tus_planes_para_desarrollar_y_crecer_esta_cuenta}</apex:outputText>
+                <apex:outputText >{!setDeRespuestas.What_are_your_plans_to_develop_and_grow__c}&nbsp;</apex:outputText>
+
+                <apex:outputText >{!$Label.Cual_es_el_Top_de_oportunidades_que_te_va_a_permitir_conocer_tus_ventas_y_tus}</apex:outputText>
+                <apex:outputText >{!setDeRespuestas.What_are_your_Top_opportunities_that_wil__c}&nbsp;</apex:outputText>
+
+                <apex:outputText >{!$Label.Nombre_las_oportunidades_mas_relevantes_en_las_que_estas_trabajando_ahora_para_g}</apex:outputText>
+                <apex:outputText >{!setDeRespuestas.Include_more_relevant_opportunities_you__c}&nbsp;</apex:outputText>
+
+                <apex:outputText >{!$Label.Para_estas_oportunidades_que_acaba_de_mencionar_apliqueles_su_modelo_GROW_Goal}</apex:outputText>
+                <apex:outputText >{!setDeRespuestas.For_these_TOP_opps_you_just_mentioned_p__c}&nbsp;</apex:outputText>
+
+                
+            </apex:pageBlockSection>
+        </apex:pageBlock>
+    </apex:outputPanel>
+    
+</apex:component>

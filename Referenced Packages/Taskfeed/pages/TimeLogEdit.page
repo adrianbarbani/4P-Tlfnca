@@ -1,0 +1,49 @@
+<apex:page standardController="taskfeed1__Time__c" showHeader="false" sidebar="false">
+<c:includes />
+<apex:includeScript value="{!URLFOR($Resource.taskfeed1__taskfeed, '/js/taskfeed.js')}"/>
+
+<style>
+
+body { /* this removes any horizontal scroll  */
+    overflow-x:hidden;
+    height:100%;
+    padding: 10px;
+}
+
+</style>
+
+<div class="row">
+	<div class="col-md-12">
+		<h3 class="boardTitle" style="display: block;"><apex:outputText value="{!taskfeed1__Time__c.Task__r.Name}" /></h3>
+	    <div class="fixedEditSection">
+	    	<apex:form >
+		        <apex:outputPanel id="messagesAndScript">
+		            <apex:pageMessages id="msgs" />
+		        </apex:outputPanel>
+		        <apex:pageBlock mode="Edit">
+		            <apex:pageBlockButtons location="top">
+		                <apex:actionStatus id="saveStatus">
+		                    <apex:facet name="stop">
+		                        <apex:commandButton value="Save" action="{!save}" id="saveButton" status="saveStatus" rerender="messagesAndScript" rendered="{!$ObjectType.taskfeed1__Time__c.Updateable}" />
+		                    </apex:facet>
+		                    <apex:facet name="start">
+		                        <apex:outputPanel >
+		                            <apex:image value="/img/loading32.gif" style="height: 15px;"/>
+		                            <apex:commandButton value="Saving..." status="saveStatus" disabled="true"/>
+		                        </apex:outputPanel>
+		                    </apex:facet>
+		                </apex:actionStatus>
+		                <apex:commandButton id="cancelButton" value="Cancel" action="{!cancel}" rerender="messagesAndScript" />
+		            </apex:pageBlockButtons>
+		            <apex:pageBlockSection columns="1">
+		                <apex:repeat value="{!$ObjectType.taskfeed1__Time__c.FieldSets.taskfeed1__TimeEditFields}" var="f"> 
+		                    <apex:inputField value="{!taskfeed1__Time__c[f]}" />
+		                </apex:repeat>
+		            </apex:pageBlockSection>
+		        </apex:pageBlock>
+		    </apex:form>
+	    </div>
+	</div>
+</div>
+<c:intercom />
+</apex:page>

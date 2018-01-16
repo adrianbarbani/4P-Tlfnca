@@ -1,0 +1,43 @@
+<apex:page showHeader="false" standardStylesheets="false" title="Taskfeed">
+	<apex:includeScript value="{!URLFOR($Resource.taskfeed1__taskfeed, '/js/exportPdf/jspdf.debug.js')}"  />
+	<apex:includeScript value="{!URLFOR($Resource.taskfeed1__taskfeed, '/js/exportPdf/canvas2image.js')}"  />
+	<apex:includeScript value="{!URLFOR($Resource.taskfeed1__taskfeed, '/js/exportPdf/html2canvas_0-5-0-alpha1.js')}"  />
+    
+    <div id="taskfeedWrapper"><!-- bit of a fix for the salsforce header pading -->
+        <c:Taskboard boardId="{!$CurrentPage.parameters.boardId}" 
+                    recordId="{!$CurrentPage.parameters.recordId}" 
+                    relationshipName="{!$CurrentPage.parameters.relationshipName}" 
+                    showHeader="false" 
+                    showFilters="false"
+                    showBoardSwitcher="false"
+                    embeddedIframesAllowed="false"
+                    embeddedMode="true"
+                    rememberFilters="false"
+                    boardsStyle="Gantt"
+                    ganttScale="{!$CurrentPage.parameters.ganttScale}"
+                    ganttStartBuffer="{!IF($CurrentPage.parameters.ganttScale == '1', '20', 
+                                         IF($CurrentPage.parameters.ganttScale == '2', '15', 
+                                            IF($CurrentPage.parameters.ganttScale == '3', '10', 
+                                                IF($CurrentPage.parameters.ganttScale == '4', '5', 
+                                                    IF($CurrentPage.parameters.ganttScale == '5', '3', '5')))))}"
+                    ganttEndBuffer="{!IF($CurrentPage.parameters.ganttScale == '1', '20', 
+                                         IF($CurrentPage.parameters.ganttScale == '2', '15', 
+                                            IF($CurrentPage.parameters.ganttScale == '3', '10', 
+                                                IF($CurrentPage.parameters.ganttScale == '4', '5', 
+                                                    IF($CurrentPage.parameters.ganttScale == '5', '3', '5')))))}"
+                    ganttBufferOnlyTask="true"
+                    doPrint="true" />
+    </div>
+    <div class="printOverlay">
+        <div class="printOverlayLabel">Preparing to export...</div>
+    </div>
+
+    <script>
+    /* hack to stop scrolling*/
+    $j('body').css('overflow', 'hidden');
+
+    function printComplete() {
+        $j('.printOverlayLabel').html('Export Complete. Depending on your browser settings the export will have downloaded.');
+    }
+    </script>
+</apex:page>

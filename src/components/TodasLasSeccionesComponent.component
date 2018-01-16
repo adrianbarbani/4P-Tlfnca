@@ -1,0 +1,558 @@
+<apex:component controller="FourPlanningController">
+
+<style>
+        .headerRow {    
+            background-color: #F2F3F3;          
+            color: #000000;
+            font-size: 0.9em;
+            font-weight: bold;
+            padding: 5px 2px;
+            text-align: center;         
+        } 
+    </style> 
+    
+    <div style="margin:10px;border-bottom: 1px solid rgb(237, 239, 240);padding-bottom: 15px;"></div>
+    
+    <!-- DESCRIPCION DEL CLIENTE -->
+    <p class="h1"><apex:outputText value="{!$Label.certa_scp__descripcion_del_cliente}" /></p>
+    
+    <div style="margin:10px;border-bottom: 1px solid rgb(237, 239, 240);padding-bottom: 15px;">
+    
+     <table class="table table-striped table-bordered table-condensed">
+    	<thead>
+    		<tr>
+    			<th class="headerRow">                    
+                    <apex:outputText value="Pregunta" />
+                </th>
+                <th class="headerRow">
+                    <apex:outputText value="Respuesta" />
+                </th>
+    		</tr>    		
+    	</thead>
+    	<tbody>
+    		
+    		<tr class="dataRow">
+    			<td class="dataCell">
+    				<apex:outputText value="Sector" />
+    			</td>
+                <td class="dataCell">
+    				<apex:outputText value="{!cuenta.Industry}" />
+    			</td>
+    		</tr>
+            <tr class="dataRow">
+    			<td class="dataCell">
+    				<apex:outputText value="Sub Sector" />
+    			</td>
+                <td class="dataCell">
+    				<apex:outputText value="{!cuenta.Micro_Industry__c}" />
+    			</td>
+    		</tr>
+            
+            <apex:outputText rendered="{! !esSectorPublico}" />
+            <tr class="dataRow">
+    			<td class="dataCell">
+    				<apex:outputText rendered="{! !esSectorPublico}" value="{!$Label.certa_scp__cu_les_son_los_ingresos_anuales_del_cliente_de_su_negocio_no_de_nuestro_nego}" />
+                    <apex:outputText rendered="{!esSectorPublico}" value="{!$Label.certa_scp__presupuesto_anual_cliente} {!monedaDeLaCuenta}"/>
+    			</td>
+                <td class="dataCell">
+    				<apex:outputText rendered="{! !esSectorPublico}" value="{!fourPlanning.Facturacion__c}" />
+                    <apex:outputText rendered="{!esSectorPublico}" value="{!fourPlanning.Qu_presupuesto_anual_maneja_tu_cliente__c}" />
+                    <apex:outputText rendered="{!fourPlanning.No_informa_dato__c}" value="{!$Label.certa_scp__no_informa_dato}" />
+    			</td>
+    		</tr>
+            
+            <tr class="dataRow">
+    			<td class="dataCell">
+                    <apex:outputText rendered="{! !esSectorPublico}" value="{!$Label.certa_scp__cantidad_empleados}" />
+                    <apex:outputText rendered="{!esSectorPublico}" value="{!$Label.certa_scp__numero_empleados_organismo}" />
+    			</td>
+                <td class="dataCell">
+    				<apex:outputText value="{!fourPlanning.Cantidad_de_empleados_exacto__c}"/>
+    			</td>
+    		</tr>
+            
+            <tr class="dataRow">
+    			<td class="dataCell">
+    				<apex:outputText value="{!$Label.certa_scp__numero_emleados_crece_decrece_mantiene}" />
+    			</td>
+                <td class="dataCell">
+    				<apex:outputText value="{!fourPlanning.Empleados_Crece_Decrece_Matiene__c}" />
+    			</td>
+    		</tr>
+            
+            <tr class="dataRow">
+    			<td class="dataCell">
+    				<apex:outputText value="{!$Label.certa_scp__cantidad_de_edificios_centrales_y_o_administrativos}" />
+    			</td>
+                <td class="dataCell">
+    				<apex:outputText value="{!fourPlanning.Cantidad_de_sedes_exactas__c}" />
+    			</td>
+    		</tr>
+            
+            <tr class="dataRow">
+    			<td class="dataCell">
+                    <apex:outputText rendered="{! !esSectorPublico}" value="{!$Label.certa_scp__indica_la_cantidad_de_sucursales}"  />
+                    <apex:outputText rendered="{!esSectorPublico}"  value="{!$Label.certa_scp__numero_centros_institucion}"   />
+    			</td>
+                <td class="dataCell">
+    				<apex:outputText value="{!fourPlanning.Cantidad_de_sucursales__c}" />
+    			</td>
+    		</tr>
+            
+            <tr class="dataRow">
+    			<td class="dataCell">
+                    <apex:outputText rendered="{! !esSectorPublico}" value="{!$Label.certa_scp__el_n_mero_de_sucursales_crece_decrece_o_se_mantiene}" />
+                    <apex:outputText rendered="{!esSectorPublico}" value="{!$Label.certa_scp__numero_centros_crece}" />
+    			</td>
+                <td class="dataCell">
+    				<apex:outputText value="{!fourPlanning.Como_se_mantiene_el_numero_de_sucursales__c}"/>
+    			</td>
+    		</tr>
+            
+            <tr class="dataRow">
+    			<td class="dataCell">
+                    <apex:outputText rendered="{! !esSectorPublico}" value="{!$Label.certa_scp__el_cliente_dispone_de_parque_automotor}" />
+                    <apex:outputText rendered="{!esSectorPublico}" value="{!$Label.certa_scp__organismo_parque_automotor}" />
+    			</td>
+                <td class="dataCell">
+    				<apex:outputText value="{!fourPlanning.Dispone_de_parque_automotor__c}"/>
+    			</td>
+    		</tr>
+            
+            <tr class="dataRow">
+    			<td class="dataCell">
+    				<apex:outputText value="{!$Label.certa_scp__parque_automotor_propio_o_gestionado}" />
+    			</td>
+                <td class="dataCell">
+    				<apex:outputText value="{!fourPlanning.Parque_Automotor_Propio_o_Gestionado__c}" />
+    			</td>
+    		</tr>
+            
+            <tr class="dataRow">
+    			<td class="dataCell">
+    				<apex:outputText value="{!$Label.certa_scp__cantidad_vehiculos_parque}" />
+    			</td>
+                <td class="dataCell">
+    				<apex:outputText value="{!fourPlanning.De_cuantos_veh_culos_dispone_el_parque__c}" />
+    			</td>
+    		</tr>
+            <apex:outputPanel rendered="{! !esSectorPublico}">
+            <tr class="dataRow">
+    			<td class="dataCell">
+    				<apex:outputText value="{!$Label.certa_scp__cliente_tiene_presencia_internacional}" />
+    			</td>
+                <td class="dataCell">
+    				<apex:outputText value="{!fourPlanning.Tiene_Presencia_Internacional__c}" />
+    			</td>
+    		</tr>
+            
+            <tr class="dataRow">
+    			<td class="dataCell">
+    				<apex:outputText value="{!$Label.certa_scp__selecciona_paises_negocio}" />
+    			</td>
+                <td class="dataCell">
+    				<apex:outputText value="{!fourPlanning.Presencia_Regional__c}" />
+    			</td>
+    		</tr>
+    		 </apex:outputPanel> 		
+    	</tbody>
+    </table>
+    </div>
+    
+    
+    
+    <!-- CONOCIMIENTO DEL NEGOCIO -->
+    <p class="h1"><apex:outputText value="{!$Label.certa_scp__conocimiento_de_la_actividad}" /></p>
+    
+    <div style="margin:10px;border-bottom: 1px solid rgb(237, 239, 240);padding-bottom: 15px;">
+<span style="font-weight: bold; font-size: 14px;">Principales Iniciativas del Cliente:</span>
+    
+    <table class="table table-striped table-bordered table-condensed">
+    	<thead>
+    		<tr>
+    			<th class="headerRow">                    
+                    <apex:outputText value=" {!$Label.certa_scp__titulo} " />
+                </th>
+                <th class="headerRow">
+                    <apex:outputText value="{!$Label.certa_scp__description}" />
+                </th>
+            </tr>    		
+        </thead>
+        
+        <tbody>
+            <apex:repeat value="{!iniciativasDelNegocioDelCliente}" var="item">
+                <tr>
+                    <td>
+                        <apex:outputText value="{!item.Titulo_Iniciativa__c}"/>
+                    </td>
+                    <td>
+                        <apex:outputText value="{!item.Strategic_Initiative__c}"/>
+                    </td>
+                    
+                </tr>
+            </apex:repeat>
+        </tbody>
+    </table>
+    
+    <table class="table table-striped table-bordered table-condensed">
+    	<thead>
+    		<tr>
+    			<th class="headerRow">                    
+                    <apex:outputText value="Pregunta" />
+                </th>
+                <th class="headerRow">
+                    <apex:outputText value="Respuesta" />
+                </th>
+            </tr>    		
+        </thead>
+        <tbody>
+            <apex:outputPanel rendered="{! !esSectorPublico}" >
+            <tr class="dataRow">
+                <td class="dataCell">
+                    <apex:outputText value="{!$Label.certa_scp__indica_cu_les_son_las_principales_empresas_con_las_que_compite_tu_cliente}" />
+                </td>
+                <td class="dataCell">
+                    <apex:outputText value="{!fourPlanning.Competidor_Principal_1__c}" />&nbsp; 
+                    <apex:outputText value="{!fourPlanning.Competidor_Principal_2__c}" />&nbsp; 
+                    <apex:outputText value="{!fourPlanning.Competidor_Principal_3__c}" />
+                </td>
+            </tr>
+                </apex:outputPanel>
+            
+            <tr class="dataRow">
+                <td class="dataCell">
+                    <apex:outputText rendered="{! !esSectorPublico}" value="{!$Label.certa_scp__indica_cu_les_son_los_canales_de_comercializaci_n_que_utiliza_tu_cliente} {!$Label.certa_scp__indique_por_orden_de_importancia}" />
+                    <apex:outputText rendered="{!esSectorPublico}" value="{!$Label.certa_scp__selecciona_los_canales_que_utiliza_para_interactuar_con_el_ciudadano} {!$Label.certa_scp__indique_por_orden_de_importancia}"/>
+                </td>
+                <td class="dataCell">
+                    <apex:outputText value="{!fourPlanning.Canal_de_comercializaci_n_multiple__c}" />
+                </td>
+            </tr>
+            
+            <tr class="dataRow">
+                <td class="dataCell">
+                    <apex:outputText rendered="{! !esSectorPublico}" value="{!$Label.certa_scp__cu_l_es_el_canal_de_comercializaci_n_que_m_s_esta_creciendo} {!$Label.certa_scp__indique_por_orden_de_importancia}" />
+                    <apex:outputText rendered="{!esSectorPublico}" value="{!$Label.certa_scp__proveedores_importantes}"/>
+                </td>
+                <td class="dataCell">
+                    <apex:outputText value="{!fourPlanning.comercializacion_que_mas_crece_multiple__c}" />
+                </td>
+            </tr>
+            
+        </tbody>
+    </table>
+    </div>
+    
+    <!-- RELACION INSTITUCIONAL -->
+    <p class="h1"><apex:outputText value="{!$Label.certa_scp__relacion}" /></p>
+    
+    <div style="margin:10px;border-bottom: 1px solid rgb(237, 239, 240);padding-bottom: 15px;">
+    
+    <table class="table table-striped table-bordered table-condensed">
+        <thead>
+           <tr>
+    			<th class="headerRow">                    
+                    <apex:outputText value="Pregunta" />
+                </th>
+                <th class="headerRow">
+                    <apex:outputText value="Respuesta" />
+                </th>
+            </tr> 
+        </thead>
+        
+        <tbody>
+            <tr class="dataRow">
+                <td class="dataCell">
+                    <apex:outputText value="{!$Label.certa_scp__top_proveedores_cliente} (1 = {!$Label.certa_scp__no_cinco_primeros} / 5 = {!$Label.certa_scp__estamos_primeros})" />
+                </td>
+                <td class="dataCell">
+                    <apex:outputText value="{!relacionInstitucional1}" />
+                </td>
+            </tr>
+            
+            <tr class="dataRow">
+                <td class="dataCell">
+                    <apex:outputText value="{!$Label.certa_scp__vinculo_direcciones} (1 = {!$Label.certa_scp__no_tenemos_vinculo} / 5 = {!$Label.certa_scp__tenemos_estrecho_vinculo})" />
+                </td>
+                <td class="dataCell">
+                    <apex:outputText value="{!relacionInstitucional2}" />
+                </td>
+            </tr>
+            
+            <tr class="dataRow">
+                <td class="dataCell">
+                    <apex:outputText value="{!$Label.certa_scp__quien_prospecta_venta} - {!$Label.certa_scp__analistas_fabricantes_canales} {!$Label.certa_scp__consultoras_telefonica}" />
+                </td>
+                <td class="dataCell">
+                    <apex:outputText value="{!relacionInstitucional3}" />
+                </td>
+            </tr>
+            <tr class="dataRow">
+                <td class="dataCell">
+                    <apex:outputText value="{!$Label.certa_scp__estas_futuro_cliente} (1 = {!$Label.certa_scp__no_considera_futuro} / 5 = {!$Label.certa_scp__principal_socio_futuro})" />
+                </td>
+                <td class="dataCell">
+                    <apex:outputText value="{!relacionInstitucional4}" />
+                </td>
+            </tr>
+            <tr class="dataRow">
+                <td class="dataCell">
+                    <apex:outputText value="{!$Label.certa_scp__planes_cliente} (1 = {!$Label.certa_scp__no_los_conozco} / 5 = {!$Label.certa_scp__son_compartidos_telefonica})" />
+                </td>
+                <td class="dataCell">
+                    <apex:outputText value="{!relacionInstitucional5}" />
+                </td>
+            </tr>
+            
+        </tbody>    
+    </table>
+    </div>
+    <!-- CONTACTO EJECUTIVO -->
+    
+    <p class="h1"><apex:outputText value="{!$Label.certa_scp__contacto_ejecutivo}" /></p>
+    
+    <div style="margin:10px;border-bottom: 1px solid rgb(237, 239, 240);padding-bottom: 15px;">
+    <table class="table table-striped table-bordered table-condensed">
+        <thead>
+            <tr>
+    			<th class="headerRow">                    
+                    <apex:outputText value="Pregunta" />
+                </th>
+                <th class="headerRow">
+                    <apex:outputText value="Respuesta" />
+                </th>
+            </tr>
+        </thead>
+        
+        <tbody>
+            <tr class="dataRow">
+                <td class="dataCell">
+                    <apex:outputText value="{!$Label.certa_scp__con_qu_frecuencia_nos_reunimos_con_el_cliente}" />
+                </td>
+                <td class="dataCell">
+                    <apex:outputText value="{!fourPlanning.Frecuencia_de_Contacto_con_el_Cliente__c}" />
+                </td>
+            </tr>
+            
+            <tr class="dataRow">
+                <td class="dataCell">
+                    <apex:outputText value="{!$Label.certa_scp__cu_l_es_nuestro_mayor_nivel_de_contacto_con_el_cliente}" />
+                </td>
+                <td class="dataCell">
+                    <apex:outputText rendered="{! !esSectorPublico}" value="{!fourPlanning.Mayor_Nivel_de_Contacto_con_el_Cliente__c}" />
+                    <apex:outputText rendered="{!esSectorPublico}" value="{!fourPlanning.Nivel_contacto_publico__c}" />
+                </td>
+            </tr>
+            
+            <tr class="dataRow">
+                <td class="dataCell">
+                    <apex:outputText value="{!$Label.certa_scp__tenemos_agenda_peri_dica_ejecutiva_con_participaci_n_de_nivel_directivo_de_amba}" />
+                </td>
+                <td class="dataCell">
+                    <apex:outputText value="{!fourPlanning.Agenda_Periodica_Ejecutiva__c}" />
+                </td>
+            </tr>
+            <tr class="dataRow">
+                <td class="dataCell">
+                    <apex:outputText value="{!$Label.certa_scp__tenemos_agenda_peri_dica_operacional_sobre_la_calidad_de_los_servicios_prestado}" />
+                </td>
+                <td class="dataCell">
+                    <apex:outputText value="{!fourPlanning.Agenda_Periodica_Operacional__c}" />
+                </td>
+            </tr>
+            
+            <tr class="dataRow">
+                <td class="dataCell">
+                    <apex:outputText value="{!$Label.certa_scp__selecciona_los_3_contactos_en_el_cliente_con_los_que_tiene_mayor_afinidad}" />
+                </td>
+                <td class="dataCell">
+                    <apex:outputField value="{!fourPlanning.Contacto_con_mayor_afinidad_1__c}" />&nbsp; 
+                    <apex:outputField value="{!fourPlanning.Contacto_con_mayor_afinidad_2__c}" />&nbsp; 
+                    <apex:outputField value="{!fourPlanning.Contacto_con_mayor_afinidad_3__c}" />
+                </td>
+            </tr>
+            
+            <tr class="dataRow">
+                <td class="dataCell">
+                    <apex:outputText value="{!$Label.certa_scp__conoces_lo_que_telef_nica_hace_en_otros_pa_ses_con_clientes_semejantes_al_tuyo}" />
+                </td>
+                <td class="dataCell">
+                    <apex:outputText value="{!fourPlanning.realcion_empresa_otros_clientes__c}" />
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    
+    <span style="font-weight: bold; font-size: 14px;">{!$Label.certa_scp__nuestra_agenda_de_trabajo_con_el_cliente_es_principalmente}</span>
+    
+      <table class="table table-striped table-bordered table-condensed">
+          <tbody>
+              <tr class="dataRow">
+                <td class="dataCell">
+                    <apex:outputText value="1 {!$Label.certa_scp__operativa} / 5 {!$Label.certa_scp__comercial}" />
+                </td>
+                <td class="dataCell">
+                    <apex:outputText value="{!contactoEjecutivo1}" />
+                </td>
+            </tr>
+            
+            <tr class="dataRow">
+                <td class="dataCell">
+                    <apex:outputText value="1 {!$Label.certa_scp__tradicional} / 5 {!$Label.certa_scp__digital}" />
+                </td>
+                <td class="dataCell">
+                    <apex:outputText value="{!contactoEjecutivo2}" />
+                </td>
+            </tr>
+            
+             <tr class="dataRow">
+                <td class="dataCell">
+                    <apex:outputText value="1 {!$Label.certa_scp__renegociacion} / 5 {!$Label.certa_scp__desarrollo}" />
+                </td>
+                <td class="dataCell">
+                    <apex:outputText value="{!contactoEjecutivo3}" />
+                </td>
+            </tr>
+            
+            <tr class="dataRow">
+                <td class="dataCell">
+                    <apex:outputText value="1 {!$Label.certa_scp__conflictiva} / 5 {!$Label.certa_scp__constructiva}" />
+                </td>
+                <td class="dataCell">
+                    <apex:outputText value="{!contactoEjecutivo4}" />
+                </td>
+            </tr>
+          </tbody>
+    </table>
+    </div>
+    
+    <!-- HITOS RELEVANTES -->
+    <p class="h1"><apex:outputText value="{!$Label.certa_scp__hitos_relevantes}" /></p>
+    
+    <div style="margin:10px;border-bottom: 1px solid rgb(237, 239, 240);padding-bottom: 15px;">
+     <table class="table table-striped table-bordered table-condensed">
+        <thead>
+            <tr>
+    			<th class="headerRow">                    
+                    <apex:outputText value="Pregunta" />
+                </th>
+                <th class="headerRow">
+                    <apex:outputText value="Respuesta" />
+                </th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr class="dataRow">
+                <td class="dataCell">
+                    <apex:outputText value="{!$Label.certa_scp__fecha_de_vencimiento_de_contratos_de_datos_fijos}" />
+                </td>
+                <td class="dataCell">
+                    <apex:outputField value="{!fourPlanning.Vencimiento_Datos_Fijos__c}" />
+                </td>
+            </tr>
+            <tr class="dataRow">
+                <td class="dataCell">
+                    <apex:outputText value="{!$Label.certa_scp__fecha_vencimiento_contratos_voz_fija}" />
+                </td>
+                <td class="dataCell">
+                    <apex:outputField value="{!fourPlanning.Fecha_Vencimiento_Contratos_Voz_Fija__c}" />
+                </td>
+            </tr>
+            <tr class="dataRow">
+                <td class="dataCell">
+                    <apex:outputText value="{!$Label.certa_scp__fecha_de_vencimiento_de_contrato_de_servicios_m_viles}" />
+                </td>
+                <td class="dataCell">
+                    <apex:outputField value="{!fourPlanning.Vencimiento_Servicios_Moviles__c}" />
+                </td>
+            </tr>
+            <tr class="dataRow">
+                <td class="dataCell">
+                    <apex:outputText value="{!$Label.certa_scp__fecha_de_vencimiento_de_contratos_de_otros_servicios}" />
+                </td>
+                <td class="dataCell">
+                    <apex:outputText value="{!fourPlanning.Vencimiento_Otros_Servicios__c} {!fourPlanning.Otros_Servicios__c}" />
+                </td>
+            </tr>
+            <apex:outputPanel rendered="{!esSectorPublico}">
+            <tr class="dataRow">
+                <td class="dataCell">
+                    <apex:outputText value="{!$Label.certa_scp__afectan_cambios_politicos}" />
+                </td>
+                <td class="dataCell">
+                    <apex:outputText value="{!fourPlanning.Le_afectan_los_cambios_politicos__c}" />
+                </td>
+            </tr>
+            </apex:outputPanel>
+            
+            <apex:outputPanel rendered="{!esSectorPublico}">
+            <tr class="dataRow">
+                <td class="dataCell">
+                    <apex:outputText value="{!$Label.certa_scp__persona_decision_servicios}" />
+                </td>
+                <td class="dataCell">
+                    <apex:outputText value="{!fourPlanning.Compra_de_caracter_politico_o__c}" />
+                </td>
+            </tr>
+            </apex:outputPanel>
+            <tr class="dataRow">
+                <td class="dataCell">
+                    <apex:outputText value="{!$Label.certa_scp__a_qu_evento_de_telef_nica_vas_a_invitar_al_cliente} {!$Label.certa_scp__fecha_del_evento}" />
+                </td>
+                <td class="dataCell">
+                    <apex:outputText value="{!fourPlanning.Evento_telefonica_cliente__c} {!fourPlanning.Fecha_Evento__c}" />
+                </td>
+        </tr>
+        <tr class="dataRow">
+                <td class="dataCell">
+                    <apex:outputText value="{!$Label.certa_scp__porcentaje_facturacion_cliente}" />
+                </td>
+                <td class="dataCell">
+                    <apex:outputText value="{!fourPlanning.facturacion_cliente_garantizada__c}" />
+                </td>
+        </tr>
+        
+        
+</tbody>
+</table>
+
+
+<span style="font-weight: bold; font-size: 14px;">Otros Hitos Relevantes:</span>
+
+<table class="table table-striped table-bordered table-condensed">
+    <thead>
+            <tr>
+                <th class="headerRow">
+                    {!$Label.certa_scp__description}
+                </th>
+                <th class="headerRow">
+                    {!$Label.certa_scp__fecha} 
+                </th>
+                <th class="headerRow">
+                    {!$Label.certa_scp__categoria}
+                </th>
+</tr>
+</thead>
+<tbody>
+<apex:variable var="c" value="{!0}"/>
+                <apex:repeat value="{!hitos}" var="hito" id="number">
+                    <tr>
+                        <td id="elemento - {!c+1}">
+                            <apex:variable var="c" value="{!c+1}"/>
+                            <apex:outputText value="{!hito.Descripcion__c}"/>
+                        </td>
+                        <td>
+                            <apex:outputText value="{0,date,dd/MM/yyyy}"> <apex:param value="{!hito.Fecha__c}" /> </apex:outputText>
+                        </td>
+                        <td >
+                            <apex:outputField value="{!hito.Categoria__c}"/>
+                        </td>
+                    </tr>
+                </apex:repeat>
+</tbody>
+</table>
+
+</div>
+    
+
+</apex:component>

@@ -1,0 +1,89 @@
+<apex:page standardController="taskfeed1__Custom_Label__c" extensions="taskfeed1.CustomLabelControllerExtension">
+	<c:includes />
+	<apex:includeScript value="{!URLFOR($Resource.taskfeed1__taskfeed, '/js/taskfeed.js')}"/>
+	<apex:includeScript value="{!URLFOR($Resource.taskfeed1__jquery, '/js/extensions/jqColorPicker.min.js')}"/>
+	<script type="text/javascript">
+	    $j('.label-example').colorPicker({
+		    renderCallback: function($elm, toggled) {
+		    	if (toggled!=false) {
+					var colors = this.color.colors,
+		            	rgb = colors.RND.rgb;
+
+			        var alternateColor = correctFontColor('#' + colors.HEX);
+			        $j("input[id$='bgColor']" ).val('#' + colors.HEX);
+
+			        setFontColor();
+			        setLabelColor();
+		    	}
+		    },
+		    opacity: false,
+
+		});
+
+		function setFontColor() {
+			var alternateColor = correctFontColor($j("input[id$='bgColor']" ).val());
+			$j("input[id$='fontColor']" ).val(alternateColor);
+		}
+
+		function setLabelColor() {
+			$j('.label-example').css({
+	            backgroundColor: $j("input[id$='bgColor']" ).val(),
+	            color: $j("input[id$='fontColor']" ).val()
+	        });
+		}
+	</script>
+	
+    <apex:form id="form">
+    	<apex:sectionHeader title="{!$ObjectType.taskfeed1__Custom_Label__c.Label}" subtitle="Create new {!$ObjectType.taskfeed1__Custom_Label__c.Label}"/>
+    	<apex:messages />
+    	<apex:pageBlock title="{!$ObjectType.taskfeed1__Custom_Label__c.Label} Edit" mode="edit">
+            <apex:pageBlockButtons >
+                <apex:commandButton action="{!save}" value="Save"/>
+                <apex:commandButton action="{!cancel}" value="Cancel"/>
+            </apex:pageBlockButtons>
+            <apex:pageBlockSection columns="1">
+                <apex:inputField value="{!taskfeed1__Custom_Label__c.Name}" required="true"/>
+                <apex:inputCheckbox value="{!taskfeed1__Custom_Label__c.taskfeed1__Visible__c}"/>
+                <apex:inputCheckbox value="{!taskfeed1__Custom_Label__c.taskfeed1__Enable_Popover__c}"/>
+                <apex:inputCheckbox value="{!taskfeed1__Custom_Label__c.taskfeed1__Is_Link__c}"/>
+                <apex:inputCheckbox value="{!taskfeed1__Custom_Label__c.taskfeed1__Enable_Recommendation__c}"/>
+                <apex:inputField value="{!taskfeed1__Custom_Label__c.taskfeed1__Order__c}"/>
+            </apex:pageBlockSection>
+            <apex:pageBlockSection title="Define label reference" columns="1">
+                <apex:pageBlockSectionItem >
+                    <apex:outputLabel value="Record to reference" for="ref"/>
+			        <apex:selectList id="ref" value="{!taskfeed1__Custom_Label__c.taskfeed1__Reference__c}" size="1" multiselect="false">
+			            <apex:selectOptions value="{!ReferenceLookupItems}"/>
+			            <apex:actionSupport event="onchange" reRender="form"></apex:actionSupport>
+			        </apex:selectList>
+		        </apex:pageBlockSectionItem>
+		        <apex:pageBlockSectionItem >
+                    <apex:outputLabel value="Display field" for="field"/>
+			        <apex:selectList id="field" value="{!taskfeed1__Custom_Label__c.taskfeed1__Field__c}" size="1" multiselect="false">
+			            <apex:selectOptions value="{!FieldItems}"/>
+			            <apex:actionSupport event="onchange" reRender="form"></apex:actionSupport>
+			        </apex:selectList>
+			    </apex:pageBlockSectionItem>
+            </apex:pageBlockSection>
+            <apex:pageBlockSection title="Style" columns="1">
+            	
+            	<apex:pageBlockSectionItem >
+            		<div style="width: 40%;text-align: center;">
+            			<span class="label label-default label-example"> <i class="fa fa-{!taskfeed1__Custom_Label__c.taskfeed1__Label_Icon__c}"></i> {!taskfeed1__Custom_Label__c.taskfeed1__Field__c}</span>
+            		</div>
+            	</apex:pageBlockSectionItem>
+            	<apex:inputField id="fontColor" styleClass="colorPick" value="{!taskfeed1__Custom_Label__c.taskfeed1__Label_Font_Color__c}" onchange="setLabelColor();"/>
+            	<apex:inputField id="bgColor" styleClass="colorPick" value="{!taskfeed1__Custom_Label__c.taskfeed1__Label_Background_color__c}" onchange="setLabelColor();"/>
+
+            	<script type="text/javascript">
+            		// will execute when section reloaded
+            		setFontColor();
+			        setLabelColor();
+            	</script>
+            	<apex:inputField value="{!taskfeed1__Custom_Label__c.taskfeed1__Label_Icon__c}">
+            		<apex:actionSupport event="onchange" rerender="form"/>
+            	</apex:inputField>
+            </apex:pageBlockSection>
+        </apex:pageBlock>
+    </apex:form>
+</apex:page>

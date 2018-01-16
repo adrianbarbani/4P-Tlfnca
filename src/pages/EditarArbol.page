@@ -1,0 +1,784 @@
+<apex:page controller="EditarArbolController" sidebar="false" tabStyle="Strategic_Client_Plan__tab" docType="html-5.0" rendered="{!render}">
+    
+    <c:SCPMenu ></c:SCPMenu>
+    
+    <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css"/>
+    <link rel="stylesheet" href="/resources/demos/style.css"/>
+    <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+    
+    <script>
+    $j = jq213;
+    
+    $j(document).ready(function() {
+        $j(".textoEditable").mouseover(function(){
+            $j(this).addClass('seleccionado');
+        });
+        $j(".textoEditable").mouseout(function(){
+            $j(this).removeClass('seleccionado');
+        });
+        $j(".textoHeaderEditable").mouseover(function(){
+            $j(this).addClass('seleccionadoHeader');
+        });
+        $j(".textoHeaderEditable").mouseout(function(){
+            $j(this).removeClass('seleccionadoHeader');
+        });
+        $j(".textoTituloEditable").mouseover(function(){
+            $j(this).addClass('seleccionadoTitulo');
+        });
+        $j(".textoTituloEditable").mouseout(function(){
+            $j(this).removeClass('seleccionadoTitulo');
+        });
+    });
+    
+    
+    
+    function setearValorNodoPadre(id){
+        $j(".idNodoPadre").val(id);
+    }
+    
+    function setearValorPreguntaPadre(id, idNodo){
+        $j(".idPreguntaPadre").val(id);
+        setearValorNodoPadre(idNodo);
+    }
+    
+    $( function() {
+        $( ".accordion" ).accordion({
+            collapsible: true
+        });
+        
+        
+    } );
+    
+    function boton(id){
+        var mostrar = $("."+id);
+        mostrar.slideToggle(500);
+        if( $("."+id+"ass").hasClass("glyphicon glyphicon-plus")){
+            $("."+id+"ass").removeClass("glyphicon glyphicon-plus").addClass("glyphicon glyphicon-minus");
+        }else{
+            $("."+id+"ass").removeClass("glyphicon glyphicon-minus").addClass("glyphicon glyphicon-plus");}
+    }
+    </script>
+    
+    
+    
+    <style>
+        .container {
+        width:100%;
+        border:1px solid #d3d3d3;
+        }
+        .container div {
+        width:100%;
+        }
+        .container .header {
+        background-color:#d3d3d3;
+        padding: 2px;
+        cursor: pointer;
+        font-weight: bold;
+        }
+        .container .content {
+        display: none;
+        padding : 5px;
+        }
+        
+        .textoEditable{
+        cursor: pointer;
+        }
+        
+        .textoHeaderEditable{
+        cursor: pointer;
+        }
+        
+        .textoTituloEditable{
+        cursor: pointer;
+        }
+        
+        .seleccionado{
+        color:#2e608f;
+        background-color:#f3f3f3;
+        }
+        
+        .seleccionadoHeader{
+        color:#8bd1ed;
+        }
+        
+        .seleccionadoTitulo{
+        color:#2e608f;
+        }
+    </style>
+    
+    <apex:outputpanel styleClass="container-fluid bootstrap-sf1" id="pageContent">
+        <apex:form >
+            
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    <h2 class="panel-title">
+                        <span style="float:left;">
+                            Editar {!arbol.name}
+                        </span>
+                        <span style="float:left;">
+                        </span>
+                    </h2>
+                    <div class="row paddingRight">
+                        <div class="btn-group pull-right" role="group" aria-label="...">    					
+                            <button id="openButton" type="button" class="btn btn-default btn-sm" data-toggle="modal" data-target="#myModal">
+                                <span class="glyphicon glyphicon-plus icon-btn-left"></span>&nbsp;{!$Label.Add_Share} Necesidad
+                            </button>
+                        </div>
+                        
+                        <apex:commandButton styleClass="btn btn-default btn-sm pull-right" action="{!irAAdminPowerBall}" value="Panel Power Balls" style="margin-right:2px">
+                        </apex:commandButton>
+                        
+                        <button type="button" class="btn btn-default btn-sm pull-right" style="margin-right:2px" onclick="guardar()">
+                            <span class="glyphicon glyphicon-floppy-disk icon-btn-left"></span>&nbsp;Guardar
+                        </button>
+                        <apex:actionFunction action="{!guardar}" name="guardar" rerender="pageContent"/>
+                        
+                    </div>
+                </div>
+                
+                <apex:repeat value="{!ramas}" var="rama">
+                    
+                    <br/>            
+                    
+                    <div class=" panel panel-primary" style="width: 94%;
+                                                             margin-left: 3%;
+                                                             border-color: #337ab7;">
+                        
+                        
+                        
+                        <div class=" panel-heading" style="color: #fff;
+                                                           background-color: #337ab7;
+                                                           border-color: #337ab7;">
+                            <button  type="button" class="btn btn-default btn-sm" onclick="boton('{!rama.nodo.id}')">
+                                <span class="{!rama.nodo.id}ass glyphicon glyphicon-minus icon-btn-left" >
+                                </span>              
+                            </button> 
+                            
+                            <apex:commandButton styleClass="btn btn-default btn-sm pull-right" action="{!borrarNodo}" value="{!$Label.certa_scp__delete}" reRender="pageContent">
+                                <apex:param name="idNodoABorrar" value="{!rama.nodo.id}" assignTo="{!idNodoABorrar}"/>
+                            </apex:commandButton>
+                            
+                            <button type="button" style="margin-right: 2px;" onclick="setearValorNodoPadre('{!rama.nodo.id}')" class="btn btn-default btn-sm pull-right" data-toggle="modal" data-target="#myModalNodoHijo">
+                                <span class="glyphicon glyphicon-plus icon-btn-left"></span>&nbsp;Nueva Propuesta Comercial
+                            </button>
+                            
+                            
+                            Necesidad: 
+                            <div class="textoHeaderEditable">
+                                <apex:outputField value="{!rama.nodo.name}">
+                                    <apex:inlineEditSupport event="ondblclick"/>
+                                </apex:outputField>
+                            </div>
+                            
+                            <p>
+                                <i style="font-size:14px">
+                                    
+                                    <div class="textoHeaderEditable">
+                                        <apex:outputText >
+                                            Posicion:
+                                            <apex:outputField value="{!rama.nodo.Posicion__c}">
+                                                <apex:inlineEditSupport event="ondblclick"/>
+                                            </apex:outputField>
+                                        </apex:outputText>
+                                    </div>
+                                </i>
+                            </p>
+                            
+                            
+                        </div>
+                        <div class="{!rama.nodo.id} panel-body">
+                            
+                            <apex:repeat rendered="{!rama.nodosHijos.size>0}" value="{!rama.nodosHijos}" var="ramaHija">
+                                
+                                <div class="panel panel-info" style="border-color: #ddd;">
+                                    <div class="panel-heading" style="color: black;
+                                                                      border-color: #ddd;
+                                                                      background-color: #f5f5f5;">
+                                        
+                                        <apex:commandButton styleClass="btn btn-primary btn-sm pull-right" action="{!borrarNodo}" value="{!$Label.certa_scp__delete}" reRender="pageContent">
+                                            <apex:param name="idNodoABorrar" value="{!ramaHija.nodo.id}" assignTo="{!idNodoABorrar}"/>
+                                        </apex:commandButton>
+                                        
+                                        <!--
+<button type="button" style="margin-right: 2px;" onclick="setearValorNodoPadre('{!ramaHija.nodo.id}')" class="btn btn-primary btn-sm pull-right" data-toggle="modal" data-target="#myModalNodoHijo">
+<span class="glyphicon glyphicon-plus icon-btn-left"></span>&nbsp;Nuevo Hijo
+</button>
+-->
+                                        <div class="textoTituloEditable">
+                                            <apex:outputField value="{!ramaHija.nodo.name}">
+                                                <apex:inlineEditSupport event="ondblclick"/>
+                                            </apex:outputField>
+                                        </div>                                        
+                                        
+                                        
+                                        <div class="textoTituloEditable">
+                                            <p>
+                                                
+                                                <i style="font-size:14px">
+                                                    Posicion:
+                                                    <apex:outputField value="{!ramaHija.nodo.Posicion__c}">
+                                                        <apex:inlineEditSupport event="ondblclick"/>
+                                                    </apex:outputField>
+                                                </i>
+                                            </p>
+                                            
+                                        </div>
+                                        
+                                    </div>
+                                    <div class="panel-body">
+                                        
+                                        <!--
+<apex:repeat value="{!ramaHija.nodosHijos}" var="ramaHijaHija">
+
+<div class="panel panel-default" style="border-color: #ddd;">
+<div class="panel-body">
+{!ramaHijaHija.nodo.name}
+
+<apex:commandButton styleClass="btn btn-default btn-sm pull-right" action="{!borrarNodo}" value="{!$Label.certa_scp__delete}" reRender="pageContent">
+<apex:param name="idNodoABorrar" value="{!ramaHijaHija.nodo.id}" assignTo="{!idNodoABorrar}"/>
+</apex:commandButton>
+
+</div>
+</div>
+</apex:repeat>
+-->
+                                        <div style="width:100%">
+                                            <div style="text-align: center;
+                                                        height: 25px;
+                                                        background-color: #337ab7;
+                                                        color: white;">
+                                                Preguntas
+                                                <button type="button" style="margin-right: 2px;margin-top: 1px;" onclick="setearValorNodoPadre('{!ramaHija.nodo.id}')" class="btn btn-default btn-xs pull-right" data-toggle="modal" data-target="#myModalPregunta">
+                                                    <span class="glyphicon glyphicon-plus icon-btn-left"></span>
+                                                </button>
+                                            </div> 
+                                            <div>
+                                                <apex:repeat rendered="{!ramaHija.nodo.Super_Ball_Preguntas__r.size>0}" value="{!ramaHija.nodo.Super_Ball_Preguntas__r}" var="pregunta">
+                                                    
+                                                    
+                                                    <div class="panel panel-default" style="border-color: #ddd;margin-top: 10px;">
+                                                        <div class="panel-body">
+                                                            
+                                                            
+                                                            <div class="textoEditable">
+                                                                <p>
+                                                                    <apex:outputField value="{!pregunta.Pregunta__c}">
+                                                                        <apex:inlineEditSupport event="ondblclick"/>
+                                                                    </apex:outputField>
+                                                                </p>
+                                                            </div>
+                                                            
+                                                            <div class="textoEditable">
+                                                                Posición:&nbsp;<apex:inputField label="Posicion"  value="{!pregunta.Posicion__c}"/>
+                                                            </div>
+
+                                                            <apex:commandButton styleClass="btn btn-default btn-sm pull-right" action="{!borrarPregunta}" value="{!$Label.certa_scp__delete}" reRender="pageContent">
+                                                                <apex:param name="idPreguntaABorrar" value="{!pregunta.id}" assignTo="{!idPreguntaABorrar}"/>
+                                                            </apex:commandButton>
+                                                            
+                                                            <button type="button" style="margin-right: 2px;" 
+                                                                    onclick="setearValorPreguntaPadre('{!pregunta.id}', '{!ramaHija.nodo.id}')" class="btn btn-default btn-sm pull-right" data-toggle="modal" data-target="#myModalPreguntaNo">
+                                                                <span class="glyphicon glyphicon-plus icon-btn-left"></span>&nbsp;Respuesta No
+                                                            </button>
+                                                            
+                                                            <button type="button" style="margin-right: 2px;" 
+                                                                    onclick="setearValorPreguntaPadre('{!pregunta.id}', '{!ramaHija.nodo.id}')" class="btn btn-default btn-sm pull-right" data-toggle="modal" data-target="#myModalPreguntaSi">
+                                                                <span class="glyphicon glyphicon-plus icon-btn-left"></span>&nbsp;Respuesta Si
+                                                            </button>
+                                                            
+                                                        </div>
+                                                    </div>
+                                                    
+                                                    <apex:outputPanel rendered="{!pregunta.dependencia_si__r.Pregunta__c!=null}">
+                                                        
+                                                        <div class="panel panel-default" style="border-color: #ddd;margin-top: 10px;">
+                                                            <div class="panel-body">
+                                                                {!pregunta.Pregunta__c} - Respuesta si: 
+                                                                <div class="textoEditable">
+                                                                    <apex:outputField value="{!pregunta.dependencia_si__r.Pregunta__c}">
+                                                                        <apex:inlineEditSupport event="ondblclick"/>
+                                                                    </apex:outputField>
+                                                                </div>
+                                                                <apex:commandButton styleClass="btn btn-default btn-sm pull-right" action="{!borrarPregunta}" value="{!$Label.certa_scp__delete}" reRender="pageContent">
+                                                                    <apex:param name="idPreguntaABorrar" value="{!pregunta.Dependencia_Si__c}" assignTo="{!idPreguntaABorrar}"/>
+                                                                </apex:commandButton>
+                                                                
+                                                            </div>
+                                                        </div>
+                                                        
+                                                    </apex:outputPanel>
+                                                    
+                                                    <apex:outputPanel rendered="{!pregunta.dependencia_no__r.Pregunta__c!=null}">
+                                                        
+                                                        <div class="panel panel-default" style="border-color: #ddd;margin-top: 10px;">
+                                                            <div class="panel-body">
+                                                                {!pregunta.Pregunta__c} - Respuesta no:
+                                                                <div class="textoEditable">
+                                                                    <apex:outputField value="{!pregunta.dependencia_no__r.Pregunta__c}">
+                                                                        <apex:inlineEditSupport event="ondblclick"/>
+                                                                    </apex:outputField>
+                                                                </div>                                         
+                                                                <apex:commandButton styleClass="btn btn-default btn-sm pull-right" action="{!borrarPregunta}" value="{!$Label.certa_scp__delete}" reRender="pageContent">
+                                                                    <apex:param name="idPreguntaABorrar" value="{!pregunta.Dependencia_No__c}" assignTo="{!idPreguntaABorrar}"/>
+                                                                </apex:commandButton>
+                                                                
+                                                            </div>
+                                                        </div>
+                                                        
+                                                    </apex:outputPanel>
+                                                    
+                                                </apex:repeat>
+                                            </div>
+                                        </div>
+                                        <br/>
+                                        <div style="width:100%">
+                                            <div style="text-align: center;
+                                                        height: 25px;
+                                                        background-color: #337ab7;
+                                                        color: white;">
+                                                Soluciones
+                                                <button type="button" style="margin-right: 2px;margin-top: 1px;" onclick="setearValorNodoPadre('{!ramaHija.nodo.id}')" class="btn btn-default btn-xs pull-right" data-toggle="modal" data-target="#myModalSolucion">
+                                                    <span class="glyphicon glyphicon-plus icon-btn-left"></span>
+                                                </button>
+                                            </div> 
+                                            <div>
+                                                <apex:repeat rendered="{!ramaHija.nodo.Super_Ball_Soluciones__r.size>0}" value="{!ramaHija.nodo.Super_Ball_Soluciones__r}" var="solucion">
+                                                    
+                                                    
+                                                    <div class="panel panel-default" style="border-color: #ddd;margin-top: 10px;">
+                                                        <div class="panel-body">
+                                                            
+                                                            <div class="textoEditable">
+                                                                <apex:outputField value="{!solucion.name}">
+                                                                    <apex:inlineEditSupport event="ondblclick"/>
+                                                                </apex:outputField>
+                                                            </div>
+                                                            
+                                                            Posición:&nbsp;<apex:inputField label="Posicion"  value="{!solucion.Posicion__c}"/>
+                                                            
+                                                            <apex:commandButton styleClass="btn btn-default btn-sm pull-right" action="{!borrarSolucion}" value="{!$Label.certa_scp__delete}" reRender="pageContent">
+                                                                <apex:param name="idSolucionABorrar" value="{!solucion.id}" assignTo="{!idSolucionABorrar}"/>
+                                                            </apex:commandButton>
+                                                            
+                                                        </div>
+                                                    </div>
+                                                    
+                                                </apex:repeat>
+                                            </div>
+                                        </div>
+                                        <br/>
+                                        <!--
+                                        <div style="width:100%">
+                                            <div style="text-align: center;
+                                                        height: 25px;
+                                                        background-color: #337ab7;
+                                                        color: white;">
+                                                Interlocutores
+                                                <button type="button" style="margin-right: 2px;margin-top: 1px;" onclick="setearValorNodoPadre('{!ramaHija.nodo.id}')" class="btn btn-default btn-xs pull-right" data-toggle="modal" data-target="#myModalContacto">
+                                                    <span class="glyphicon glyphicon-plus icon-btn-left"></span>
+                                                </button>
+                                            </div> 
+                                            <div>
+                                                <apex:repeat rendered="{!ramaHija.nodo.Super_Ball_Interlocutores__r.size>0}" value="{!ramaHija.nodo.Super_Ball_Interlocutores__r}" var="interlocutor">
+                                                    
+                                                    
+                                                    <div class="panel panel-default" style="border-color: #ddd;margin-top: 10px;">
+                                                        <div class="panel-body">
+                                                            
+                                                            <div class="textoEditable">
+                                                                <apex:outputField value="{!interlocutor.name}">
+                                                                    <apex:inlineEditSupport event="ondblclick"/>
+                                                                </apex:outputField>
+                                                            </div>
+                                                            <apex:commandButton styleClass="btn btn-default btn-sm pull-right" action="{!borrarContacto}" value="{!$Label.certa_scp__delete}" reRender="pageContent">
+                                                                <apex:param name="idSolucionABorrar" value="{!interlocutor.id}" assignTo="{!idContactoABorrar}"/>
+                                                            </apex:commandButton>
+                                                            
+                                                        </div>
+                                                    </div>
+                                                    
+                                                </apex:repeat>
+                                            </div>
+                                        </div>-->
+                                        <br/>
+                                        <div style="width:100%">
+                                            <div style="text-align: center;
+                                                        height: 25px;
+                                                        background-color: #337ab7;
+                                                        color: white;">
+                                                Recursos
+                                                <button type="button" style="margin-right: 2px;margin-top: 1px;" onclick="setearValorNodoPadre('{!ramaHija.nodo.id}')" class="btn btn-default btn-xs pull-right" data-toggle="modal" data-target="#myModalRecursos">
+                                                    <span class="glyphicon glyphicon-plus icon-btn-left"></span>
+                                                </button>
+                                            </div> 
+                                            <div>
+                                                <apex:repeat rendered="{!ramaHija.nodo.Super_Ball_Recursos__r.size>0}" value="{!ramaHija.nodo.Super_Ball_Recursos__r}" var="recursos">
+                                                    
+                                                    
+                                                    <div class="panel panel-default" style="border-color: #ddd;margin-top: 10px;">
+                                                        <div class="panel-body">
+                                                            
+                                                            <div class="textoEditable">
+                                                                <apex:outputField value="{!recursos.name}">
+                                                                    <apex:inlineEditSupport event="ondblclick"/>
+                                                                </apex:outputField>
+                                                            </div>
+                                                            
+                                                            <div class="textoEditable">
+                                                                <apex:outputField value="{!recursos.Link__c}" >
+                                                                    <apex:inlineEditSupport event="ondblclick"/>
+                                                                </apex:outputField> 
+                                                            </div>
+                                                            
+                                                            <apex:commandButton styleClass="btn btn-default btn-sm pull-right" action="{!borrarRecurso}" value="{!$Label.certa_scp__delete}" reRender="pageContent">
+                                                                <apex:param name="idRecursoABorrar" value="{!recursos.id}" assignTo="{!idRecursoABorrar}"/>
+                                                            </apex:commandButton>
+                                                            
+                                                        </div>
+                                                    </div>
+                                                    
+                                                </apex:repeat>
+                                            </div>
+                                        </div>
+                                        <!--
+<table style="width:100%">
+<tr>
+<th style="text-align: center;
+height: 25px;
+background-color: #337ab7;
+color: white;
+width:25%;">
+Pregunta
+<button type="button" style="margin-right: 2px;" onclick="setearValorNodoPadre('{!ramaHija.nodo.id}')" class="btn btn-default btn-xs pull-right" data-toggle="modal" data-target="#myModalPregunta">
+<span class="glyphicon glyphicon-plus icon-btn-left"></span>
+</button>
+</th>
+<th style="text-align: center;
+height: 25px;
+background-color: #337ab7;
+color: white;
+width:25%;">
+Solución
+
+<button type="button" style="margin-right: 2px;" onclick="setearValorNodoPadre('{!ramaHija.nodo.id}')" class="btn btn-default btn-xs pull-right" data-toggle="modal" >
+<span class="glyphicon glyphicon-plus icon-btn-left"></span>
+</button>
+</th>
+<th style="text-align: center;
+height: 25px;
+background-color: #337ab7;
+color: white;
+width:25%;">
+Recursos
+
+<button type="button" style="margin-right: 2px;" onclick="setearValorNodoPadre('{!ramaHija.nodo.id}')" class="btn btn-default btn-xs pull-right" data-toggle="modal" >
+<span class="glyphicon glyphicon-plus icon-btn-left"></span>
+</button>
+</th>
+<th style="text-align: center;
+height: 25px;
+background-color: #337ab7;
+color: white;
+width:25%;">
+Contactos
+
+<button type="button" style="margin-right: 2px;" onclick="setearValorNodoPadre('{!ramaHija.nodo.id}')" class="btn btn-default btn-xs pull-right" data-toggle="modal" >
+<span class="glyphicon glyphicon-plus icon-btn-left"></span>
+</button>
+</th>
+</tr>
+</table>
+-->
+                                    </div>
+                                </div>
+                            </apex:repeat>
+                            
+                        </div>
+                    </div>
+                    
+                    
+                </apex:repeat>
+                
+            </div>
+            
+            
+            <!-- Modal Nodo Central-->
+            <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+                <div class="modal-dialog" style="z-index:9999;">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                            <h4 class="modal-title" id="myModalLabel">{!$Label.Add_Share} Necesidad</h4>
+                        </div>
+                        <div class="modal-body">
+                            
+                            <table style="border-collapse: separate;border-spacing: 5px;width: 100%;">
+                                <tr>
+                                    <td style="text-align: right;">
+                                        <apex:outputText value="Nombre:" />
+                                    </td>
+                                    <td>
+                                        <apex:inputField style="width: 50%;" value="{!nodoCentral.name}" />
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td style="text-align: right;">
+                                        <apex:outputText value="Descripción:" />
+                                    </td>
+                                    <td>
+                                        <apex:inputField style="width: 50%;" value="{!nodoCentral.Descripci_n__c}" />
+                                    </td>
+                                </tr>
+                                
+                            </table>		        
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-default" data-dismiss="modal">{!$Label.close}</button>
+                            <button type="button" class="btn btn-primary" data-dismiss="modal" onclick="insertarNodoCentral()">{!$Label.Add_Share}</button>
+                            <apex:actionFunction action="{!insertarNodoCentral}" name="insertarNodoCentral" rerender="pageContent"/>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Nodo Hijo -->
+            <div class="modal fade" id="myModalNodoHijo" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+                <div class="modal-dialog" style="z-index:9999;">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                            <h4 class="modal-title" id="myModalLabel">{!$Label.Add_Share} Propuesta Comercial</h4>
+                        </div>
+                        <div class="modal-body">
+                            
+                            <table style="border-collapse: separate;border-spacing: 5px;width: 100%;">
+                                <tr>
+                                    <td style="text-align: right;">
+                                        <apex:outputText value="Nombre:" />
+                                    </td>
+                                    <td>
+                                        <apex:inputField style="width: 50%;" value="{!nodoHijo.name}" />
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td style="text-align: right;">
+                                        <apex:outputText value="Descripción:" />
+                                    </td>
+                                    <td>
+                                        <apex:inputField style="width: 50%;" value="{!nodoHijo.Descripci_n__c}" />
+                                    </td>
+                                </tr>
+                                
+                            </table>		        
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-default" data-dismiss="modal">{!$Label.close}</button>
+                            <button type="button" class="btn btn-primary" data-dismiss="modal" onclick="insertarNodoHijo()">{!$Label.Add_Share}</button>
+                            <apex:actionFunction action="{!insertarNodoHijo}" name="insertarNodoHijo" rerender="pageContent"/>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Pregunta -->
+            <div class="modal fade" id="myModalPregunta" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+                <div class="modal-dialog" style="z-index:9999;">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                            <h4 class="modal-title" id="myModalLabel">{!$Label.Add_Share} Pregunta</h4>
+                        </div>
+                        <div class="modal-body">
+                            
+                            <table style="border-collapse: separate;border-spacing: 5px;width: 100%;">
+                                <tr>
+                                    <td style="text-align: right;">
+                                        <apex:outputText value="Pregunta:" />
+                                    </td>
+                                    <td>
+                                        <apex:inputField style="width: 50%;" value="{!preguntaAInsertar.Pregunta__c}" />
+                                    </td>
+                                </tr>
+                                
+                            </table>		        
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-default" data-dismiss="modal">{!$Label.close}</button>
+                            <button type="button" class="btn btn-primary" data-dismiss="modal" onclick="insertarPregunta()">{!$Label.Add_Share}</button>
+                            <apex:actionFunction action="{!insertarPregunta}" name="insertarPregunta" rerender="pageContent"/>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Pregunta Si -->
+            <div class="modal fade" id="myModalPreguntaSi" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+                <div class="modal-dialog" style="z-index:9999;">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                            <h4 class="modal-title" id="myModalLabel">{!$Label.Add_Share} Pregunta</h4>
+                        </div>
+                        <div class="modal-body">
+                            
+                            <table style="border-collapse: separate;border-spacing: 5px;width: 100%;">
+                                <tr>
+                                    <td style="text-align: right;">
+                                        <apex:outputText value="Pregunta:" />
+                                    </td>
+                                    <td>
+                                        <apex:inputField style="width: 50%;" value="{!preguntaAInsertarSi.Pregunta__c}" />
+                                    </td>
+                                </tr>
+                                
+                            </table>		        
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-default" data-dismiss="modal">{!$Label.close}</button>
+                            <button type="button" class="btn btn-primary" data-dismiss="modal" onclick="insertarPreguntaSi()">{!$Label.Add_Share}</button>
+                            <apex:actionFunction action="{!insertarPreguntaSi}" name="insertarPreguntaSi" rerender="pageContent"/>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Pregunta No -->
+            <div class="modal fade" id="myModalPreguntaNo" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+                <div class="modal-dialog" style="z-index:9999;">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                            <h4 class="modal-title" id="myModalLabel">{!$Label.Add_Share} Pregunta</h4>
+                        </div>
+                        <div class="modal-body">
+                            
+                            <table style="border-collapse: separate;border-spacing: 5px;width: 100%;">
+                                <tr>
+                                    <td style="text-align: right;">
+                                        <apex:outputText value="Pregunta:" />
+                                    </td>
+                                    <td>
+                                        <apex:inputField style="width: 50%;" value="{!preguntaAInsertarNo.Pregunta__c}" />
+                                    </td>
+                                </tr>
+                                
+                            </table>		        
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-default" data-dismiss="modal">{!$Label.close}</button>
+                            <button type="button" class="btn btn-primary" data-dismiss="modal" onclick="insertarPreguntaNo()">{!$Label.Add_Share}</button>
+                            <apex:actionFunction action="{!insertarPreguntaNo}" name="insertarPreguntaNo" rerender="pageContent"/>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Solucion -->
+            <div class="modal fade" id="myModalSolucion" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+                <div class="modal-dialog" style="z-index:9999;">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                            <h4 class="modal-title" id="myModalLabel">{!$Label.Add_Share} Solucion</h4>
+                        </div>
+                        <div class="modal-body">
+                            
+                            <table style="border-collapse: separate;border-spacing: 5px;width: 100%;">
+                                <tr>
+                                    <td style="text-align: right;">
+                                        <apex:outputText value="Nombre:" />
+                                    </td>
+                                    <td>
+                                        <apex:inputField style="width: 50%;" value="{!solucionAInsertar.name}" />
+                                    </td>
+                                </tr>
+                                
+                            </table>		        
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-default" data-dismiss="modal">{!$Label.close}</button>
+                            <button type="button" class="btn btn-primary" data-dismiss="modal" onclick="insertarSolucion()">{!$Label.Add_Share}</button>
+                            <apex:actionFunction action="{!insertarSolucion}" name="insertarSolucion" rerender="pageContent"/>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Contacto -->
+            <div class="modal fade" id="myModalContacto" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+                <div class="modal-dialog" style="z-index:9999;">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                            <h4 class="modal-title" id="myModalLabel">{!$Label.Add_Share} Contacto</h4>
+                        </div>
+                        <div class="modal-body">
+                            
+                            <table style="border-collapse: separate;border-spacing: 5px;width: 100%;">
+                                <tr>
+                                    <td style="text-align: right;">
+                                        <apex:outputText value="Contacto:" />
+                                    </td>
+                                    <td>
+                                        <apex:inputField style="width: 50%;" value="{!contactoAInsertar.name}" />
+                                    </td>
+                                </tr>
+                                
+                            </table>		        
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-default" data-dismiss="modal">{!$Label.close}</button>
+                            <button type="button" class="btn btn-primary" data-dismiss="modal" onclick="insertarContacto()">{!$Label.Add_Share}</button>
+                            <apex:actionFunction action="{!insertarContacto}" name="insertarContacto" rerender="pageContent"/>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Recursos -->
+            <div class="modal fade" id="myModalRecursos" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+                <div class="modal-dialog" style="z-index:9999;">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                            <h4 class="modal-title" id="myModalLabel">{!$Label.Add_Share} Contacto</h4>
+                        </div>
+                        <div class="modal-body">
+                            
+                            <table style="border-collapse: separate;border-spacing: 5px;width: 100%;">
+                                <tr>
+                                    <td style="text-align: right;">
+                                        <apex:outputText value="Nombre del Recurso:" />
+                                    </td>
+                                    <td>
+                                        <apex:inputField style="width: 50%;" value="{!recursoAInsertar.name}" />
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td style="text-align: right;">
+                                        <apex:outputText value="Link:" />
+                                    </td>
+                                    <td>
+                                        <apex:inputField style="width: 50%;" value="{!recursoAInsertar.Link__c}" />
+                                    </td>
+                                </tr>
+                                
+                            </table>		        
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-default" data-dismiss="modal">{!$Label.close}</button>
+                            <button type="button" class="btn btn-primary" data-dismiss="modal" onclick="insertarRecurso()">{!$Label.Add_Share}</button>
+                            <apex:actionFunction action="{!insertarRecurso}" name="insertarRecurso" rerender="pageContent"/>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <apex:input label="" value="{!idNodoPadre}" style="display:none" styleClass="idNodoPadre" />
+            <apex:input label="" value="{!idPreguntaPadre}" style="display:none" styleClass="idPreguntaPadre" />
+            
+        </apex:form>
+    </apex:outputpanel>
+    
+</apex:page>

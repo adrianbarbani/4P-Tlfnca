@@ -1,0 +1,19 @@
+<apex:page title="Taskfeed" tabStyle="Taskfeed__tab"  sidebar="false" showHeader="true">
+    <div>
+        <c:Taskboard boardId="" 
+                        recordId="{!$User.Id}" 
+                        relationshipName="Owner__c" 
+                        showHeader="false" 
+                        showBoardHeaderBar="false"
+                        showFilters="true"
+                        showBoardSwitcher="false"
+                        embeddedIframesAllowed="false"
+                        touchScope="false"
+                        boardsStyle="SingleTable"
+                        defaultMyView="true"
+                        rememberFilters="false"
+                        ColorOverride="#1797c0" />
+    </div>
+
+<c:intercom />
+</apex:page>

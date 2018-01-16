@@ -1,0 +1,251 @@
+<apex:page standardController="taskfeed1__Task__c"  extensions="taskfeed1.TaskControllerExtension" tabStyle="taskfeed1__Task__c" showHeader="false" sidebar="false">
+<c:includes />
+
+<apex:includeScript value="{!URLFOR($Resource.taskfeed1__taskfeed, '/js/taskfeed.js')}"/>
+<apex:includeScript value="{!URLFOR($Resource.taskfeed1__taskfeed, '/js/dragupload.js')}"/>
+
+<script>
+
+    $j(document).ready(function() {
+
+        THIS_USER_ID = "<apex:outputText value="{!$User.Id}"/>";
+
+        $j('.timeActionButton').off('click').on('click', function(e) {
+            e.stopPropagation();
+            var timeLogId = $j(this).attr('data-time-id');
+            //window.location.href = '/'+timeLogId+'/e?isdtp=nv&retURL='+window.location.href;
+            window.location.href = '/apex/TimeLogEdit?id='+timeLogId+'&retURL='+window.location.href;
+        });
+
+        $j('input[type=text], textarea').on('input', function() {
+            FitToContent( this, 400 )
+        });
+
+        getChecklistItems('{!taskfeed1__Task__c.Id}', '#checkList');
+        getTaskContributors('{!taskfeed1__Task__c.Id}', '#contributors');
+        getFollowers('{!taskfeed1__Task__c.Id}', '#followers');
+    });
+
+    setNamespaceForTaskfeed('{!$ObjectType.taskfeed1__Task__c.Name}');//sets the namespace, for the upload stuff
+
+    window.document.title = '{!JSENCODE(taskfeed1__Task__c.Name)}';
+
+    if (window.opener) {
+        //if in the context of a popped window then set parent to be the window that popped this one
+        parent = window.opener;
+    }
+    //method to close the window depending on context
+    function closeThis() {
+        window.close();
+    }
+
+    // http://stackoverflow.com/questions/454202/creating-a-textarea-with-auto-resize
+    function FitToContent(id, maxHeight)
+    {
+       var text = id && id.style ? id : document.getElementById(id);
+       if ( !text )
+          return;
+
+       var adjustedHeight = text.clientHeight;
+       if ( !maxHeight || maxHeight > adjustedHeight )
+       {
+          adjustedHeight = Math.max(text.scrollHeight, adjustedHeight);
+          if ( maxHeight )
+             adjustedHeight = Math.min(maxHeight, adjustedHeight);
+          if ( adjustedHeight > text.clientHeight )
+             text.style.height = (adjustedHeight+5) + "px";
+       }
+    }
+</script>
+
+<apex:includeScript value="{!URLFOR($Resource.taskfeed1__taskfeed, '/js/dragupload-events.js')}"/>
+
+<style>
+
+body { /* this removes any horizontal scroll  */
+    overflow-x:hidden;
+    height:100%;
+    padding: 10px;
+}
+
+textarea {
+    width: 350px;
+}
+
+</style>
+
+<div class="row">
+  <div class="col-md-6">
+    <div class="fixedEditSection">
+      <apex:form >
+            <div>
+                <div class="col-xs-9">
+                    <div class="taskmodal-section-title"><apex:outputText value="{!taskfeed1__Task__c.Name}" /> <a href="/{!taskfeed1__Task__c.Id}" target="_blank" style="font-size: 12px;"><i class="fa fa-external-link"></i></a></div>
+                </div>
+                <div class="col-xs-3">
+                    <div style="float: right; margin-top: 15px;">
+                        <chatter:follow entityId="{!taskfeed1__Task__c.Id}" />
+                    </div>
+                </div>
+            </div>
+            
+            <apex:outputPanel id="messagesAndScript">
+                <apex:pageMessages id="msgs" />
+
+                <script>
+                    function refreshAndClose() {
+                        //will refresh the board and close modal
+                        if ({!!hasErrorMessages}) {
+                            closeThis();
+                        }
+                    }
+                </script>
+            </apex:outputPanel>
+
+            <apex:pageBlock mode="Edit">
+                <apex:pageBlockButtons location="top">
+                    <apex:actionStatus id="saveStatus">
+                        <apex:facet name="stop">
+                            <apex:commandButton value="Save" action="{!quicksave}" id="saveButton" status="saveStatus" rerender="messagesAndScript" rendered="{!$ObjectType.taskfeed1__Task__c.Updateable}" oncomplete="window.location.reload();" />
+                        </apex:facet>
+                        <apex:facet name="start">
+                            <apex:outputPanel >
+                                <apex:image value="/img/loading32.gif" style="height: 15px;"/>
+                                <apex:commandButton value="Saving..." status="saveStatus" disabled="true"/>
+                            </apex:outputPanel>
+                        </apex:facet>
+                    </apex:actionStatus>
+                    <apex:actionStatus id="saveAndCloseStatus">
+                        <apex:facet name="stop">
+                            <apex:commandButton value="Save & Close" action="{!quicksave}" id="saveAndCloseButton" status="saveAndCloseStatus" rerender="messagesAndScript" oncomplete="refreshAndClose();" rendered="{!$ObjectType.taskfeed1__Task__c.Updateable}" />
+                        </apex:facet>
+                        <apex:facet name="start">
+                            <apex:outputPanel >
+                                <apex:image value="/img/loading32.gif" style="height: 15px;"/>
+                                <apex:commandButton value="Saving..." status="saveAndCloseStatus" disabled="true"/>
+                            </apex:outputPanel>
+                        </apex:facet>
+                    </apex:actionStatus>
+                    <apex:commandButton id="cancelButton" value="Close" rerender="messagesAndScript" oncomplete="closeThis();" />
+                </apex:pageBlockButtons>
+                <apex:pageBlockSection columns="1">
+                    <apex:repeat value="{!$ObjectType.taskfeed1__Task__c.FieldSets.taskfeed1__editTaskPopup}" var="f"> 
+                        <apex:inputField value="{!taskfeed1__Task__c[f]}" required="{!f.DBRequired || f.Required}" />
+                    </apex:repeat>
+                </apex:pageBlockSection>
+            </apex:pageBlock>
+        </apex:form>
+
+        <div>
+            <div class="taskmodal-section-title"><i class="fa fa-th-list"></i> Checklist</div>
+            <div id="checkList"></div>
+        </div>
+        
+        <apex:outputPanel >
+            <div class="taskmodal-section-title"><i class="fa fa-clock-o"></i> Time</div>
+
+            <div class="list-group">
+                <apex:repeat value="{!AllTime}" var="time"> 
+                    <div id="{!time.Id}" class="list-group-item clearfix timeLogEntry"> 
+                        <span class="badge"><span class="glyphicon glyphicon-time"></span> <apex:outputText value="{!time.taskfeed1__Time_Spent__c}" /></span>
+                        <span class="pull-left">
+                            <apex:outputText styleClass="editTime" rendered="{!$ObjectType.taskfeed1__Time__c.Updateable}">
+                                <a href="#" class="timeActionButton boot-btn boot-btn-clear boot-btn-xs" role="button" data-time-id="{!time.Id}"> <span class="fa fa-pencil"></span></a>
+                            </apex:outputText>          
+                            <!--<apex:outputText styleClass="timeActionButton deleteTime" rendered="{!$ObjectType.Time__c.Deletable}">
+                                <a href="#" class="boot-btn boot-btn-default boot-btn-xs" role="button"> <span class="fa fa-times"></span></a>
+                            </apex:outputText>  -->
+                        </span>
+
+                        <p class="list-group-item-heading">
+                            <apex:outputText value="{!time.User__r.Name}" /> <span class="text-muted"><apex:outputText value="{0,date,medium}">
+                                <apex:param value="{!time.taskfeed1__DateTime_Recorded__c}" /> 
+                            </apex:outputText></span>
+                        </p>
+                        <p class="list-group-item-text"><apex:outputText value="{!time.taskfeed1__Description__c}" /></p>
+                        
+                    </div>
+                </apex:repeat>
+                <apex:outputPanel rendered="{!AllTime.size==0}">No time recorded</apex:outputPanel>
+            </div>
+        </apex:outputPanel>
+
+        <apex:outputPanel >
+            <div class="taskmodal-section-title"><i class="fa fa-paperclip"></i> Attachments</div>
+
+            <div class="list-group">
+                <apex:repeat value="{!AllAttachments}" var="attachment"> 
+                    <div class="list-group-item">
+                        <p class="list-group-item-heading"><a href="/{!attachment.Id}" target="_blank"><apex:outputText value="{!attachment.Filename}" /></a> <span class="text-muted"> <apex:outputText value="{0,date,medium}">
+                                <apex:param value="{!attachment.CreatedDate}" /> 
+                            </apex:outputText></span></p>
+                        <p class="list-group-item-text"><apex:outputText value="{!attachment.Description}" /></p>
+                    </div>
+                </apex:repeat>
+                <apex:outputPanel rendered="{!AllAttachments.size==0}">No attachments</apex:outputPanel>
+            </div>
+        </apex:outputPanel>
+
+        <apex:outputPanel rendered="{!$ObjectType.taskfeed1__Task__c.Updateable}">
+            <form id="upload" enctype="multipart/form-data">
+                <div id="filedrag" class="panel panel-primary visible-md visible-lg" data-taskid="{!taskfeed1__Task__c.Id}" >
+                    <div id="idle">Drop a file here to upload</div>
+                    <div id="limitMessage"></div><!--Max file size 500 KB. Use Chatter to upload files up to 2 GB-->
+                    <div id="loading"></div>
+                    <div id="fileslist"></div>
+                </div>
+            </form>
+        </apex:outputPanel>
+      </div>
+  </div>
+  <div class="col-md-6">
+    <div class="row">
+        <div class="col-xs-6">
+            <div class="taskmodal-section-title"><i class="fa fa-users"></i> Contributors</div>
+            <div id="contributors">
+                <div class="TaskContributorLoadingPlaceholder avatarRepeat">
+                    <i class="fa fa-user"></i>
+                </div>
+            </div>
+        </div>
+        <div class="col-xs-6">
+            <div class="taskmodal-section-title"> Followers</div>
+            <div id="followers">
+                <div class="TaskContributorLoadingPlaceholder avatarRepeat">
+                    <i class="fa fa-user"></i>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-12">
+            <div class="taskmodal-section-title"><i class="fa fa-bolt"></i> Activity</div>
+            <chatter:feed entityId="{!taskfeed1__Task__c.Id}" />
+        </div>
+    </div>
+  </div>
+</div>
+
+<style>
+#filedrag
+{
+    display: none;
+    background-color: #f8f8f8;
+    border: 3px dashed #555;
+    border-radius: 3px;
+    cursor: default;
+    padding: 10px;
+    min-height: 50px;
+}
+#filedrag.hover
+{
+    color: #fff;
+    background-color: #4AB471;
+    border-color: #4AB471;
+    border-style: solid;
+    min-height: 100px; 
+}
+</style>
+
+<c:intercom />
+</apex:page>

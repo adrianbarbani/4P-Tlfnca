@@ -1,0 +1,281 @@
+<apex:page controller="AccountBusinessLandscapeController" sidebar="false" tabStyle="Strategic_Client_Plan__tab" action="{!siNoHayCreadoUnRegistroEnParqueDeServiciosGeneroUnoDeCadaUno}">
+    
+    <c:SCPMenu ></c:SCPMenu>
+    <apex:includeScript value="{!$Resource.JQuery}"  />
+    <apex:include pageName="changeFocus"/>
+    <apex:stylesheet value="{!$Resource.ipad}"/>
+    
+    <style>
+        
+        .level1, .levelGreen {
+        background-color: #CEFD9F;
+        }
+        
+        .level2, .levelYellow {
+        background-color: rgb(255, 255, 139);
+        }
+        
+        .level3, .levelRed {
+        background-color: rgb(255, 158, 158);
+        }
+        
+        #tableList tr.hover:hover {
+        background-color: #d4ebf2;
+        }
+        
+        .category_service {
+        background-color: #006699;
+        background-color: #d4ebf2;
+        }
+        
+        .sub_category_service {
+        background-color: #8C8C8C;
+        background-color: #e2e2e2;
+        }
+        
+        h1 {
+        /*color: #ffffff;*/ 
+        }
+        
+        h2 {
+        /*color: #ffffff;*/
+        }
+        
+        #tableList {
+        border-collapse: collapse;
+        }
+        
+        .pbBody {
+        padding: 12px ! important;
+        }
+        
+        .separator, .separator td {
+        height:30px;
+        background-color: #f8f8f8 ! important;
+        border-left: 1px solid #f8f8f8 ! important;
+        border-right: 1px solid #f8f8f8 ! important;
+        }
+        
+        .message {
+        background-color: transparent ! important;
+        }
+        
+    </style>
+    
+    
+    <apex:outputPanel layout="block" styleClass="container-fluid bootstrap-sf1">
+        <apex:outputPanel layout="block"  styleClass="panel panel-default">
+            <apex:form >
+                <apex:outputPanel layout="block"  styleClass="panel-heading">
+                    <h2 class="panel-title">
+                        <span style="float:left;">
+                            {!$Label.certa_scp__parque_de_servicios}
+                        </span>
+
+                    </h2>
+                    <div class="row paddingRight">
+                        <apex:actionFunction action="{!exportToExcel}" name="exportToExcel"/>
+                        <apex:actionFunction action="{!Save}" name="SaveChanges" rerender="pageContent" status="renderMeStatus" oncomplete="createDataTableSerch()"/>
+                        <apex:actionFunction action="{!add}" name="add"/>
+                        
+                        <div class="btn-group pull-right" role="group" aria-label="...">	    					
+                            <apex:outputText rendered="{!canEdit}">
+                                <button type="button" class="btn btn-default btn-sm" onclick="SaveChanges()">
+                                    <span class="glyphicon glyphicon-floppy-disk icon-btn-left"></span>&nbsp;{!$Label.save}
+                                </button>
+                            </apex:outputText>    
+                            <button type="button" class="btn btn-default btn-sm" onclick="exportToExcel()">
+                                <span class="glyphicon glyphicon-file icon-btn-left"></span>&nbsp;{!$Label.Export_to_Excel}
+                            </button>
+                        </div>
+                    </div>
+                </apex:outputPanel>
+                
+                <apex:outputPanel layout="block" styleClass="panel-body" id="pageContent">
+                    <!--<apex:pageMessage summary="{!$Label.tutorial_accountBusinessLandscape}" severity="Info" strength="1" />-->
+                    
+                    <div style="float:left;">
+                    <table class="addService">
+                        <tr class="">
+                            <td colspan="100%" style="padding:5px;">
+                                <h2><apex:outputText value="{!$Label.certa_scp__add_new_service}"/></h2>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <apex:outputText value="{!$Label.certa_scp__categoria_de_los_servicios}:"/>
+                            </td>
+                            <td>
+                                <apex:inputField value="{!newBusinesLandscape.Category_Service__c}"/>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <apex:outputText value="{!$Label.certa_scp__servicio}:"/>
+                            </td>
+                            <td>
+                                <apex:inputField value="{!newBusinesLandscape.Service__c}"/>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <apex:outputText value="{!$Label.certa_scp__nivel}:"/>                                               
+                            </td>
+                            <td>
+                                <apex:inputField value="{!newBusinesLandscape.Level__c}"/>
+                                <img class="helpIcon" alt="" src="/s.gif" title="{!$ObjectType.businessLandscape__c.fields.level__c.inlineHelpText}" style="visibility: {!IF($ObjectType.businessLandscape__c.fields.level__c.inlineHelpText='','hidden','displayed')}"/>
+                            </td>
+                        </tr>
+                        <tr>    
+                            <td colspan="100%">
+                                <br/>
+                                <button type="button" class="btn btn-default btn-sm" onclick="add()">
+                                    <span class="glyphicon glyphicon-plus"></span>&nbsp;{!$Label.add}
+                                </button>
+                            </td>
+                        </tr>
+                    </table>
+                    </div>
+                    
+                    <br/>
+                    
+                    <div style = "width: 50%; margin-right:2%;" class="center-block alert alert-info" role="alert">
+                        <span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span>
+                        {!$Label.tutorial_AccountBusinessLandscape}
+                    </div>
+                    
+                    
+                    
+                    
+                    
+                    <br/><br/>
+                  <table id="tableList" class="table list " style="width:100%;" border="0" cellpadding="0" cellspacing="0">         
+                        <apex:variable var="cnt" value="{!0}" /> 
+                        <apex:repeat value="{!businessLandscapeWrapperList}" var="businessLandscapeWrapperCategory">                
+                            
+                            <apex:outputPanel rendered="{!cnt != 0}">               
+                                <tr class="headerRow separator">                        
+                                    <td colspan="100%">                     
+                                    </td>
+                                </tr>
+                            </apex:outputPanel>
+                            
+                            <apex:variable var="cnt" value="{!cnt+1}"/>
+                            <tr class="category_service">
+                                <td colspan="100%" class="dataCell titleService">
+                                    <h1 style="font-size:17px;"><apex:outputText value="{!$ObjectType.businesslandscape__c.fields.Category_Service__c.label}: "/><apex:outputField value="{!businessLandscapeWrapperCategory.bl.Category_Service__c}"/></h1>
+                                </td>
+                            </tr>     
+                            <tr class="headerRow">                  
+                                
+                                <th width="10%">                  
+                                </th>                       
+                                <th class="headerRow">                          
+                                    <apex:outputText value="{!$ObjectType.businesslandscape__c.fields.Service__c.label}"/>
+                                </th>
+                                <th class="headerRow">                          
+                                    <apex:outputText value="{!$ObjectType.businesslandscape__c.fields.Level__c.label}"/>
+                                </th>
+                                <th class="headerRow">                          
+                                    <apex:outputText value="{!$ObjectType.businesslandscape__c.fields.CurrentProvider__c.label}"/>
+                                </th>
+                                <th class="headerRow">                          
+                                    <apex:outputText value="{!$ObjectType.businesslandscape__c.fields.AnnualSpend__c.label}"/>
+                                </th>
+                                <th class="headerRow">                          
+                                    <apex:outputText value="{!$ObjectType.businesslandscape__c.fields.ContractEndDate__c.label}"/>
+                                </th>
+                                <th class="headerRow">                          
+                                    <apex:outputText value="{!$ObjectType.businesslandscape__c.fields.Country__c.label}"/>
+                                </th>
+                                <th class="headerRow">                          
+                                    <apex:outputText value="{!$ObjectType.businesslandscape__c.fields.Compra_a_nivel__c.label}"/>
+                                </th>
+                                <th class="headerRow">                          
+                                    <apex:outputText value="{!$ObjectType.businesslandscape__c.fields.Decision_maker__c.label}"/>
+                                </th>
+                                <th class="headerRow">                          
+                                    <apex:outputText value="{!$ObjectType.businesslandscape__c.fields.OtherInformation__c.label}"/>
+                                </th>
+                            </tr>
+                            
+                            
+                            <apex:repeat value="{!businessLandscapeWrapperCategory.servicios}" var="businessLabusinessLandscapeWrapperService">
+                                
+                                <tr class="">
+                                    <!-- 
+<td class="dataCell" style="width:100px;">
+</td>
+<td class="dataCell" style="width:100px;">
+</td>
+-->                            
+                                    <td class="dataCell">
+                                        <apex:commandButton styleClass="btn btn-default btn-sm" action="{!del}" value="{!$Label.certa_scp__delete}" rerender="pageContent">
+                                            <apex:param name="del" value="{!businessLabusinessLandscapeWrapperService.servicio.id}" assignTo="{!toDel}" />
+                                        </apex:commandButton>
+                                    </td>
+                                    <td class="dataCell level{!businessLabusinessLandscapeWrapperService.servicio.Level__c}">         
+                                        <span style="display:none;">
+                                            <apex:outputField value="{!businessLabusinessLandscapeWrapperService.servicio.Category_Service__c}">
+                                                <apex:inlineEditSupport rendered="{!canEdit}" event="ondblclick"/>
+                                            </apex:outputField>
+                                            
+                                        </span>
+                                        <apex:outputField value="{!businessLabusinessLandscapeWrapperService.servicio.Service__c}" >
+                                            <apex:inlineEditSupport rendered="{!canEdit}" event="ondblclick"/>
+                                        </apex:outputField>
+                                    </td>                   
+                                    <td class="dataCell">       
+                                        <apex:outputField value="{!businessLabusinessLandscapeWrapperService.servicio.Level__c}" >
+                                            <apex:inlineEditSupport rendered="{!canEdit}" event="ondblclick"/>
+                                        </apex:outputField>
+                                    </td>
+                                    <td class="dataCell">       
+                                        <apex:outputField value="{!businessLabusinessLandscapeWrapperService.servicio.CurrentProvider__c}" >
+                                            <apex:inlineEditSupport rendered="{!canEdit}" event="ondblclick"/>
+                                        </apex:outputField>
+                                    </td>   
+                                    <td class="dataCell">       
+                                        <apex:outputField value="{!businessLabusinessLandscapeWrapperService.servicio.AnnualSpend__c}" >
+                                            <apex:inlineEditSupport rendered="{!canEdit}" event="ondblclick"/>
+                                        </apex:outputField>
+                                    </td>   
+                                    <td class="dataCell">       
+                                        <apex:outputField value="{!businessLabusinessLandscapeWrapperService.servicio.ContractEndDate__c}" >
+                                            <apex:inlineEditSupport rendered="{!canEdit}" event="ondblclick"/>
+                                        </apex:outputField>
+                                    </td>   
+                                    <td class="dataCell">       
+                                        <apex:outputField value="{!businessLabusinessLandscapeWrapperService.servicio.Country__c}" >
+                                            <apex:inlineEditSupport rendered="{!canEdit}" event="ondblclick"/>
+                                        </apex:outputField>
+                                    </td>
+                                    <td class="dataCell">       
+                                        <apex:outputField value="{!businessLabusinessLandscapeWrapperService.servicio.Compra_a_nivel__c}" >
+                                            <apex:inlineEditSupport rendered="{!canEdit}" event="ondblclick"/>
+                                        </apex:outputField>
+                                    </td> 
+                                    <td class="dataCell">       
+                                        <apex:outputField value="{!businessLabusinessLandscapeWrapperService.servicio.Decision_maker__c}" >
+                                            <apex:inlineEditSupport rendered="{!canEdit}" event="ondblclick"/>
+                                        </apex:outputField>
+                                    </td> 
+                                    <td class="dataCell">       
+                                        <apex:outputField value="{!businessLabusinessLandscapeWrapperService.servicio.OtherInformation__c}" >
+                                            <apex:inlineEditSupport rendered="{!canEdit}" event="ondblclick"/>
+                                        </apex:outputField>
+                                    </td>                       
+                                </tr>                       
+                            </apex:repeat>
+                            
+                        </apex:repeat>
+                    </table>
+                    
+                </apex:outputPanel>
+                
+            </apex:form>
+            <c:FastTask page="{!$Label.certa_scp__kpi}" account="{!account.id}"></c:FastTask>
+            <chatter:feed entityId="{!Account.id}" />
+        </apex:outputPanel>
+    </apex:outputPanel>
+</apex:page>

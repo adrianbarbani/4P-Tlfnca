@@ -1,0 +1,718 @@
+<apex:page controller="CuestionarioNodosController" tabStyle="Strategic_Client_Plan__tab" sidebar="false" showHeader="true" docType="html-5.0" action="{!traigoRamasDelNodoOLasGenero}">
+    <c:FourPlanningMenuSuperiorLocal ></c:FourPlanningMenuSuperiorLocal>
+    
+    <style>
+        .initiative input {
+        width: 100%;
+        }
+        
+        .label-link a {
+        color: white;
+        }
+        
+        .inlineEditUndo {
+        display: none;
+        }
+        
+        .inlineEditLockOn:hover {
+        background: rgba(0, 0, 0, 0) url("/img/func_icons/util/lock12.gif") no-repeat scroll right 2px;
+        }
+        .inlineEditWriteOn {
+        background: rgba(0, 0, 0, 0) url("/img/func_icons/util/pencil12.gif") no-repeat scroll right 2px;		    
+        }
+        
+        .pbSubheader h3 {
+        display: inline;
+        margin-left: 5px;
+        font-weight: bold;
+        }
+        
+        .pbSubheader.brandTertiaryBgr.first.tertiaryPalette {
+        background-color: transparent;
+        border-width: 2px 0 0;
+        border-style: solid;
+        color: #27282e;
+        padding: 4px 3px;
+        }
+        
+        .hideListButton.hideShowSection {
+        background: transparent url('/img/alohaSkin/twisty_sprite.png') 0 -11px no-repeat;
+        padding-top: 13px;
+        margin-top: -8px;
+        }
+        
+        .hideShowSection.showListButton {
+        background: transparent url('/img/alohaSkin/twisty_sprite.png') 0 0 no-repeat;
+        padding-top: 13px;
+        margin-top: -8px;
+        }
+        
+        .separator {
+        width: 100%;
+        margin-top: 50px;
+        }
+        
+        #icons-table {
+        width:100%;
+        }
+        
+        #icons-table td {
+        text-align: center;            
+        max-width: 90px;
+        vertical-align: top;
+        padding-top: 5px;
+        border: 0px solid #539fc6;
+        }
+        
+        #icons-table td.selected {
+        border: 2px solid #539fc6;
+        }    
+        
+        .icon-sectors {
+        width: 120px;
+        cursor: pointer;
+        }
+        
+        .hiddenTable {
+        display: none;
+        }
+        
+        .solutionTable th {
+        vertical-align: top ! important;
+        white-space: normal ! important;
+        }
+        
+        .cabeceraDatos {
+        float: left;
+        width: 32%;
+        text-align: center;
+        margin-right:1%;
+        }
+        
+        .cabeceraTitulos{
+        height: 55px;
+        background-color: #337ab7;
+        color: white;
+        vertical-align: middle;
+        line-height: 55px;
+        }
+        
+        .circleBase {
+        border-radius: 50%;
+        behavior: url(PIE.htc); /* remove if you don't care about IE8 */
+        }
+        
+        .type1 {
+        width: 40px;
+        height: 40px;
+        border: 1.5px solid #337ab7;
+        }
+        
+        .NotUsed{
+        background-color: #FF2D2D ! important;
+        }
+        
+        .hasPotentialBussiness {
+        background-color: #3796F7 ! important;    
+        }
+        
+        .hasOpportunity {
+        background-color: #128E2C  ! important;        
+        }
+        
+        .vendidoEnElPasado{
+        background-color: orange ! important;
+        }
+        
+        .noAplica{
+        background-color: #808080 ! important;
+        }
+        
+        .hasOpportunityAndPotencial{
+        background: #3796F7 ; 
+        background-color:  #128E2C ! important;
+        }
+        
+        .NotUsedSampleText, .hasPotentialBussinessSampleText, .hasOpportunitySampleText {
+        /*font-weight:bold;  margin:10px*/
+        font-size:14px;
+        }
+        
+        .NotUsedSample, .hasPotentialBussinessSample, .hasOpportunitySample {
+        /*border: 1px solid black;*/    
+        width: 20px;
+        height: 20px;
+        /*line-height: 30px;*/    
+        }
+        
+        .NotUsedSampleText {    
+        color: white ! important;
+        color: #2d839a ! important;
+        }
+        .NotUsedSample {    		    
+        background-color: #FF2D2D ! important;		    
+        }
+        
+        .hasPotentialBussinessSampleText {    
+        color: #1797c0 ! important;
+        color: #2d839a ! important;
+        }
+        .hasPotentialBussinessSample {    		    
+        background-color: #3796F7 ! important;        	
+        }
+        
+        .hasOpportunitySampleText {    
+        color: #FEE ! important;
+        color: #2d839a ! important;
+        } 
+        
+        .hasOpportunitySample {
+        background-color: #128E2C ! important;       	
+        }
+   
+        .selected{
+        text-decoration: underline !important;
+        font-size: 17px !important;
+        color: black !important;
+        }
+        
+        .nomostrar{
+        }
+    </style>
+    
+    <script  type="text/javascript">
+    $j = jq213;
+    
+    $j(document).ready(function() {
+        $j(".PopupHolderOpp").mouseenter(function(event){
+            if ($j(this).children(".lookupHoverDetail").css("display") == "none") {
+                $j(this).children(".lookupHoverDetail").css("top", event.clientY + 'px');
+                $j(this).children(".lookupHoverDetail").css("left",(event.clientX - 360) + 'px');
+                $j(this).children(".lookupHoverDetail").css("position","fixed");    		
+                $j(this).children(".lookupHoverDetail").show();            	
+            }
+        });
+        
+        $j(window).bind('beforeunload', function(){
+            return 'saksdk';
+        });
+		
+        mostrarPartes();
+        
+        $j(".icon-sectors").click(function(){
+            
+            $j(".icon-sectors").each(function(){
+                var parent = $j(this).parent();
+                var div = $j("."+parent.attr("id"));
+                parent.removeClass('selected');
+                div.fadeOut();
+            });
+            
+            var parent = $j(this).parent();
+            var div = $j("."+parent.attr("id"));
+            if (div.css("display") == "block") {
+                div.fadeOut();
+                parent.removeClass('selected');
+            } else {
+                div.fadeIn();
+                parent.addClass('selected');
+            }
+        });
+        
+        $j(".PopupHolderOpp").mouseleave(function(){
+            $j(this).children(".lookupHoverDetail").hide();
+        });
+        
+        $j(".showMore").click(function(){
+            var gparent = $j(this).parent().parent();
+            $j(".lessSpan", gparent).fadeOut(function(){
+                $j(".moreSpan", gparent).fadeIn();
+            });            	 
+        });
+        $j(".showLess").click(function(){
+            var gparent = $j(this).parent().parent();
+            $j(".moreSpan", gparent).fadeOut(function(){
+                $j(".lessSpan", gparent).fadeIn();
+            });            	 
+        });
+        
+        console.log("." +"sector-"+GetURLParameter("section"));
+		$j("." +"sector-"+GetURLParameter("section")).click();
+    });
+    
+        function GetURLParameter(sParam) {
+        
+        var sPageURL = window.location.search.substring(1);
+        var sURLVariables = sPageURL.split('&');
+        
+        for (var i = 0; i < sURLVariables.length; i++) {
+            var sParameterName = sURLVariables[i].split('=');
+            if (sParameterName[0] == sParam) {
+                return sParameterName[1];
+            }
+        }
+    }
+    
+    function ajaxshow(){
+        $j(".ajaxloader").show();
+    }    
+    function ajaxstop(){
+        $j(".ajaxloader").hide();
+    }
+    
+    function showInput(){}
+    
+    function fillInitiative() {
+        $j("#spanIniciative input").val($j("#textIniciative").val());
+        $j("#textIniciative").val("");
+    }
+    
+    function mostrarPartes(){
+        
+        console.log('mostrarPartes');
+        
+		console.log(picklist);
+        
+        $j(".bloquePrincipal").each(function() {
+			mostrarBloques($j(this).attr('id'));
+        });
+        
+    }
+    
+    function mostrarSiONo(id, div){
+
+        
+        var picklist = $j("."+id);
+        
+        console.log(picklist.val());
+        console.log($j("#"+id+'si'));
+        console.log($j("#"+id+'no'));
+        
+        var padre = picklist.parent();
+        console.log(picklist.parent());
+        console.log(picklist.val());
+        
+        if(picklist.val() == 'Si'){
+            $j("#"+id+'no').fadeOut();
+            $j("."+id+'inputno').removeClass('visible');
+            
+            $j("."+id+'inputsi').addClass('visible');
+            $j("#"+id+'si').fadeIn();
+            //$j('.nomostrar'+padre.attr('id')).fadeIn();
+        }
+        if(picklist.val() == 'No'){
+            
+            $j("#"+id+'si').fadeOut();
+            $j("."+id+'inputsi').removeClass('visible');
+            
+            $j("."+id+'inputno').addClass('visible');
+            $j("#"+id+'no').fadeIn();
+            //$j('.nomostrar'+padre.attr('id')).fadeIn();
+        }
+        /*
+        if(picklist.val() == ''){
+            
+            $j('.nomostrar'+padre.attr('id')).fadeOut();
+        }*/
+
+    }
+    
+    function mostrarBloques(nodoId){
+        
+        console.log('mostrarBloques');
+        var seVe = true;
+        
+        console.log($j('.seMuestra'+nodoId));
+        
+        //para que se vean los otros bloques todas las preguntas deben responderse que si.
+        $j('.seMuestra'+nodoId).each(function(index, value){
+            
+            console.log('------');
+            console.log($j(this).hasClass('visible'));
+            console.log($j(this).val());
+            console.log('------');
+            
+            if ($j(this).hasClass('visible')) {
+                if($j(this).val() == ''){
+                    seVe = false;
+                }
+            }
+        });
+        
+        //cualquier pregunta principal, que se responde como no, no deja ver los otros bloques.
+        $j('.preguntaPrincipal'+nodoId).each(function(index, value){
+            if($j(this).val() == 'No'){
+                seVe = false;
+            }
+        });
+        
+        console.log(seVe);
+        
+        if(seVe){
+            $j('.nomostrar'+nodoId).fadeIn();
+        }else{
+        	$j('.nomostrar'+nodoId).fadeOut();
+        }
+    }
+    
+    function cambiarColor(id){
+        
+        var picklist = $j("."+id);
+        
+        console.log(picklist.val());
+        
+        if(picklist.val() == 'Oportunidades Ganadas'){
+            $j("#"+id).css('background-color','#337ab7');
+        }
+        
+        if(picklist.val() == 'Oportunidades en Funnel'){
+            $j("#"+id).css('background-color','green');
+        }
+        
+        if(picklist.val() == 'Lineas de trabajo Priorizadas'){
+            $j("#"+id).css('background-color','#ddd301');
+        }
+        if(picklist.val() == 'Lineas a Explorar'){
+            $j("#"+id).css('background-color','orange');
+        }
+        if(picklist.val() == 'Lineas que no Aplican en el Cliente'){
+            $j("#"+id).css('background-color','grey');
+        }
+        if(picklist.val() == ''){
+            $j("#"+id).css('background-color','#a6cbf7');
+        }
+    }
+    </script>
+    
+    <apex:outputpanel styleClass="container-fluid bootstrap-sf1" id="pageContent" style="background-color:white">
+        <apex:outputPanel layout="block"  styleClass="panel panel-default" style="box-shadow: 0 0px 1px rgba(0,0,0,.05);">
+            <apex:form id="Form">
+                <apex:actionFunction action="{!guardar}" name="SaveChanges" reRender="Principal" />
+                <apex:actionFunction action="{!irAMapaDeLaCuenta}" name="irAMapaDeLaCuenta"/>
+                <apex:actionFunction action="{!irAMenu}" name="irAMenu"/>
+                <apex:outputPanel layout="block"  styleClass="panel-heading">
+                    <h2 class="panel-title">
+                        <span style="float:left;">
+                            Necesidad: {!nodoCentral.name}
+                            <p>
+                                <i style="font-size: 13px;"><u>Pais</u>: {!nodoCentral.Super_Ball_Arbol__r.Pais__c}  <u>Sector</u>: {!nodoCentral.Super_Ball_Arbol__r.Sector__c}</i>
+                            </p>
+                        </span>
+                        
+                        <span style="float:left;">
+                            
+                        </span>
+                    </h2>
+                    <div class="row paddingRight">
+                        <div class="btn-group pull-right" role="group" aria-label="...">
+                            <button type="button" class="btn btn-default btn-sm" onclick="irAMenu()">
+                                <span class="glyphicon glyphicon-home icon-btn-left"></span>&nbsp;Menu
+                            </button>
+                            <button type="button" class="btn btn-default btn-sm" onclick="irAMapaDeLaCuenta()">
+                                <span class="glyphicon glyphicon-tasks icon-btn-left"></span>&nbsp;Mapa de la Cuenta
+                            </button> 
+                            <button type="button" class="btn btn-default btn-sm" onclick="SaveChanges()">
+                                <span class="glyphicon glyphicon-floppy-disk icon-btn-left"></span>&nbsp;{!$Label.save}
+                            </button>
+                        </div>
+                    </div>
+                </apex:outputPanel>
+				
+                <table style="background-color: #f7f7f7;    
+                              width: 100%">
+                    <tr>
+                        <td style="width:170px">
+                            <div style="background-color: white;
+                                        width: 90px;
+                                        margin-top: 15px;
+                                        margin-left: 80px;
+                                        margin-bottom: 20px;
+                                        background: url('{!URLFOR($Resource.IconoGobierno)}') no-repeat center;
+                                        background-size: contain;
+                                        height: 90px;
+                                        background-color: #89c059;
+                                        border-radius: 25px;">
+                                <!--<apex:image style="height:150px;" url="{!URLFOR($Resource.IconoGobierno)}"/>-->
+                            </div>
+                        </td>
+                        <td>
+                            <div style="margin-left: 5%;">
+                                <div style="width: 80%;">
+                                    <p style="color: rgba(42, 148, 214, 0.84);
+                                              font-size: 13px;
+                                              font-weight: 900;">
+                                        NECESIDAD
+                                    </p>
+                                    <p style="color: rgba(0, 0, 0, 0.78);
+                                              font-size: 27px;
+                                              font-weight: 900;">
+                                        {!nodoCentral.Super_Ball_Arbol__r.name}
+                                    </p>
+                                </div>
+                            </div>
+                        </td>
+                        
+                        <!-- nueva disposicion -->
+                        <td>
+                            <ul class="tree">
+                                <li>
+                                    <b style="font-size: 19px;"><u><i>{!nodoCentral.name}</i></u></b>&nbsp;
+                                </li>
+                                <ul>  
+                                    <apex:repeat value="{!TodosLosNodos}" var="nodo">
+                                        <li>
+                                            <b id="hidden-{!nodo.id}">
+                                                <b class="icon-sectors sector-{!nodo.id}">{!nodo.name}</b>
+                                                
+                                            </b>
+                                        </li>
+                                    </apex:repeat>
+                                </ul>
+                            </ul>
+                        </td>
+                        
+                    </tr>
+                </table>
+                
+                <br/>
+
+                <!--
+                <ul class="tree">
+                    <li>
+                        <b style="font-size: 19px;"><u><i>{!nodoCentral.name}</i></u></b>&nbsp;
+                    </li>
+                    <ul>
+                        
+                        <li>
+                            <apex:repeat value="{!TodosLosNodos}" var="nodo">
+                                <b id="hidden-{!nodo.id}">
+                                    &nbsp;<b class="icon-sectors sector-{!nodo.id}">{!nodo.name}&nbsp;&nbsp; <apex:outputText rendered="{!!(nodo = TodosLosNodos[TodosLosNodos.size-1])}">-</apex:outputText></b>
+                                </b>
+                            </apex:repeat>
+                        </li>
+                    </ul>
+                </ul>
+				-->
+                <br/><br/>
+                
+                
+                
+                <apex:repeat id="Principal" value="{!TodosLosNodos}" var="nodo">
+                    <div id ="{!nodo.id}" class = "bloquePrincipal hiddenTable hidden-{!nodo.id}">
+						
+						<!-- Paso 1 -->                        
+                        <div class="cabeceraDatos">
+                            <!--<div>
+                                <i><b style="font-size: 19px;">Paso 1</b></i>
+                            </div>-->
+                            <div class="cabeceraTitulos">
+                                <p>
+                                    ¿QUÉ DEBO CONOCER?
+                                </p>
+                            </div>
+                            <div>
+                                <br/>
+                                <apex:repeat value="{!nodo.SB_Cuenta_Preguntas__r}" var="pregunta">
+                                    <p style="color: rgba(22, 60, 93, 0.83);
+                                              font-size: 13px;
+                                              font-weight: 900;
+                                              width: 80%;
+                                              float:left;
+                                              ">
+                                        {!pregunta.Pregunta__c}
+                                    </p>
+                                    <p id="{!nodo.Id}" style="width:20%;
+                                              float:right;">
+                                        <apex:inputField styleClass="{!pregunta.id} seMuestra{!nodo.id} visible preguntasDe{!nodo.id} respuestaPreguntaPrincipal preguntaPrincipal{!nodo.id}" value="{!pregunta.Respuesta__c}" style="width: 100%;" onchange="mostrarSiONo('{!pregunta.id}');mostrarBloques('{!nodo.id}')" >
+                                        </apex:inputField> 
+                                    </p>
+                                    
+                                    <apex:outputPanel rendered="{!pregunta.dependenciaSi__c != null}">
+                                        
+                                        <div id="{!pregunta.id}si" style="{!IF(pregunta.Respuesta__c = 'Si', '' , 'display:none;')}">
+                                            
+                                            <p style="color: rgba(22, 60, 93, 0.83);
+                                                      font-size: 13px;
+                                                      font-weight: 900;
+                                                      width: 80%;
+                                                      float:left;">
+                                                {!pregunta.DependenciaSi__r.Pregunta__c}
+                                            </p>
+                                            <p style="width:20%;
+                                                      float:right;">
+                                                <apex:inputField styleClass="seMuestra{!nodo.id} {!IF(pregunta.Respuesta__c = 'Si', 'visible' , '')} {!pregunta.id}inputsi" onchange="mostrarBloques('{!nodo.id}');" value="{!pregunta.DependenciaSi__r.Respuesta__c}" style="width: 100%;"/> 
+                                            </p>
+                                            
+                                        </div>
+                                        
+                                    </apex:outputPanel>
+                                    
+                                    <apex:outputPanel rendered="{!pregunta.DependenciaNo__c != null}">
+                                        
+                                        <div id="{!pregunta.id}no" style="{!IF(pregunta.Respuesta__c = 'No', '' , 'display:none;')}">
+                                            
+                                            <p style="color: rgba(22, 60, 93, 0.83);
+                                                      font-size: 13px;
+                                                      font-weight: 900;
+                                                      width: 80%;
+                                                      float:left;">
+                                                {!pregunta.DependenciaNo__r.Pregunta__c}
+                                            </p>
+                                            <p style="width:20%;
+                                                      float:right;">
+                                                <apex:inputField styleClass="seMuestra{!nodo.id} {!IF(pregunta.Respuesta__c = 'No', 'visible' , '')} {!pregunta.id}inputno" onchange="mostrarBloques('{!nodo.id}');" value="{!pregunta.DependenciaNo__r.Respuesta__c}" style="width: 100%;"/> 
+                                            </p>
+                                            
+                                        </div>
+                                        
+                                    </apex:outputPanel>
+                                    
+                                    
+                                </apex:repeat> 
+                            </div>
+                        </div>
+
+                        <!-- Paso 2 -->
+                        <!-- en el div de abajo le saque el nomostrar{!nodo.id} del class-->
+                        <div class="cabeceraDatos }">
+                           <!-- <div>
+                                <i><b style="font-size: 19px;">Paso 2</b></i>
+                            </div>-->
+                            <div class="cabeceraTitulos">
+                                <p>
+                                    ¿QUÉ SOLUCIONES APLICAN?
+                                </p>
+                            </div>
+                            <div>
+                                <br/>
+                                <apex:repeat value="{!nodo.SB_Cuenta_Soluciones__r}" var="solucion">
+                                    <div id="{!solucion.id}" style="width: 100%;
+                                                                    margin-left: 0%;
+                                                                    min-height: 40px;
+                                                                    vertical-align: middle;
+                                                                    line-height: 40px;
+                                                                    color: white;
+                                                                    border: 1px solid #cfd0d2;
+                                                                    background-color:{!IF(solucion.estado__c = 'Oportunidades Ganadas', '#337ab7',IF(solucion.estado__c = 'Oportunidades en Funnel','green',IF(solucion.estado__c = 'Lineas de trabajo Priorizadas','#ddd301',IF(solucion.estado__c = 'Lineas a Explorar','orange',IF(solucion.estado__c = 'Lineas que no Aplican en el Cliente','grey','#a6cbf7')))))}" >
+                                        {!solucion.name}
+                                    </div>
+                                    
+                                    <div>
+                                        <apex:inputField styleClass="{!solucion.id}" value="{!solucion.estado__c}" onchange="cambiarColor('{!solucion.id}')"  style="width:100%"/>
+                                        
+                                    </div>
+                                    <br/>
+                                </apex:repeat> 
+                            </div>
+                        </div>
+                        
+                        <!-- Paso 3
+                        <div class="cabeceraDatos nomostrar{!nodo.id}">
+                          <!--  <div>
+                                <i><b style="font-size: 19px;">Paso 3</b></i>
+                            </div>
+                            <div class="cabeceraTitulos">
+                                <p>
+                                    INTERLOCUTORES DEL CLIENTE
+                                </p>
+                            </div>
+                            <div>
+                                <br/>
+                                <apex:repeat value="{!nodo.SB_Cuenta_Interlocutores__r}" var="interlocutor">
+                                    
+                                    <div class="circleBase type1" style="background: url('{!URLFOR($Resource.IconoUsuario)}') no-repeat left center;background-size: contain; float:left"></div>
+                                    
+                                    <div style="width: 80%;
+                                                margin-left: 20%;
+                                                height: 40px;
+                                                vertical-align: middle;
+                                                line-height: 40px;
+                                                color: rgba(22, 60, 93, 0.83);
+                                                font-size: 13px;
+                                                font-weight: 900;
+                                                border: 1px solid #cfd0d2;">
+                                        {!interlocutor.name}
+                                    </div>
+                                    <br/>
+                                    
+                                    <div style="width: 80%;
+                                                margin-left: 20%;">
+                                        <apex:inputField value="{!interlocutor.Contacto__c}" style="width:93%"/>  
+                                    </div>
+                                    
+                                    
+                                    <br/>
+                                    
+                                </apex:repeat> 
+                            </div>
+                        </div> -->
+                        
+                        <!-- Paso 4 -->
+                         <!-- en el div de abajo le saque el nomostrar{!nodo.id} del class-->
+                        <div class="cabeceraDatos">
+                          <!--  <div>
+                                <i><b style="font-size: 19px;">Paso 4</b></i>
+                            </div>-->
+                            <div class="cabeceraTitulos">
+                                <p>
+                                    RECURSOS
+                                </p>
+                            </div>
+                            <div>
+                                <br/>
+                                <apex:repeat value="{!nodo.Super_Ball_Recursos__r}" var="recurso">
+                                    <div class="circleBase type1" style="background: url('{!URLFOR($Resource.IconoArchivo)}') no-repeat left center;background-size: contain; float:left"></div>
+                                    <div style="width: 80%;
+                                                margin-left: 20%;
+                                                height: 40px;
+                                                vertical-align: middle;
+                                                line-height: 40px;
+                                                color: white;
+                                                border: 1px solid #cfd0d2;">
+                                        <apex:outputLink target="_blank" value="{!recurso.Link__c}">{!recurso.name}</apex:outputLink>  
+                                    </div>
+                                    <br/>
+                                    
+                                </apex:repeat> 
+                            </div>
+                        </div>
+                        
+                        <br/><br/><br/>
+                        <table style="width:100%;">
+                            <tr>
+                                <td style="width:20%;
+                                           text-align:center;">
+                                    <span class="hasPotentialBussiness" style="margin-left:0px;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
+                                    <span class="hasPotentialBussinessSampleText">{!$Label.Oportunidades_Ganadas}&nbsp;&nbsp;</span><br/>               
+                                </td>
+                                <td style="width:20%;
+                                           text-align:center;">
+                                    <span class="hasOpportunity" style="margin-left:0px;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
+                                    <span class="hasOpportunitySampleText">{!$Label.Oportunidades_En_Funnel}.&nbsp;&nbsp;</span><br/>             
+                                </td>
+                                <td style="width:20%;
+                                           text-align:center;">
+                                    <span class="" style="margin-left:0px;background-color:#ddd301">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
+                                    <span class="hasOpportunitySampleText">{!$Label.Lineas_De_Trabajo_Priorizadas}.&nbsp;&nbsp;</span><br/>             
+                                </td>
+                                <td style="width:20%;
+                                           text-align:center;">
+                                    <span class="vendidoEnElPasado" style="margin-left:0px;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
+                                    <span class="hasOpportunitySampleText">{!$Label.Lineas_A_Explorar}.&nbsp;&nbsp; </span>             
+                                </td>
+                                <td style="width:20%;
+                                           text-align:center;">
+                                    <span class="noAplica" style="margin-left:0px;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
+                                    <span class="NotUsedSampleText">{!$Label.Lineas_que_no_Aplican_en_el_Cliente}&nbsp;&nbsp;</span><br/>             
+                                </td>
+                                
+                            </tr>  
+                        </table>
+                    </div>
+                </apex:repeat>
+                
+            </apex:form>
+        </apex:outputPanel>
+    </apex:outputpanel>
+    
+</apex:page>

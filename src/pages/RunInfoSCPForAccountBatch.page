@@ -1,0 +1,7 @@
+<apex:page controller="RunInfoSCPForAccountBatchController" showHeader="true" sidebar="true">
+	<apex:pageMessages id="errorMsg"/>
+
+	<apex:form >
+		<apex:commandButton action="{!runBatch}" value="Run Batch"/>
+	</apex:form>		
+</apex:page>

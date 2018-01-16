@@ -1,0 +1,258 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomObjectTranslation xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fields>
+        <label><!-- Campo Inactivo --></label>
+        <name>BIG__c</name>
+    </fields>
+    <fields>
+        <label><!-- Big Deal --></label>
+        <name>BigDeals__c</name>
+    </fields>
+    <fields>
+        <label>Ciclo de Compra</label>
+        <name>Buying_Cycle__c</name>
+        <picklistValues>
+            <masterLabel>Achievements of Results</masterLabel>
+            <translation><!-- Achievements of Results --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Alleviation of Risks</masterLabel>
+            <translation><!-- Alleviation of Risks --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Assessments of Alternatives</masterLabel>
+            <translation><!-- Assessments of Alternatives --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Awareness of Needs</masterLabel>
+            <translation><!-- Awareness of Needs --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Decision</masterLabel>
+            <translation><!-- Decision --></translation>
+        </picklistValues>
+    </fields>
+    <fields>
+        <label><!-- Id. Fiscal Cliente --></label>
+        <name>CIF_Cliente__c</name>
+    </fields>
+    <fields>
+        <help><!-- = S (FCV * win probability) / S Calculated FCV
+Is the probability considered for commercial dashboard and reporting
+Possible Values: Calculated field, depending on the opportunity status and sub status, in %
+Filled in by: Calculated Automatically --></help>
+        <label><!-- Campo Inactivo --></label>
+        <name>Calculated_Win_Probability__c</name>
+    </fields>
+    <fields>
+        <label><!-- Recurrente mensual contrato actual --></label>
+        <name>Cargo_recurrente_anterior__c</name>
+    </fields>
+    <fields>
+        <label><!-- Ciclo ventas --></label>
+        <name>Ciclo_ventas__c</name>
+    </fields>
+    <fields>
+        <label><!-- Duracion proyecto (meses) --></label>
+        <name>Duracion_proyecto_meses__c</name>
+    </fields>
+    <fields>
+        <label><!-- Ingresos Totales primeros 12 meses (pond --></label>
+        <name>Estimaci_n_Ingresos_primeros_12_meses__c</name>
+    </fields>
+    <fields>
+        <label><!-- Inicio Facturación --></label>
+        <name>Estimated_Billing_Start_Date__c</name>
+    </fields>
+    <fields>
+        <help><!-- Adding up the estimated FCV of the sub opportunities win or in progress (not loss or cancelled)
+Is the FCV considered for commercial dashboard and reporting
+Posible Values: Calculated field in €.
+Filled in by: Calculated automatically. --></help>
+        <label><!-- Campo Inactivo --></label>
+        <name>Estimated_FCV_Calculated__c</name>
+    </fields>
+    <fields>
+        <help><!-- The account manager indicates an estimation of the total value of the project.
+Posible Values: Free field in €
+Filled in by: The account manager. --></help>
+        <label><!-- Campo Inactivo --></label>
+        <name>Estimated_FCV__c</name>
+    </fields>
+    <fields>
+        <label><!-- Ingresos Totales año fiscal --></label>
+        <name>Estimated_Year_End_Revenue__c</name>
+    </fields>
+    <fields>
+        <label><!-- Fecha estimada de cierre de contrato --></label>
+        <name>Estimated_end_of_contract__c</name>
+    </fields>
+    <fields>
+        <label><!-- Fecha Fin Plan Comercial --></label>
+        <name>Fecha_Fin_Plan_Comercial__c</name>
+    </fields>
+    <fields>
+        <label><!-- Fecha estimada aceptacion --></label>
+        <name>Fecha_estimada_aceptacion__c</name>
+    </fields>
+    <fields>
+        <label><!-- FourPlanning Reto --></label>
+        <name>FourPlanning_Reto__c</name>
+        <relationshipLabel><!-- Oportunidades --></relationshipLabel>
+    </fields>
+    <fields>
+        <label><!-- Campo Inactivo --></label>
+        <name>Full_Contract_Value__c</name>
+    </fields>
+    <fields>
+        <label><!-- Gestión del Big Deal --></label>
+        <name>Gestion_del_Big_Deal__c</name>
+    </fields>
+    <fields>
+        <label><!-- Ingresos Totales primeros 12 meses --></label>
+        <name>Ingr_Brutos_ponderados_1_s_12_meses__c</name>
+    </fields>
+    <fields>
+        <label><!-- Ingresos Netos año fiscal (pond.) --></label>
+        <name>Ingr_Netos_A_o_fiscal__c</name>
+    </fields>
+    <fields>
+        <label><!-- Ingresos Netos primeros 12 meses --></label>
+        <name>Ingr_netos_Primeros_12_meses__c</name>
+    </fields>
+    <fields>
+        <label><!-- Ingresos Netos primeros 12 meses (pond.) --></label>
+        <name>Ingresos_Netos_PONDERADOS_1_s_12m__c</name>
+    </fields>
+    <fields>
+        <label><!-- Ingresos Netos año fiscal --></label>
+        <name>Ingresos_Netos_a_o_fiscal__c</name>
+    </fields>
+    <fields>
+        <label>Principales competidores</label>
+        <name>MainCompetitors__c</name>
+    </fields>
+    <fields>
+        <label><!-- Manual Big Deal --></label>
+        <name>Manual_Big_Deal__c</name>
+    </fields>
+    <fields>
+        <label><!-- Ingreso recurrente mensual --></label>
+        <name>Monthly_Charges__c</name>
+    </fields>
+    <fields>
+        <label><!-- Nav Certa --></label>
+        <name>Nav_Certa__c</name>
+    </fields>
+    <fields>
+        <label><!-- Notas adicionales --></label>
+        <name>Notas_adicionales__c</name>
+    </fields>
+    <fields>
+        <label><!-- Probabilidad de exito Certa --></label>
+        <name>Probabilidad_de_exito_Certa__c</name>
+        <picklistValues>
+            <masterLabel>0</masterLabel>
+            <translation><!-- 0 --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>10</masterLabel>
+            <translation><!-- 10 --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>100</masterLabel>
+            <translation><!-- 100 --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>25</masterLabel>
+            <translation><!-- 25 --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>50</masterLabel>
+            <translation><!-- 50 --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>75</masterLabel>
+            <translation><!-- 75 --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>95</masterLabel>
+            <translation><!-- 95 --></translation>
+        </picklistValues>
+    </fields>
+    <fields>
+        <help><!-- = Calculated FCV * calculated win probability
+Possible Values: Calculated field in €.
+Filled in by: Calculated automatically. --></help>
+        <label><!-- Campo Inactivo --></label>
+        <name>Total_Forecasted_FCV__c</name>
+    </fields>
+    <fields>
+        <label><!-- Campo Inactivo --></label>
+        <name>TrackingNumber__c</name>
+    </fields>
+    <fields>
+        <label><!-- Ingreso por única vez --></label>
+        <name>Unique_Charges__c</name>
+    </fields>
+    <fields>
+        <label><!-- Valor total del Contrato (FCV) (pond.) --></label>
+        <name>Unsold_Pipeline__c</name>
+    </fields>
+    <fields>
+        <label><!-- Venta Neta --></label>
+        <name>Valor_Total_Contrato_Venta_Neta__c</name>
+    </fields>
+    <fields>
+        <label><!-- Valor total del Contrato (FCV) --></label>
+        <name>Valor_Total_del_Contrato_calculado__c</name>
+    </fields>
+    <fields>
+        <label>Propuesta de Valor</label>
+        <name>Value_Proposition__c</name>
+    </fields>
+    <fields>
+        <label><!-- Venta Neta (pond.) --></label>
+        <name>Venta_Neta_PONDERADA__c</name>
+    </fields>
+    <fields>
+        <label><!-- Ingresos Totales año fiscal (pond.) --></label>
+        <name>Weighted_Estimated_Year_End_Revenue__c</name>
+    </fields>
+    <fields>
+        <label><!-- Duración del contrato (meses) --></label>
+        <name>contract_duration_months__c</name>
+    </fields>
+    <fields>
+        <label><!-- linea de negocio --></label>
+        <name>linea_de_negocio__c</name>
+        <picklistValues>
+            <masterLabel>Convergente</masterLabel>
+            <translation><!-- Convergente --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Digital</masterLabel>
+            <translation><!-- Digital --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Fijo</masterLabel>
+            <translation><!-- Fijo --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Movil</masterLabel>
+            <translation><!-- Movil --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Servicios Internacionales</masterLabel>
+            <translation><!-- Servicios Internacionales --></translation>
+        </picklistValues>
+    </fields>
+    <fields>
+        <label><!-- Snapshot --></label>
+        <name>snapshot__c</name>
+    </fields>
+    <webLinks>
+        <label>Ir a la Ficha</label>
+        <name>Snapshot</name>
+    </webLinks>
+</CustomObjectTranslation>

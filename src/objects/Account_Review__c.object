@@ -1,0 +1,212 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomObject xmlns="http://soap.sforce.com/2006/04/metadata">
+    <actionOverrides>
+        <actionName>Accept</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>CancelEdit</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Clone</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Delete</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Edit</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>List</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>New</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>SaveEdit</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Tab</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>View</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <allowInChatterGroups>false</allowInChatterGroups>
+    <compactLayoutAssignment>SYSTEM</compactLayoutAssignment>
+    <deploymentStatus>Deployed</deploymentStatus>
+    <deprecated>false</deprecated>
+    <enableActivities>true</enableActivities>
+    <enableBulkApi>true</enableBulkApi>
+    <enableFeeds>false</enableFeeds>
+    <enableHistory>false</enableHistory>
+    <enableReports>true</enableReports>
+    <enableSearch>false</enableSearch>
+    <enableSharing>true</enableSharing>
+    <enableStreamingApi>true</enableStreamingApi>
+    <externalSharingModel>ReadWrite</externalSharingModel>
+    <fields>
+        <fullName>Account__c</fullName>
+        <deleteConstraint>SetNull</deleteConstraint>
+        <deprecated>false</deprecated>
+        <externalId>false</externalId>
+        <label>Account</label>
+        <referenceTo>Account</referenceTo>
+        <relationshipLabel>Accounts Reviews</relationshipLabel>
+        <relationshipName>Accounts_Reviews</relationshipName>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Lookup</type>
+    </fields>
+    <fields>
+        <fullName>Customer_Contacts_Description__c</fullName>
+        <deprecated>false</deprecated>
+        <externalId>false</externalId>
+        <label>Customer Contacts Comments</label>
+        <length>500</length>
+        <trackTrending>false</trackTrending>
+        <type>LongTextArea</type>
+        <visibleLines>5</visibleLines>
+    </fields>
+    <fields>
+        <fullName>Customer_Contacts__c</fullName>
+        <deprecated>false</deprecated>
+        <externalId>false</externalId>
+        <inlineHelpText>Are there enough relevant customer contacts with the correct level of authority and influence that are Key Decision Makers included in the Relationship Development Mosaic?   0 : Poor  5: More is needed  20: Good  25: Outstanding Performance</inlineHelpText>
+        <label>Customer Contacts (0~25)</label>
+        <precision>2</precision>
+        <required>false</required>
+        <scale>0</scale>
+        <trackTrending>false</trackTrending>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Engagement_Plan_Description__c</fullName>
+        <deprecated>false</deprecated>
+        <externalId>false</externalId>
+        <label>Engagement Plan Comments</label>
+        <length>500</length>
+        <trackTrending>false</trackTrending>
+        <type>LongTextArea</type>
+        <visibleLines>5</visibleLines>
+    </fields>
+    <fields>
+        <fullName>Engagement_Plan__c</fullName>
+        <deprecated>false</deprecated>
+        <externalId>false</externalId>
+        <inlineHelpText>&quot;Does the Salesperson have the relevant amount of customer meetings, calls and actions planned to develop the account and progress opportunities?   0 : Poor  5: More is needed  20: Good  25: Outstanding Performance&quot;</inlineHelpText>
+        <label>Engagement Plan (0~25)</label>
+        <precision>2</precision>
+        <required>false</required>
+        <scale>0</scale>
+        <trackTrending>false</trackTrending>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Growth_Strategy_Description__c</fullName>
+        <deprecated>false</deprecated>
+        <externalId>false</externalId>
+        <label>Growth Strategy Comments</label>
+        <length>500</length>
+        <trackTrending>false</trackTrending>
+        <type>LongTextArea</type>
+        <visibleLines>5</visibleLines>
+    </fields>
+    <fields>
+        <fullName>Growth_Strategy__c</fullName>
+        <deprecated>false</deprecated>
+        <externalId>false</externalId>
+        <inlineHelpText>Does the Growth Strategy tool contain ideas on how the Salesperson will open up new opportunities/sources of revenues?   0 : Poor  5: More is needed  20: Good  25: Outstanding Performance</inlineHelpText>
+        <label>Growth Strategy (0~25)</label>
+        <precision>2</precision>
+        <required>false</required>
+        <scale>0</scale>
+        <trackTrending>false</trackTrending>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Sales_Revenues_Description__c</fullName>
+        <deprecated>false</deprecated>
+        <externalId>false</externalId>
+        <label>Sales/Revenues Comments</label>
+        <length>500</length>
+        <trackTrending>false</trackTrending>
+        <type>LongTextArea</type>
+        <visibleLines>5</visibleLines>
+    </fields>
+    <fields>
+        <fullName>Seles_Revenues__c</fullName>
+        <deprecated>false</deprecated>
+        <externalId>false</externalId>
+        <inlineHelpText>Does the Salesperson have enough quality opportunities with a high percentage outcome in their pipeline that will their deliver Sales and Revenue in order to achieve their target?   0 : Poor  5: More is needed  20: Good  25: Outstanding Performance</inlineHelpText>
+        <label>Sales/Revenues (0~25)</label>
+        <precision>2</precision>
+        <required>false</required>
+        <scale>0</scale>
+        <trackTrending>false</trackTrending>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Total_Score__c</fullName>
+        <deprecated>false</deprecated>
+        <externalId>false</externalId>
+        <formula>Customer_Contacts__c + Engagement_Plan__c + Growth_Strategy__c +  Seles_Revenues__c</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>Total Score</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>0</scale>
+        <trackTrending>false</trackTrending>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <gender>Masculine</gender>
+    <label>Account Review</label>
+    <nameField>
+        <label>Nombre de Account Review</label>
+        <type>Text</type>
+    </nameField>
+    <pluralLabel>Accounts Reviews</pluralLabel>
+    <searchLayouts/>
+    <sharingModel>ReadWrite</sharingModel>
+    <validationRules>
+        <fullName>Customer_Contacts_Limit</fullName>
+        <active>true</active>
+        <errorConditionFormula>Customer_Contacts__c &gt; 25 || Customer_Contacts__c &lt; 0</errorConditionFormula>
+        <errorDisplayField>Customer_Contacts__c</errorDisplayField>
+        <errorMessage>El valor debe ser mayor que 0 y menor que 25</errorMessage>
+    </validationRules>
+    <validationRules>
+        <fullName>Engagement_Plan_Limit</fullName>
+        <active>true</active>
+        <errorConditionFormula>Engagement_Plan__c &gt; 25 || Engagement_Plan__c &lt; 0</errorConditionFormula>
+        <errorDisplayField>Engagement_Plan__c</errorDisplayField>
+        <errorMessage>El valor debe ser mayor que 0 y menor que 25</errorMessage>
+    </validationRules>
+    <validationRules>
+        <fullName>Growth_Strategy_Limit</fullName>
+        <active>true</active>
+        <errorConditionFormula>Growth_Strategy__c &gt; 25 || Growth_Strategy__c &lt; 0</errorConditionFormula>
+        <errorDisplayField>Growth_Strategy__c</errorDisplayField>
+        <errorMessage>El valor debe ser mayor que 0 y menor que 25</errorMessage>
+    </validationRules>
+    <validationRules>
+        <fullName>Sales_Revenue_Limit</fullName>
+        <active>true</active>
+        <errorConditionFormula>Seles_Revenues__c &gt; 25 || Seles_Revenues__c &lt; 0</errorConditionFormula>
+        <errorDisplayField>Seles_Revenues__c</errorDisplayField>
+        <errorMessage>El valor debe ser mayor que 0 y menor que 25</errorMessage>
+    </validationRules>
+</CustomObject>

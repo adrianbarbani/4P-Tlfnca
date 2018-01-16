@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomObjectTranslation xmlns="http://soap.sforce.com/2006/04/metadata">
+    <caseValues>
+        <plural>false</plural>
+        <value>Super Ball - Recurso</value>
+    </caseValues>
+    <caseValues>
+        <plural>true</plural>
+        <value>Super Ball - Recursos</value>
+    </caseValues>
+    <fields>
+        <label><!-- Link --></label>
+        <name>Link__c</name>
+    </fields>
+    <fields>
+        <label><!-- Super Ball - Nodo --></label>
+        <name>Super_Ball_Nodo__c</name>
+        <relationshipLabel><!-- Super Ball - Recursos --></relationshipLabel>
+    </fields>
+    <gender>Masculine</gender>
+</CustomObjectTranslation>

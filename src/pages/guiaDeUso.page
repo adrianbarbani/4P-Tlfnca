@@ -1,0 +1,5 @@
+<apex:page >
+<script>
+    window.open('{!$Resource.guiaDeUso}', '_parent');
+</script>
+</apex:page>

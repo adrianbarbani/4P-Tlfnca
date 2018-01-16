@@ -1,0 +1,233 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomObjectTranslation xmlns="http://soap.sforce.com/2006/04/metadata">
+    <caseValues>
+        <plural>false</plural>
+        <value>FourPlanning Reto</value>
+    </caseValues>
+    <caseValues>
+        <plural>true</plural>
+        <value>FourPlanning Retos</value>
+    </caseValues>
+    <fields>
+        <label><!-- CategoriaRetoGestion --></label>
+        <name>CategoriaRetoGestion__c</name>
+        <picklistValues>
+            <masterLabel>Cierre de oportunidades en curso</masterLabel>
+            <translation><!-- Cierre de oportunidades en curso --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Crecimiento en el cliente</masterLabel>
+            <translation><!-- Crecimiento en el cliente --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Implantación y Despliegue de proyectos</masterLabel>
+            <translation><!-- Implantación y Despliegue de proyectos --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Mejorar conocimiento del cliente</masterLabel>
+            <translation><!-- Mejorar conocimiento del cliente --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Mejorar relacionamiento</masterLabel>
+            <translation><!-- Mejorar relacionamiento --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Otro</masterLabel>
+            <translation><!-- Otro --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Reducción de costes</masterLabel>
+            <translation><!-- Reducción de costes --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Resolver problemas de facturación</masterLabel>
+            <translation><!-- Resolver problemas de facturación --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Ser partners tecnológicos</masterLabel>
+            <translation><!-- Ser partners tecnológicos --></translation>
+        </picklistValues>
+    </fields>
+    <fields>
+        <label><!-- Competidor --></label>
+        <name>Competidor__c</name>
+    </fields>
+    <fields>
+        <label><!-- Contactos del Cliente --></label>
+        <name>Contactos_del_Cliente__c</name>
+        <picklistValues>
+            <masterLabel>CEO</masterLabel>
+            <translation><!-- CEO --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>CFO</masterLabel>
+            <translation><!-- CFO --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>CIO</masterLabel>
+            <translation><!-- CIO --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>CISO</masterLabel>
+            <translation><!-- CISO --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>CTO</masterLabel>
+            <translation><!-- CTO --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Director de Compras</masterLabel>
+            <translation><!-- Director de Compras --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Director de Negocio</masterLabel>
+            <translation><!-- Director de Negocio --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Director de RRHH</masterLabel>
+            <translation><!-- Director de RRHH --></translation>
+        </picklistValues>
+    </fields>
+    <fields>
+        <label><!-- No se usa --></label>
+        <name>Estado_de_la_solucion__c</name>
+        <picklistValues>
+            <masterLabel>Disponible</masterLabel>
+            <translation><!-- Disponible --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>En Desarrollo</masterLabel>
+            <translation><!-- En Desarrollo --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>No Disponible</masterLabel>
+            <translation><!-- No Disponible --></translation>
+        </picklistValues>
+    </fields>
+    <fields>
+        <label><!-- Etapa del Reto --></label>
+        <name>Etapa_del_Reto__c</name>
+        <picklistValues>
+            <masterLabel>Compras</masterLabel>
+            <translation><!-- Compras --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Diseño</masterLabel>
+            <translation><!-- Diseño --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Implementación</masterLabel>
+            <translation><!-- Implementación --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Prospección</masterLabel>
+            <translation><!-- Prospección --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>RFI</masterLabel>
+            <translation><!-- RFI --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>RFP</masterLabel>
+            <translation><!-- RFP --></translation>
+        </picklistValues>
+    </fields>
+    <fields>
+        <label><!-- Fecha Compromiso --></label>
+        <name>Fecha_Compromiso__c</name>
+    </fields>
+    <fields>
+        <label><!-- Fecha ayuda ventas --></label>
+        <name>Fecha_ayuda_ventas__c</name>
+    </fields>
+    <fields>
+        <label><!-- FourPlanning Area --></label>
+        <name>FourPlanning_Area__c</name>
+        <relationshipLabel><!-- FourPlanning Retos --></relationshipLabel>
+    </fields>
+    <fields>
+        <label><!-- Nivel de relación contacto --></label>
+        <name>Nivel_de_relaci_n_contacto__c</name>
+        <picklistValues>
+            <masterLabel>Buena</masterLabel>
+            <translation><!-- Buena --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Mala</masterLabel>
+            <translation><!-- Mala --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Regular</masterLabel>
+            <translation><!-- Regular --></translation>
+        </picklistValues>
+    </fields>
+    <fields>
+        <label><!-- Nombre del Reto --></label>
+        <name>Nombre_del_Reto__c</name>
+    </fields>
+    <fields>
+        <label><!-- Comentarios --></label>
+        <name>Nota__c</name>
+    </fields>
+    <fields>
+        <label><!-- Observacion solucion elejida --></label>
+        <name>Observacion_solucion_elejida__c</name>
+    </fields>
+    <fields>
+        <label><!-- Otro Contacto --></label>
+        <name>Otro_Contacto__c</name>
+    </fields>
+    <fields>
+        <label><!-- Otros contactos del cliente --></label>
+        <name>Otros_contactos_del_cliente__c</name>
+    </fields>
+    <fields>
+        <label><!-- Pidio ayuda a ventas --></label>
+        <name>Pidio_ayuda_a_ventas__c</name>
+    </fields>
+    <fields>
+        <label><!-- No se usa --></label>
+        <name>Productos_a_Desarrollar_Vender__c</name>
+        <picklistValues>
+            <masterLabel>Conectividad</masterLabel>
+            <translation><!-- Conectividad --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Digital WorkPlace (Puesto de Trabajo Digital)</masterLabel>
+            <translation><!-- Digital WorkPlace (Puesto de Trabajo Digital) --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Internet de las Cosas/Control de Objetos</masterLabel>
+            <translation><!-- Internet de las Cosas/Control de Objetos --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Movilidad</masterLabel>
+            <translation><!-- Movilidad --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Omnicanalidad</masterLabel>
+            <translation><!-- Omnicanalidad --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Virtualización y Computación en modo Opex</masterLabel>
+            <translation><!-- Virtualización y Computación en modo Opex --></translation>
+        </picklistValues>
+    </fields>
+    <fields>
+        <label><!-- Tipo de Reto --></label>
+        <name>Tipo_de_Reto__c</name>
+        <picklistValues>
+            <masterLabel>Gestión</masterLabel>
+            <translation><!-- Gestión --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Negocio</masterLabel>
+            <translation><!-- Negocio --></translation>
+        </picklistValues>
+    </fields>
+    <fields>
+        <label><!-- Web Competidor --></label>
+        <name>Web_Competidor__c</name>
+    </fields>
+    <gender>Masculine</gender>
+</CustomObjectTranslation>

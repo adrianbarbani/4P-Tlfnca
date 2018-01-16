@@ -1,0 +1,360 @@
+<apex:page controller="administracionBackShopController" sidebar="false" tabStyle="Strategic_Client_Plan__tab">
+    
+    <c:SCPMenu ></c:SCPMenu>
+    
+    <style>
+        
+        .modal-body{
+        height: 320px;
+        overflow-y: auto;
+        }
+        
+        .ScrollingDiv{
+        overflow-y:auto;
+        overflow-x:auto;
+        //max-height:300px;
+        //max-width: 1000px;
+        }
+    </style>
+    
+    <script  type="text/javascript">
+    
+    $j = jQuery.noConflict();
+    
+    function ajaxshow(){
+        $j(".ajaxloader").show();
+    }    
+    
+    function ajaxstop(){
+        $j(".ajaxloader").hide();
+    }
+    function showInput(){}
+    
+    function resetCamposCuenta(){
+        
+        
+        $j('.resetCuenta').each(function() {
+            $j(this).val("");    
+        });
+    
+     }
+    
+    </script>
+    
+    <apex:outputpanel styleClass="container-fluid bootstrap-sf1" id="pageContent">
+        <apex:form >
+            
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    <h2 class="panel-title">
+                        <span style="float:left;">
+                            {!$Label.Administration_Trends} 4You
+                        </span>
+                        <span style="float:left;">
+                        </span>
+                    </h2>
+                    <div class="row paddingRight">
+                        <div class="btn-group pull-right" role="group" aria-label="...">    					
+                            <button type="button" class="btn btn-default btn-sm" data-toggle="modal" data-target="#myModal">
+                                <span class="glyphicon glyphicon-plus icon-btn-left"></span>&nbsp;{!$Label.Add_Share}
+                            </button>
+                        </div>
+                    </div>
+                </div>
+                
+                <apex:outputPanel id="tablaContenido">
+                    <div class="panel-body">                
+
+
+                            <table class="table table-striped table-bordered table-condensed">
+                                <thead>
+                                    <tr>
+                                        <th >
+                                        </th>
+                                        <th >
+                                            {!$Label.titulo}
+                                        </th>
+                                        <th >
+                                            {!$Label.Sector}
+                                        </th>
+                                        <th >
+                                            {!$Label.Subsector}
+                                        </th>
+                                        <th >
+                                            {!$Label.Region}
+                                        </th>
+                                        <th>
+                                            {!$Label.Otras_Condiciones}
+                                        </th>
+                                        <th >
+                                            {!$Label.Description}
+                                        </th>
+                                        <th >
+                                            Link
+                                        </th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <apex:repeat value="{!eventosBackShop}" var="evento" id="Content">
+                                        <tr>
+                                            <td>
+                                                <apex:commandButton styleClass="btn btn-default btn-sm" action="{!borrarEvento}" value="{!$Label.certa_scp__delete}" reRender="tablaContenido">
+                                                    <apex:param name="IdtoDelete" value="{!evento.Id}" assignTo="{!idABorrar}"/>
+                                                </apex:commandButton>                                           
+                                            </td>
+                                            <td>
+                                                <apex:outputField value="{!evento.name}" />
+                                                <apex:outputText rendered="{!evento.FiltroCuenta__c != null}">
+                                                    <p>
+                                                    &nbsp;(<apex:outputField value="{!evento.FiltroCuenta__c} " />)
+                                                    </p> 
+                                                </apex:outputText>
+                                            </td>
+                                            <td>
+                                                <apex:outputField value="{!evento.Sector__c}" />
+                                            </td>
+                                            <td>
+                                                <apex:outputField value="{!evento.Sub_sector__c}" />
+                                            </td>
+                                            <td>
+                                                <apex:outputField value="{!evento.Region__c}" />
+                                            </td>
+                                            <td>
+                                                <apex:outputText rendered="{!evento.FiltroCuenta__c != null}">
+                                                    <p>
+                                                        - Evento para cuenta:&nbsp; <apex:outputField value="{!evento.FiltroCuenta__c} " />
+                                                    </p> 
+                                                </apex:outputText>
+                                                
+                                                <apex:outputText rendered="{!evento.Ingresos_anuales_del_cliente__c != null}">
+                                                    <p>
+                                                        - {!$Label.certa_scp__ingresos_anuales_cliente}:&nbsp; <apex:outputField value="{!evento.Ingresos_anuales_del_cliente_condicion__c} " /><apex:outputField value="{!evento.Ingresos_anuales_del_cliente__c}" />
+                                                    </p> 
+                                                </apex:outputText>
+                                                
+                                                <apex:outputText rendered="{!evento.cantidad_de_empleados__c != null}">
+                                                    <p>
+                                                        - {!$Label.certa_scp__cantidad_de_empleados}:&nbsp; <apex:outputField value="{!evento.cantidad_de_empleados_condicion__c} " /><apex:outputField value="{!evento.cantidad_de_empleados__c}" />    
+                                                    </p>
+                                                </apex:outputText>
+                                                
+                                                <apex:outputText rendered="{!evento.Cantidad_de_edificios__c != null}">
+                                                    <p>
+                                                        - {!$Label.certa_scp__cantidad_de_edificios}:&nbsp; <apex:outputField value="{!evento.Cantidad_de_edificios_condicion__c} " /><apex:outputField value="{!evento.Cantidad_de_edificios__c}" />  
+                                                    </p>
+                                                </apex:outputText>
+                                                
+                                                <apex:outputText rendered="{!evento.Indica_la_cantidad_de_sucursales__c != null}">
+                                                    <p>
+                                                        - {!$Label.certa_scp__cantidad_de_sucursales}:&nbsp; <apex:outputField value="{!evento.Indica_la_cantidad_de_sucursales_cond__c} " /><apex:outputField value="{!evento.Indica_la_cantidad_de_sucursales__c}" />    
+                                                    </p>
+                                                </apex:outputText>
+                                                
+                                                <apex:outputText rendered="{!evento.ispone_de_parque_automotor__c != null}">
+                                                    <p>
+                                                        - {!$Label.certa_scp__dispone_de_parque_automotor}:&nbsp; <apex:outputField value="{!evento.ispone_de_parque_automotor__c} " />   
+                                                    </p>
+                                                </apex:outputText>
+                                                
+                                                <apex:outputText rendered="{!evento.cuantos_veh_culos_dispone_el_parque_cond__c != null}">
+                                                    <p>
+                                                        - {!$Label.certa_scp__cantidad_vehiculos_parque}:&nbsp; <apex:outputField value="{!evento.cuantos_veh_culos_dispone_el_parque_cond__c} " /><apex:outputField value="{!evento.cuantos_veh_culos_dispone_el_parque__c}" />     
+                                                    </p>
+                                                </apex:outputText>
+                                            </td>
+                                            <td>
+                                                <apex:outputField value="{!evento.Descripcion__c}" />
+                                            </td>
+                                            <td>
+                                                <apex:outputField value="{!evento.Link__c}" />
+                                            </td>
+                                        </tr>
+                                    </apex:repeat>
+                                </tbody>
+                            </table>
+                            
+
+                            
+                        <apex:actionFunction action="{!renderizarPagina}" name="renderizarPagina" reRender="tablaContenido"/>
+                        
+                    </div>
+                </apex:outputPanel>
+                <div class="panel-footer">
+                    <div class="row paddingRight">
+                        <div class="btn-group pull-right" role="group" aria-label="...">    					
+                            <button type="button" class="btn btn-default btn-sm" data-toggle="modal" data-target="#myModal">
+                                <span class="glyphicon glyphicon-plus icon-btn-left"></span>&nbsp;{!$Label.Add_Share}
+                            </button>
+                        </div>
+                    </div>
+                </div> 
+            </div>
+            
+            <!-- Modal -->
+            
+            <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+                <div class="modal-dialog" style="z-index:9999;">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                            <h4 class="modal-title" id="myModalLabel">{!$Label.Add_Share}</h4>
+                        </div>
+                        <div class="modal-body">
+                            <table style="border-collapse: separate;border-spacing: 5px;">
+                                <tr>
+                                    <td style="text-align: right;">
+                                        <apex:outputText value="{!$Label.certa_scp__titulo}:" />
+                                    </td>
+                                    <td>
+                                        <apex:inputField style="width: 100%;" value="{!eventoAInsertar.name}" />
+                                    </td>
+                                </tr>
+                                
+                                <tr>
+                                    <td style="text-align: right;">
+                                        <apex:outputText value="Cuentas:" />
+                                    </td>
+                                    <td>
+                                        <apex:inputField styleClass="resetCuenta" style="width: 100%;" value="{!eventoAInsertar.FiltroCuenta__c}" />
+                                    </td>
+                                    <td>
+                                        <apex:commandButton action="{!agregoCuenta}" style="margin-left: 30%;" styleClass="btn btn-default btn-sm" value="{!$Label.certa_scp__add}" oncomplete="resetCamposCuenta()" reRender="tabla" />
+                                    </td>
+                                </tr>
+                                
+                                 
+                                  <tr>
+                                    <td>   
+                                        <apex:outputPanel id="tabla" >
+                                            <table style="margin-left: 102%; width:97%;" class="table table-striped table-bordered table-condensed" rendered="{!cuentasWpp.size > 0}"> 
+                                                <tbody >
+                                                    <apex:repeat value="{!cuentasWpp}" var="cuenta" rows="900"  >  
+                                                        <tr>
+                                                            <td  >
+                                                                {!cuenta.nombre} &nbsp; &nbsp;
+                                                                
+                                                                <apex:commandButton style="float:right;" styleClass="btn btn-default btn-sm" action="{!borrarCuentaDeLista}" value="X" reRender="tabla" >
+                                                                    
+                                                                    <apex:param assignTo="{!CuentaABorrarNombre}" name="CuentaDesvincular" value="{!cuenta.nombre}"/>
+                                                                    
+                                                                </apex:commandButton>
+                                                                
+                                                                
+                                                            </td>
+                                                           <!-- <td style="text-align: center;">
+                                                                <apex:inputCheckBox value="{!usr.seleccionado}" />                                                            
+                                                            </td>-->
+                                                        </tr>
+                                                    </apex:repeat>
+                                                </tbody>
+                                            </table>  
+                                        </apex:outputPanel> 
+                                    </td></tr>
+                                 
+                                
+                                
+                                
+                                
+                                
+                                <tr>
+                                    <td style="text-align: right;">
+                                        <apex:outputText value="{!$Label.certa_scp__sector}:" />
+                                    </td>
+                                    <td>
+                                        <apex:inputField style="width: 100%;" value="{!eventoAInsertar.Sector__c}" />
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td style="text-align: right;">
+                                        <apex:outputText value="{!$Label.certa_scp__subsector}:" />
+                                    </td>
+                                    <td>
+                                        <apex:inputField style="width: 100%;" value="{!eventoAInsertar.Sub_sector__c}" />
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td style="text-align: right;">
+                                        <apex:outputText value="{!$Label.certa_scp__region}:" />
+                                    </td>
+                                    <td>
+                                       <apex:inputField style="width: 100%;" value="{!eventoAInsertar.Region__c}" />
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td style="text-align: right;">
+                                        <apex:outputText value="{!$Label.certa_scp__ingresos_anuales_cliente}:" />
+                                    </td>
+                                    <td>
+                                        <apex:inputField style="float:left; width:20%; margin-top: 1%;" value="{!eventoAInsertar.Ingresos_anuales_del_cliente_condicion__c}" /> <apex:inputField style="width:78%;margin-left: 2%;" value="{!eventoAInsertar.Ingresos_anuales_del_cliente__c}" />
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td style="text-align: right;">
+                                        <apex:outputText value="{!$Label.certa_scp__cantidad_de_empleados}:" />
+                                    </td>
+                                    <td>
+                                        <apex:inputField style="float:left; width:20%; margin-top: 1%;" value="{!eventoAInsertar.cantidad_de_empleados_condicion__c}" /> <apex:inputField style="width:78%;margin-left: 2%;" value="{!eventoAInsertar.cantidad_de_empleados__c}" />
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td style="text-align: right;">
+                                        <apex:outputText value="{!$Label.certa_scp__cantidad_de_edificios}:" />
+                                    </td>
+                                    <td>
+                                        <apex:inputField style="float:left; width:20%; margin-top: 1%;" value="{!eventoAInsertar.Cantidad_de_edificios_condicion__c}" /> <apex:inputField style="width:78%;margin-left: 2%;" value="{!eventoAInsertar.Cantidad_de_edificios__c}" />
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td style="text-align: right;">
+                                        <apex:outputText value="{!$Label.certa_scp__cantidad_de_sucursales}:" />
+                                    </td>
+                                    <td>
+                                        <apex:inputField style="float:left; width:20%; margin-top: 1%;" value="{!eventoAInsertar.Indica_la_cantidad_de_sucursales_cond__c}" /> <apex:inputField style="width:78%;margin-left: 2%;" value="{!eventoAInsertar.Indica_la_cantidad_de_sucursales__c}" />
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td style="text-align: right;">
+                                        <apex:outputText value="{!$Label.certa_scp__dispone_de_parque_automotor}:" />
+                                    </td>
+                                    <td>
+                                        <apex:inputField style="width:100%;" value="{!eventoAInsertar.ispone_de_parque_automotor__c}" />
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td style="text-align: right;">
+                                        <apex:outputText value="{!$Label.certa_scp__cantidad_vehiculos_parque}:" />
+                                    </td>
+                                    <td>
+                                        <apex:inputField style="float:left; width:20%; margin-top: 1%;" value="{!eventoAInsertar.cuantos_veh_culos_dispone_el_parque_cond__c}" /> <apex:inputField style="width:78%;margin-left: 2%;" value="{!eventoAInsertar.cuantos_veh_culos_dispone_el_parque__c}" />
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td style="text-align: right;">
+                                        <apex:outputText value="{!$Label.certa_scp__description}:" />
+                                    </td>
+                                    <td>
+                                        <apex:inputField style="width: 100%;" value="{!eventoAInsertar.Descripcion__c}" />
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td style="text-align: right;">
+                                        <apex:outputText value="Link:" />
+                                    </td>
+                                    <td>
+                                        <apex:inputField style="width: 100%;" value="{!eventoAInsertar.Link__c}" />
+                                    </td>
+                                </tr>
+                            </table>		        
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-default" data-dismiss="modal">{!$Label.close}</button>
+                            <button type="button" class="btn btn-primary" data-dismiss="modal" onclick="InsertarEvento()">{!$Label.Add_Share}</button>
+                            <apex:actionFunction action="{!InsertarEvento}" name="InsertarEvento" rerender="pageContent"/>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </apex:form>
+        
+    </apex:outputpanel>
+</apex:page>

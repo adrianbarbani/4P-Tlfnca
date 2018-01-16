@@ -1,0 +1,16 @@
+<apex:page showHeader="false" sidebar="false" standardStylesheets="true" standardController="taskfeed1__Board__c">
+  <c:Taskboard id="board" 
+                       boardId="{!taskfeed1__Board__c.Id}" 
+                       relationshipName="" 
+                       recordId=""
+                       showBoardSwitcher="false"
+                       showBoardPopout="true"
+                       showFilters="true"
+                       showHeader="false"
+                       embeddedIframesAllowed="false"
+                       embeddedMode="true"
+                       touchScope="false"
+                       guessBoard="false"
+                       rendered="true">
+ </c:Taskboard>
+</apex:page>

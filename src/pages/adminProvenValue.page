@@ -1,0 +1,237 @@
+<apex:page controller="AdminProvenValueController" sidebar="false" tabStyle="Strategic_Client_Plan__tab">
+
+	<c:SCPMenu ></c:SCPMenu>
+	
+	<script  type="text/javascript">
+    
+	    $j = jQuery.noConflict();
+
+	    function ajaxshow(){
+	        $j(".ajaxloader").show();
+	    }    
+
+	    function ajaxstop(){
+	        $j(".ajaxloader").hide();
+	    }
+	    function showInput(){}
+	
+	</script>
+	
+	<apex:outputpanel styleClass="container-fluid bootstrap-sf1" id="pageContent">
+		<div class="panel panel-default">
+			<div class="panel-heading">
+				<h2 class="panel-title">
+					<span style="float:left;">
+						{!$Label.certa_scp__administration_trends} {!$Label.certa_scp__account_past_proven_value}
+					</span>
+					<c:tutorial />
+					<span style="float:left;">
+    					<c:showVideo />
+    				</span>
+				</h2>
+				<div class="row paddingRight">
+					<div class="btn-group pull-right" role="group" aria-label="...">   					
+						<button type="button" class="btn btn-default btn-sm" data-toggle="modal" data-target="#myModal">
+	   						<span class="glyphicon glyphicon-plus icon-btn-left"></span>&nbsp;{!$Label.Add_Share}
+	                    </button>
+	                    <button type="button" class="btn btn-default btn-sm" onclick="save()">
+	   						<span class="glyphicon glyphicon-file icon-btn-left"></span>&nbsp;{!$Label.save}
+	                    </button>
+					</div>
+				</div>
+			</div>    		
+			<div class="panel-body">
+				<apex:form id="Content">
+			        {!$Label.certa_scp__region}:
+			         <apex:selectList multiselect="false" size="1" value="{!regionId}">
+			            <apex:selectOptions value="{!Regions}"/>
+			        </apex:selectList>       
+			        &nbsp;&nbsp;
+			        {!$ObjectType.Account.fields.Industry.Label}:
+			        <apex:inputField value="{!tempAccount.Industry}"/>
+			        &nbsp;&nbsp;        
+			        {!$ObjectType.Account.fields.Micro_Industry__c.Label}:
+			        <apex:inputField value="{!tempAccount.Micro_Industry__c}"/>
+			        &nbsp;&nbsp;
+			        <apex:commandButton styleClass="btn btn-default btn-sm" value="{!$Label.certa_scp__select}" action="{!doUpdate}" rerender="Content,chatter"/>
+				    <br/><br/>
+			     
+			        <table class="table table-striped table-bordered table-condensed">
+			        	<thead>
+							<tr>
+								<th>
+								</th>
+								<th>
+									<apex:outputText value="{!$Label.certa_scp__name}"/>
+								</th>
+								<th>
+									<apex:outputText value="{!$ObjectType.PastProvenValueNew__c.fields.Type__c.label}"/>
+								</th>
+							</tr>
+						</thead>
+						<tbody>
+							<apex:repeat value="{!ProvenValueList}" var="item" >
+								<tr>
+									<td>
+										<apex:commandButton styleClass="btn btn-default btn-sm" reRender="Content" action="{!del}" value="{!$Label.certa_scp__delete}" rendered="{!canEdit}">
+					                        <apex:param assignTo="{!IdtoDelete}" name="IdtoDelete" value="{!item.id}" />
+					                    </apex:commandButton>
+									</td>
+									<td  style="width: 100%;">
+										<apex:outputField value="{!item.Unique_Value__c}  ">
+											<apex:inlineEditSupport event="ondblclick"/>		
+					                	</apex:outputField>
+									</td>
+									<td>
+										<apex:selectList multiselect="false" size="1" value="{!newPruvenValue.Type__c}" rendered="{!canEdit}">
+											<apex:selectOptions value="{!provenValueTypes}"/>
+					        			</apex:selectList>
+									</td>
+								</tr>
+							</apex:repeat>
+						</tbody>
+			        </table>
+			    	<!-- Modal -->
+					<apex:actionFunction action="{!save}" name="save" rerender="pageContent" status="renderMeStatus"/>
+					<apex:actionFunction action="{!InsertNew}" name="InsertNew" rerender="pageContent" status="renderMeStatus"/>
+					<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+						<div class="modal-dialog" style="z-index:9999;">
+					    	<div class="modal-content">
+					      		<div class="modal-header">
+					        		<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+					        		<h4 class="modal-title" id="myModalLabel">{!$Label.Add_Share}</h4>
+					      		</div>
+					      		<div class="modal-body">
+					      			<table style="border-collapse: separate;border-spacing: 5px;">
+					      				<tr>
+					      					<td style="text-align: right;">
+					      						<apex:outputText value="{!$Label.certa_scp__name}" />:
+					      					</td>
+					      					<td>
+					      						<apex:inputField style="width: 335px;" value="{!newPruvenValue.Unique_Value__c}" required="false"  rendered="{!canEdit}"/>
+					      					</td>
+					      				</tr>
+					      				<tr>
+					      					<td style="text-align: right;">
+					      						<apex:outputText value="{!$ObjectType.PastProvenValueNew__c.fields.Type__c.label}"/>:
+					      					</td>
+					      					<td>
+					      						<apex:selectList style="width: 335px;" multiselect="false" size="1" value="{!newPruvenValue.Type__c}" rendered="{!canEdit}">
+													<apex:selectOptions value="{!provenValueTypes}"/>
+							        			</apex:selectList>
+					      					</td>
+					      				</tr>
+					      			</table>		        
+					      		</div>
+					      		<div class="modal-footer">
+					        		<button type="button" class="btn btn-default" data-dismiss="modal">{!$Label.close}</button>
+					        		<button type="button" class="btn btn-primary" data-dismiss="modal" onclick="InsertNew()">{!$Label.add_buttom}</button>
+					      		</div>
+					    	</div>
+					  	</div>
+					</div>
+					
+			    </apex:form>
+			</div>
+			<div class="panel-footer">
+				<div class="row paddingRight">
+					<div class="btn-group pull-right" role="group" aria-label="...">   					
+						<button type="button" class="btn btn-default btn-sm" data-toggle="modal" data-target="#myModal">
+	   						<span class="glyphicon glyphicon-plus icon-btn-left"></span>&nbsp;{!$Label.Add_Share}
+	                    </button>
+	                    <button type="button" class="btn btn-default btn-sm" onclick="save()">
+	   						<span class="glyphicon glyphicon-file icon-btn-left"></span>&nbsp;{!$Label.save}
+	                    </button>
+					</div>
+				</div>
+			</div>
+		</div>
+	</apex:outputpanel>
+
+<!-- 
+	<apex:include pageName="changeFocus"/>
+	<apex:stylesheet value="{!$Resource.ipad}"/>
+	<script  type="text/javascript">
+    
+	    $j = jQuery.noConflict();
+	    function ajaxshow(){
+	    
+	        $j(".ajaxloader").show();
+	    
+	    }    
+	    function ajaxstop(){
+	    
+	        $j(".ajaxloader").hide();
+	    
+	    }
+	    
+	
+	    function showInput(){
+	    
+	    
+	    }
+	
+	</script>
+	<c:SCPMenu ></c:SCPMenu>
+<div class="FillWidth">
+    
+    <div id="Menu">
+        <h1 style="font-size:20px; display:block;" class="pageType noSecondHeader">{!$Label.Administration_Trends} {!$Label.account_past_proven_value} </h1>
+
+        
+        <apex:form >
+        {!$Label.Region}:
+        <apex:selectList multiselect="false" size="1" value="{!regionId}">
+            <apex:selectOptions value="{!Regions}"/>
+        </apex:selectList>       
+        
+        {!$ObjectType.Account.fields.Industry.Label}:
+        
+         <apex:inputField value="{!tempAccount.Industry}"/>
+         
+        {!$ObjectType.Account.fields.Micro_Industry__c.Label}:
+        <apex:inputField value="{!tempAccount.Micro_Industry__c}"/>
+               
+        <apex:commandButton value="{!$Label.certa_scp__select}" action="{!doUpdate}" rerender="Content,chatter" status="renderMeStatus" />
+     </apex:form>
+     <apex:form >
+        <apex:pageBlock title="{!$Label.account_past_proven_value}" id="Content">
+               
+            <apex:pageBlockTable value="{!ProvenValueList}" var="item" >
+                 
+                <apex:column width="75" style="text-align:center;">
+                    <apex:commandButton reRender="Content" action="{!del}" value="{!$Label.certa_scp__delete}" rendered="{!canEdit}">
+                        <apex:param assignTo="{!IdtoDelete}" name="IdtoDelete" value="{!item.id}" />
+                    </apex:commandButton>
+                    <apex:facet name="footer">
+                            <apex:commandButton reRender="Content" action="{!InsertNew}" value="{!$Label.add_buttom}" style="margin-left:5px;" rendered="{!canEdit}"/>
+                    </apex:facet>
+                </apex:column>
+                 
+                <apex:column headerValue="{!$Label.certa_scp__name}">
+                    {!item.Unique_Value__c}
+                   <apex:facet name="footer">
+                         <apex:inputField style="width:50%;" value="{!newPruvenValue.Unique_Value__c}" required="false" rendered="{!canEdit}"/>
+                   </apex:facet>     
+                </apex:column>
+                 
+                <apex:column headerValue="{!$ObjectType.PastProvenValueNew__c.fields.Type__c.label}">
+                    {!item.Type__c}
+                   <apex:facet name="footer">
+                   		<apex:selectList multiselect="false" size="1" value="{!newPruvenValue.Type__c}" rendered="{!canEdit}">
+							<apex:selectOptions value="{!provenValueTypes}"/>
+	        			</apex:selectList>
+                   </apex:facet>     
+                </apex:column>
+                
+            </apex:pageBlockTable>
+        </apex:pageBlock>
+    </apex:form>
+        <apex:actionStatus id="renderMeStatus" onstart="ajaxshow()" onstop="showInput(); ajaxstop();"/>
+        <div class="ajaxloader" style="display: none; clear:left; background-color:white; padding:5px; text-align:center; width:220px; border: 1px solid grey; margin-left: auto; margin-right: auto; border-radius: 5px;">
+            <img src="{!$Resource.AjaxLoader}"/><br/>Loading...
+        </div>        
+    </div>
+</div>
+ -->
+</apex:page>

@@ -1,0 +1,1045 @@
+<apex:page controller="AccountGrowthStrategyController" sidebar="false" tabStyle="Strategic_Client_Plan__tab">
+
+	<c:SCPMenu ></c:SCPMenu>
+    
+    <apex:includeScript value="{!$Resource.JQueryUI}"  />
+    <apex:includeScript value="{!$Resource.JQueryUITouch}" />
+    <apex:includeScript value="{!$Resource.DataTable}"  />
+    
+    <style>
+    	table.dataTable thead .sorting {
+	      background: #f2f3f3 url("{!URLFOR($Resource.DataTableImg, 'sort_both.png')}") no-repeat center right ! important;
+	    }
+	    table.dataTable thead .sorting_asc {
+	      background: #f2f3f3 url("{!URLFOR($Resource.DataTableImg, 'sort_asc.png')}") no-repeat center right ! important;
+	    }
+	    table.dataTable thead .sorting_desc {
+	      background: #f2f3f3 url("{!URLFOR($Resource.DataTableImg, 'sort_desc.png')}") no-repeat center right ! important;
+	    }
+	    table.dataTable thead .sorting_asc_disabled {
+	      background: #f2f3f3 url("{!URLFOR($Resource.DataTableImg, 'sort_asc_disabled.png')}") no-repeat center right ! important;
+	    }
+	    table.dataTable thead .sorting_desc_disabled {
+	      background: #f2f3f3 url("{!URLFOR($Resource.DataTableImg, 'sort_desc_disabled.png')}") no-repeat center right ! important;
+	    }
+	    
+	    table.dataTable thead .sorting_asc,
+	    table.dataTable thead .sorting_desc,
+	    table.dataTable thead .sorting {
+	      cursor: pointer;
+	      *cursor: hand;
+	    }
+	    
+	    .dataTables_filter {
+	        text-align: right ! important;
+	        padding-right: 15px ! important;
+	    }
+	    
+	    .abbrTd div {
+	    	width: 100px;
+	    }
+	    
+	    .abbrTd span {
+	    	overflow: hidden;
+	    	width: 100%;
+	    	text-overflow: ellipsis;
+	    	white-space: nowrap; 
+	    	display: inline-block;
+	    }
+	    
+	    .PopupHolder {
+	        float:left;
+	        margin-right: 6px;
+	    }
+	    
+	    .NotUsed{
+            background-color: #FF2D2D ! important;
+        }
+
+        .hasPotentialBussiness {
+            background-color: #3796F7 ! important;    
+        }
+
+        .hasOpportunity {
+            background-color: #128E2C  ! important;        
+        }
+	    
+        .vendidoEnElPasado{
+        background-color: #FFC200 ! important;
+        }
+        
+        .noAplica{
+        background-color: #808080 ! important;
+        }
+        
+        .hasOpportunityAndPotencial{
+        background: #3796F7 ; 
+        background-color: #128E2C  ! important;
+        //background: linear-gradient( #FFDBDB , #E7FBFF);         
+        }
+        
+         .NotUsedSampleText, .hasPotentialBussinessSampleText, .hasOpportunitySampleText {
+        /*font-weight:bold;  margin:10px*/
+        	font-size:14px;
+        }
+        
+        .NotUsedSample, .hasPotentialBussinessSample, .hasOpportunitySample {
+        	/*border: 1px solid black;*/    
+		    width: 20px;
+		    height: 20px;
+        	/*line-height: 30px;*/    
+        }
+        
+        .NotUsedSampleText {    
+		    color: white ! important;
+        	color: #2d839a ! important;
+       	}
+        .NotUsedSample {    		    
+        	background-color: #FF2D2D ! important;		    
+		}
+        
+        .hasPotentialBussinessSampleText {    
+		    color: #1797c0 ! important;
+        	color: #2d839a ! important;
+       	}
+        .hasPotentialBussinessSample {    		    
+		    background-color: #3796F7 ! important;        	
+		}
+        
+        .hasOpportunitySampleText {    
+		    color: #FEE ! important;
+        	color: #2d839a ! important;
+       	}        
+        .hasOpportunitySample {
+		    background-color: #128E2C ! important;       	
+		}
+	    .ScrollingDiv{
+            overflow-y:auto;
+            overflow-x: auto;
+            max-height:300px;
+            /*max-width: 800px;*/
+        }
+	    
+	    .AddPopup {
+	        position: absolute;
+	        margin-top: 14px;
+	        padding: 5px;
+	        background-color: #eee;
+	        border: 1px solid black;
+	        width: 100px;
+	        white-space: normal;
+	        min-height: 14px;
+	        margin-left: -43px;
+	        border-radius: 3px;
+	        display:none;
+	    }
+	    
+	    .ui-state-hover{
+	        background-color: lightgreen ! important;
+	    }
+	    
+	    .ui-draggable-dragging{
+	        background-color: white;
+	        border: 1px solid gray;
+	    }
+	    
+	    .ui-draggable-dragging>td{
+	        padding-left: 4px;
+	        padding-right: 2px;
+	    }
+	    
+	    .ui-draggable-dragging>.TdName, .ui-draggable-dragging>.TdLink{
+	        display:none;
+	    }
+	    
+	    .DraggableRow{
+	        cursor:move;
+	    }
+	    
+	    .PopupHolder, .PopupHolderOpp {
+	        float:right;
+	        margin-right: 6px;
+	    }
+	    
+	    .PopupHolder, .PopupHolderOpp {
+	        float:right;
+	        margin-right: 6px;
+	        margin: 5px;
+	    }
+	    
+	    .PopupHolder *, .PopupHolderOpp *{
+	        box-sizing: content-box;
+	    }
+	        
+	    #mainTable th, #mainOppsTable th{
+	        padding-right: 15px;
+	    }
+	    	    
+	    .dataTables_filter {
+	        text-align: right ! important;
+	        padding-right: 15px ! important;
+	    } 
+	    
+	    .label-link a {
+	    	color: white;
+	    }
+        
+        #mainTableSolutions td.itemSelected {
+        border: 2px solid #539fc6;
+        border-style:double;
+        }
+        
+        .hiddenTable {
+        //display: none;
+        }
+        
+        .solucionItems{
+        padding:inherit;
+        }
+        
+        div.divS{
+        border: 2px solid #539fc6 !important;
+        }
+        
+        div.bordesSinColor{
+        border: 2px solid #FFFFFF;
+        margin: 1% 0% 1% 0%;
+        } 
+    </style>
+    
+    <script>
+        $j = jQuery.noConflict();        
+        
+        $j(document).ready(function() {
+            init();                        
+        });
+        
+        function init(){
+            if ({!CanEdit}) {
+	            $j(".DraggableRow").unbind().draggable({
+	                    appendTo: "body",
+	                    helper: "clone",
+	                    cursor: "move",
+	                    /*containment: "body",*/
+	                    cursorAt: {top:-10}
+	            });
+	        
+	            $j(".droppableTD").unbind().droppable({
+	                activeClass: "ui-state-default",
+	                hoverClass: "ui-state-hover",
+	                accept: ".DraggableRow",
+	                tolerance: "pointer",            
+	                drop: function( event, ui ) {               
+	                    
+	                    if ($j(ui.draggable).hasClass("IndustryTrendsRow")) {
+	                        linkTrendAction($j(ui.draggable).attr("id"),$j(this).attr("id"));
+	                    }
+	                    
+	                    if ($j(ui.draggable).hasClass("StrategicInitiativeRow")) {
+	                        linkIniciativeAction($j(ui.draggable).attr("id"),$j(this).attr("id"));
+	                    }
+	                    
+	                    if ($j(ui.draggable).hasClass("PastProvenValueNewRow")) {
+	                        linkPastProventValue($j(ui.draggable).attr("id"),$j(this).attr("id"));
+	                    }
+	                    
+	                    /*
+	                    if ($j(ui.draggable).hasClass("StrategicContextRow")) {
+	                        linkStrategicContext($j(ui.draggable).attr("id"),$j(this).attr("id"));
+	                    } 
+	                    */               
+	                    
+	                }
+	            });
+			}         
+            
+            $j(".PopupHolder").mouseenter(function(event){
+                if ($j(this).children(".lookupHoverDetail").css("display") == "none") {
+                    $j(this).children(".lookupHoverDetail").css("top",event.clientY + 'px');
+                    $j(this).children(".lookupHoverDetail").css("left",(event.clientX - 360) + 'px');
+                    $j(this).children(".lookupHoverDetail").css("position","fixed");            
+                    $j(this).children(".lookupHoverDetail").show();             
+                }
+            });
+	        
+	        $j(".PopupHolder").mouseleave(function(){
+	            $j(this).children(".lookupHoverDetail").hide();
+	        });
+            
+            $j("#mainTable").dataTable({
+                "bPaginate": false,        
+                "bInfo": false
+            });
+            
+            $j("#mainBnpTable").dataTable({
+                "bPaginate": false,        
+                "bInfo": false
+            });
+            
+            $j("#mainTableSolutions").dataTable({
+                "bPaginate": false,        
+                "bInfo": false
+            });	
+            
+            $j(".showMore").click(function(){
+                var gparent = $j(this).parent().parent();
+                $j(".lessSpan", gparent).fadeOut(function(){
+                    $j(".moreSpan", gparent).fadeIn();
+                });            	 
+            });
+            $j(".showLess").click(function(){
+                var gparent = $j(this).parent().parent();
+                $j(".moreSpan", gparent).fadeOut(function(){
+                    $j(".lessSpan", gparent).fadeIn();
+                });            	 
+            });
+            
+            $j(".necesidadASeleccionar").click(function(){
+                
+                var necesidad = $j(this); 
+                var td = $j("."+necesidad.attr("id"));
+                
+                if (td.css("display") == "block") {
+                    
+                    td.fadeOut();
+                    
+                    td.each(function() {
+                        var oportunidad = $j(this); 
+                        var tdOportunidad = $j("."+oportunidad.attr("id"));
+                        if (oportunidad.children().hasClass('divS')) {
+                            tdOportunidad.fadeOut();
+                            oportunidad.children().removeClass('divS');
+                        } 
+                    });
+                    
+                    necesidad.removeClass('itemSelected');                 
+                } else {
+                    td.fadeIn();
+                    necesidad.addClass('itemSelected');
+                }
+            });
+            
+            $j(".oportunidadASeleccionar").click(function(){
+                
+                var oportunidad = $j(this); 
+                var td = $j("."+oportunidad.attr("id"));
+                if (td.css("display") == "block") {
+                    td.fadeOut();
+                    oportunidad.removeClass('divS');
+                } else {
+                    td.fadeIn();
+                    oportunidad.addClass('divS');
+                }
+            });
+            
+        }
+        
+        function ajaxshow(){
+            $j(".ajaxloader").show();
+        }    
+        function ajaxstop(){
+            $j(".ajaxloader").hide();
+            init();
+        }
+    </script>
+    
+    <apex:form id="form">       
+        <apex:actionFunction name="linkTrendAction" action="{!linkTrend}" rerender="Content" status="renderMeStatus" >
+                <apex:param name="firstParam" assignTo="{!trendid}" value="" />
+                <apex:param name="secondParam" assignTo="{!pnbid}" value="" />
+        </apex:actionFunction> 
+        <apex:actionFunction name="linkIniciativeAction" action="{!linkIniciative}" rerender="Content" status="renderMeStatus" >
+                <apex:param name="firstParam" assignTo="{!iniciativeid}" value="" />
+                <apex:param name="secondParam" assignTo="{!pnbid}" value="" />
+        </apex:actionFunction>
+        <apex:actionFunction name="linkPastProventValue" action="{!linkPastProventValue}" rerender="Content" status="renderMeStatus" >
+                <apex:param name="firstParam" assignTo="{!pastProventValueid}" value="" />
+                <apex:param name="secondParam" assignTo="{!pnbid}" value="" />
+        </apex:actionFunction>
+	</apex:form>
+    
+    <apex:outputpanel styleClass="container-fluid bootstrap-sf1" id="Content">
+    	<div class="panel panel-default">
+    		<div class="panel-heading">
+    			<h3 class="panel-title">
+    				<span style="float:left;">
+    					{!$Label.certa_scp__gap_growth_strategy}
+    				</span>
+    				<c:tutorial />
+    				<span style="float:left;">
+    					<c:showVideo />
+    				</span>
+    			</h3>
+    			<div class="row paddingRight">	
+   					<apex:form >
+   						<apex:actionFunction action="{!exportToExcel}" name="exportToExcel"/>   						   						
+   					</apex:form>	   					
+					<div class="btn-group pull-right" role="group" aria-label="...">	    					
+           				<apex:outputText rendered="{!canEdit}">
+	           				<button type="button" class="btn btn-default btn-sm" data-toggle="modal" data-target="#myModal">
+		   						<span class="glyphicon glyphicon-plus icon-btn-left"></span>&nbsp;{!$Label.add_buttom} {!$Label.potential_business}
+		                    </button>
+	                    	<button type="button" class="btn btn-default btn-sm" onclick="save()">
+		   						<span class="glyphicon glyphicon-file icon-btn-left"></span>&nbsp;{!$Label.save}
+		                    </button>
+           				</apex:outputText>
+           				<button type="button" class="btn btn-default btn-sm" onclick="exportToExcel()">
+	   						<span class="glyphicon glyphicon-file icon-btn-left"></span>&nbsp;{!$Label.Export_to_Excel}
+	                    </button>
+    				</div>
+    			</div>
+    		</div>
+    		<div class="panel-body">
+    			<apex:actionStatus id="renderMeStatus" onstart="ajaxshow()" onstop="ajaxstop()"/>
+	            <div class="ajaxloader" style="display: none; background-color:white; padding:5px; text-align:center; width:232px; border: 1px solid grey; margin-left: auto; margin-right: auto; border-radius: 5px;">
+	                <img src="{!$Resource.AjaxLoader}"/><br/>Loading...
+	            </div>
+                
+                <div class="alert alert-info" role="alert">	
+                    <span class="glyphicon glyphicon-info-sign"></span>	    				
+                    <span class="messageText"><span style="font-weight:bold;  margin:5px">{!$Label.Asignacion_de_Soluciones_Para_el_Sector}</span><br/>
+                        <div class="row">
+                            <div class= "col-md-6">
+                                <span class="NotUsed" style="margin-left:3px;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
+                                <span class="NotUsedSampleText">{!$Label.no_ha_sido_asignado_a_ninguna_oportunidad}</span><br/>
+                                <span class="hasPotentialBussiness" style="margin-left:3px;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
+                                <span class="hasPotentialBussinessSampleText">{!$Label.ha_sido_asignado_por_lo_menos_a_una_oportunidad_potencial}</span><br/>
+                                <span class="hasOpportunity" style="margin-left:3px;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
+                                <span class="hasOpportunitySampleText">{!$Label.ha_sido_asignado_por_lo_menos_a_una_oportunidad_existente}.</span><br/>
+                            </div>
+                            
+                            <div class= "col-md-6">
+                                <span class="vendidoEnElPasado" style="margin-left:3px;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
+                                <span class="hasOpportunitySampleText">{!$Label.Vendido_en_el_Pasado}.</span><br/>   
+                                <span class="noAplica" style="margin-left:3px;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
+                                <span class="hasOpportunitySampleText">{!$Label.No_Aplica}.</span>
+                            </div>
+                            
+                        </div>
+                    </span>
+                </div>
+	            <apex:form id="contentForm">
+	    			<apex:actionFunction action="{!add}" name="add" reRender="Content" status="renderMeStatus"/>
+	    			<apex:actionFunction action="{!save}" name="save"  reRender="Content" status="renderMeStatus"/>
+		            <div>
+		            	<div class="ScrollingDiv">
+		                    <span style="float: left;font-weight: bold;">{!$Label.Potential_New_Business}</span>
+		                    <table id="mainBnpTable" class="table table-bordered table-condensed">
+		                        <thead>
+		                            <tr class="headerRow">                              
+		                                <th scope="col" class=" deemphasize">{!$ObjectType.Potential_New_Business__c.fields.Potential_new_Business__c.label}</th>
+		                                <th scope="col" class=" deemphasize" style="width: 170px;">{!$ObjectType.Potential_New_Business__c.fields.Estimated_FCV__c.label}</th>
+		                                <th scope="col" class=" deemphasize" style="width: 115px;">{!$ObjectType.Potential_New_Business__c.fields.Contact_to_approach__c.label}</th>
+		                                <th scope="col" class=" deemphasize" style="width: 85px;">{!$ObjectType.Potential_New_Business__c.fields.Status__c.label}</th>
+		                                <th scope="col" class=" deemphasize" style="width: 110px;">{!$ObjectType.Potential_New_Business__c.fields.Comments__c.label}</th>
+		                                <th scope="col" class=" deemphasize" style="width: 175px;">{!$Label.Soluciones_Iniciativas}</th>
+		                                <th style="width: 50px;"></th>
+		                            </tr>
+		                        </thead>
+		                        <tbody>
+		                            <apex:repeat value="{!PotentialNewBusinessList}" var="pnb" >
+		                            <tr id="{!pnb.id}" class="dataRow even droppableTD">                                        
+		                                <td class="dataCell">
+		                                    <apex:outputField value="{!pnb.Potential_new_Business__c}">
+		                                        <apex:inlineEditSupport rendered="{!canEdit}" event="ondblclick"/>
+		                                    </apex:outputField>
+		                                </td>
+		                                <td class="dataCell" style="text-align:right;">
+		                                    <apex:outputField value="{!pnb.Estimated_FCV__c}">
+		                                        <apex:inlineEditSupport rendered="{!canEdit}" event="ondblclick"/>
+		                                    </apex:outputField>
+		                                </td>                                       
+		                                <td class="dataCell">
+		                                    <apex:outputField value="{!pnb.Contact_to_approach__c}">
+		                                        <apex:inlineEditSupport rendered="{!canEdit}" event="ondblclick"/>
+		                                    </apex:outputField>
+		                                </td>
+		                                <td class="dataCell">
+		                                    <apex:outputField value="{!pnb.Status__c}">
+		                                        <apex:inlineEditSupport rendered="{!canEdit}" event="ondblclick"/>
+		                                    </apex:outputField>
+		                                </td>
+		                                <td class="dataCell">
+		                                    <apex:outputField value="{!pnb.Comments__c}">
+		                                        <apex:inlineEditSupport rendered="{!canEdit}" event="ondblclick"/>
+		                                    </apex:outputField>
+		                                </td>
+		                                <td class="dataCell">
+		                                    <apex:repeat value="{!pnb.Potential_New_Business_Trend__r}" var="subitem">
+		                                        <div class="PopupHolderOpp">
+		                                            <span class="label label-primary">TR-{!subitem.Industry_Trend__r.name}</span>
+		                                            <div class="individualPalette lookupHoverDetail lookupHoverDetailOverridable" style="display:none; visibility:visible; position:absolute; top:auto; left:auto;">
+		                                                <div class="Custom50Block topRight"><div class="bPageBlock secondaryPalette">
+		                                                    <div class="pbHeader">
+		                                                        <table border="0" cellpadding="0" cellspacing="0" style="border-bottom:0px;"><tbody>
+		                                                            <tr>
+		                                                                <td class="pbTitle"><h2 class="mainTitle">{!$Label.certa_scp__trend}</h2></td>
+		                                                                <td class="pbButton"><apex:commandButton action="{!unlinkTrend}" value="{!$Label.certa_scp__unlink}" rendered="{!CanEdit}" reRender="Content" status="renderMeStatus"><apex:param name="firstParam" assignTo="{!trendid}" value="{!subitem.id}" /></apex:commandButton></td>
+		                                                            </tr>
+		                                                        </tbody></table>
+		                                                    </div>
+		                                                    <div class="pbBody">
+		                                                        <table class="detailList" border="0" cellpadding="0" cellspacing="0" style="border-bottom:0px;"><tbody>
+		                                                            <tr>
+		                                                                <td class="labelCol last">{!$Label.trend}</td>
+		                                                                <td class="dataCol last">{!subitem.Industry_Trend__r.Trend__c}</td>
+		                                                            </tr>
+		                                                        </tbody></table>
+		                                                    </div>
+		                                                    <div class="pbFooter secondaryPalette">
+		                                                        <div class="bg"></div>
+		                                                    </div>
+		                                                </div></div>
+		                                            </div>
+		                                        </div>
+		                                    </apex:repeat>
+		                                    <apex:repeat value="{!pnb.Potential_New_Business_Strategic_Ini__r}" var="subitem">
+		                                        <div class="PopupHolderOpp">
+		                                            <span class="label label-success">ST-{!subitem.Strategic_Initiative__r.name}</span>
+		                                                <div class="individualPalette lookupHoverDetail lookupHoverDetailOverridable" style="display:none; visibility:visible; position:absolute; top:auto; left:auto;">
+		                                                    <div class="Custom50Block topRight"><div class="bPageBlock secondaryPalette">
+		                                                        <div class="pbHeader">
+		                                                            <table border="0" cellpadding="0" cellspacing="0" style="border-bottom:0px;"><tbody>
+		                                                                <tr>
+		                                                                    <td class="pbTitle"><h2 class="mainTitle">{!$Label.certa_scp__iniciativa}</h2></td>
+		                                                                    <td class="pbButton"><apex:commandButton action="{!unlinkIniciative}" value="{!$Label.certa_scp__unlink}" rendered="{!CanEdit}" reRender="Content" status="renderMeStatus"><apex:param name="firstParam" assignTo="{!iniciativeid}" value="{!subitem.id}" /></apex:commandButton></td>
+		                                                                </tr>
+		                                                            </tbody></table>
+		                                                        </div>
+		                                                        <div class="pbBody">
+		                                                            <table class="detailList" border="0" cellpadding="0" cellspacing="0" style="border-bottom:0px;"><tbody>
+		                                                                <tr>
+		                                                                    <td class="labelCol last">{!$Label.iniciativa}</td>
+		                                                                    <td class="dataCol last">{!subitem.Strategic_Initiative__r.Strategic_Initiative__c}</td>
+		                                                                </tr>
+		                                                            </tbody></table>
+		                                                        </div>
+		                                                        <div class="pbFooter secondaryPalette">
+		                                                            <div class="bg"></div>
+		                                                        </div>
+		                                                    </div>
+		                                                </div>
+		                                            </div>
+		                                        </div>
+		                                    </apex:repeat>
+		                                    <apex:repeat value="{!pnb.Potential_New_Business_Past_Provent__r}" var="subitem">
+		                                        <div class="PopupHolderOpp">
+		                                            <span class="label label-danger">PV-{!subitem.Past_Proven_Value__r.name}</span>
+		                                                <div class="individualPalette lookupHoverDetail lookupHoverDetailOverridable" style="display:none; visibility:visible; position:absolute; top:auto; left:auto;">
+		                                                    <div class="Custom50Block topRight"><div class="bPageBlock secondaryPalette">
+		                                                        <div class="pbHeader">
+		                                                            <table border="0" cellpadding="0" cellspacing="0" style="border-bottom:0px;"><tbody>
+		                                                                <tr>
+		                                                                    <td class="pbTitle"><h2 class="mainTitle">{!$Label.certa_scp__account_past_proven_value}</h2></td>
+		                                                                    <td class="pbButton">
+                                                                                <apex:commandButton action="{!unlinkPastProventValue}" value="{!$Label.certa_scp__unlink}" rendered="{!CanEdit}" reRender="Content" status="renderMeStatus">
+                                                                                    <apex:param name="firstParam" assignTo="{!pastProventValueid}" value="{!subitem.id}" />
+                                                                                </apex:commandButton>
+                                                                            </td>
+		                                                                </tr>
+		                                                            </tbody></table>
+		                                                        </div>
+		                                                        <div class="pbBody">
+		                                                            <table class="detailList" border="0" cellpadding="0" cellspacing="0" style="border-bottom:0px;"><tbody>
+		                                                                <tr>
+		                                                                    <td class="labelCol last">{!$Label.Provent_Value}</td>
+		                                                                    <td class="dataCol last">{!subitem.Past_Proven_Value__r.Unique_Value__c}</td>
+		                                                                </tr>
+		                                                            </tbody></table>
+		                                                        </div>
+		                                                        <div class="pbFooter secondaryPalette">
+		                                                            <div class="bg"></div>
+		                                                        </div>
+		                                                    </div>
+		                                                </div>
+		                                            </div>
+		                                        </div>
+		                                    </apex:repeat>
+		                                </td>
+		                                <td>
+			                                <apex:commandButton styleClass="btn btn-default btn-sm" value="{!$Label.certa_scp__delete}" status="renderMeStatus" action="{!del}" reRender="Content" rendered="{!canEdit}"> <!-- reRender="contentForm" -->
+				                                <apex:param assignTo="{!toDel}" name="toDel" value="{!pnb.id}"/>
+				                            </apex:commandButton>
+			                            </td>
+		                            </tr>
+		                            </apex:repeat>
+		                        </tbody>
+		                        <tfoot>
+		                        	<tr>
+		                        		<th colspan="2" style="text-align: right;">
+		                        			{!$Label.Total_Potencial_Crecimiento}&nbsp;&nbsp; 
+		                        			<apex:outputField value="{!totalPotentialNewBusiness.Estimated_FCV__c}"/>
+		                        		</th>
+		                        		<th></th>
+		                        		<th></th>
+		                        		<th></th>
+		                        		<th></th>
+		                        		<th></th>
+		                        	</tr>
+		                        </tfoot>
+		                    </table>
+		                </div>
+	            	</div>
+	            	<!-- Modal -->
+					<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+						<div class="modal-dialog" style="z-index:9999;">
+					    	<div class="modal-content">
+					      		<div class="modal-header">
+					        		<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+					        		<h4 class="modal-title" id="myModalLabel">{!$Label.add_buttom} {!$Label.potential_business}</h4>
+					      		</div>
+					      		<div class="modal-body">
+					      			<table style="border-collapse: separate;border-spacing: 5px;">
+					      				<tr>
+					      					<td style="text-align: right;">
+					      						<apex:outputText value="{!$ObjectType.Potential_New_Business__c.fields.Potential_new_Business__c.label}" />:
+					      					</td>
+					      					<td>
+					      						<apex:inputField style="width: 335px;" value="{!potentialNewBusiness.Potential_new_Business__c}"/><br/>
+					      					</td>
+					      				</tr>
+					      				<tr>
+					      					<td style="text-align: right;">
+					      						<apex:outputText value="{!$ObjectType.Potential_New_Business__c.fields.Estimated_FCV__c.label}" />:
+					      					</td>
+					      					<td>
+					      						<apex:inputField style="width: 335px;" value="{!potentialNewBusiness.Estimated_FCV__c}"/><br/>
+					      					</td>
+					      				</tr>
+					      				<tr>
+					      					<td style="text-align: right;">
+					      						<apex:outputText value="{!$ObjectType.Potential_New_Business__c.fields.Contact_to_approach__c.label}" />:
+					      					</td>
+					      					<td>
+					      						<apex:inputField style="width: 335px;" value="{!potentialNewBusiness.Contact_to_approach__c}"/><br/>
+					      					</td>
+					      				</tr>
+					      				<tr>
+					      					<td style="text-align: right;">
+					      						<apex:outputText value="{!$ObjectType.Potential_New_Business__c.fields.Status__c.label}" />:
+					      					</td>
+					      					<td>
+					      						<apex:inputField style="width: 335px;" value="{!potentialNewBusiness.Status__c}"/><br/>
+					      					</td>
+					      				</tr>
+					      				<tr>
+					      					<td style="text-align: right;">
+					      						<apex:outputText value="{!$ObjectType.Potential_New_Business__c.fields.Comments__c.label}" />:
+					      					</td>
+					      					<td>
+					      						<apex:inputField style="width: 335px;" value="{!potentialNewBusiness.Comments__c}"/><br/>
+					      					</td>
+					      				</tr>
+					      			</table>		        
+					      		</div>
+					      		<div class="modal-footer">
+					        		<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+					        		<button type="button" class="btn btn-primary" data-dismiss="modal" onclick="add()">{!$Label.add_buttom} {!$Label.potential_business}</button>
+					      		</div>
+					    	</div>
+					  	</div>
+					</div>
+				</apex:form>
+				<br/>
+
+				<apex:outputPanel id="panelSolution" styleClass="col-md-8">
+                    <div class="ScrollingDiv">                                      
+                        <span style="float: left;font-weight: bold;">{!$Label.value_driver_sector}</span>
+                        <table id="mainTableSolutions" class="table table-bordered table-condensed">
+                            <thead>
+                                <tr class="headerRow">                              
+                                    <th scope="col" class=" deemphasize" style="vertical-align:top;">Necesidad</th>
+                                    <th scope="col" class=" deemphasize" style="vertical-align:top;">Oportunidad Sectorial</th>
+                                    <th scope="col" class=" deemphasize" style="vertical-align:top;">Solución Telefonica</th>                                    
+                                    <th scope="col" class=" deemphasize" style="width:100px;white-space: normal;">{!$Label.Linked_Opportunities}</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                
+                                <apex:repeat value="{!necesidadesWpp}" var="necesidad" id="necesidadSectorial">
+                                    <tr>
+                                        <td  id="{!necesidad.necesidadId}" class="necesidadASeleccionar itemSelected" style="width: 30%;vertical-align: middle; height: {!necesidad.oportunidades.size * 34}px; text-align: center; cursor: pointer;">
+                                            {!necesidad.necesidad}
+                                        </td>
+                                        <td>
+                                            <apex:repeat value="{!necesidad.oportunidades}" var="oportunidad" id="oportunidadSectorial">
+                                                <div id="{!oportunidad.oportunidadId}" class="{!oportunidad.necesidadIdPadre} hiddenTable">
+                                                    <div id="{!oportunidad.oportunidadId}" class="bordesSinColor  divS oportunidadASeleccionar" style="height: {!oportunidad.CantidadDeRenglones * 34.6}px; text-align: center; cursor: pointer;">
+                                                        {!oportunidad.oportunidad}
+                                                    </div>
+                                                </div>    
+                                            </apex:repeat>
+                                        </td>
+                                        <td>
+                                            <apex:repeat value="{!necesidad.oportunidades}" var="oportunidad" id="solucionTelefonica">
+                                                <div style="height:{!oportunidad.CantidadDeRenglones *36}px" id="divEspacio">
+                                                    <apex:repeat value="{!oportunidad.soluciones}" var="solucion">
+                                                        <div class="{!solucion.oportunidadIdPadre} hiddenTable">
+                                                            <div id="{!solucion.Trend.id}" style="height: {!IF(solucion.trend.Potential_New_Business_Trend__r.size == 0, 34, (( CEILING((solucion.trend.Potential_New_Business_Trend__r.size/ 2)) )*34) ) }px" class="IndustryTrendsRow DraggableRow dataRow solucionItems {!IF( (solucion.status.Current_state__c == 'Vendido en el pasado'), 'vendidoEnElPasado', (IF(solucion.status.Current_state__c == 'No aplica', 'noAplica' , IF((solucion.Trend.Opportunities__R.size > 0) && (solucion.Trend.Potential_New_Business_Trend__r.size > 0), 'hasOpportunityAndPotencial' , (IF ( solucion.Trend.Opportunities__R.size > 0 , 'hasOpportunity' , IF(solucion.Trend.Potential_New_Business_Trend__r.size > 0 , 'hasPotentialBussiness' , 'NotUsed') ))) )))} " onmouseover= "if (window.hiOn){hiOn(this);} " onmouseout="if (window.hiOff){hiOff(this);} " onblur="if (window.hiOff){hiOff(this);}" onfocus="if (window.hiOn){hiOn(this);}" >
+                                                                {!solucion.Trend.Title__c}
+                                                            </div>
+                                                        </div>   
+                                                    </apex:repeat>
+                                                </div>    
+                                            </apex:repeat>
+                                        </td>
+                                        <td> 
+                                            <apex:repeat value="{!necesidad.oportunidades}" var="oportunidad" id="oportunidadesRelacionadas">
+                                                <div style="height:{!oportunidad.CantidadDeRenglones *36}px">
+                                                    <apex:repeat value="{!oportunidad.soluciones}" var="solucion">
+                                                        <div class="{!solucion.oportunidadIdPadre} hiddenTable">
+                                                            <div style="height: {!IF(solucion.trend.Potential_New_Business_Trend__r.size == 0, 34, (( CEILING((solucion.trend.Potential_New_Business_Trend__r.size/ 2)) )*34) ) }px ;" class="solucionItems {!IF( (solucion.status.Current_state__c == 'Vendido en el pasado'), 'vendidoEnElPasado', (IF(solucion.status.Current_state__c == 'No aplica', 'noAplica' , IF((solucion.Trend.Opportunities__R.size > 0) && (solucion.Trend.Potential_New_Business_Trend__r.size > 0), 'hasOpportunityAndPotencial' , (IF ( solucion.Trend.Opportunities__R.size > 0 , 'hasOpportunity' , IF(solucion.Trend.Potential_New_Business_Trend__r.size > 0 , 'hasPotentialBussiness' , 'NotUsed') ))) )))}">
+                                                                
+                                                                <apex:repeat value="{!solucion.trend.Potential_New_Business_Trend__r}" var="npb">
+                                                                    <div class="PopupHolder">
+                                                                        <span class="label label-success label-warning">{!npb.Potential_New_Business__r.Name}</span>
+                                                                        <div class="individualPalette lookupHoverDetail lookupHoverDetailOverridable" style="display:none; visibility:visible; position:absolute; top:auto; left:auto;">
+                                                                            <div class="Custom50Block topRight"><div class="bPageBlock secondaryPalette">
+                                                                                <div class="pbHeader">
+                                                                                    <table border="0" cellpadding="0" cellspacing="0" style="border-bottom:0px;"><tbody>
+                                                                                        <tr>
+                                                                                            <td class="pbTitle" colspan="2"><h2 class="mainTitle">{!$Label.Potential_New_Business}</h2></td>			                                                                
+                                                                                        </tr>
+                                                                                        </tbody></table>
+                                                                                </div>
+                                                                                <div class="pbBody">
+                                                                                    <table class="detailList" border="0" cellpadding="0" cellspacing="0" style="border-bottom:0px;"><tbody>
+                                                                                        <tr>
+                                                                                            <td class="labelCol last">{!$ObjectType.Potential_New_Business__c.fields.Potential_new_Business__c.label}</td>
+                                                                                            <td class="dataCol last">{!npb.Potential_new_Business__r.Potential_new_Business__c}</td>
+                                                                                        </tr>
+                                                                                        </tbody></table>
+                                                                                </div>
+                                                                                <div class="pbFooter secondaryPalette">
+                                                                                    <div class="bg"></div>
+                                                                                </div>
+                                                                                </div></div>
+                                                                        </div>
+                                                                    </div>
+                                                                </apex:repeat>
+                                                                
+                                                            </div>
+                                                        </div>
+                                                    </apex:repeat>
+                                                </div>
+                                            </apex:repeat>    
+                                            
+                                        </td>
+                                    </tr>
+                                </apex:repeat>                                
+                                <!--
+                                <apex:repeat value="{!solutions}" var="solution">
+                                    <tr id="{!solution.id}" class="IndustryTrendsRow DraggableRow dataRow {!IF( (Solution.Accounts_Industry_Trends__r[0].Current_state__c == 'Vendido en el pasado'), 'vendidoEnElPasado', (IF(Solution.Accounts_Industry_Trends__r[0].Current_state__c == 'No aplica', 'noAplica' , IF ( (solution.Opportunities__R.size > 0) && (solution.Potential_New_Business_Trend__r.size > 0), 'hasOpportunityAndPotencial',IF(solution.Opportunities__R.size > 0 , 'hasOpportunity' , IF(solution.Potential_New_Business_Trend__r.size > 0 , 'hasPotentialBussiness' , 'NotUsed'))))) )}"  onmouseover="if (window.hiOn){hiOn(this);} " onmouseout="if (window.hiOff){hiOff(this);} " onblur="if (window.hiOff){hiOff(this);}" onfocus="if (window.hiOn){hiOn(this);}">                                       
+                                        <td>                                            
+                                            <span class="lessSpan">
+                                                <apex:outputText value="{!Left(solution.RelatedTo__r.RelatedTo__r.Title__c,50)}"/>
+                                                <apex:outputText rendered="{!LEN(solution.RelatedTo__r.RelatedTo__r.Title__c) > 50}">
+                                                    ...
+                                                </apex:outputText>
+                                                <apex:outputText >                                                    
+                                                    <button class="btn btn-default btn-xs showMore" style="float:right;">
+                                                        <span class="glyphicon glyphicon-zoom-in icon-btn-left"></span>&nbsp;{!$Label.show_more}
+                                                    </button>
+                                                </apex:outputText>
+                                            </span>
+                                            <span class="moreSpan" style="display:none;">                               
+                                                <apex:outputField value="{!solution.RelatedTo__r.RelatedTo__r.Title__c}"/><br/><br/>
+                                                <apex:outputField value="{!solution.RelatedTo__r.RelatedTo__r.Trend__c}"/>
+                                                <button class="btn btn-default btn-xs showLess" style="float:right;">
+                                                    <span class="glyphicon glyphicon-zoom-out icon-btn-left"></span>&nbsp;{!$Label.show_less}
+                                                </button>
+                                            </span>
+                                        </td>
+                                        <td>                                            
+                                            <span class="lessSpan">
+                                                <apex:outputText value="{!Left(solution.RelatedTo__r.Title__c,50)}"/>
+                                                <apex:outputText rendered="{!LEN(solution.RelatedTo__r.Title__c) > 50}">
+                                                    ...
+                                                </apex:outputText>
+                                                <apex:outputText >                                                    
+                                                    <button class="btn btn-default btn-xs showMore" style="float:right;">
+                                                        <span class="glyphicon glyphicon-zoom-in icon-btn-left"></span>&nbsp;{!$Label.show_more}
+                                                    </button>
+                                                </apex:outputText>
+                                            </span>
+                                            <span class="moreSpan" style="display:none;">                               
+                                                <apex:outputField value="{!solution.RelatedTo__r.Title__c}"/><br/><br/>
+                                                <apex:outputField value="{!solution.RelatedTo__r.Trend__c}"/>
+                                                <button class="btn btn-default btn-xs showLess" style="float:right;">
+                                                    <span class="glyphicon glyphicon-zoom-out icon-btn-left"></span>&nbsp;{!$Label.show_less}
+                                                </button>
+                                            </span>
+                                        </td>
+                                        <td>
+                                            <span class="lessSpan">
+                                                <apex:outputText value="{!Left(solution.Title__c,50)}"/>
+                                                <apex:outputText rendered="{!LEN(solution.Title__c) > 50}">
+                                                    ...
+                                                </apex:outputText>
+                                                <apex:outputText >                                                    
+                                                    <button class="btn btn-default btn-xs showMore" style="float:right;">
+                                                        <span class="glyphicon glyphicon-zoom-in icon-btn-left"></span>&nbsp;{!$Label.show_more}
+                                                    </button>
+                                                </apex:outputText>
+                                            </span>
+                                            <span class="moreSpan" style="display:none;">                               
+                                                <apex:outputField value="{!solution.Title__c}"/><br/><br/>
+                                                <apex:outputField value="{!solution.Trend__c}"/>
+                                                <button class="btn btn-default btn-xs showLess" style="float:right;">
+                                                    <span class="glyphicon glyphicon-zoom-out icon-btn-left"></span>&nbsp;{!$Label.show_less}
+                                                </button>
+                                            </span>                                                     
+                                        </td>
+                                        <td>
+                                            <apex:repeat value="{!solution.Potential_New_Business_Trend__r}" var="npb">
+                                            	<div class="PopupHolder">
+			                                        <span class="label label-success label-warning">{!npb.Potential_New_Business__r.Name}</span>
+		                                            <div class="individualPalette lookupHoverDetail lookupHoverDetailOverridable" style="display:none; visibility:visible; position:absolute; top:auto; left:auto;">
+		                                                <div class="Custom50Block topRight"><div class="bPageBlock secondaryPalette">
+		                                                    <div class="pbHeader">
+		                                                        <table border="0" cellpadding="0" cellspacing="0" style="border-bottom:0px;"><tbody>
+		                                                            <tr>
+		                                                                <td class="pbTitle" colspan="2"><h2 class="mainTitle">{!$Label.Potential_New_Business}</h2></td>			                                                                
+		                                                            </tr>
+		                                                        </tbody></table>
+		                                                    </div>
+		                                                    <div class="pbBody">
+		                                                        <table class="detailList" border="0" cellpadding="0" cellspacing="0" style="border-bottom:0px;"><tbody>
+		                                                            <tr>
+		                                                                <td class="labelCol last">{!$ObjectType.Potential_New_Business__c.fields.Potential_new_Business__c.label}</td>
+		                                                                <td class="dataCol last">{!npb.Potential_new_Business__r.Potential_new_Business__c}</td>
+		                                                            </tr>
+		                                                        </tbody></table>
+		                                                    </div>
+		                                                    <div class="pbFooter secondaryPalette">
+		                                                        <div class="bg"></div>
+		                                                    </div>
+		                                                </div></div>
+		                                            </div>
+		                                    	</div>
+                                            </apex:repeat>
+                                        </td>
+                                    </tr>
+                                </apex:repeat> 
+                                -->
+                            </tbody>
+                        </table>
+                    </div>
+                </apex:outputPanel> 
+                <apex:outputPanel id="panelDrivers" styleClass="col-md-4">
+                    <div class="ScrollingDiv">                                      
+                        <span style="float: left;font-weight: bold;font-size: 13px;">{!$Label.inciativas_estrategicas_del_cliente}</span>
+                        <table id="mainTable" class="table table-bordered table-condensed">
+                            <thead>
+                                <tr class="headerRow">                              
+                                    <th scope="col" class=" deemphasize" style="vertical-align:top;">{!$Label.Description}</th>
+                                    <th scope="col" class=" deemphasize" style="width:100px;white-space: normal;">{!$Label.Potential_New_Business}</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <apex:repeat value="{!globalStrategicInitiatives}" var="subitem">
+                                   <tr id="{!subitem.id}" class="StrategicInitiativeRow DraggableRow dataRow {!IF ( (subitem.Opportunities__R.size > 0) && (subitem.Potential_New_Business_Strategic_Ini__r.size > 0), 'hasOpportunityAndPotencial', IF(subitem.Opportunities__R.size > 0 , 'hasOpportunity' , IF(subitem.Potential_New_Business_Strategic_Ini__r.size > 0 , 'hasPotentialBussiness' , 'NotUsed')) )}"  onmouseover="if (window.hiOn){hiOn(this);} " onmouseout="if (window.hiOff){hiOff(this);} " onblur="if (window.hiOff){hiOff(this);}" onfocus="if (window.hiOn){hiOn(this);}">                                   
+                                        <td>
+                                            <span class="lessSpan">
+                                                <apex:outputPanel rendered="{!subitem.Title__c != null && subitem.Title__c != ''}">
+                                                    <apex:outputText value="{!Left(subitem.Title__c,50)}"/>
+                                                    <apex:outputText rendered="{!LEN(subitem.Title__c) > 50}">
+                                                        ...
+                                                    </apex:outputText>
+                                                </apex:outputPanel>
+                                                <apex:outputPanel rendered="{!subitem.Title__c == null || subitem.Title__c == ''}">
+                                                    <apex:outputText value="{!Left(subitem.Strategic_Initiative__c,50)}"/>
+                                                    <apex:outputText rendered="{!LEN(subitem.Strategic_Initiative__c) > 50}">
+                                                        ...
+                                                    </apex:outputText>
+                                                </apex:outputPanel>
+                                                    
+                                                <apex:outputText >                                                    
+                                                    <button class="btn btn-default btn-xs showMore" style="float:right;">
+                                                        <span class="glyphicon glyphicon-zoom-in icon-btn-left"></span>&nbsp;{!$Label.show_more}
+                                                    </button>
+                                                </apex:outputText>
+                                            </span>
+                                            <span class="moreSpan" style="display:none;">                               
+                                                <apex:outputPanel rendered="{!subitem.Title__c != null && subitem.Title__c != ''}">
+                                                    <apex:outputField value="{!subitem.Title__c}"/><br/><br/>
+                                                </apex:outputPanel>
+                                                <apex:outputField value="{!subitem.Strategic_Initiative__c}"/>
+                                                <button class="btn btn-default btn-xs showLess" style="float:right;">
+                                                    <span class="glyphicon glyphicon-zoom-out icon-btn-left"></span>&nbsp;{!$Label.show_less}
+                                                </button>
+                                            </span>                                                     
+                                        </td>                                        
+                                        <td class="TdLink" style="width:125px;">
+                                            <apex:repeat value="{!subitem.Potential_New_Business_Strategic_Ini__R}" var="pnbs">
+	                                        	<div class="PopupHolder">
+			                                        <span class="label label-success label-warning">{!pnbs.Potential_New_Business__r.Name}</span>
+			                                            <div class="individualPalette lookupHoverDetail lookupHoverDetailOverridable" style="display:none; visibility:visible; position:absolute; top:auto; left:auto;">
+			                                                <div class="Custom50Block topRight"><div class="bPageBlock secondaryPalette">
+			                                                    <div class="pbHeader">
+			                                                        <table border="0" cellpadding="0" cellspacing="0" style="border-bottom:0px;"><tbody>
+			                                                            <tr>
+			                                                                <td class="pbTitle" colspan="2"><h2 class="mainTitle">{!$Label.Potential_New_Business}</h2></td>			                                                                
+			                                                            </tr>
+			                                                        </tbody></table>
+			                                                    </div>
+			                                                    <div class="pbBody">
+			                                                        <table class="detailList" border="0" cellpadding="0" cellspacing="0" style="border-bottom:0px;"><tbody>
+			                                                            <tr>
+			                                                                <td class="labelCol last">{!$ObjectType.Potential_New_Business__c.fields.Potential_new_Business__c.label}</td>
+			                                                                <td class="dataCol last">{!pnbs.Potential_new_Business__r.Potential_new_Business__c}</td>
+			                                                            </tr>
+			                                                        </tbody></table>
+			                                                    </div>
+			                                                    <div class="pbFooter secondaryPalette">
+			                                                        <div class="bg"></div>
+			                                                    </div>
+			                                                </div></div>
+			                                            </div>
+			                                    	</div>
+	                                        </apex:repeat>
+                                        </td>
+                                    </tr>
+                                </apex:repeat>
+                                <apex:repeat value="{!localStrategicInitiatives}" var="subitem">
+                                    <tr id="{!subitem.id}" class="StrategicInitiativeRow DraggableRow dataRow {!IF ( (subitem.Opportunities__R.size > 0) && (subitem.Potential_New_Business_Strategic_Ini__r.size > 0), 'hasOpportunityAndPotencial', IF(subitem.Opportunities__R.size > 0 , 'hasOpportunity' , IF(subitem.Potential_New_Business_Strategic_Ini__r.size > 0 , 'hasPotentialBussiness' , 'NotUsed')) )}"  onmouseover="if (window.hiOn){hiOn(this);} " onmouseout="if (window.hiOff){hiOff(this);} " onblur="if (window.hiOff){hiOff(this);}" onfocus="if (window.hiOn){hiOn(this);}">                                  
+                                        <td>
+                                            <span class="lessSpan">
+                                                <apex:outputPanel rendered="{!subitem.Title__c != null && subitem.Title__c != ''}">
+                                                    <apex:outputText value="{!Left(subitem.Title__c,50)}"/>
+                                                    <apex:outputText rendered="{!LEN(subitem.Title__c) > 50}">
+                                                        ...
+                                                    </apex:outputText>
+                                                </apex:outputPanel>
+                                                <apex:outputPanel rendered="{!subitem.Title__c == null || subitem.Title__c == ''}">
+                                                    <apex:outputText value="{!Left(subitem.Strategic_Initiative__c,50)}"/>
+                                                    <apex:outputText rendered="{!LEN(subitem.Strategic_Initiative__c) > 50}">
+                                                        ...
+                                                    </apex:outputText>
+                                                </apex:outputPanel>
+                                                    
+                                                <apex:outputText >                                                    
+                                                    <button class="btn btn-default btn-xs showMore" style="float:right;">
+                                                        <span class="glyphicon glyphicon-zoom-in icon-btn-left"></span>&nbsp;{!$Label.show_more}
+                                                    </button>
+                                                </apex:outputText>
+                                            </span>
+                                            <span class="moreSpan" style="display:none;">                               
+                                                <apex:outputPanel rendered="{!subitem.Title__c != null && subitem.Title__c != ''}">
+                                                    <apex:outputField value="{!subitem.Title__c}"/><br/><br/>
+                                                </apex:outputPanel>
+                                                <apex:outputField value="{!subitem.Strategic_Initiative__c}"/>
+                                                <button class="btn btn-default btn-xs showLess" style="float:right;">
+                                                    <span class="glyphicon glyphicon-zoom-out icon-btn-left"></span>&nbsp;{!$Label.show_less}
+                                                </button>
+                                            </span>                                                     
+                                        </td>                                        
+                                        <td class="TdLink" style="width:125px;">
+                                            <apex:repeat value="{!subitem.Potential_New_Business_Strategic_Ini__R}" var="pnbs">
+	                                        	<div class="PopupHolder">
+			                                        <span class="label label-success label-warning">{!pnbs.Potential_New_Business__r.Name}</span>
+			                                            <div class="individualPalette lookupHoverDetail lookupHoverDetailOverridable" style="display:none; visibility:visible; position:absolute; top:auto; left:auto;">
+			                                                <div class="Custom50Block topRight"><div class="bPageBlock secondaryPalette">
+			                                                    <div class="pbHeader">
+			                                                        <table border="0" cellpadding="0" cellspacing="0" style="border-bottom:0px;"><tbody>
+			                                                            <tr>
+			                                                                <td class="pbTitle" colspan="2"><h2 class="mainTitle">{!$Label.Potential_New_Business}</h2></td>			                                                                
+			                                                            </tr>
+			                                                        </tbody></table>
+			                                                    </div>
+			                                                    <div class="pbBody">
+			                                                        <table class="detailList" border="0" cellpadding="0" cellspacing="0" style="border-bottom:0px;"><tbody>
+			                                                            <tr>
+			                                                                <td class="labelCol last">{!$ObjectType.Potential_New_Business__c.fields.Potential_new_Business__c.label}</td>
+			                                                                <td class="dataCol last">{!pnbs.Potential_new_Business__r.Potential_new_Business__c}</td>
+			                                                            </tr>
+			                                                        </tbody></table>
+			                                                    </div>
+			                                                    <div class="pbFooter secondaryPalette">
+			                                                        <div class="bg"></div>
+			                                                    </div>
+			                                                </div></div>
+			                                            </div>
+			                                    	</div>
+	                                        </apex:repeat>
+                                        </td>
+                                    </tr>
+                                </apex:repeat>
+                                <apex:repeat value="{!provenValueWrapperList}" var="subitem">
+                                    <tr id="{!subitem.provenValue.id}" class="PastProvenValueNewRow DraggableRow dataRow {!IF ( (subitem.provenValue.OpportunityPastProvenValueNew__R.size > 0) && (subitem.provenValue.Potential_New_Business_Past_Provent__r.size > 0), 'hasOpportunityAndPotencial', IF(subitem.provenValue.OpportunityPastProvenValueNew__r.size > 0 , 'hasOpportunity' , IF(subitem.provenValue.Potential_New_Business_Past_Provent__r.size > 0 , 'hasPotentialBussiness' , 'NotUsed')) )}"  onmouseover="if (window.hiOn){hiOn(this);} " onmouseout="if (window.hiOff){hiOff(this);} " onblur="if (window.hiOff){hiOff(this);}" onfocus="if (window.hiOn){hiOn(this);}">
+                                        <td>
+                                            <span class="lessSpan">
+                                                <apex:outputText value="{!Left(subitem.provenValue.Unique_Value__c,50)}"/>
+                                                <apex:outputText rendered="{!LEN(subitem.provenValue.Unique_Value__c) > 50}">
+                                                    ...
+                                                    <button class="btn btn-default btn-xs showMore" style="float:right;">
+                                                        <span class="glyphicon glyphicon-zoom-in icon-btn-left"></span>&nbsp;{!$Label.show_more}
+                                                    </button>
+                                                </apex:outputText>
+                                            </span>
+                                            <span class="moreSpan" style="float:right;display:none;">                               
+                                                <apex:outputField value="{!subitem.provenValue.Unique_Value__c}"/>                                              
+                                                <button class="btn btn-default btn-xs showLess" style="float:right;">
+                                                    <span class="glyphicon glyphicon-zoom-out icon-btn-left"></span>&nbsp;{!$Label.show_less}
+                                                </button>
+                                            </span>                                                     
+                                        </td>                                        
+                                        <td class="TdLink" style="width:125px;">
+                                            <apex:repeat value="{!subitem.provenValue.Potential_New_Business_Past_Provent__r}" var="pnb">
+	                                        	<div class="PopupHolder">
+			                                        <span class="label label-success label-warning">{!pnb.Potential_New_Business__r.Name}</span>
+			                                            <div class="individualPalette lookupHoverDetail lookupHoverDetailOverridable" style="display:none; visibility:visible; position:absolute; top:auto; left:auto;">
+			                                                <div class="Custom50Block topRight"><div class="bPageBlock secondaryPalette">
+			                                                    <div class="pbHeader">
+			                                                        <table border="0" cellpadding="0" cellspacing="0" style="border-bottom:0px;"><tbody>
+			                                                            <tr>
+			                                                                <td class="pbTitle" colspan="2"><h2 class="mainTitle">{!$Label.Potential_New_Business}</h2></td>			                                                                
+			                                                            </tr>
+			                                                        </tbody></table>
+			                                                    </div>
+			                                                    <div class="pbBody">
+			                                                        <table class="detailList" border="0" cellpadding="0" cellspacing="0" style="border-bottom:0px;"><tbody>
+			                                                            <tr>
+			                                                                <td class="labelCol last">{!$ObjectType.Potential_New_Business__c.fields.Potential_new_Business__c.label}</td>
+			                                                                <td class="dataCol last">{!pnb.Potential_new_Business__r.Potential_new_Business__c}</td>
+			                                                            </tr>
+			                                                        </tbody></table>
+			                                                    </div>
+			                                                    <div class="pbFooter secondaryPalette">
+			                                                        <div class="bg"></div>
+			                                                    </div>
+			                                                </div></div>
+			                                            </div>
+			                                    	</div>
+	                                        </apex:repeat>
+                                        </td>
+                                    </tr>
+                                </apex:repeat>                                    
+                            </tbody>                            
+                        </table>
+                    </div>    
+                </apex:outputPanel>			
+
+	    	</div>
+	    	<div class="panel-footer">
+    			<div class="row paddingRight">	
+					<div class="btn-group pull-right" role="group" aria-label="...">	    					
+           				<apex:outputText rendered="{!canEdit}">
+	           				<button type="button" class="btn btn-default btn-sm" data-toggle="modal" data-target="#myModal">
+		   						<span class="glyphicon glyphicon-plus icon-btn-left"></span>&nbsp;{!$Label.add_buttom} {!$Label.potential_business}
+		                    </button>
+	                    	<button type="button" class="btn btn-default btn-sm" onclick="save()">
+		   						<span class="glyphicon glyphicon-file icon-btn-left"></span>&nbsp;{!$Label.save}
+		                    </button>
+           				</apex:outputText>
+           				<button type="button" class="btn btn-default btn-sm" onclick="exportToExcel()">
+	   						<span class="glyphicon glyphicon-file icon-btn-left"></span>&nbsp;{!$Label.Export_to_Excel}
+	                    </button>
+    				</div>
+    			</div>
+    		</div>
+	    	<c:FastTask page="{!$Label.certa_scp__gap_growth_strategy}" account="{!account.id}"></c:FastTask>
+			<chatter:feed entityId="{!Account.Id}" />
+	    </div>
+	</apex:outputpanel>
+</apex:page>

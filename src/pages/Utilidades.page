@@ -1,0 +1,97 @@
+<apex:page tabStyle="Strategic_Client_Plan__tab" sidebar="false" showHeader="true" docType="html-5.0">
+    <c:FourPlanningMenuSuperiorLocal ></c:FourPlanningMenuSuperiorLocal>
+    
+    <apex:includeScript value="{!$Resource.JQueryUI}"  />
+    <apex:includeScript value="{!$Resource.JQueryUITouch}" />
+    <apex:includeScript value="{!$Resource.DataTable}"  />
+   <script>
+        
+    $j = jq213; //jQuery.noConflict();
+    
+    $j(document).ready(function() {
+        colorearLineaDeTiempo();
+        $j("#" + GetURLParameter("section")).click();
+        
+        $j(".botonFiltros").click();
+        
+        $j( "#section2" ).click(function() {
+            $j(".botonFiltros").click();
+        });
+    });     
+ 
+    function GetURLParameter(sParam) {
+        
+        console.log('entre');
+        var sPageURL = window.location.search.substring(1);
+        var sURLVariables = sPageURL.split('&');
+        
+        for (var i = 0; i < sURLVariables.length; i++) {
+            var sParameterName = sURLVariables[i].split('=');
+            if (sParameterName[0] == sParam) {
+                console.log(sParameterName[1]);
+                return sParameterName[1];
+            }
+        }
+    }
+
+    </script>
+    
+    <apex:outputpanel styleClass="container-fluid bootstrap-sf1" id="pageContent">
+        <div class="panel panel-default">
+            <div class="panel-heading" style="height: 70px;">
+                <h2 class="panel-title">
+                    <span style="float:left;">
+                        Utilidades
+                    </span>
+                </h2>
+                
+                
+                <div class="row paddingRight">
+                    <div class="btn-group pull-right" role="group" >                        
+                    </div>
+                </div>
+            </div>
+            
+            <div class="panel-body">
+                <apex:outputPanel id="botones">
+                    
+                    <apex:outputPanel > <!--rendered="{!fourplanning.X4_Planning_Pro__c}"-->
+                        <ul class="nav nav-tabs" role="tablist">
+                            <li role="presentation" class="active"><a  id="section1" href="#div-one-click-report" aria-controls="div-one-click-report" role="tab" data-toggle="tab">One-Click-Report</a></li>
+                            <li role="presentation"><a id="section2" href="#div-hitos" aria-controls="div-hitos" role="tab" data-toggle="tab">Hitos Relevantes</a></li>
+                            <li role="presentation"><a id="section3" href="#div-retos" aria-controls="div-retos" role="tab" data-toggle="tab">Retos</a></li>
+                            <li role="presentation"><a id="section4" class="asd" href="#div-coecuenta" aria-controls="div-coecuenta" role="tab" data-toggle="tab">Coeficiente de Cuenta</a></li>
+                        </ul>
+                    </apex:outputPanel>
+                </apex:outputPanel>
+                
+                
+                <br/>
+                <div class="tab-content" id="big-deal-tab-content">
+                   
+                    <!-- one click report -->
+                    <div id="div-one-click-report" role="tabpanel" class="tab-pane active fade in">
+                        <c:oneClickReport ></c:oneClickReport>
+                    </div>
+                    
+                    <!-- Hitos -->
+                    <div id="div-hitos" class="tab-pane fade">
+                        <c:hitos ></c:hitos>
+                    </div>
+
+                    <!-- Retos -->
+                    <div id="div-retos" class="tab-pane fade">
+                        <c:retos ></c:retos>                  
+                    </div>
+
+                    <!-- Coeficiente de cuenta -->
+                    <div id="div-coecuenta" class="tab-pane fade">
+                        <c:coecuenta ></c:coecuenta>                  
+                    </div>
+                    
+                </div>
+            </div>
+            </div>
+    </apex:outputpanel>
+
+</apex:page>

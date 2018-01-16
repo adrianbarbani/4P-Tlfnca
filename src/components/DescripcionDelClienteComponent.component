@@ -1,0 +1,152 @@
+<apex:component controller="FourPlanningController">
+	<style>
+        .headerRow {    
+            background-color: #F2F3F3;          
+            color: #000000;
+            font-size: 0.9em;
+            font-weight: bold;
+            padding: 5px 2px;
+            text-align: center;         
+        } 
+    </style> 
+    
+    <table class="table table-striped table-bordered table-condensed">
+    	<thead>
+    		<tr>
+    			<th class="headerRow">                    
+                    <apex:outputText value="Pregunta" />
+                </th>
+                <th class="headerRow">
+                    <apex:outputText value="Respuesta" />
+                </th>
+    		</tr>    		
+    	</thead>
+    	<tbody>
+    		
+    		<tr class="dataRow">
+    			<td class="dataCell">
+    				<apex:outputText value="Sector" />
+    			</td>
+                <td class="dataCell">
+    				<apex:outputText value="{!cuenta.Industry}" />
+    			</td>
+    		</tr>
+            <tr class="dataRow">
+    			<td class="dataCell">
+    				<apex:outputText value="Sub Sector" />
+    			</td>
+                <td class="dataCell">
+    				<apex:outputText value="{!cuenta.Micro_Industry__c}" />
+    			</td>
+    		</tr>
+            
+            <apex:outputText rendered="{! !esSectorPublico}" />
+            <tr class="dataRow">
+    			<td class="dataCell">
+    				<apex:outputText rendered="{! !esSectorPublico}" value="{!$Label.certa_scp__cu_les_son_los_ingresos_anuales_del_cliente_de_su_negocio_no_de_nuestro_nego}" />
+                    <apex:outputText rendered="{!esSectorPublico}" value="{!$Label.certa_scp__presupuesto_anual_cliente} {!monedaDeLaCuenta}"/>
+    			</td>
+                <td class="dataCell">
+    				<apex:outputText rendered="{! !esSectorPublico}" value="{!fourPlanning.Facturacion__c}" />
+                    <apex:outputText rendered="{!esSectorPublico}" value="{!fourPlanning.Qu_presupuesto_anual_maneja_tu_cliente__c}" />
+                    <apex:outputText rendered="{!fourPlanning.No_informa_dato__c}" value="{!$Label.certa_scp__no_informa_dato}" />
+    			</td>
+    		</tr>
+            
+            <tr class="dataRow">
+    			<td class="dataCell">
+                    <apex:outputText rendered="{! !esSectorPublico}" value="{!$Label.certa_scp__cantidad_empleados}" />
+                    <apex:outputText rendered="{!esSectorPublico}" value="{!$Label.certa_scp__numero_empleados_organismo}" />
+    			</td>
+                <td class="dataCell">
+    				<apex:outputText value="{!fourPlanning.Cantidad_de_empleados_exacto__c}"/>
+    			</td>
+    		</tr>
+            
+            <tr class="dataRow">
+    			<td class="dataCell">
+    				<apex:outputText value="{!$Label.certa_scp__numero_emleados_crece_decrece_mantiene}" />
+    			</td>
+                <td class="dataCell">
+    				<apex:outputText value="{!fourPlanning.Empleados_Crece_Decrece_Matiene__c}" />
+    			</td>
+    		</tr>
+            
+            <tr class="dataRow">
+    			<td class="dataCell">
+    				<apex:outputText value="{!$Label.certa_scp__cantidad_de_edificios_centrales_y_o_administrativos}" />
+    			</td>
+                <td class="dataCell">
+    				<apex:outputText value="{!fourPlanning.Cantidad_de_sedes_exactas__c}" />
+    			</td>
+    		</tr>
+            
+            <tr class="dataRow">
+    			<td class="dataCell">
+                    <apex:outputText rendered="{! !esSectorPublico}" value="{!$Label.certa_scp__indica_la_cantidad_de_sucursales}"  />
+                    <apex:outputText rendered="{!esSectorPublico}"  value="{!$Label.certa_scp__numero_centros_institucion}"   />
+    			</td>
+                <td class="dataCell">
+    				<apex:outputText value="{!fourPlanning.Cantidad_de_sucursales__c}" />
+    			</td>
+    		</tr>
+            
+            <tr class="dataRow">
+    			<td class="dataCell">
+                    <apex:outputText rendered="{! !esSectorPublico}" value="{!$Label.certa_scp__el_n_mero_de_sucursales_crece_decrece_o_se_mantiene}" />
+                    <apex:outputText rendered="{!esSectorPublico}" value="{!$Label.certa_scp__numero_centros_crece}" />
+    			</td>
+                <td class="dataCell">
+    				<apex:outputText value="{!fourPlanning.Como_se_mantiene_el_numero_de_sucursales__c}"/>
+    			</td>
+    		</tr>
+            
+            <tr class="dataRow">
+    			<td class="dataCell">
+                    <apex:outputText rendered="{! !esSectorPublico}" value="{!$Label.certa_scp__el_cliente_dispone_de_parque_automotor}" />
+                    <apex:outputText rendered="{!esSectorPublico}" value="{!$Label.certa_scp__organismo_parque_automotor}" />
+    			</td>
+                <td class="dataCell">
+    				<apex:outputText value="{!fourPlanning.Dispone_de_parque_automotor__c}"/>
+    			</td>
+    		</tr>
+            
+            <tr class="dataRow">
+    			<td class="dataCell">
+    				<apex:outputText value="{!$Label.certa_scp__parque_automotor_propio_o_gestionado}" />
+    			</td>
+                <td class="dataCell">
+    				<apex:outputText value="{!fourPlanning.Parque_Automotor_Propio_o_Gestionado__c}" />
+    			</td>
+    		</tr>
+            
+            <tr class="dataRow">
+    			<td class="dataCell">
+    				<apex:outputText value="{!$Label.certa_scp__cantidad_vehiculos_parque}" />
+    			</td>
+                <td class="dataCell">
+    				<apex:outputText value="{!fourPlanning.De_cuantos_veh_culos_dispone_el_parque__c}" />
+    			</td>
+    		</tr>
+            <apex:outputPanel rendered="{! !esSectorPublico}">
+            <tr class="dataRow">
+    			<td class="dataCell">
+    				<apex:outputText value="{!$Label.certa_scp__cliente_tiene_presencia_internacional}" />
+    			</td>
+                <td class="dataCell">
+    				<apex:outputText value="{!fourPlanning.Tiene_Presencia_Internacional__c}" />
+    			</td>
+    		</tr>
+            
+            <tr class="dataRow">
+    			<td class="dataCell">
+    				<apex:outputText value="{!$Label.certa_scp__selecciona_paises_negocio}" />
+    			</td>
+                <td class="dataCell">
+    				<apex:outputText value="{!fourPlanning.Presencia_Regional__c}" />
+    			</td>
+    		</tr>
+    		 </apex:outputPanel> 		
+    	</tbody>
+    </table>
+</apex:component>

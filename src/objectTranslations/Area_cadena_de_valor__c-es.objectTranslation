@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomObjectTranslation xmlns="http://soap.sforce.com/2006/04/metadata">
+    <caseValues>
+        <plural>false</plural>
+        <value>Area cadena de valor</value>
+    </caseValues>
+    <caseValues>
+        <plural>true</plural>
+        <value>Areas cadena de valor</value>
+    </caseValues>
+    <fields>
+        <label><!-- Area --></label>
+        <name>Area__c</name>
+    </fields>
+    <fields>
+        <label><!-- Conocimiento --></label>
+        <name>Conocimiento__c</name>
+        <picklistValues>
+            <masterLabel>Alto</masterLabel>
+            <translation><!-- Alto --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Bajo</masterLabel>
+            <translation><!-- Bajo --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Medio</masterLabel>
+            <translation><!-- Medio --></translation>
+        </picklistValues>
+    </fields>
+    <fields>
+        <label><!-- Contacto --></label>
+        <name>Contacto__c</name>
+        <relationshipLabel><!-- Areas cadena de valor --></relationshipLabel>
+    </fields>
+    <fields>
+        <label><!-- Interes --></label>
+        <name>Interes__c</name>
+    </fields>
+    <fields>
+        <label><!-- Reto --></label>
+        <name>Reto__c</name>
+    </fields>
+    <fields>
+        <label><!-- Solucion --></label>
+        <name>Solucion__c</name>
+    </fields>
+    <fields>
+        <label><!-- Cuenta --></label>
+        <name>cuenta__c</name>
+        <relationshipLabel><!-- Areas cadena de valor --></relationshipLabel>
+    </fields>
+    <gender>Feminine</gender>
+</CustomObjectTranslation>

@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomObjectTranslation xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fields>
+        <label>Miembro de nuestro equipo más cercano</label>
+        <name>Closest_Account_Team_Member__c</name>
+        <relationshipLabel>Contactos</relationshipLabel>
+    </fields>
+    <fields>
+        <label><!-- Languages --></label>
+        <name>Languages__c</name>
+    </fields>
+    <fields>
+        <label>Nivel</label>
+        <name>Level__c</name>
+        <picklistValues>
+            <masterLabel>Primary</masterLabel>
+            <translation><!-- Primary --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Secondary</masterLabel>
+            <translation><!-- Secondary --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Tertiary</masterLabel>
+            <translation><!-- Tertiary --></translation>
+        </picklistValues>
+    </fields>
+    <fields>
+        <label>URL Foto</label>
+        <name>PictureUrl__c</name>
+    </fields>
+    <fields>
+        <label>Foto</label>
+        <name>Picture__c</name>
+    </fields>
+    <fields>
+        <label>Activo</label>
+        <name>active__c</name>
+    </fields>
+    <fields>
+        <label><!-- Incluir al Organigrama --></label>
+        <name>inOrg__c</name>
+    </fields>
+    <webLinks>
+        <label><!-- Mapa_de_Influencias --></label>
+        <name>Mapa_de_Influencias</name>
+    </webLinks>
+</CustomObjectTranslation>

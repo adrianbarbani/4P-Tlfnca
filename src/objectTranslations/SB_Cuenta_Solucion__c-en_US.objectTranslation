@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomObjectTranslation xmlns="http://soap.sforce.com/2006/04/metadata">
+    <caseValues>
+        <plural>false</plural>
+        <value><!-- SB - Cuenta - Solucion --></value>
+    </caseValues>
+    <caseValues>
+        <plural>true</plural>
+        <value><!-- SB - Cuenta - Solucion --></value>
+    </caseValues>
+    <fields>
+        <label><!-- Cuenta --></label>
+        <name>Cuenta__c</name>
+        <relationshipLabel><!-- SB - Cuenta - Soluciones --></relationshipLabel>
+    </fields>
+    <fields>
+        <label><!-- Posicion --></label>
+        <name>Posicion__c</name>
+    </fields>
+    <fields>
+        <label><!-- Super Ball - Nodo --></label>
+        <name>Super_Ball_Nodo__c</name>
+        <relationshipLabel><!-- SB - Cuenta - Soluciones --></relationshipLabel>
+    </fields>
+    <fields>
+        <label><!-- Super Ball - Solucion --></label>
+        <name>Super_Ball_Solucion__c</name>
+        <relationshipLabel><!-- SB - Cuenta - Soluciones --></relationshipLabel>
+    </fields>
+    <fields>
+        <label><!-- estado --></label>
+        <name>estado__c</name>
+        <picklistValues>
+            <masterLabel>Lineas a Explorar</masterLabel>
+            <translation>To be explored</translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Lineas de trabajo Priorizadas</masterLabel>
+            <translation>Prioritized Workstream</translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Lineas que no Aplican en el Cliente</masterLabel>
+            <translation>N/A</translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Oportunidades Ganadas</masterLabel>
+            <translation>Won Opportunities</translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Oportunidades en Funnel</masterLabel>
+            <translation>Opportunities in Funnel</translation>
+        </picklistValues>
+    </fields>
+    <nameFieldLabel><!-- Nombre de SB - Cuenta - Solucion --></nameFieldLabel>
+    <startsWith><!-- Consonant --></startsWith>
+</CustomObjectTranslation>

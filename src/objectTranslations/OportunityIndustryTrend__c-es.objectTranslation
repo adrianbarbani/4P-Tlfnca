@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomObjectTranslation xmlns="http://soap.sforce.com/2006/04/metadata">
+    <caseValues>
+        <plural>false</plural>
+        <value><!-- Opportunity - Industry Trend --></value>
+    </caseValues>
+    <caseValues>
+        <plural>true</plural>
+        <value><!-- Opportunity - Industry Trend --></value>
+    </caseValues>
+    <fields>
+        <label>Tendencia de la Industria</label>
+        <name>Industry_Trend__c</name>
+        <relationshipLabel>Oportunidades y Tendencias Sectoriales</relationshipLabel>
+    </fields>
+    <fields>
+        <label>Oportunidad</label>
+        <name>Opportunity__c</name>
+        <relationshipLabel>Oportunidades y Tendencias Sectoriales</relationshipLabel>
+    </fields>
+    <gender><!-- Feminine --></gender>
+    <nameFieldLabel><!-- OpportunityIndustryTrend --></nameFieldLabel>
+</CustomObjectTranslation>

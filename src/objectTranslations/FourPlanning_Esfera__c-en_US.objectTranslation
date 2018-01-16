@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomObjectTranslation xmlns="http://soap.sforce.com/2006/04/metadata">
+    <caseValues>
+        <plural>false</plural>
+        <value><!-- FourPlanning Esfera --></value>
+    </caseValues>
+    <caseValues>
+        <plural>true</plural>
+        <value><!-- FourPlanning Esfera --></value>
+    </caseValues>
+    <fields>
+        <label><!-- Cuenta --></label>
+        <name>Cuenta__c</name>
+        <relationshipLabel><!-- FourPlanning Esferas --></relationshipLabel>
+    </fields>
+    <fields>
+        <label><!-- No se utiliza --></label>
+        <name>Diametro__c</name>
+    </fields>
+    <fields>
+        <label><!-- No se utiliza --></label>
+        <name>Eje_x__c</name>
+    </fields>
+    <fields>
+        <label><!-- No se utiliza --></label>
+        <name>Eje_y__c</name>
+    </fields>
+    <nameFieldLabel><!-- Nombre de FourPlanning Esfera --></nameFieldLabel>
+    <startsWith><!-- Consonant --></startsWith>
+</CustomObjectTranslation>

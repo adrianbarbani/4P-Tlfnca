@@ -1,0 +1,95 @@
+<apex:page controller="taskfeed1.ChatterFeedController" showHeader="false" standardStylesheets="false">
+	
+	<style>
+	
+	a {
+		text-decoration: none;
+		color: #000;
+	}
+
+	</style>
+
+	<apex:stylesheet value="{!URLFOR($Resource.taskfeed1__taskfeed, '/css/taskfeed-chatter.css')}"  />
+
+	<apex:outputPanel rendered="{!(itemWrappers.size>5)}">
+		<div class="alert alert-info more-posts">
+	   		<a href="/{!$CurrentPage.parameters.Id}">Only showing the 5 most recent posts...</a>
+	   	</div>
+   	</apex:outputPanel>
+   	<apex:outputPanel rendered="{!(itemWrappers.size=0)}">
+		<div class="alert alert-info more-posts">
+	   		There are no updates on this card yet
+	   	</div>
+   	</apex:outputPanel>
+	<ul class="media-list feed">
+		<apex:repeat value="{!itemWrappers}" var="item" rows="5">
+			<li class="post">
+				<div class="profile pull-left">
+					<img class="media-object chatter-photo" width="45px" src="{!item.profileImgURL}" alt="..." />
+			    </div>
+			    <div class="post-body">
+			    	<div class="author"><a href="/{!item.feedItem.CreatedById}">{!item.feedItem.CreatedBy.Name}</a></div>
+			    	<apex:outputPanel rendered="{!(item.feedItem.Type=='TextPost')}">
+			    		<div class="body-content">{!item.feedItem.Body}</div>
+			    	</apex:outputPanel>
+			    	<apex:outputPanel rendered="{!(item.feedItem.Type=='LinkPost')}">
+			    		<div class="body-content">{!item.feedItem.Body}</div>
+			    		<div class="body-content"><a href="{!item.feedItem.LinkUrl}" target="_blank">{!item.feedItem.Title}</a></div>
+			    	</apex:outputPanel>
+			    	<apex:outputPanel rendered="{!(item.feedItem.Type=='ContentPost')}">
+			    		<div class="body-content">{!item.feedItem.Body}</div>
+			    		<div class="body-content"><a href="/{!item.feedItem.RelatedRecordId}">{!item.feedItem.Title} ({!item.feedItem.ContentType})</a></div>
+			    	</apex:outputPanel>
+			    	<div class="post-attributes">
+			    		<apex:outputPanel rendered="{!(item.feedItem.LikeCount>0)}">
+			    			<small><a href="/{!item.feedItem.Id}">{!item.feedItem.LikeCount} like<apex:outputPanel rendered="{!(item.feedItem.LikeCount>1)}">s</apex:outputPanel></a></small>
+			    			<span class="post-attribute-seperator">&nbsp;&nbsp;·&nbsp;&nbsp;</span>
+			    		</apex:outputPanel>
+			    		<small>
+			    			<a href="/{!item.feedItem.Id}">
+				    			<apex:outputText value="{0,date,dd/MM/yyyy HH:mm}">
+				    				<apex:param value="{!item.feedItem.CreatedDate}" /> 
+			    				</apex:outputText>
+		    				</a>
+		    			</small>
+			    	</div>
+			    
+			    	<apex:outputPanel rendered="{!(item.feedItem.CommentCount>0)}">
+					    <ul class="media-list comments">
+					    	<apex:outputPanel rendered="{!(item.feedItem.CommentCount>1)}">
+						    	<div class="more-comments">
+						    		<a href="/{!item.feedItem.Id}">There are {!item.feedItem.CommentCount-1} more comments...</a>
+						    	</div>
+					    	</apex:outputPanel>
+							<li class="comment">
+								<div class="profile pull-left">
+									<img class="media-object chatter-photo" width="32px" src="{!item.comments[0].profileImgURL}" alt="..." />
+							    </div>
+							    <div class="comment-body">
+							    	<div class="author"><a href="/{!item.comments[0].feedComment.CreatedById}">{!item.comments[0].feedComment.CreatedBy.Name}</a></div>
+							    	<div class="body-content">{!item.comments[0].feedComment.CommentBody}</div>
+							    	<div class="post-attributes">
+							    		<small>
+							    			<a href="/{!item.feedItem.Id}">
+								    			<apex:outputText value="{0,date,dd/MM/yyyy HH:mm}">
+								    				<apex:param value="{!item.comments[0].feedComment.CreatedDate}" /> 
+							    				</apex:outputText>
+						    				</a>
+						    			</small>
+							    	</div>
+							    </div>
+							</li>
+						</ul>
+					</apex:outputPanel>
+				</div>
+			</li>
+		</apex:repeat>
+	</ul>
+	<apex:outputPanel rendered="{!(itemWrappers.size>5)}">
+		<div class="alert alert-info more-posts">
+	   		<a href="/{!$CurrentPage.parameters.Id}">Only showing the 5 most recent posts, see all...</a>
+	   	</div>
+   	</apex:outputPanel>
+
+   <c:intercom />
+</apex:page>

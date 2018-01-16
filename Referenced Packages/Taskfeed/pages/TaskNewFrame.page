@@ -1,0 +1,123 @@
+<apex:page standardController="taskfeed1__Task__c"  extensions="taskfeed1.TaskControllerExtension" tabStyle="taskfeed1__Task__c" showHeader="false" sidebar="false">
+
+<c:includes />
+
+<script>
+    var isInIframe = window.frameElement && window.frameElement.nodeName == "IFRAME";
+
+    if (window.opener) {
+        //popped window
+        parent = window.opener;
+    } 
+
+    function closeThis() {
+        if (isInIframe) {
+            parent.closeFrameModal();
+        } else {
+            window.close();
+        }
+    }
+
+    window.onblur = function() {
+       //say goodbye
+       //this.close();
+    };
+
+    $j(document).ready(function() {
+        window.document.title = 'New Taskfeed Task';
+        $j('input:text:visible:first').focus();
+
+        //keyup from any form control will check if enter and then start saving
+        $j('input[type=text]').keyup(function(e){
+            e.stopPropagation();
+            if(e.keyCode == 13) {
+                $j("[id$='saveButton']").click();
+            }
+        });
+        
+         $j('textarea').on('input', function() {
+            FitToContent( this, 400 )
+        });
+    });
+
+    // http://stackoverflow.com/questions/454202/creating-a-textarea-with-auto-resize
+    function FitToContent(id, maxHeight)
+    {
+       var text = id && id.style ? id : document.getElementById(id);
+       if ( !text )
+          return;
+
+       var adjustedHeight = text.clientHeight;
+       if ( !maxHeight || maxHeight > adjustedHeight )
+       {
+          adjustedHeight = Math.max(text.scrollHeight, adjustedHeight);
+          if ( maxHeight )
+             adjustedHeight = Math.min(maxHeight, adjustedHeight);
+          if ( adjustedHeight > text.clientHeight )
+             text.style.height = (adjustedHeight+5) + "px";
+       }
+    }
+</script>
+
+<style>
+
+body { /* this removes any horizontal scroll  */
+    overflow-x:hidden;
+    height:100%;
+    margin: 10px;
+}
+    
+textarea {
+    width: 350px;
+}
+
+
+</style>
+
+<div class="row">
+  <div class="col-md-12">
+    <div class="fixedEditSection">
+      <apex:form >
+            <apex:outputPanel id="messagesAndScript">
+                <apex:pageMessages id="msgs" />
+
+                <script>
+                    function refreshAndClose() {
+                        //will refresh the board and close modal
+                        if ({!!hasErrorMessages}) {
+                            closeThis();
+                        }
+                    }
+                </script>
+            </apex:outputPanel>
+
+            <div class="taskmodal-section-title"><apex:outputText value="New Taskfeed Task" /></div>
+
+            <apex:pageBlock mode="Edit">
+                <apex:pageBlockButtons location="top">
+                    <apex:actionStatus id="saveStatus">
+                        <apex:facet name="stop">
+                            <apex:commandButton value="Save" action="{!quicksave}" id="saveButton" status="saveStatus" rerender="messagesAndScript" oncomplete="refreshAndClose();" />
+                        </apex:facet>
+                        <apex:facet name="start">
+                            <apex:outputPanel >
+                                <apex:image value="/img/loading32.gif" style="height: 15px;"/>
+                                <apex:commandButton value="Saving..." status="saveStatus" disabled="true"/>
+                            </apex:outputPanel>
+                        </apex:facet>
+                    </apex:actionStatus>
+                    <apex:commandButton id="cancelButton" value="Cancel" rerender="messagesAndScript" oncomplete="closeThis();" />
+                </apex:pageBlockButtons>
+                <apex:pageBlockSection columns="1">
+                    <apex:repeat value="{!$ObjectType.taskfeed1__Task__c.FieldSets.taskfeed1__editTaskPopup}" var="f"> 
+                        <apex:inputField value="{!taskfeed1__Task__c[f]}" required="{!f.DBRequired || f.Required}" />
+                    </apex:repeat>
+                </apex:pageBlockSection>
+            </apex:pageBlock>
+        </apex:form>
+      </div>
+  </div>
+</div>
+
+<c:intercom />
+</apex:page>

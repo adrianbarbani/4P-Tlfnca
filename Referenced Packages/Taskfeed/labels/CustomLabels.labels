@@ -1,0 +1,115 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomLabels xmlns="http://soap.sforce.com/2006/04/metadata">
+    <labels>
+        <fullName>Add_Contributor</fullName>
+        <categories>Label</categories>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>Add Contributor</shortDescription>
+        <value>Add Contributor</value>
+    </labels>
+    <labels>
+        <fullName>Add_Contributor_Hint_Text</fullName>
+        <categories>Hint</categories>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>Add Contributor Hint Text</shortDescription>
+        <value>Search for a contributor to add to this board...</value>
+    </labels>
+    <labels>
+        <fullName>Add_Task</fullName>
+        <categories>Button</categories>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>Add Task</shortDescription>
+        <value>Add</value>
+    </labels>
+    <labels>
+        <fullName>Add_Task_Template</fullName>
+        <categories>Button</categories>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>Add Task Template</shortDescription>
+        <value>Add Template...</value>
+    </labels>
+    <labels>
+        <fullName>All_Boards</fullName>
+        <categories>Board Switcher Label</categories>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>All Boards</shortDescription>
+        <value>View all Boards...</value>
+    </labels>
+    <labels>
+        <fullName>All_my_tasks</fullName>
+        <categories>Board Switch Label</categories>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>All my tasks</shortDescription>
+        <value>All my tasks...</value>
+    </labels>
+    <labels>
+        <fullName>Boards</fullName>
+        <categories>Label</categories>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>Boards</shortDescription>
+        <value>Boards</value>
+    </labels>
+    <labels>
+        <fullName>Filter_by</fullName>
+        <categories>Label</categories>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>Filter by</shortDescription>
+        <value>Filter by</value>
+    </labels>
+    <labels>
+        <fullName>My_Tasks</fullName>
+        <categories>Filter Label</categories>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>My Tasks</shortDescription>
+        <value>My Tasks</value>
+    </labels>
+    <labels>
+        <fullName>New_Board</fullName>
+        <categories>Board Switch Label</categories>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>New Board</shortDescription>
+        <value>Create New Board...</value>
+    </labels>
+    <labels>
+        <fullName>Remove_Filters</fullName>
+        <categories>Filter Label</categories>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>Remove Filters</shortDescription>
+        <value>Remove Filters</value>
+    </labels>
+    <labels>
+        <fullName>Share</fullName>
+        <categories>Button</categories>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>Share</shortDescription>
+        <value>Share</value>
+    </labels>
+    <labels>
+        <fullName>Task_Chatter_Post_Notification</fullName>
+        <categories>Label</categories>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>Task Chatter Post Notification</shortDescription>
+        <value>New Taskfeed Task created:</value>
+    </labels>
+    <labels>
+        <fullName>Trending</fullName>
+        <categories>Filter Label</categories>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>Recommended</shortDescription>
+        <value>Recommended</value>
+    </labels>
+</CustomLabels>

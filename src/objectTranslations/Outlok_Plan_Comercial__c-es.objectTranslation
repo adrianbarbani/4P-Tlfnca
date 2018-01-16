@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomObjectTranslation xmlns="http://soap.sforce.com/2006/04/metadata">
+    <caseValues>
+        <plural>false</plural>
+        <value><!-- SCP Outlook Plan Comercial --></value>
+    </caseValues>
+    <caseValues>
+        <plural>true</plural>
+        <value><!-- SCP Outlook Plan Comercial --></value>
+    </caseValues>
+    <fields>
+        <label>Cuenta</label>
+        <name>Cuenta__c</name>
+        <relationshipLabel><!-- SCP Outlook Planes Comerciales --></relationshipLabel>
+    </fields>
+    <fields>
+        <label>Año Fiscal previo</label>
+        <name>Previous_Fiscal_Year_Revenue__c</name>
+    </fields>
+    <fields>
+        <label>Año Fiscal previo</label>
+        <name>Previous_Fiscal_Year__c</name>
+    </fields>
+    <gender><!-- Feminine --></gender>
+    <nameFieldLabel><!-- Nombre de SCP Outlook Plan Comercial --></nameFieldLabel>
+</CustomObjectTranslation>

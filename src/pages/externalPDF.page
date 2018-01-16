@@ -1,0 +1,11 @@
+<apex:page renderAs="pdf" controller="externalPDFController">
+    
+    <p>
+        {!$ObjectType.Big_deals_Survey__c.fields.FCV_de_contratos_actuales__c.inlineHelpText}: {!solicitud.Operator_or_country__c}
+    </p>
+    
+    <p>
+        Nombre: {!solicitud.applicant_name__c}
+    </p>
+
+</apex:page>

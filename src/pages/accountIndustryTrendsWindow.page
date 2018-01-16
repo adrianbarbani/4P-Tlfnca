@@ -1,0 +1,435 @@
+<apex:page sidebar="false" controller="accountIndustryTrends" tabStyle="Strategic_Client_Plan__tab">
+<!-- 
+<style>
+.LeftCol{
+  
+    width:auto;
+    margin-right:360px;
+}
+.RightCol{
+    width:350px;
+    float: right;
+}
+.FillWidth{
+    width:90%;
+}
+
+.bPageBlock .pbTitle{
+    width:70%;
+}
+
+.apexp{
+    float: left;
+    width: 100%;
+}
+
+.halfwidth{
+    width:48%;
+    float:left;
+    padding:1%;
+}   
+ 
+.Button{
+ float: right; 
+ width: 120px; 
+ text-align: center; 
+ border: 1px solid black; 
+ border-bottom-left-radius: 5px;
+ border-top-left-radius: 5px; 
+ border-bottom-right-radius: 5px;
+ border-top-right-radius: 5px; 
+ line-height: 30px; 
+ font-size: 18px; 
+ background: white url('https://c.na14.visual.force.com/img/alohaSkin/grid_headerbg.gif'); 
+ background-position: 0px 100%; 
+ background-repeat: repeat-x;
+ cursor:pointer;
+}
+
+.buttonRight{
+ border-bottom-left-radius: 0px;
+ border-top-left-radius: 0px; 
+ }
+ 
+.buttonLeft{
+ border-bottom-right-radius: 0px;
+ border-top-right-radius: 0px; 
+ border-right: 0px;
+
+}
+
+tr{
+    max-width:500px;
+}
+
+.NotUsed{
+    background-color: #FEE;
+}
+
+.ScrollingDiv{
+    max-height:280px;
+    overflow-y:auto;
+    overflow-x: hidden
+    width:100%;
+}
+
+.AddButton{
+
+    background-image: url({!$Resource.AddIcon});
+    width:14px;
+    height:14px;
+    float:right;
+    cursor:pointer;
+    
+}
+
+.AddPopup {
+    position: absolute;
+    margin-top: 14px;
+    padding: 5px;
+    background-color: #eee;
+    border: 1px solid black;
+    width: 100px;
+    white-space: normal;
+    min-height: 14px;
+    margin-left: -43px;
+    border-radius: 3px;
+    display:none;
+}
+
+.ui-state-hover{
+
+    background-color: lightgreen;
+
+}
+
+
+.ui-draggable-dragging{
+    background-color: white;
+    border: 1px solid gray;
+}
+
+.ui-draggable-dragging>td{
+    padding-left: 4px;
+    padding-right: 2px;
+}
+
+.ui-draggable-dragging>.TdName, .ui-draggable-dragging>.TdLink{
+    display:none;
+}
+
+.IndustryTrendsRow{
+    cursor:move;
+}
+
+.StrategicInitiativeRow{
+    cursor:move;
+}
+.DraggableRow{}
+
+.PopupHolder{
+    float:left;
+    margin-right: 6px;
+}
+body {
+    overflow-x:hidden;
+}
+</style>
+   <apex:includeScript value="{!$Resource.JQuery}"  />
+   <apex:includeScript value="{!$Resource.JQueryUI}"  />
+   <apex:includeScript value="{!$Resource.JQueryUITouch}"  />
+   
+<apex:outputText rendered="{!canEdit}">
+   <script type="application/javascript">
+        $j = jQuery.noConflict();
+        $j(document).ready(function() {
+    
+            init();
+        });
+        
+    function init(){
+        
+        $j(".IndustryTrendsRow").unbind().draggable({
+                appendTo: "body",
+                helper: "clone",
+                cursor: "move",
+                containment: "body",
+                cursorAt: {top:-10}
+            });
+            $j(".StrategicInitiativeRow").unbind().draggable({
+                appendTo: "body",
+                helper: "clone",
+                cursor: "body",
+                containment: ".FillWidth",
+                cursorAt: {top:-10}
+            });
+            
+         $j(".IndustryTrendsTD").unbind().droppable({
+            activeClass: "ui-state-default",
+            hoverClass: "ui-state-hover",
+            accept: ".IndustryTrendsRow",
+            tolerance: "pointer",
+            drop: function( event, ui ) {
+
+                linkTrendAction($j(ui.draggable).attr("id"),$j(this).parent().attr("id"));
+            }
+         });
+            
+         $j(".StrategicInitiativesTD").unbind().droppable({
+            activeClass: "ui-state-default",
+            hoverClass: "ui-state-hover",
+            accept: ".StrategicInitiativeRow",
+            tolerance: "pointer",            
+            drop: function( event, ui ) {
+            
+                linkIniciativeAction($j(ui.draggable).attr("id"),$j(this).parent().attr("id"));;
+            }
+         });
+         
+
+    
+    
+    
+        $j(".PopupHolder").mouseover(function(){
+        
+            $j(this).children(".lookupHoverDetail").show();
+        
+        }).mouseout(function(){
+        
+            $j(this).children(".lookupHoverDetail").hide();
+        
+        });
+        
+        
+    }
+        
+    function ajaxshow(){
+    
+        $j(".ajaxloader").show();
+    
+    }    
+    function ajaxstop(){
+    
+        $j(".ajaxloader").hide();
+        init();
+    
+    }
+    </script>   
+
+   </apex:outputText>
+<c:SCPMenu ></c:SCPMenu>
+<apex:include pageName="changeFocus"/>
+<apex:stylesheet value="{!$Resource.ipad}"/>
+<div class="FillWidth">
+    
+    <div id="Menu"> 
+        <apex:pageBlock title="{!$Label.Step4}" id="Content">
+            <apex:outputText rendered="{!canEdit}"><div style="clear:both; text-align:center; font-style: italic;">{!$Label.dranganddrop}</div></apex:outputText>
+            <h2>{!$Label.Opportunities}</h2>
+            <div class="ScrollingDiv" style="max-height:150px;">
+               <table class="list" border="0" cellspacing="0" cellpadding="0"  style="border-bottom:0px;"><tbody>
+                <tr class="headerRow">
+                    <th scope="col" width="25px" class=" deemphasize"></th>
+                    <th scope="col" class=" deemphasize">{!$Label.Nombre_de_la_oportunidad}</th>
+                    <th scope="col" class=" deemphasize" style="text-align:center;">{!$Label.fcv}</th>
+                    <th scope="col" class=" deemphasize" style="text-align:center; width:145px;">{!$Label.Linked_Trend}</th>
+                    <th scope="col" class=" deemphasize" style="text-align:right; width:145px;">{!$Label.linked_strategic_initiatives}</th>
+               </tr>
+                
+                <apex:repeat value="{oppsList}" var="item">
+                <tr id="{!item.opp.id}" class="dataRow even">
+                    <td class="dataCell"><apex:outputLink value="{!$Page.accountRDMWindow}?id={!item.opp.id}"><apex:image style="{!if((item.opp.ContactsAssessments__r.size>0), 'border:3px solid #069;','')}" url="{!$Resource.mosaico_icono}" height="25px" width="25px"/></apex:outputLink></td>
+                    <td class="dataCell"><apex:outputLink value="/{!item.opp.id}">{!item.opp.Name}</apex:outputLink></td>
+                    <td class="dataCell" style="text-align:right;">
+                        <apex:outputText value="{!item.Full_Contract_Value}"/>
+                    </td>
+                    <td class="dataCell IndustryTrendsTD" style="text-align:right">
+                        <apex:repeat value="{!item.opp.IndustryTrends__r}" var="subitem">
+                            <div class="PopupHolder">
+                            {!subitem.Industry_Trend__r.name}
+                                <div class="individualPalette lookupHoverDetail lookupHoverDetailOverridable" style="display:none; visibility:visible; position:absolute; top:auto; left:auto;">
+                                    <div class="Custom50Block topLeft"><div class="bPageBlock secondaryPalette">
+                                        <div class="pbHeader">
+                                            <table border="0" cellpadding="0" cellspacing="0" style="border-bottom:0px;"><tbody>
+                                                <tr>
+                                                    <td class="pbTitle"><h2 class="mainTitle">{!$Label.Trend}</h2></td>
+                                                    <td class="pbButton"><apex:form ><apex:commandButton action="{!unlinkTrend}" value="Unlink Trend" reRender="Content" status="renderMeStatus"><apex:param name="firstParam" assignTo="{!trendid}" value="{!subitem.id}" /></apex:commandButton></apex:form></td>
+                                                </tr>
+                                            </tbody></table>
+                                        </div>
+                                        <div class="pbBody">
+                                            <table class="detailList" border="0" cellpadding="0" cellspacing="0" style="border-bottom:0px;"><tbody>
+                                                <tr>
+                                                    <td class="labelCol last">{!$Label.trend}</td>
+                                                    <td class="dataCol last">{!subitem.Industry_Trend__r.Trend__c}</td>
+                                                </tr>
+                                            </tbody></table>
+                                        </div>
+                                        <div class="pbFooter secondaryPalette">
+                                            <div class="bg"></div>
+                                        </div>
+                                    </div></div>
+                                </div>
+                            </div></apex:repeat>
+                    </td>
+                    <td class="dataCell StrategicInitiativesTD" style="text-align:right;">
+                        <apex:repeat value="{!item.opp.StrategicInitiatives__r}" var="subitem">
+                            <div class="PopupHolder">
+                            {!subitem.Strategic_Initiative__r.name}
+                                <div class="individualPalette lookupHoverDetail lookupHoverDetailOverridable" style="display:none; visibility:visible; position:absolute; top:auto; left:auto;">
+                                    <div class="Custom50Block topLeft"><div class="bPageBlock secondaryPalette">
+                                        <div class="pbHeader">
+                                            <table border="0" cellpadding="0" cellspacing="0" style="border-bottom:0px;"><tbody>
+                                                <tr>
+                                                    <td class="pbTitle"><h2 class="mainTitle">Strategic Iniciative</h2></td>
+                                                    <td class="pbButton"><apex:form ><apex:commandButton action="{!unlinkIniciative}" value="Unlink Iniciative" reRender="Content" status="renderMeStatus"><apex:param name="firstParam" assignTo="{!iniciativeid}" value="{!subitem.id}" /></apex:commandButton></apex:form></td>
+                                                </tr>
+                                            </tbody></table>
+                                        </div>
+                                        <div class="pbBody">
+                                            <table class="detailList" border="0" cellpadding="0" cellspacing="0" style="border-bottom:0px;"><tbody>
+                                                <tr>
+                                                    <td class="labelCol last">{!$Label.iniciativa}</td>
+                                                    <td class="dataCol last">{!subitem.Strategic_Initiative__r.Strategic_Initiative__c}</td>
+                                                </tr>
+                                            </tbody></table>
+                                        </div>
+                                        <div class="pbFooter secondaryPalette">
+                                            <div class="bg"></div>
+                                        </div>
+                                    </div></div>
+                                </div>
+                        </div></apex:repeat>
+                    </td>
+                </tr>
+               
+                </apex:repeat>
+               </tbody></table>
+            </div>
+            <br/>
+            
+
+            <apex:actionStatus id="renderMeStatus" onstart="ajaxshow()" onstop="ajaxstop()"/>
+            <div class="ajaxloader" style="display: none; background-color:white; padding:5px; text-align:center; width:220px; border: 1px solid grey; margin-left: auto; margin-right: auto; border-radius: 5px;">
+                <img src="{!$Resource.AjaxLoader}"/><br/>Loading...
+            </div>
+            
+            <div class="ScrollingDiv">
+                <apex:repeat value="{!regions}" var="item">
+                    <h2>{!$Label.trend} {!item.Region.Name}</h2>
+                    <table style="width:100%; border-bottom:0px;" class="list" border="0" cellspacing="0" cellpadding="0"><tbody>
+                        <tr class="headerRow">
+                            <th scope="col" class=" deemphasize">{!$Label.LastModifiedDate}</th>
+                            <th scope="col" width="30" class=" deemphasize">{!$Label.Numero_de_la_oportunidad}</th>
+                            <th scope="col" class=" deemphasize">{!$Label.Linked_Opportunities}</th>
+                            <th scope="col" class=" deemphasize">{!$Label.trend}</th>
+                       </tr>
+                       <apex:repeat value="{!item.Trends}" var="subitem">
+                        <tr id="{!subitem.id}" class="IndustryTrendsRow DraggableRow dataRow {!IF(subitem.Opportunities__R.size > 0 , '' , 'NotUsed')}"  onmouseover="if (window.hiOn){hiOn(this);} " onmouseout="if (window.hiOff){hiOff(this);} " onblur="if (window.hiOff){hiOff(this);}" onfocus="if (window.hiOn){hiOn(this);}">
+                            <td style="width:150px">
+                                <apex:outputText value="{0,date,dd'/'MM'/'yyyy HH:mm:ss z}">
+                                    <apex:param value="{!subitem.LastModifiedDate}" /> 
+                                </apex:outputText>
+                            </td>
+                            <td class="TdName dataCell" >
+                                {!subitem.Name}     
+                            </td>
+                            <td class="TdLink" style="width:125px;">
+                                <apex:repeat value="{!subitem.Opportunities__R}" var="Opps"><apex:outputField value="{!Opps.Opportunity__c}"/><br/></apex:repeat>                                
+                            </td>
+                            <td class=" dataCell  ">
+                                {!subitem.Trend__c}
+                            </td>
+                        </tr>
+                        </apex:repeat>
+                    </tbody></table>
+                    <br/>
+                </apex:repeat>
+            </div>     
+            <br/>      
+            <h2>{!$Label.global_strategic_initiative}</h2>
+            <div class="ScrollingDiv">
+               <table style="width:100%; border-bottom:0px;" class="list" border="0" cellspacing="0" cellpadding="0" ><tbody>
+                        <tr class="headerRow">
+                            <th scope="col" class=" deemphasize">{!$Label.LastModifiedDate}</th>
+                            <th scope="col" width="30" class=" deemphasize">{!$Label.Numero_de_la_oportunidad}</th>
+                            <th scope="col" class=" deemphasize">{!$Label.Linked_Opportunities}</th>
+                            <th scope="col" class=" deemphasize">{!$Label.iniciativa}</th>
+                       </tr>
+                       <apex:repeat value="{!globalStrategicInitiatives}" var="subitem">
+                        <tr id="{!subitem.id}" class="StrategicInitiativeRow DraggableRow dataRow {!IF(subitem.Opportunities__R.size > 0 , '' , 'NotUsed')}"  onmouseover="if (window.hiOn){hiOn(this);} " onmouseout="if (window.hiOff){hiOff(this);} " onblur="if (window.hiOff){hiOff(this);}" onfocus="if (window.hiOn){hiOn(this);}">
+                            <td style="width:150px">
+                                <apex:outputText value="{0,date,dd'/'MM'/'yyyy HH:mm:ss z}">
+                                    <apex:param value="{!subitem.LastModifiedDate}" /> 
+                                </apex:outputText>
+                            </td>
+                            <td class="TdName dataCell" >
+                                {!subitem.Name}     
+                            </td>
+                            <td class="TdLink" style="width:125px;">
+                                <apex:repeat value="{!subitem.Opportunities__R}" var="Opps"><apex:outputField value="{!Opps.Opportunity__c}"/><br/></apex:repeat>
+                            </td>
+                                {!subitem.Strategic_Initiative__c}
+                            </td>
+                        </tr>
+                        </apex:repeat>
+                    </tbody></table>
+            <br/>
+            <h1>{!$Label.local_strategic_initiative}</h1>
+                    <table style="width:100%; border-bottom:0px;" class="list" border="0" cellspacing="0" cellpadding="0" ><tbody>
+                        <tr class="headerRow">
+                            <th scope="col" class=" deemphasize">{!$Label.LastModifiedDate}</th>
+                            <th scope="col" width="30" class=" deemphasize">{!$Label.Numero_de_la_oportunidad}</th>
+                            <th scope="col" class=" deemphasize">{!$Label.Linked_Opportunities}</th>
+                            <th scope="col" class=" deemphasize">{!$Label.iniciativa}</th>
+                       </tr>
+                       <apex:repeat value="{!localStrategicInitiatives}" var="subitem">
+                        <tr id="{!subitem.id}" class="StrategicInitiativeRow DraggableRow dataRow {!IF(subitem.Opportunities__R.size > 0 , '' , 'NotUsed')}"  onmouseover="if (window.hiOn){hiOn(this);} " onmouseout="if (window.hiOff){hiOff(this);} " onblur="if (window.hiOff){hiOff(this);}" onfocus="if (window.hiOn){hiOn(this);}">
+                            <td style="width:150px">
+                                <apex:outputText value="{0,date,dd'/'MM'/'yyyy HH:mm:ss z}">
+                                    <apex:param value="{!subitem.LastModifiedDate}" /> 
+                                </apex:outputText>
+                            </td>
+                            <td class="TdName dataCell" >
+                                {!subitem.Name}     
+                            </td>
+                            <td class="TdLink" style="width:125px;">
+                                <apex:repeat value="{!subitem.Opportunities__R}" var="Opps"><apex:outputField value="{!Opps.Opportunity__c}"/><br/></apex:repeat>
+                            </td>
+                            <td class=" dataCell  ">
+                                {!subitem.Strategic_Initiative__c}
+                            </td>
+                        </tr>
+                        </apex:repeat>
+                    </tbody></table>
+               
+            </div>
+            
+            <apex:outputText rendered="{!canEdit}"><div style="clear:both; text-align:center; font-style: italic;">{!$Label.dranganddrop}</div></apex:outputText>
+        </apex:pageBlock>
+<apex:form id="form">       
+<apex:actionFunction name="linkTrendAction" action="{!linkTrend}" rerender="Content" status="renderMeStatus" >
+        <apex:param name="firstParam" assignTo="{!trendid}" value="" />
+        <apex:param name="secondParam" assignTo="{!oppid}" value="" />
+</apex:actionFunction> 
+<apex:actionFunction name="linkIniciativeAction" action="{!linkIniciative}" rerender="Content" status="renderMeStatus" >
+        <apex:param name="firstParam" assignTo="{!iniciativeid}" value="" />
+        <apex:param name="secondParam" assignTo="{!oppid}" value="" />
+</apex:actionFunction> 
+</apex:form>
+
+    </div>
+<div>
+    
+    <c:FastTask page="Step 4: Industry Trends / Strategic Iniciatives (leverage & consistency)" account="{!account.id}"></c:FastTask>
+    <br/>
+    
+</div>
+
+<div>
+<span style="height:10px">&nbsp;<br/></span>
+<chatter:feed entityId="{!account.id}" />
+</div>
+</div>
+ -->
+</apex:page>

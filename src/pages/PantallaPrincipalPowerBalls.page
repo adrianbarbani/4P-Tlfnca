@@ -1,0 +1,451 @@
+<apex:page controller="PantallaPrincipalPowerBallsController" tabStyle="Strategic_Client_Plan__tab" sidebar="false" showHeader="true" rendered="{!mostrar}" docType="html-5.0">
+    
+    <c:FourPlanningMenuSuperiorLocal />
+    
+    <style>
+        .pbSubheader h3 {
+        display: inline;
+        margin-left: 5px;
+        font-weight: bold;
+        }
+        
+        .separator {
+        width: 100%;
+        margin-top: 20px;
+        }
+        
+        #big-deal-tab-content th {
+        width : 55%;
+        text-align : left;
+        padding-left : 20%;
+        font-size: 14px;
+        font-weight: normal;
+        }
+        
+        
+        #big-deal-tab-content th label {
+        font-size: 14px;
+        font-weight: normal;
+        }
+        
+        .icon-sectors {
+        width: 90px;            
+        }
+        
+        .icon-sectors-botonera {
+        width: 38px;            
+        }
+        
+        #ul-menu-img2 {
+        width: 100% ! important;
+        border-bottom: 0px solid #cfd0d2;
+        
+        }
+        
+        #ul-menu-img2 li {
+        text-align: center;
+        width: 19%;
+        min-height: 190px;
+        text-transform: none ! important;
+        display: inline-block;
+        }
+        
+        #ul-menu-img2 li:hover, #ul-menu-img2 li.active {
+        border: 2px solid #539fc6;
+        
+        }
+        
+        #ul-menu-img2 li a, #ul-menu-img2 li a:hover {
+        border: 0px solid #539fc6 ! important;
+        
+        }
+        
+        
+        
+        
+        
+        #ul-menu-img {
+        width: 100% ! important;
+        border-bottom: 0px solid #cfd0d2;
+        }
+        
+        #ul-menu-img li {
+        text-align: center;
+        width: 16.6%;
+        height: 185px;
+        min-height: 190px;
+        max-height: 190px;
+        text-transform: none ! important;
+        }
+        
+        #ul-menu-img li:hover, #ul-menu-img li.active {
+        border: 2px solid #539fc6;            
+        }
+        
+        #ul-menu-img li a, #ul-menu-img li a:hover {
+        border: 0px solid #539fc6 ! important;
+        }
+        
+        
+        .ocultar{
+        display:none;
+        }
+        
+        .bordesDeTabla{
+        border-bottom: 1px solid #ececec;
+        border-bottom-width: 1px;
+        border-bottom-style: solid;
+        }
+        
+        .tituloLabel{
+        text-align: left;
+        padding-left: 15% !important;
+        }
+        
+        .esCero{
+        background-color: black !important;
+        }
+        
+        .menorDeSetenta{
+        background-color:#F1E100 !important;
+        }
+        
+        .menorDeVeinte{
+        background-color:#FF0009 !important;
+        }
+        .menorDeCincuenta{
+        background-color:#FF0009 !important;
+        }
+        
+        .completo{
+        background-color:#009813 !important;
+        }
+        
+        .casiCompleto{
+        background-color:#55C500 !important;
+        }
+        
+        #custom-handle {
+        width: 3em;
+        height: 1.6em;
+        top: 50%;
+        margin-top: -.8em;
+        text-align: center;
+        line-height: 1.6em;
+        }
+        
+        #custom-handle-nosotros {
+        width: 3em;
+        height: 1.6em;
+        top: 50%;
+        margin-top: -.8em;
+        text-align: center;
+        line-height: 1.6em;
+        }
+        
+        #custom-handle-competencia {
+        width: 3em;
+        height: 1.6em;
+        top: 50%;
+        margin-top: -.8em;
+        text-align: center;
+        line-height: 1.6em;
+        }
+        
+        #custom-handle-porcentajeFijo {
+        width: 3em;
+        height: 1.6em;
+        top: 50%;
+        margin-top: -.8em;
+        text-align: center;
+        line-height: 1.6em;
+        }
+        
+        #custom-handle-porcentajeVariable {
+        width: 3em;
+        height: 1.6em;
+        top: 50%;
+        margin-top: -.8em;
+        text-align: center;
+        line-height: 1.6em;
+        }
+        
+        #circle {
+        width: 20px;
+        height: 20px;
+        -webkit-border-radius: 25px;
+        -moz-border-radius: 25px;
+        border-radius: 25px;
+        float:left;
+        }
+        
+        .datePicker {
+        z-index: 9999;/*Changed this css property which was 100 prior*/
+        position: absolute;
+        display: none;
+        top: 0;
+        left: 0;
+        width: 17em;
+        background-color: #b7c6b2;
+        border-bottom: 1px solid #000;
+        border-right: 1px solid #000;
+        margin: 0;
+        padding: 1px 1px 2px 2px;
+        }
+        
+        .modal-dialog{
+        overflow-y: initial !important
+        }
+        .modal-body{
+        height: 250px;
+        overflow-y: auto;
+        }
+        
+        
+        
+        
+        
+        
+        .rTable {
+        display: table;
+        width: 21%;
+        float: left;
+        }
+        .rTableSoluciones {
+        display: table;
+        width: 31%;
+        float: left;
+        }
+        .rTableContactos {
+        display: table;
+        width: 22%;
+        
+        }
+        .rTableRow {
+        display: table-row;
+        }
+        .rTableHeading {
+        display: table-header-group;
+        background-color: #1a3a54;
+        
+        }
+        
+        .rTableHeading2 {
+        display: table-header-group;
+        background-color: white;
+        min-height: 43px;
+        
+        }
+        
+        
+        .rTableCell {
+        background-color: #e2e2f5;
+        font-size:14px;
+        }
+        .rTableCell, .rTableHead {
+        display: table-cell;
+        padding: 3px 10px;
+        border: 1px solid white;
+        }
+        .rTableHeading {
+        display: table-header-group;
+        background-color: #1a3a54;
+        font-weight: bold;
+        }
+        .rTableFoot {
+        display: table-footer-group;
+        font-weight: bold;
+        background-color: #ddd;
+        }
+        .rTableBody {
+        display: table-row-group;
+        } 
+        
+        .tituloDeTabla{
+        
+        color: white;
+        font-size: 14px;
+        text-align: center;
+        height:32px;
+        }
+        
+        .tablaUser {
+        /*background-color: #4eb1cb;*/
+        background-color: #C1D6D6;
+        }
+        
+        .bordeTablaRetos{
+        border-bottom: 2px solid white;
+        }
+        
+        
+        .color1{
+        background-color: #6b9ee2 !important;
+        }
+        
+         .color2{
+        background-color: #ff7b84 !important;
+        }
+        
+         .color3{
+        background-color: #cfd05c !important;
+        }
+        
+        .color4{
+        background-color: #ecb46c !important;
+        }
+        
+         .color5{
+        background-color: #dc71d1 !important;
+        }
+        
+         .color6{
+        background-color: #4dca76 !important;
+        }
+        
+        .color7{
+        background-color: #d58a6a !important;
+        }
+        
+        .color8{
+        background-color: #53b6d7 !important;
+        }
+        
+        .color9{
+        background-color: #f87d76 !important;
+        }
+ 
+        .break-word {
+        width: 13em;
+        background: lime;
+        overflow-wrap: break-word;
+        }
+    </style>
+    
+    <apex:outputpanel styleClass="container-fluid bootstrap-sf1" id="pageContent" style="background-color:white">
+        
+        <apex:outputPanel rendered="{!hayError}">
+            <div class="alert alert-warning" role="alert">
+                <span class="glyphicon glyphicon-warning-sign" aria-hidden="true"></span>
+                <span class="sr-only">Error:</span>
+                No hay un arbol de Power Balls cargado para el sector al que pertenece esta cuenta.
+            </div>
+        </apex:outputPanel>
+        
+        <apex:outputPanel rendered="{!!hayError}">
+            <!-- cabecera -->
+            <table style="background-color: #f7f7f7;    
+                          width: 98%;
+                          margin-left: 1%;">
+                <tr>
+                    <td style="width:170px">
+                        <div style="background-color: white;
+                                    width: 90px;
+                                    margin-top: 15px;
+                                    margin-left: 80px;
+                                    margin-bottom: 20px;
+                                    background: url('{!URLFOR($Resource.IconoGobierno)}') no-repeat center;
+                                    background-size: contain;
+                                    height: 90px;
+                                    background-color: #89c059;
+                                    border-radius: 25px;">
+                            <!--<apex:image style="height:150px;" url="{!URLFOR($Resource.IconoGobierno)}"/>-->
+                        </div>
+                    </td>
+                    <td>
+                        <div style="margin-left: 5%;">
+                            <div style="width: 80%;">
+                                <p style="color: rgba(42, 148, 214, 0.84);
+                                          font-size: 13px;
+                                          font-weight: 900;">
+                                     NECESIDAD
+                                </p>
+                                <p style="color: rgba(0, 0, 0, 0.78);
+                                          font-size: 27px;
+                                          font-weight: 900;">
+                                    {!arbol.name}
+                                </p>
+                            </div>
+                        </div>
+                    </td>
+                </tr>
+            </table>
+            <br/>
+            <br/>
+            <br/>
+            <div>
+                <apex:outputPanel > <!--rendered="{!fourplanning.X4_Planning_Pro__c}"-->
+                    <table style="width: 96%;
+                                  margin-left: 2%;">
+                        <tr>
+                            <apex:variable value="{!1}" var="rowNum"/>
+                            <apex:repeat value="{!nodos}" var="nodo">
+                                <th>
+                                    
+                                    <table >
+                                        <tr>
+                                            <td style="width: 60px;">
+                                                <div class="color{!rowNum}" style="background: url('{!URLFOR($Resource.iconoLightning)}') no-repeat left center;
+                                                                                   background-size: contain;
+                                                                                   width: 60px;
+                                                                                   height: 60px;
+                                                                                   background-color: blue;
+                                                                                   float: left;
+                                                                                   border-radius: 12px;">
+                                                    
+                                                </div>
+                                            </td>
+                                            <td>
+                                                <div >
+                                                    <p style="color: rgba(42, 148, 214, 0.84);
+                                                              font-size: 11px;
+                                                              font-weight: 900;">
+                                                        &nbsp;&nbsp;PROPUESTA COMERCIAL
+                                                    </p>
+                                                    <p style="font-size: 17px;
+                                                              font-weight: 900;">
+                                                        &nbsp;&nbsp;{!nodo.name}&nbsp;&nbsp;
+                                                    </p>
+                                                </div> 
+                                            </td>
+                                        </tr>
+                                    </table>
+
+                                </th>
+                                <apex:variable var="rowNum" value="{!rowNum + 1}"/>
+                            </apex:repeat>
+                        </tr>
+                        <tr>
+
+                            <apex:repeat value="{!nodos}" var="nodo">
+                                <td style="width:{!100/nodos.size}%">
+                                    <!--
+                                    <h2>{!nodo.name}</h2>
+                                    <a href="/apex/CuestionarioNodos?id={!idCuenta}&IdNodo={!nodo.id}">
+                                        <apex:image url="{!URLFOR($Resource.Iconos, '256/file-icon.png')}" styleClass="icon-sectors"/><br/></a>
+                                    <p>
+                                        {!nodo.Descripci_n__c}
+                                    </p>
+									-->
+                                    <ul>
+                                        <apex:repeat value="{!nodo.Super_Ball_Nodos__r}" var="nodo">   
+                                            <li>
+                                                <a style="color:black" href="/apex/CuestionarioNodos?id={!idCuenta}&IdNodo={!nodo.Nodo_Padre__c}&section={!nodo.id}">
+                                                    {!nodo.name}  
+                                                </a>
+                                            </li>
+                                        </apex:repeat>
+                                    </ul>
+                                    
+                                </td>
+                            </apex:repeat>
+                        </tr>
+                    </table>
+
+                </apex:outputPanel>
+            </div>
+            <br/>
+        </apex:outputPanel>
+        
+    </apex:outputpanel>
+</apex:page>

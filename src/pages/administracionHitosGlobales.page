@@ -1,0 +1,239 @@
+<apex:page controller="administracionHitosGlobalesController" sidebar="false" tabStyle="Strategic_Client_Plan__tab">
+    
+    <c:SCPMenu ></c:SCPMenu>
+    
+    <style>
+        
+        .ocultar{
+        display:none;
+        }
+        
+    </style>
+    
+    
+    <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css"/>
+     <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+    <script  type="text/javascript"></script>
+    
+    <script>
+    
+    $j = jQuery.noConflict();
+    
+    $j(document).ready(function() {
+       
+         $j(".nombreCategoria").change(function(){
+            funcion1();
+        });
+        
+        function funcion1(){
+            console.log($j(".nombreCategoria").val());
+            if($j(".nombreCategoria").val() === 'Otro'){
+                $j('.campoCategoria').removeClass('ocultar');
+            }else{
+                $j('.campoCategoria').addClass('ocultar');
+            }            
+        }
+        
+        
+        
+        function ajaxshow(){
+            $j(".ajaxloader").show();
+        }  
+        
+        
+        function ajaxstop(){
+            $j(".ajaxloader").hide();
+        }
+        function showInput(){}
+        
+     });
+    
+    </script>
+    
+    <apex:outputpanel styleClass="container-fluid bootstrap-sf1" id="pageContent">
+        <apex:form >
+            
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    <h2 class="panel-title">
+                        <span style="float:left;">
+                            {!$Label.certa_scp__administration_trends} {!$Label.certa_scp__hitos_globales}
+                        </span>
+                        <span style="float:left;">
+                        </span>
+                    </h2>
+                    <div class="row paddingRight">
+                        <div class="btn-group pull-right" role="group" aria-label="...">    					
+                            <button type="button" class="btn btn-default btn-sm" data-toggle="modal" data-target="#myModal">
+                                <span class="glyphicon glyphicon-plus icon-btn-left"></span>&nbsp;{!$Label.Add_Share}
+                            </button>
+                        </div>
+                    </div>
+                </div>
+                
+                <apex:outputPanel id="tablaContenido">
+                    <div class="panel-body">                
+
+                        <table class="table table-striped table-bordered table-condensed">
+                            <thead>
+                                <tr>
+                                    <th style="width: 75px;">
+                                    </th>
+                                    <th>
+                                        {!$Label.certa_scp__description}
+                                    </th>
+                                    <th>
+                                        {!$Label.certa_scp__fecha}
+                                    </th>
+                                    <th>
+                                        {!$Label.certa_scp__categoria}
+                                    </th>
+                                    <th>
+                                        {!$Label.certa_scp__region}
+                                    </th>
+                                    <th>
+                                        {!$Label.certa_scp__sector}
+                                    </th>
+                                    <th>
+                                        {!$Label.certa_scp__subsector}
+                                    </th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <apex:repeat value="{!hitosGlobales}" var="hito" id="Content">
+                                    <tr>
+                                        <td>
+                                            <apex:commandButton styleClass="btn btn-default btn-sm" action="{!borrarEvento}" value="{!$Label.certa_scp__delete}" reRender="tablaContenido">
+                                                <apex:param name="IdtoDelete" value="{!hito.Id}" assignTo="{!idABorrar}"/>
+                                            </apex:commandButton>                                           
+                                        </td>
+                                        <td>
+                                            <apex:outputField value="{!hito.Descripcion__c}" />
+                                        </td>
+                                        <td>
+                                            <apex:outputField value="{!hito.Fecha__c}" />
+                                        </td>
+                                        <td>
+                                            <apex:outputField value="{!hito.Categoria__c}" />
+                                        </td>
+                                        <td>
+                                            <apex:outputField value="{!hito.Region__c}" />
+                                        </td>
+                                        <td>
+                                            <apex:outputField value="{!hito.Sector__c}" />
+                                        </td>
+                                        <td>
+                                            <apex:outputField value="{!hito.Sub_sector__c}" />
+                                        </td>
+                                    </tr>
+                                </apex:repeat>
+                            </tbody>
+                        </table>
+                        
+                        <apex:actionFunction action="{!renderizarPagina}" name="renderizarPagina" reRender="tablaContenido"/>
+                        
+                    </div>
+                </apex:outputPanel>
+                <div class="panel-footer">
+                    <div class="row paddingRight">
+                        <div class="btn-group pull-right" role="group" aria-label="...">    					
+                            <button type="button" class="btn btn-default btn-sm" data-toggle="modal" data-target="#myModal">
+                                <span class="glyphicon glyphicon-plus icon-btn-left"></span>&nbsp;{!$Label.Add_Share}
+                            </button>
+                        </div>
+                    </div>
+                </div> 
+            </div>
+            
+            <!-- Modal -->
+            
+            <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+                <div class="modal-dialog" style="z-index:9999;">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                            <h4 class="modal-title" id="myModalLabel">{!$Label.Add_Share}</h4>
+                        </div>
+                        <div class="modal-body">
+                            <table style="border-collapse: separate;border-spacing: 5px;">
+                                <tr>
+                                    <td style="text-align: right;">
+                                        <apex:outputText value="{!$Label.certa_scp__description}:" />
+                                    </td>
+                                    <td>
+                                        <apex:inputField style="width: 130%;" value="{!hitoGlobalAInsertar.Descripcion__c}" />
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td style="text-align: right;">
+                                        <apex:outputText value="{!$Label.certa_scp__fecha}:" />
+                                    </td>
+                                    <td>
+                                        <apex:inputField style="width: 130%;" value="{!hitoGlobalAInsertar.Fecha__c}" />
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td style="text-align: right;">
+                                        <apex:outputText value="{!$Label.certa_scp__categoria}:" />
+                                    </td>
+                                    <td>
+                                        <apex:inputField styleClass="nombreCategoria" style="width: 130%;" value="{!hitoGlobalAInsertar.Categoria__c}" /><br/><br/>
+                                    
+                                    
+                                    <apex:outputPanel styleClass="campoCategoria ocultar ">
+                                                         
+                                                       
+                                            <table >
+                                                <tbody>
+                                                    <tr class="">
+                                                        
+                                                        <td class="data2Col">
+                                                            <apex:inputField value="{!hitoGlobalAInsertar.Name}"/> 
+                                                        </td>
+                                                    </tr>
+                                                </tbody>
+                                            </table>
+                                        
+                                    </apex:outputPanel>
+                                    
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td style="text-align: right;">
+                                        <apex:outputText value="{!$Label.certa_scp__region}:" />
+                                    </td>
+                                    <td>
+                                       <apex:inputField style="width: 130%;" value="{!hitoGlobalAInsertar.Region__c}" />
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td style="text-align: right;">
+                                        <apex:outputText value="{!$Label.certa_scp__sector}:" />
+                                    </td>
+                                    <td>
+                                        <apex:inputField style="width: 130%;" value="{!hitoGlobalAInsertar.Sector__c}" />
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td style="text-align: right;">
+                                        <apex:outputText value="{!$Label.certa_scp__subsector}:" />
+                                    </td>
+                                    <td>
+                                        <apex:inputField style="width: 130%;" value="{!hitoGlobalAInsertar.Sub_sector__c}" />
+                                    </td>
+                                </tr>
+                            </table>		        
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-default" data-dismiss="modal">{!$Label.close}</button>
+                            <button type="button" class="btn btn-primary" data-dismiss="modal" onclick="InsertarHitoGlobal()">{!$Label.Add_Share}</button>
+                            <apex:actionFunction action="{!InsertarHitoGlobal}" name="InsertarHitoGlobal" rerender="pageContent"/>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </apex:form>
+        
+    </apex:outputpanel>
+</apex:page>

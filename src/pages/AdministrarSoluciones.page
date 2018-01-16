@@ -1,0 +1,183 @@
+<apex:page controller="AdministrarSolucionesController" showQuickActionVfHeader="false" showHeader="true"  sidebar="false">
+
+    <c:SCPMenu ></c:SCPMenu>
+    
+    <script  type="text/javascript">
+    
+    $j = jQuery.noConflict();
+    
+    function ajaxshow(){
+        $j(".ajaxloader").show();
+    }    
+    
+    function ajaxstop(){
+        $j(".ajaxloader").hide();
+    }
+    function showInput(){}
+    
+    </script>
+    
+    <apex:outputpanel styleClass="container-fluid bootstrap-sf1" id="pageContent">
+        <apex:form >
+
+            
+        <apex:pageMessages id="errorMsg"/>
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                <h2 class="panel-title">
+                    <span style="float:left;">
+                        Administación de Soluciones
+                    </span>
+
+                    
+                </h2>
+                <div class="row paddingRight">
+                    <div class="btn-group pull-right" role="group" aria-label="...">
+                        
+                        <button type="button" class="btn btn-default btn-sm" onclick="guardar()" >
+                            <span class="glyphicon glyphicon-plus icon-btn-left"></span>&nbsp;Guardar
+                        </button>
+
+                        <button type="button" class="btn btn-default btn-sm" data-toggle="modal" data-target="#myModal">
+                            <span class="glyphicon glyphicon-plus icon-btn-left"></span>&nbsp;Crear Nueva Rama
+                        </button>
+                    </div>
+                </div>
+            </div>    		
+            <div class="panel-body">
+                
+                	<apex:actionFunction action="{!guardar}" name="guardar" reRender="pageContent"/>
+                    <apex:actionFunction name="setearValorIdDeLaLineaDeServicioPadre" reRender="null"  >
+                        <apex:param id="anode" name="node" assignTo="{!lineaPadreDeLaSolucionAInsertar}" value="" />
+                    </apex:actionFunction>
+                    
+                    <apex:repeat value="{!lineasDeServicios}" var="lineaDeServicio" id="repeatLineasServicios">
+                    
+                        <h3 style="float:left;">
+                            <apex:outputField value="{!lineaDeServicio.name}">
+                                <apex:inlineEditSupport event="ondblclick"/>
+                            </apex:outputField>                            
+                        </h3>
+                        
+                        
+                        <apex:commandButton style="margin-left: 1%;margin-top: 1%;" styleClass="btn btn-default btn-sm" action="{!borrarLineaDeServicio}" value="{!$Label.certa_scp__delete}" reRender="pageContent" status="renderMeStatus">
+                            <apex:param name="IdtoDelete" value="{!lineaDeServicio.Id}" assignTo="{!lineaABorrarId}"/>
+                        </apex:commandButton>
+                        
+                        <table class="table table-striped table-bordered table-condensed">
+                            <thead>
+                                <tr>
+                                    <th style="width: 75px;">
+                                    </th>
+                                    <th>
+                                        Soluciones
+                                    </th>						
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <apex:repeat value="{!lineaDeServicio.Soluciones__r}" var="solucion" id="hola">
+                                    <tr>
+                                        <td>
+                                            <apex:commandButton styleClass="btn btn-default btn-sm" action="{!borrarSolucion}" value="{!$Label.certa_scp__delete}" reRender="pageContent" status="renderMeStatus">
+                                               <apex:param name="IdtoDelete" value="{!solucion.Id}" assignTo="{!solucionABorrarId}"/>
+                                            </apex:commandButton>
+                                        </td>
+                                        <td>
+                                            {!solucion.name}
+                                        </td>
+                                    </tr>
+                                </apex:repeat>
+                            </tbody>
+                        </table>
+                        
+                        <button type="button" onclick="setearValorIdDeLaLineaDeServicioPadre('{!lineaDeServicio.id}')" class="btn btn-default btn-sm" data-toggle="modal" data-target="#myModalSolucion">
+                            <span class="glyphicon glyphicon-plus icon-btn-left"></span>&nbsp;Nueva Familia de Servicio
+                        </button>
+                        
+                        <br/>
+                        <br/>
+                        
+                    </apex:repeat>
+                    
+                    
+                    
+                
+            </div>
+            
+            <div class="panel-footer">
+                <div class="row paddingRight">
+                    <div class="btn-group pull-right" role="group" aria-label="...">    					
+                        <button type="button" class="btn btn-default btn-sm" data-toggle="modal" data-target="#myModal">
+                            <span class="glyphicon glyphicon-plus icon-btn-left"></span>&nbsp;Crear Línea de Servicio
+                        </button>
+                    </div>
+                </div>
+            </div> 
+        </div>
+        
+        
+        
+        
+            <apex:actionFunction action="{!InsertarLineaDeServicio}" name="InsertarLineaDeServicio" rerender="pageContent,errorMsg" status="renderMeStatus"/>
+            <!-- Modal para insertar una linea  -->
+            <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+                <div class="modal-dialog" style="z-index:9999;">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                            <h4 class="modal-title" id="myModalLabel">Crear Rama</h4>
+                        </div>
+                        <div class="modal-body">
+                            <table style="border-collapse: separate;border-spacing: 5px;">
+                                <tr>
+                                    <td style="text-align: right;">
+                                        <apex:outputText value="Nombre de la Rama" />:
+                                    </td>
+                                    <td>
+                                        <apex:inputField value="{!lineaDeServicioAInsertar.name}" />
+                                    </td>
+                                </tr>
+                            </table>		        
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
+                            <button type="button" class="btn btn-primary" data-dismiss="modal" onclick="InsertarLineaDeServicio()">Agregar</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- modal para insertar una solucion -->
+             <apex:actionFunction action="{!InsertarSolucion}" name="InsertarSolucion" rerender="pageContent,errorMsg" status="renderMeStatus"/>
+            <div class="modal fade" id="myModalSolucion" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+                <div class="modal-dialog" style="z-index:9999;">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                            <h4 class="modal-title" id="myModalLabel">Nuevo Servicio</h4>
+                        </div>
+                        <div class="modal-body">
+                            <table style="border-collapse: separate;border-spacing: 5px;">
+                                <tr>
+                                    <td style="text-align: right;">
+                                        <apex:outputText value="Nombre del Servicio" />:
+                                    </td>
+                                    <td>
+                                        <apex:inputField value="{!solucionAInsertar.name}" />
+                                    </td>
+                                </tr>
+                            </table>		        
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
+                            <button type="button" class="btn btn-primary" data-dismiss="modal" onclick="InsertarSolucion()">Agregar</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </apex:form>
+    </apex:outputpanel>
+    
+    
+</apex:page>

@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomObjectTranslation xmlns="http://soap.sforce.com/2006/04/metadata">
+    <caseValues>
+        <plural>false</plural>
+        <value>Super Ball - Pregunta</value>
+    </caseValues>
+    <caseValues>
+        <plural>true</plural>
+        <value>Super Ball - Preguntas</value>
+    </caseValues>
+    <fields>
+        <label><!-- Dependencia No --></label>
+        <name>Dependencia_No__c</name>
+        <relationshipLabel><!-- Super Ball - Preguntas (Dependencia No) --></relationshipLabel>
+    </fields>
+    <fields>
+        <label><!-- Dependencia Si --></label>
+        <name>Dependencia_Si__c</name>
+        <relationshipLabel><!-- Super Ball - Preguntas --></relationshipLabel>
+    </fields>
+    <fields>
+        <label><!-- Posicion --></label>
+        <name>Posicion__c</name>
+    </fields>
+    <fields>
+        <label><!-- Pregunta --></label>
+        <name>Pregunta__c</name>
+    </fields>
+    <fields>
+        <label><!-- Super Ball - Nodo --></label>
+        <name>Super_Ball_Nodo__c</name>
+        <relationshipLabel><!-- Super Ball - Preguntas --></relationshipLabel>
+    </fields>
+    <fields>
+        <label><!-- esHija --></label>
+        <name>esHija__c</name>
+    </fields>
+    <gender>Feminine</gender>
+</CustomObjectTranslation>

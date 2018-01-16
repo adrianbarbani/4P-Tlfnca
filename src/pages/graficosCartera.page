@@ -1,0 +1,346 @@
+<apex:page controller="GraficosCarteraController" tabStyle="Strategic_Client_Plan__tab" sidebar="false" showHeader="true" docType="html-5.0" >
+    
+    <apex:includeScript value="{!URLFOR($Resource.bootstrapSF, 'js/JQueryToBS.js')}"/>
+    <apex:includeScript value="{!URLFOR($Resource.bootstrapSF, 'js/bootstrap.min.js')}"/>
+    <apex:includeScript value="{!$Resource.JQueryUI}"  />
+    <apex:includeScript value="{!$Resource.JQueryUITouch}" />
+    <!--apex:includeScript value="{!$Resource.DataTable}"  /-->
+    <apex:includeScript value="{!$Resource.DataTable11012}"  />
+    
+    
+    <!-- Sacado de https://plot.ly/javascript/ -->
+    <apex:includeScript value="{!$Resource.Ploty}"/>    
+    
+    <apex:includeScript value="{!$Resource.html2canvas}"/>
+    <apex:includeScript value="{!$Resource.RGBColor}"/>
+    <apex:includeScript value="{!$Resource.Canvg}"/>
+    <apex:includeScript value="{!$Resource.StackBlur}"/>
+    <apex:includeScript value="{!URLFOR($Resource.TimeLineJs3, 'js/timeline-min.js')}" />
+    
+    <style>
+        .initiative input {
+        width: 100%;
+        }
+        
+        .label-link a {
+        color: white;
+        }
+        
+        .inlineEditUndo {
+        display: none;
+        }
+        
+        .inlineEditLockOn:hover {
+        background: rgba(0, 0, 0, 0) url("/img/func_icons/util/lock12.gif") no-repeat scroll right 2px;
+        }
+        .inlineEditWriteOn {
+        background: rgba(0, 0, 0, 0) url("/img/func_icons/util/pencil12.gif") no-repeat scroll right 2px;		    
+        }
+        
+        .pbSubheader h3 {
+        display: inline;
+        margin-left: 5px;
+        font-weight: bold;
+        }
+        
+        .pbSubheader.brandTertiaryBgr.first.tertiaryPalette {
+        background-color: transparent;
+        border-width: 2px 0 0;
+        border-style: solid;
+        color: #27282e;
+        padding: 4px 3px;
+        }
+        
+        .hideListButton.hideShowSection {
+        background: transparent url('/img/alohaSkin/twisty_sprite.png') 0 -11px no-repeat;
+        padding-top: 13px;
+        margin-top: -8px;
+        }
+        
+        .hideShowSection.showListButton {
+        background: transparent url('/img/alohaSkin/twisty_sprite.png') 0 0 no-repeat;
+        padding-top: 13px;
+        margin-top: -8px;
+        }
+        
+        .separator {
+        width: 100%;
+        margin-top: 50px;
+        }
+        
+        #icons-table {
+        width:100%;
+        }
+        
+        #icons-table td {
+        text-align: center;            
+        max-width: 90px;
+        vertical-align: top;
+        padding-top: 5px;
+        border: 0px solid #539fc6;
+        }
+        
+        #icons-table td.selected {
+        border: 2px solid #539fc6;
+        }    
+        
+        .icon-sectors {
+        width: 120px;
+        cursor: pointer;
+        }
+        
+        .hiddenTable {
+        display: none;
+        }
+        
+        .solutionTable th {
+        vertical-align: top ! important;
+        white-space: normal ! important;
+        }
+        
+        .cabeceraDatos {
+        float: left;
+        width: 24%;
+        text-align: center;
+        margin-right:1%;
+        }
+        
+        .cabeceraTitulos{
+        height: 55px;
+        background-color: #337ab7;
+        color: white;
+        vertical-align: middle;
+        line-height: 55px;
+        }
+        
+        .circleBase {
+        border-radius: 50%;
+        behavior: url(PIE.htc); /* remove if you don't care about IE8 */
+        }
+        
+        .type1 {
+        width: 40px;
+        height: 40px;
+        border: 1.5px solid #337ab7;
+        }
+        
+        .NotUsed{
+        background-color: #FF2D2D ! important;
+        }
+        
+        .hasPotentialBussiness {
+        background-color: #3796F7 ! important;    
+        }
+        
+        .hasOpportunity {
+        background-color: #128E2C  ! important;        
+        }
+        
+        .vendidoEnElPasado{
+        background-color: #FFC200 ! important;
+        }
+        
+        .noAplica{
+        background-color: #808080 ! important;
+        }
+        
+        .hasOpportunityAndPotencial{
+        background: #3796F7 ; 
+        background-color:  #128E2C ! important;
+        }
+        
+        .NotUsedSampleText, .hasPotentialBussinessSampleText, .hasOpportunitySampleText {
+        /*font-weight:bold;  margin:10px*/
+        font-size:14px;
+        }
+        
+        .NotUsedSample, .hasPotentialBussinessSample, .hasOpportunitySample {
+        /*border: 1px solid black;*/    
+        width: 20px;
+        height: 20px;
+        /*line-height: 30px;*/    
+        }
+        
+        .NotUsedSampleText {    
+        color: white ! important;
+        color: #2d839a ! important;
+        }
+        .NotUsedSample {    		    
+        background-color: #FF2D2D ! important;		    
+        }
+        
+        .hasPotentialBussinessSampleText {    
+        color: #1797c0 ! important;
+        color: #2d839a ! important;
+        }
+        .hasPotentialBussinessSample {    		    
+        background-color: #3796F7 ! important;        	
+        }
+        
+        .hasOpportunitySampleText {    
+        color: #FEE ! important;
+        color: #2d839a ! important;
+        } 
+        
+        .hasOpportunitySample {
+        background-color: #128E2C ! important;       	
+        }
+        
+        .selected{
+        text-decoration: underline !important;
+        font-size: 17px !important;
+        color: black !important;
+        }
+        
+        .nomostrar{
+        }
+        
+        .ScrollingDiv{        
+        overflow:auto;
+        max-width:95vw;
+        }
+    </style>
+    <apex:stylesheet value="{!URLFOR($Resource.bootstrapSF, 'css/bootstrap-namespaced.min.css')}"/>	 
+    <apex:stylesheet value="{!URLFOR($Resource.bootstrapSF, 'css/BSCustomSyles.css')}"/>
+    
+    <link title="timeline-styles" rel="stylesheet" href="https://cdn.knightlab.com/libs/timeline3/latest/css/timeline.css"/>
+    
+    <apex:outputpanel styleClass="container-fluid bootstrap-sf1" id="pageContent" style="background-color:white">    
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                <h2 class="panel-title">
+                    <span style="float:left;">
+                        Cobertura del Portfolio de Cartera
+                    </span>
+                </h2>
+
+                <div class="row paddingRight">
+                    <div class="btn-group pull-right" role="group" aria-label="...">
+                        
+                        <apex:outputPanel id="buttonPanel">
+                            <div class="btn-group pull-right" role="group" aria-label="...">
+                                
+                                <button type="button" class="btn btn-default btn-sm" onclick="irAInicio()">
+                                    <!--<apex:image style="height:35px;" url="{!URLFOR($Resource.icono4Planning)}" styleClass="icon-sectors-botonera"/>-->
+                                    <span class="glyphicon glyphicon-home"></span>&nbsp; 4Planning
+                                </button>                              
+                                
+                            </div>
+                        </apex:outputPanel>  
+                        
+                        
+                        
+                    </div>
+                </div>
+            </div>
+            
+            <br/>
+            <apex:form >
+                <apex:outputText style="width:12%" value="{!$Label.certa_scp__filtrar_por_cliente}: " />
+                <apex:input id="campoNombre" value="{!filtroDeNombre}" onkeydown="if(event.keyCode==13){this.blur();doSearchAF();}" />
+                &nbsp;&nbsp;
+                <apex:commandButton styleClass="btn btn-default btn-sm" onkeypress="" action="{!filtrar}" value="{!$Label.certa_scp__obtener_clientes}" id="theButton" oncomplete="" rerender="pageContent" status="filtrarClientesStatus" />
+                <apex:actionFunction name="doSearchAF" action="{!filtrar}" rerender="pageContent" />
+                
+                <apex:actionStatus id="filtrarClientesStatus">
+                    
+                    <apex:facet name="start">
+                        <img src="/img/loading.gif"/>
+                    </apex:facet>
+                </apex:actionStatus>
+                
+            </apex:form>
+            <br/><br/>
+            
+            <div class="ScrollingDiv">
+                <table class ="table table-striped table-bordered table-condensed" >
+                    <tr>
+                        <td rowspan="2" style="text-align: center;background-color: #1a3a54;color: white;border-color: white;"></td>
+                        <apex:repeat value="{!todosLosServiciosDisponibles}" var="servicio" >
+                            <th style="text-align: center;background-color: #1a3a54;color: white;border-color: white;" colspan="{!servicio.SizeRamas}" scope="colgroup">{!servicio.familias}</th>
+                        </apex:repeat>
+                    </tr>
+                    <tr>
+                        <apex:repeat value="{!todosLosServiciosDisponibles}" var="servicio" >
+                            <apex:repeat value="{!servicio.ramas}" var="rama">
+                                <th style="text-align: center;background-color: #1a3a54;color: white;border-color: white;min-width: 232px;" scope="col">{!rama}</th>
+                            </apex:repeat>
+                        </apex:repeat>
+                    </tr>
+                    <apex:repeat value="{!cuentasConSusEstados}" var="cuenta">
+                        <tr>
+                            <th style="text-align: center;" scope="row">{!cuenta.cuenta}</th>
+                            
+                            <apex:repeat value="{!todosLosServiciosDisponibles}" var="servicio" >
+                                <apex:repeat value="{!servicio.ramas}" var="rama">
+                                    <td style="text-align: center; color:white;background-color:{!if(cuenta.solucionesyEstados[rama]='Oportunidades Ganadas', '#3796f7',
+                                               if(cuenta.solucionesyEstados[rama]='Oportunidades en Funnel', '#128e2c',
+                                               if(cuenta.solucionesyEstados[rama]='Lineas de trabajo Priorizadas','#ffc200',
+                                               if(cuenta.solucionesyEstados[rama]='Lineas que no Aplican en el Cliente','#ff2d2d',
+                                               if(cuenta.solucionesyEstados[rama]='Lineas a Explorar','rgba(0, 0, 0, 0.25);','rgba(0, 0, 0, 0.58);')))))}" >
+                                        <apex:outputText value="{!cuenta.solucionesyEstados[rama]}" /></td>
+                                </apex:repeat>
+                            </apex:repeat>
+                            
+                        </tr>
+                    </apex:repeat>
+                </table>
+            </div>
+            
+            <br/>
+            <apex:form >
+                <apex:actionFunction action="{!irAlTab}" name="irAInicio" status="renderMeStatus"/>
+                
+                <div class="btn-group pull-right" role="group" aria-label="...">
+                    <b>{!$Label.Pagina_dos_puntos} {!numeroDePagina} {!$Label.de} {!paginasTotales} &nbsp;</b>    
+                    <div class="btn-group pull-right" role="group" aria-label="...">
+                        <apex:commandButton disabled="{!numeroDePagina == 1}"  styleClass="btn btn-default btn-xs" action="{!obtenerPrimerPagina}" value="{!$Label.certa_scp__primera}" id="Primera"  rerender="pageContent" status="cambiarDePagina"/>
+                        <apex:commandButton disabled="{!numeroDePagina == 1}"  styleClass="btn btn-default btn-xs" action="{!obtenerAnterior}" value="{!$Label.certa_scp__anterior}" id="anterior"  rerender="pageContent" status="cambiarDePagina"/>
+                        <apex:commandButton disabled="{!numeroDePagina == paginasTotales}"  styleClass="btn btn-default btn-xs" action="{!obtenerSiguiente}" value="{!$Label.certa_scp__siguiente}" id="siguiente"  rerender="pageContent" status="cambiarDePagina"/>
+                        <apex:commandButton disabled="{!numeroDePagina == paginasTotales}"  styleClass="btn btn-default btn-xs" action="{!obtenerUltimaPagina}" value="{!$Label.certa_scp__ultima}" id="Ultima"  rerender="pageContent" status="cambiarDePagina" />
+                    </div>
+                </div>
+                
+                <apex:actionStatus id="cambiarDePagina" styleClass="pull-right">
+                    <apex:facet name="start">
+                        <img src="/img/loading.gif"/>
+                    </apex:facet>
+                </apex:actionStatus>
+            </apex:form>
+            <br/>
+    </div>    
+    <br/><br/><br/>
+    <table>
+        <tr>
+            <td style="width:20%;
+                       text-align:center;">
+                <span class="hasPotentialBussiness" style="margin-left:0px;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
+                <span class="hasPotentialBussinessSampleText">{!$Label.Oportunidades_Ganadas}&nbsp;&nbsp;</span><br/>               
+            </td>
+            <td style="width:20%;
+                       text-align:center;">
+                <span class="hasOpportunity" style="margin-left:0px;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
+                <span class="hasOpportunitySampleText">{!$Label.Oportunidades_En_Funnel}.&nbsp;&nbsp;</span><br/>             
+            </td>
+            <td style="width:20%;
+                       text-align:center;">
+                <span class="vendidoEnElPasado" style="margin-left:0px;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
+                <span class="hasOpportunitySampleText">{!$Label.Lineas_De_Trabajo_Priorizadas}.&nbsp;&nbsp;</span><br/>             
+            </td>
+            <td style="width:20%;
+                       text-align:center;">
+                <span class="noAplica" style="margin-left:0px;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
+                <span class="hasOpportunitySampleText">{!$Label.Lineas_A_Explorar}.&nbsp;&nbsp; </span>             
+            </td>
+            <td style="width:20%;
+                       text-align:center;">
+                <span class="NotUsed" style="margin-left:0px;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
+                <span class="NotUsedSampleText">{!$Label.Lineas_que_no_Aplican_en_el_Cliente}&nbsp;&nbsp;</span><br/>             
+            </td>
+            
+        </tr>  
+    </table>
+    
+</apex:outputpanel>
+
+</apex:page>

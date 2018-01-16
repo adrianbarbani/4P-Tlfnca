@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomObjectTranslation xmlns="http://soap.sforce.com/2006/04/metadata">
+    <caseValues>
+        <plural>false</plural>
+        <value><!-- Historial evento backShop --></value>
+    </caseValues>
+    <caseValues>
+        <plural>true</plural>
+        <value><!-- Historial evento backShop --></value>
+    </caseValues>
+    <fields>
+        <label><!-- Cuenta --></label>
+        <name>Cuenta__c</name>
+        <relationshipLabel><!-- Historial eventos backShop --></relationshipLabel>
+    </fields>
+    <fields>
+        <label><!-- Es de utilidad --></label>
+        <name>Es_de_utilidad__c</name>
+    </fields>
+    <fields>
+        <label><!-- Evento BackShop --></label>
+        <name>Evento_BackShop__c</name>
+        <relationshipLabel><!-- Historial eventos backShop --></relationshipLabel>
+    </fields>
+    <fields>
+        <label><!-- Identificar Negocio --></label>
+        <name>Identificar_Negocio__c</name>
+    </fields>
+    <fields>
+        <label><!-- NoSeUtilizo --></label>
+        <name>NoSeUtilizo__c</name>
+    </fields>
+    <fields>
+        <label><!-- Por que no negocio --></label>
+        <name>Por_que_no_negocio__c</name>
+    </fields>
+    <fields>
+        <label><!-- Por que no util --></label>
+        <name>Por_que_no_util__c</name>
+    </fields>
+    <nameFieldLabel><!-- Nombre de Historial eventos backShop --></nameFieldLabel>
+    <startsWith><!-- Consonant --></startsWith>
+</CustomObjectTranslation>

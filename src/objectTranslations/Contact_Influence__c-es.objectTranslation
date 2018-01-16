@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomObjectTranslation xmlns="http://soap.sforce.com/2006/04/metadata">
+    <caseValues>
+        <plural>false</plural>
+        <value><!-- Contact Influence --></value>
+    </caseValues>
+    <caseValues>
+        <plural>true</plural>
+        <value><!-- Contact Influence --></value>
+    </caseValues>
+    <fields>
+        <label>Contacto influido</label>
+        <name>Contact_Influenced__c</name>
+        <relationshipLabel>Contacto Influenciado</relationshipLabel>
+    </fields>
+    <fields>
+        <label>Contacto influyente</label>
+        <name>Contact_Influences__c</name>
+        <relationshipLabel>Contacto influyente</relationshipLabel>
+    </fields>
+    <gender><!-- Feminine --></gender>
+    <nameFieldLabel><!-- Nombre de Contact Influence --></nameFieldLabel>
+</CustomObjectTranslation>

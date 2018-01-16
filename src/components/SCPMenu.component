@@ -1,0 +1,256 @@
+<apex:component controller="SCPMenu">
+	<apex:includeScript value="{!URLFOR($Resource.bootstrapSF, 'js/JQueryToBS.js')}"/>
+    <apex:includeScript value="{!URLFOR($Resource.bootstrapSF, 'js/bootstrap.min.js')}"/>
+	<apex:includeScript value="{!$Resource.JQuery}" />
+    <script>
+    	//-----------------------------------------------------------------------------
+    	//Add the newer versions with noConflict(true) in reverse load order leaving 1.6.1 first
+    	var jq161 = jQuery.noConflict(true);
+    	var jq213 = jQuery.noConflict(true);
+    	
+    	jQuery = jq161;
+        //-----------------------------------------------------------------------------
+    </script>
+	<style>
+		.bootstrap-sf1 * {
+	    	font-family:  Calibri, ProximaNovaSoft-Regular, 'Helvetica Neue', 'Gill Sans', 'Gill Sans MT', Candara, Segoe, 'Segoe UI', Arial, sans-serif;
+	    }
+		
+		.paddingRight {
+			padding-right: 15px;
+		}
+		
+		.inlineEditUndo {
+	    	display: none;
+	    }
+	    
+		.inlineEditWriteOn {
+		    background: rgba(0, 0, 0, 0) url("/img/func_icons/util/pencil12.gif") no-repeat scroll right 2px;		    
+		}
+		
+		.PopupHolderOpp {
+	        float:right;
+	        margin-right: 6px;
+	        margin: 5px;
+	        cursor: pointer;
+	    }
+	    
+	    .PopupHolderOpp *{
+	        box-sizing: content-box ! important;
+	    }
+	    
+	    .PopupHolderOpp .pbHeader {
+	    	border:0px;
+	    	border-top: 3px solid #f3ae4e !important;
+	    }
+	    
+	    .PopupHolderOpp .pbHeader .mainTitle {
+	    	font-size: 18px !important;
+	    	font-weight: bold !important;	
+	    }
+	    
+	    .PopupHolderOpp .pbBody .labelCol {
+	    	font-size: 16px !important;
+	    	font-weight: bold !important;	
+	    }
+	    
+	    .PopupHolderOpp .pbBody .dataCol {
+	    	font-size: 16px !important;
+	    	font-weight: normal !important;
+	    }
+        
+        
+        .dropdown-submenu {
+        position:relative;
+        }
+        .dropdown-submenu>.dropdown-menu {
+        top:0;
+        left:100%;
+        margin-top:-6px;
+        margin-left:-1px;
+        -webkit-border-radius:0 6px 6px 6px;
+        -moz-border-radius:0 6px 6px 6px;
+        border-radius:0 6px 6px 6px;
+        }
+        .dropdown-submenu:hover>.dropdown-menu {
+        display:block;
+        }
+        .dropdown-submenu>a:after {
+        display:block;
+        content:" ";
+        float:right;
+        width:0;
+        height:0;
+        border-color:transparent;
+        border-style:solid;
+        border-width:5px 0 5px 5px;
+        border-left-color:#cccccc;
+        margin-top:5px;
+        margin-right:-10px;
+        }
+        .dropdown-submenu:hover>a:after {
+        border-left-color:#ffffff;
+        }
+        .dropdown-submenu.pull-left {
+        float:none;
+        }
+        .dropdown-submenu.pull-left>.dropdown-menu {
+        left:-100%;
+        margin-left:10px;
+        -webkit-border-radius:6px 0 6px 6px;
+        -moz-border-radius:6px 0 6px 6px;
+        border-radius:6px 0 6px 6px;
+        }
+	</style>
+	
+	<script>
+		jq161 = jQuery.noConflict();
+		
+		jq161(document).ready(function() {
+           jq161(".PopupHolderOpp").live("mouseenter", function(event){
+	            if (jq161(this).children(".lookupHoverDetail").css("display") == "none") {
+	            	jq161(this).children(".lookupHoverDetail").css("top", event.clientY + 'px');
+	    			jq161(this).children(".lookupHoverDetail").css("left",(event.clientX - 360) + 'px');
+	    			jq161(this).children(".lookupHoverDetail").css("position","fixed");    		
+	            	jq161(this).children(".lookupHoverDetail").show();            	
+	    		}
+	        });
+	        
+	        jq161(".PopupHolderOpp").live("mouseleave",function(){
+	            jq161(this).children(".lookupHoverDetail").hide();
+	        });
+        });
+	</script>
+	  
+	<apex:stylesheet value="{!URLFOR($Resource.bootstrapSF, 'css/bootstrap-namespaced.min.css')}"/>	 
+	<apex:stylesheet value="{!URLFOR($Resource.bootstrapSF, 'css/BSCustomSyles.css')}"/>
+	
+	<div class="container-fluid bootstrap-sf1" style="background-color:#fff;">
+		<div style="height: 0px; overflow: hidden;">
+			<apex:form ><apex:inputTextArea value="{!}"/></apex:form>
+		</div>
+		<div class="row">
+        	<div class="container-fluid">
+            	<nav class="navbar navbar-default">
+
+           			<div class="container-fluid">
+              			<div class="navbar-header">
+                			<a title="{!$Label.show_video}" target="_blank" href="http://strategicclientplan.com?videoUrl=SCP">
+               					<apex:image id="theImage" value="{!$Resource.Logo4Planning}" height="50" style="margin-left: -15px;margin-top: 1px;"/>                				
+                			</a>
+              			</div>
+              			<apex:outputPanel rendered="{!isAccount}">
+	              			<div id="navbar" class="navbar-collapse collapse">
+	                			<ul class="nav navbar-nav">
+                                    <li class="{!IF( contains($CurrentPage.Name, 'CuestionarioFourPlanning') || contains($CurrentPage.Name, 'PlanDeAccion') || contains($CurrentPage.Name, 'DesarrolloCuenta') || contains($CurrentPage.Name, 'EjesDeTrabajo'),'active','dropdown')}">              
+                                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">4Planning<span class="caret"></span></a>
+                                        <ul class="dropdown-menu" role="menu">
+                                            <li><apex:outputLink target="_parent" value="{!$Page.CuestionarioFourPlanning}?id={!Acct.Id}">{!$Label.certa_scp__cuestionario}</apex:outputLink></li>
+                                            <li><apex:outputLink target="_parent" value="{!$Page.PlanDeAccion}?id={!Acct.Id}">{!$Label.certa_scp__plan_de_accion}</apex:outputLink></li>
+                                            <li><apex:outputLink target="_parent" value="{!$Page.DesarrolloCuenta}?id={!Acct.Id}">{!$Label.certa_scp__desarrollo_cuenta}</apex:outputLink></li>
+                                            <li><apex:outputLink target="_parent" value="{!$Page.EjesDeTrabajo}?id={!Acct.Id}">{!$Label.certa_scp__ejes_de_trabajo}</apex:outputLink></li>
+                                            <li><apex:outputLink target="_parent" value="{!$Page.ImprimirAccountPlanBI}?id={!Acct.Id}">{!$Label.certa_scp__imprimir_account}</apex:outputLink></li>
+
+
+                                        </ul>
+                                    </li>
+	                  				<li class="{!IF( contains($CurrentPage.Name, 'accountStrategicContextWindow') || contains($CurrentPage.Name, 'PreguntasAccountGrowthStrategy') || contains($CurrentPage.Name, 'accountKPIWindow') || contains($CurrentPage.Name, 'accountOverallRelationshipWindow') || contains($CurrentPage.Name, 'accountHistoricalBusinessWindow') || contains($CurrentPage.Name, 'AccountBusinessLandscape') || contains($CurrentPage.Name, 'accountOrganizationChartWindow') || contains($CurrentPage.Name, 'accountMasterPlan'),'font-weight:bold; active','dropdown')}">              
+	                   					<a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">4Planning Pro<span class="caret"></span></a>
+	                   					<ul class="dropdown-menu" role="menu" aria-labelledby="dLabel">
+                                            <li><apex:outputLink target="_parent" value="{!$Page.cadenaDeValor}?id={!Acct.Id}">{!$Label.certa_scp__cadena_de_valor}</apex:outputLink></li>
+                                            <li><apex:outputLink target="_parent" value="{!$Page.AccountBusinessLandscape}?id={!Acct.Id}">{!$Label.certa_scp__parque_de_servicios}</apex:outputLink></li>
+                                            <li><apex:outputLink target="_parent" value="{!$Page.accountOrganizationChartWindow}?id={!Acct.Id}">{!$Label.certa_scp__influence_org}</apex:outputLink></li>
+                                            <li><apex:outputLink target="_parent" value="{!$Page.PreguntasAccountGrowthStrategy}?id={!Acct.Id}">{!$Label.certa_scp__estrategias_de_crecimiento_de_la_cuenta}</apex:outputLink></li>
+                                            <li><apex:outputLink target="_parent" value="{!$Page.accountMasterPlan}?id={!Acct.Id}">{!$Label.certa_scp__action_plan_builder}</apex:outputLink></li>
+                                            
+                                            
+                                            
+                                            <li class="dropdown-submenu" target="_parent">
+                                                <a tabindex="-1" href="#">{!$Label.Herramientas_Opcionales}</a>
+                                                <ul class="dropdown-menu">
+                                                    <li><apex:outputLink target="_parent" value="{!$Page.accountStrategicContextWindow}?id={!Acct.id}">{!$Label.certa_scp__client_context}</apex:outputLink></li>
+                                                    <li><apex:outputLink target="_parent" value="{!$Page.accountKPIWindow}?id={!Acct.id}">{!$Label.certa_scp__kpi}</apex:outputLink></li>
+                                                    <li><apex:outputLink target="_parent" value="{!$Page.accountOverallRelationshipWindow}?id={!Acct.id}">{!$Label.certa_scp__overall_relationship}</apex:outputLink></li>
+                                                    <li><apex:outputLink target="_parent" value="{!$Page.accountHistoricalBusinessWindow}?id={!Acct.Id}">{!$Label.certa_scp__net_activity}</apex:outputLink></li>
+                                                </ul>
+                                            </li>
+                                            
+                                            
+	                   					</ul>
+	                    			</li>
+                                    <li class="{!IF( contains($CurrentPage.Name, 'accountIndustryTrends') || contains($CurrentPage.Name, 'PantallaPrincipalPowerBalls') || contains($CurrentPage.Name, 'accountIndustryTrendsWindowNew') || contains($CurrentPage.Name, 'accountGrowthStrategy') || contains($CurrentPage.Name, 'accountRDMWindow'),'active','dropdown')}">              
+                                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">{!$Label.enfoque_sectorial}<span class="caret"></span></a>
+                                        <ul class="dropdown-menu" role="menu">
+                                            <li><apex:outputLink target="_parent" value="{!$Page.accountIndustryTrends}?id={!Acct.id}">{!$Label.certa_scp__trend}</apex:outputLink></li>
+                                            <li><apex:outputLink target="_parent" value="{!$Page.accountIndustryTrendsWindowNew}?id={!Acct.Id}">{!$Label.certa_scp__opportunities_value_proposition}</apex:outputLink></li>
+                                            <li><apex:outputLink target="_parent" value="{!$Page.accountGrowthStrategy}?id={!Acct.Id}">{!$Label.certa_scp__gap_growth_strategy}</apex:outputLink></li>
+                                            <li><apex:outputLink target="_parent" value="{!$Page.accountRDMWindow}?id={!Acct.Id}">{!$Label.certa_scp__rdmgeneral}</apex:outputLink></li>
+                                            <li><apex:outputLink target="_parent" value="{!$Page.PantallaPrincipalPowerBalls}?id={!Acct.Id}">Mapa Sectorial</apex:outputLink></li>
+                                        </ul>
+                                    </li>
+
+	                  				<li class="{!IF( contains($CurrentPage.Name, 'accountOpportunityListCriteria') || contains($CurrentPage.Name, 'accountOpportunityList') || contains($CurrentPage.Name, 'accountOpportunityListSnapshot'),'active','dropdown')}">              
+	                   					<a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">{!$Label.Commercial_Plan}<span class="caret"></span></a>
+	                   					<ul class="dropdown-menu" role="menu">
+					                        <li><apex:outputLink target="_parent" value="{!$Page.accountOpportunityListCriteria}?id={!Acct.Id}">{!$Label.certa_scp__dcm}</apex:outputLink></li>
+					                        <li><apex:outputLink target="_parent" value="{!$Page.accountOpportunityList}?id={!Acct.Id}">{!$Label.certa_scp__rdm}</apex:outputLink></li>
+					                        <li><apex:outputLink target="_parent" value="{!$Page.accountOpportunityListSnapshot}?id={!Acct.Id}">{!$Label.certa_scp__snapshot}</apex:outputLink></li>
+                                            
+	                   					</ul>
+	                    			</li>
+	                  				<li class="{!IF( contains($CurrentPage.Name, 'accountCustomReport') ,'active','dropdown')}">              
+	                   					<a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">{!$Label.Execution}<span class="caret"></span></a>
+	                   					<ul class="dropdown-menu" role="menu">
+	                   						
+	                        				<li><apex:outputLink target="_parent" value="{!$Page.accountCustomReport}?id={!Acct.Id}">{!$Label.certa_scp__custom_report}</apex:outputLink></li>  
+	                   					</ul>
+	                    			</li>
+	                			</ul>                			
+	                			<apex:outputPanel rendered="{!hasPermission}">
+		                			<ul class="nav navbar-nav navbar-right">	                  			
+		                   				<li class="{!IF( contains($CurrentPage.Name, 'adminRegions') || contains($CurrentPage.Name, 'adminIndustryTrends') || contains($CurrentPage.Name, 'adminKPI'),'active','dropdown')}">
+		                       				<a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">Admin<span class="caret"></span></a>
+			                       			<ul class="dropdown-menu" role="menu">
+		                   						<li><apex:outputLink rendered="{!hasPermissionRegion}" value="{!$Page.adminRegions}">{!$Label.certa_scp__administration_trends} {!$Label.certa_scp__region}</apex:outputLink></li>
+								                <li><apex:outputLink value="{!$Page.adminIndustryTrends}">{!$Label.certa_scp__administration_trends} {!$Label.certa_scp__trend}</apex:outputLink></li>
+								                <li><apex:outputLink value="{!$Page.CrearCatalogo}">{!$Label.certa_scp__administration_trends} Catalogo Vencimientos</apex:outputLink></li>
+                                                <li><apex:outputLink value="{!$Page.administracionBackShop}">{!$Label.certa_scp__administration_trends} 4You</apex:outputLink></li>
+                                                <li><apex:outputLink value="{!$Page.administracionHitosGlobales}">{!$Label.certa_scp__administration_trends} {!$Label.certa_scp__hitos_globales}</apex:outputLink></li>
+                                                <li><apex:outputLink value="{!$Page.AdminSuperBall}">{!$Label.certa_scp__administration_trends} Power Balls</apex:outputLink></li>
+                                                <li><apex:outputLink value="{!$Page.AdminPowerBi}">{!$Label.certa_scp__administration_trends} Power BI</apex:outputLink></li>
+		                   					</ul>
+		            					</li>
+		                			</ul>
+	                			</apex:outputPanel>
+	                			<ul class="nav navbar-nav navbar-right">
+	                  				<li><a href="/{!Acct.Id}">{!Acct.Name}</a></li>
+		                  		</ul>
+	              			</div>
+              			</apex:outputPanel>
+              			<apex:outputPanel rendered="{!NOT(isAccount)}">
+              				<div id="navbar" class="navbar-collapse collapse">
+              					<apex:outputPanel rendered="{!hasPermission}">
+		                			<ul class="nav navbar-nav navbar-right">	                  			
+		                   				<li class="{!IF( contains($CurrentPage.Name, 'adminRegions') || contains($CurrentPage.Name, 'adminIndustryTrends') || contains($CurrentPage.Name, 'adminKPI'),'active','dropdown')}">
+		                       				<a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">Admin<span class="caret"></span></a>
+			                       			<ul class="dropdown-menu" role="menu">
+		                   						<li><apex:outputLink rendered="{!hasPermissionRegion}" value="{!$Page.adminRegions}">{!$Label.certa_scp__administration_trends} {!$Label.certa_scp__region}</apex:outputLink></li>
+								                <li><apex:outputLink value="{!$Page.adminIndustryTrends}">{!$Label.certa_scp__administration_trends} {!$Label.certa_scp__trend}</apex:outputLink></li>
+								                <li><apex:outputLink value="{!$Page.CrearCatalogo}">{!$Label.certa_scp__administration_trends} Catalogo Vencimientos</apex:outputLink></li>
+                                                <li><apex:outputLink value="{!$Page.administracionBackShop}">{!$Label.certa_scp__administration_trends} 4You</apex:outputLink></li>
+                                                <li><apex:outputLink value="{!$Page.administracionHitosGlobales}">{!$Label.certa_scp__administration_trends} {!$Label.certa_scp__hitos_globales}</apex:outputLink></li>
+                                                <li><apex:outputLink value="{!$Page.AdminSuperBall}">{!$Label.certa_scp__administration_trends} Power Balls</apex:outputLink></li>
+                                                <li><apex:outputLink value="{!$Page.AdminPowerBi}">{!$Label.certa_scp__administration_trends} Power BI</apex:outputLink></li>
+		                   					</ul>
+		            					</li>
+		                			</ul>
+	                			</apex:outputPanel>
+              				</div>
+              			</apex:outputPanel>
+            		</div>
+
+      			</nav>
+        	</div>
+    	</div>    	
+	</div>
+</apex:component>

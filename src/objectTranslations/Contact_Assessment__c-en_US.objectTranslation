@@ -1,0 +1,151 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomObjectTranslation xmlns="http://soap.sforce.com/2006/04/metadata">
+    <caseValues>
+        <plural>false</plural>
+        <value>Contact Assessment</value>
+    </caseValues>
+    <caseValues>
+        <plural>true</plural>
+        <value>Contacts Assessments</value>
+    </caseValues>
+    <fields>
+        <label>Account</label>
+        <name>Account__c</name>
+        <relationshipLabel>Contact Evaluation</relationshipLabel>
+    </fields>
+    <fields>
+        <label>Attitude</label>
+        <name>Attitudes__c</name>
+        <picklistValues>
+            <masterLabel>Burning Platform</masterLabel>
+            <translation>Problems</translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Developer</masterLabel>
+            <translation>Developer</translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Negative</masterLabel>
+            <translation>Skeptical</translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Statu Quo</masterLabel>
+            <translation><!-- Statu Quo --></translation>
+        </picklistValues>
+    </fields>
+    <fields>
+        <label>Authority</label>
+        <name>Authority__c</name>
+        <picklistValues>
+            <masterLabel>High</masterLabel>
+            <translation>High</translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Low</masterLabel>
+            <translation>Low</translation>
+        </picklistValues>
+    </fields>
+    <fields>
+        <label>Buying Cycle</label>
+        <name>Buying_Cycle__c</name>
+        <picklistValues>
+            <masterLabel>Evaluación de Alternativas</masterLabel>
+            <translation>Alternatives Evaluation</translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Obtención de Resultados</masterLabel>
+            <translation>Achievement of results</translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Reconocimiento de Necesidades</masterLabel>
+            <translation>Needs recognition</translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Reducción de Riesgos</masterLabel>
+            <translation>Risk alleviation</translation>
+        </picklistValues>
+    </fields>
+    <fields>
+        <label>Relationship with our competitors</label>
+        <name>Competing_Company_Relationship__c</name>
+        <picklistValues>
+            <masterLabel>Negative</masterLabel>
+            <translation>Negative</translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Positive</masterLabel>
+            <translation>Positive</translation>
+        </picklistValues>
+    </fields>
+    <fields>
+        <label>Contact</label>
+        <name>Contact__c</name>
+        <relationshipLabel>Contact Assesment</relationshipLabel>
+    </fields>
+    <fields>
+        <label>Role</label>
+        <name>Focus__c</name>
+        <picklistValues>
+            <masterLabel>Controller</masterLabel>
+            <translation><!-- Controller --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>End User</masterLabel>
+            <translation>User</translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Sponsor</masterLabel>
+            <translation><!-- Sponsor --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Technical</masterLabel>
+            <translation>Technical</translation>
+        </picklistValues>
+    </fields>
+    <fields>
+        <label>Generation</label>
+        <name>Generation__c</name>
+        <picklistValues>
+            <masterLabel>BB</masterLabel>
+            <translation>Baby Boomer</translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>X</masterLabel>
+            <translation>Gen X</translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Y</masterLabel>
+            <translation>Gen Y</translation>
+        </picklistValues>
+    </fields>
+    <fields>
+        <label>Influece</label>
+        <name>Influence__c</name>
+        <picklistValues>
+            <masterLabel>High</masterLabel>
+            <translation>High</translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Low</masterLabel>
+            <translation>Low</translation>
+        </picklistValues>
+    </fields>
+    <fields>
+        <label>Opportunity</label>
+        <name>Opportunity__c</name>
+        <relationshipLabel>Contact Assesment</relationshipLabel>
+    </fields>
+    <fields>
+        <label>Our relationship with the contact</label>
+        <name>Our_Relationship__c</name>
+        <picklistValues>
+            <masterLabel>Negative</masterLabel>
+            <translation>Negative</translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Positive</masterLabel>
+            <translation>Positive</translation>
+        </picklistValues>
+    </fields>
+    <startsWith>Consonant</startsWith>
+</CustomObjectTranslation>

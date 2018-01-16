@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomObjectTranslation xmlns="http://soap.sforce.com/2006/04/metadata">
+    <caseValues>
+        <plural>false</plural>
+        <value>SCP Custom Report</value>
+    </caseValues>
+    <caseValues>
+        <plural>true</plural>
+        <value>SCP Custom Report</value>
+    </caseValues>
+    <fields>
+        <label><!-- Cuenta --></label>
+        <name>Account__c</name>
+        <relationshipLabel>Reporte SCP</relationshipLabel>
+    </fields>
+    <fields>
+        <label><!-- Conocimiento Negocio --></label>
+        <name>Conocimiento_Negocio__c</name>
+    </fields>
+    <fields>
+        <label><!-- Contacto Ejecutivo --></label>
+        <name>Contacto_Ejecutivo__c</name>
+    </fields>
+    <fields>
+        <label><!-- Descripcion Cliente --></label>
+        <name>Descripcion_Cliente__c</name>
+    </fields>
+    <fields>
+        <label><!-- Estrategia de crecimiento de la cuenta --></label>
+        <name>Estrategia_de_crecimiento_de_la_cuenta__c</name>
+    </fields>
+    <fields>
+        <label><!-- FourPlanning --></label>
+        <name>FourPlanning__c</name>
+    </fields>
+    <fields>
+        <label><!-- Hitos --></label>
+        <name>Hitos__c</name>
+    </fields>
+    <fields>
+        <label><!-- Relacion Institucional --></label>
+        <name>Relacion_Institucional__c</name>
+    </fields>
+    <fields>
+        <label>Plan de Acción</label>
+        <name>actionPlan__c</name>
+    </fields>
+    <fields>
+        <label>Contexto del Cliente</label>
+        <name>clientContext__c</name>
+    </fields>
+    <fields>
+        <label><!-- competitors --></label>
+        <name>competitors__c</name>
+    </fields>
+    <fields>
+        <label><!-- dcm --></label>
+        <name>dcm__c</name>
+    </fields>
+    <fields>
+        <label><!-- growthStrategy --></label>
+        <name>growthStrategy__c</name>
+    </fields>
+    <fields>
+        <label><!-- industryTrend --></label>
+        <name>industryTrend__c</name>
+    </fields>
+    <fields>
+        <label><!-- influenceMap --></label>
+        <name>influenceMap__c</name>
+    </fields>
+    <fields>
+        <label><!-- kpi --></label>
+        <name>kpi__c</name>
+    </fields>
+    <fields>
+        <label><!-- netActivity --></label>
+        <name>netActivity__c</name>
+    </fields>
+    <fields>
+        <label><!-- provenValue --></label>
+        <name>provenValue__c</name>
+    </fields>
+    <fields>
+        <label><!-- valueDrivers --></label>
+        <name>valueDrivers__c</name>
+    </fields>
+    <gender>Masculine</gender>
+</CustomObjectTranslation>

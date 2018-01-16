@@ -1,0 +1,141 @@
+<apex:page controller="AccountCustomReportController" sidebar="false" tabStyle="Strategic_Client_Plan__tab" showheader="false" contentType="application/msword#{!wordName}">
+	<head>
+        <meta http-equiv="Content-Type" content="text/html;charset=UTF-8" />
+    </head>
+
+	<style>
+		p.h1 {
+			background-color: #d4ebf2;
+			font-size: 16px;
+			padding: 6px;
+			font-weight: bold;
+		}
+		
+		p.h2 {
+			font-weight: bold;
+		}
+		
+	</style>
+
+	<apex:pageBlock title="{!$Label.certa_scp__custom_report} - {!account.Name} - {!Today()}" mode="edit">
+		
+        <!-- 4Planning -->
+        <apex:outputPanel rendered="{!customReport.FourPlanning__c}">
+            <p class="h1"><apex:outputText value="4Planning" /></p>
+            <div style="margin:10px;">				
+                <c:FourPlanningResumen />
+            </div>
+            <br/><br/>
+        </apex:outputPanel>
+        
+		<!-- Industry Trends -->
+		<apex:outputPanel rendered="{!customReport.industryTrend__c}">
+			<p class="h1"><apex:outputText value="{!$Label.certa_scp__trend}" /></p>
+			<div style="margin:10px;">				
+				<c:accountIndustryTrendsComponent />
+			</div>
+			<br/><br/>
+		</apex:outputPanel>
+		
+        <!-- Estrategia de crecimiento de la cuenta -->
+        <apex:outputPanel rendered="{!customReport.Estrategia_de_crecimiento_de_la_cuenta__c}">
+            <p class="h1"><apex:outputText value="{!$Label.certa_scp__estrategias_de_crecimiento_de_la_cuenta}" /></p>
+            <div style="margin:10px;">				
+                <c:estrategiaDeCrecimientoResumen />
+            </div>
+            <br/><br/>
+        </apex:outputPanel>
+        
+		<!-- Client Context -->
+		<apex:outputPanel rendered="{!customReport.clientContext__c}">
+			<p class="h1"><apex:outputText value="{!$Label.certa_scp__client_context}" /></p>
+			<div style="margin:10px;">				
+				<c:accountStrategicContextWindowComponent />
+			</div>
+			<br/><br/>
+		</apex:outputPanel>
+		
+		<!-- KPI -->
+		<apex:outputPanel rendered="{!customReport.kpi__c}">
+			<p class="h1"><apex:outputText value="{!$Label.certa_scp__kpi}" /></p>
+			<div style="margin:10px;">				
+				<c:accountKPIWindowComponent />
+			</div>
+			<br/><br/>
+		</apex:outputPanel>
+		
+		<!-- Competitors -->
+		<!-- 
+		<apex:outputPanel rendered="{!customReport.competitors__c}">
+			<p class="h1"><apex:outputText value="{!$Label.Overall_Relationship}" /></p>
+			<div style="margin:10px;">				
+				<c:accountOverallRelationshipWindowComp />
+			</div>
+			<br/><br/>
+		</apex:outputPanel>
+		 -->
+		<!-- Net Activity -->
+		<apex:outputPanel rendered="{!customReport.netActivity__c}">
+			<p class="h1"><apex:outputText value="{!$Label.certa_scp__net_activity}" /></p>
+			<div style="margin:10px;">				
+				<c:accountHistoricalBusinessWindowComponent />
+			</div>
+			<br/><br/>
+		</apex:outputPanel>
+		
+		<!-- influence Map/Org -->
+		<apex:outputPanel rendered="{!customReport.influenceMap__c}">
+			<p class="h1"><apex:outputText value="{!$Label.certa_scp__influence_org}" /></p>
+			<div style="margin:10px;">				
+				<c:accountOrganizationChartWindowComponent />
+			</div>
+			<br/><br/>
+		</apex:outputPanel>
+        
+		<!-- Proven Value -->
+		<apex:outputPanel rendered="{!customReport.provenValue__c}">
+			<p class="h1"><apex:outputText value="{!$Label.certa_scp__account_past_proven_value}" /></p>
+			<div style="margin:10px;">				
+				<c:accountPastProvenValueNewComponent />
+			</div>
+			<br/><br/>
+		</apex:outputPanel>
+		
+		<!-- Value Drivers -->
+		<apex:outputPanel rendered="{!customReport.valueDrivers__c}">
+			<p class="h1"><apex:outputText value="{!$Label.certa_scp__opportunities_value_proposition}" /></p>
+			<div style="margin:10px;">				
+				<c:accountIndustryTrendsWindowNewComponent />
+			</div>
+			<br/><br/>
+		</apex:outputPanel>
+		
+		<!-- Evaluate Criteria
+		<apex:outputPanel rendered="{!customReport.growthStrategy__c}">
+			<p class="h1"><apex:outputText value="{!$Label.DCM}" /></p>
+			<div style="margin:10px;">				
+				<c:DCMEvaluateCriteriaExcelComponent />
+			</div>
+			<br/><br/>
+		</apex:outputPanel> -->
+		
+		<!-- Growth Strategy -->
+		<apex:outputPanel rendered="{!customReport.growthStrategy__c}">
+			<p class="h1"><apex:outputText value="{!$Label.certa_scp__gap_growth_strategy}" /></p>
+			<div style="margin:10px;">				
+				<c:AccountGrowthStrategyComponent />
+			</div>
+			<br/><br/>
+		</apex:outputPanel> 
+		
+		<!-- Account Plan -->
+		<apex:outputPanel rendered="{!customReport.actionPlan__c}">
+			<p class="h1"><apex:outputText value="{!$Label.certa_scp__action_plan_builder}" /></p>
+			<div style="margin:10px;">				
+				<c:accountMasterPlanComponent />
+			</div>
+			<br/><br/>
+		</apex:outputPanel>
+	</apex:pageBlock>
+
+</apex:page>

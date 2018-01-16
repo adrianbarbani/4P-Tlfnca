@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Report xmlns="http://soap.sforce.com/2006/04/metadata">
+    <aggregates>
+        <calculatedFormula>Time__c.Time_Spent_Milliseconds__c:SUM / 1000 / 60 / 60</calculatedFormula>
+        <datatype>number</datatype>
+        <developerName>FORMULA1</developerName>
+        <isActive>true</isActive>
+        <isCrossBlock>false</isCrossBlock>
+        <masterLabel>Hours Spent</masterLabel>
+        <scale>2</scale>
+    </aggregates>
+    <columns>
+        <field>Board__c.Taskfeed_Lists__r.Taskfeed_Tasks__r$Name</field>
+    </columns>
+    <columns>
+        <field>Board__c.Taskfeed_Lists__r.Taskfeed_Tasks__r.Task_Time__r$Time_Spent_Hours__c</field>
+    </columns>
+    <columns>
+        <field>Board__c.Taskfeed_Lists__r.Taskfeed_Tasks__r.Task_Time__r$Time_Remaining_Hours__c</field>
+    </columns>
+    <columns>
+        <field>Board__c.Taskfeed_Lists__r.Taskfeed_Tasks__r.Task_Time__r$Description__c</field>
+    </columns>
+    <filter>
+        <criteriaItems>
+            <column>Board__c$Name</column>
+            <isUnlocked>false</isUnlocked>
+            <operator>equals</operator>
+            <value>Taskfeed</value>
+        </criteriaItems>
+        <language>es_MX</language>
+    </filter>
+    <format>Matrix</format>
+    <groupingsAcross>
+        <dateGranularity>Day</dateGranularity>
+        <field>Board__c.Taskfeed_Lists__r.Taskfeed_Tasks__r.Task_Time__r$DateTime_Recorded__c</field>
+        <sortOrder>Asc</sortOrder>
+    </groupingsAcross>
+    <groupingsDown>
+        <dateGranularity>Day</dateGranularity>
+        <field>Board__c.Taskfeed_Lists__r.Taskfeed_Tasks__r.Task_Time__r$CreatedBy</field>
+        <sortOrder>Asc</sortOrder>
+    </groupingsDown>
+    <name>Hours Recorded Per Contributor</name>
+    <params>
+        <name>co</name>
+        <value>0</value>
+    </params>
+    <reportType>Taskfeed_Boards_with_Taskfeed_Lists_with_Taskfeed_Tasks_with_Taskfeed_Time__c</reportType>
+    <scope>organization</scope>
+    <showDetails>false</showDetails>
+    <timeFrameFilter>
+        <dateColumn>Board__c.Taskfeed_Lists__r.Taskfeed_Tasks__r.Task_Time__r$DateTime_Recorded__c</dateColumn>
+        <interval>INTERVAL_THISWEEK</interval>
+    </timeFrameFilter>
+</Report>

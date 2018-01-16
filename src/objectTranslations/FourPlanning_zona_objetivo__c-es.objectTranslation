@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomObjectTranslation xmlns="http://soap.sforce.com/2006/04/metadata">
+    <caseValues>
+        <plural>false</plural>
+        <value>FourPlanning zona objetivo</value>
+    </caseValues>
+    <caseValues>
+        <plural>true</plural>
+        <value>FourPlanning zonas objetivo</value>
+    </caseValues>
+    <fields>
+        <label><!-- Cuenta --></label>
+        <name>Cuenta__c</name>
+        <relationshipLabel><!-- FourPlanning zonas objetivo --></relationshipLabel>
+    </fields>
+    <fields>
+        <label><!-- Zona Objetivo valor 1 eje x --></label>
+        <name>Zona_Objetivo_valor_1_eje_x__c</name>
+    </fields>
+    <fields>
+        <label><!-- Zona Objetivo valor 2 eje x --></label>
+        <name>Zona_Objetivo_valor_2_eje_x__c</name>
+    </fields>
+    <fields>
+        <label><!-- altura zona objetivo maxima --></label>
+        <name>altura_zona_objetivo_maxima__c</name>
+    </fields>
+    <fields>
+        <label><!-- altura zona objetivo minima --></label>
+        <name>altura_zona_objetivo_minima__c</name>
+    </fields>
+    <gender>Feminine</gender>
+</CustomObjectTranslation>

@@ -1,0 +1,101 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomObjectTranslation xmlns="http://soap.sforce.com/2006/04/metadata">
+    <caseValues>
+        <plural>false</plural>
+        <value><!-- Account Review --></value>
+    </caseValues>
+    <caseValues>
+        <plural>true</plural>
+        <value><!-- Account Review --></value>
+    </caseValues>
+    <fields>
+        <label>Conta</label>
+        <name>Account__c</name>
+        <relationshipLabel><!-- Accounts Reviews --></relationshipLabel>
+    </fields>
+    <fields>
+        <label><!-- Customer Contacts Comments --></label>
+        <name>Customer_Contacts_Description__c</name>
+    </fields>
+    <fields>
+        <help><!-- Are there enough relevant customer contacts with the correct level of authority and influence that are Key Decision Makers included in the Relationship Development Mosaic?
+
+0 : Poor
+5:  More is needed   
+20: Good
+25: Outstanding Performance --></help>
+        <label><!-- Customer Contacts (0~25) --></label>
+        <name>Customer_Contacts__c</name>
+    </fields>
+    <fields>
+        <label><!-- Engagement Plan Comments --></label>
+        <name>Engagement_Plan_Description__c</name>
+    </fields>
+    <fields>
+        <help><!-- Does the Salesperson have the relevant amount of customer meetings, calls and actions planned to develop the account and progress opportunities?
+
+0 : Poor
+5:  More is needed   
+20: Good
+25: Outstanding Performance --></help>
+        <label><!-- Engagement Plan (0~25) --></label>
+        <name>Engagement_Plan__c</name>
+    </fields>
+    <fields>
+        <label><!-- Growth Strategy Comments --></label>
+        <name>Growth_Strategy_Description__c</name>
+    </fields>
+    <fields>
+        <help><!-- Does the Growth Strategy tool contain ideas on how the Salesperson will open up new opportunities/sources of revenues?
+ 
+0 : Poor
+5:  More is needed   
+20: Good
+25: Outstanding Performance --></help>
+        <label><!-- Growth Strategy (0~25) --></label>
+        <name>Growth_Strategy__c</name>
+    </fields>
+    <fields>
+        <label><!-- Sales/Revenues Comments --></label>
+        <name>Sales_Revenues_Description__c</name>
+    </fields>
+    <fields>
+        <help><!-- Does the Salesperson have enough quality opportunities with a high percentage outcome in their pipeline that will their deliver Sales and Revenue in order to achieve their target? 
+
+0 : Poor
+5:  More is needed   
+20: Good
+25: Outstanding Performance --></help>
+        <label><!-- Sales/Revenues (0~25) --></label>
+        <name>Seles_Revenues__c</name>
+    </fields>
+    <fields>
+        <label><!-- Total Score --></label>
+        <name>Total_Score__c</name>
+    </fields>
+    <gender><!-- Feminine --></gender>
+    <layouts>
+        <layout>Formato Account Review</layout>
+        <sections>
+            <label><!-- Vínculos personalizados --></label>
+            <section>Vínculos personalizados</section>
+        </sections>
+    </layouts>
+    <nameFieldLabel><!-- Nombre de Account Review --></nameFieldLabel>
+    <validationRules>
+        <errorMessage><!-- El valor debe ser mayor que 0 y menor que 25 --></errorMessage>
+        <name>Customer_Contacts_Limit</name>
+    </validationRules>
+    <validationRules>
+        <errorMessage><!-- El valor debe ser mayor que 0 y menor que 25 --></errorMessage>
+        <name>Engagement_Plan_Limit</name>
+    </validationRules>
+    <validationRules>
+        <errorMessage><!-- El valor debe ser mayor que 0 y menor que 25 --></errorMessage>
+        <name>Growth_Strategy_Limit</name>
+    </validationRules>
+    <validationRules>
+        <errorMessage><!-- El valor debe ser mayor que 0 y menor que 25 --></errorMessage>
+        <name>Sales_Revenue_Limit</name>
+    </validationRules>
+</CustomObjectTranslation>

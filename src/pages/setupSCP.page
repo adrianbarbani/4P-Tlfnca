@@ -1,0 +1,8 @@
+<apex:page controller="SetupSCPController">
+	<apex:form >
+		<apex:outputText value="VisualPageURL: "/>
+		<apex:inputField value="{!setupSCP.VisualPageURL__c}"/>
+		
+		<apex:commandButton action="{!save}" value="{!$Label.save}"/>
+	</apex:form>
+</apex:page>

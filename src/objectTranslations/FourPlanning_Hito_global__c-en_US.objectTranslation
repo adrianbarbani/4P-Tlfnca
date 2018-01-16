@@ -1,0 +1,374 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomObjectTranslation xmlns="http://soap.sforce.com/2006/04/metadata">
+    <caseValues>
+        <plural>false</plural>
+        <value><!-- FourPlanning Hito global --></value>
+    </caseValues>
+    <caseValues>
+        <plural>true</plural>
+        <value><!-- FourPlanning Hito global --></value>
+    </caseValues>
+    <fields>
+        <label><!-- Categoria --></label>
+        <name>Categoria__c</name>
+        <picklistValues>
+            <masterLabel>Cerrar</masterLabel>
+            <translation>Close</translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Evento Interno Telefonica</masterLabel>
+            <translation>Telefonica Internal Event</translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Evento Relevante de la industria</masterLabel>
+            <translation>Relevant Industry Event</translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Evento para clientes de Telefonica</masterLabel>
+            <translation>Telefonica Event</translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Otro</masterLabel>
+            <translation>Other</translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Previsión Cierre TOP 3 deals</masterLabel>
+            <translation>Close preview TOP3 deals</translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Publicación RFP Comunicaciones</masterLabel>
+            <translation>Communications RFP</translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Publicación RFP TI</masterLabel>
+            <translation>TI RFP</translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Vencimiento Contrato Activo con Telefónica</masterLabel>
+            <translation>Due Date active contract with Telefonica</translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Vencimiento Contrato Activo con la Competencia</masterLabel>
+            <translation>Due Date active contract with Competency</translation>
+        </picklistValues>
+    </fields>
+    <fields>
+        <label><!-- Descripcion --></label>
+        <name>Descripcion__c</name>
+    </fields>
+    <fields>
+        <label><!-- Fecha --></label>
+        <name>Fecha__c</name>
+    </fields>
+    <fields>
+        <label><!-- Geographical Region --></label>
+        <name>Region__c</name>
+        <relationshipLabel><!-- FourPlanning Hitos globales --></relationshipLabel>
+    </fields>
+    <fields>
+        <label><!-- Sector --></label>
+        <name>Sector__c</name>
+        <picklistValues>
+            <masterLabel>Comercio</masterLabel>
+            <translation>Commerce</translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Comunicaciones y tecnologia</masterLabel>
+            <translation>Communications and Technology</translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Financiero</masterLabel>
+            <translation>Financial</translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Industria</masterLabel>
+            <translation>Industry</translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Sector Público</masterLabel>
+            <translation>Public Sector</translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Servicios</masterLabel>
+            <translation>Services</translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Servicios Públicos</masterLabel>
+            <translation>Public Services</translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Todos</masterLabel>
+            <translation>All</translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Transporte</masterLabel>
+            <translation>Transport</translation>
+        </picklistValues>
+    </fields>
+    <fields>
+        <label><!-- Sub sector --></label>
+        <name>Sub_sector__c</name>
+        <picklistValues>
+            <masterLabel>Agro, Pesca y Forestación</masterLabel>
+            <translation>&quot;Agriculture, Fishing and Afforestation&quot;</translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Agua y Saneamientos</masterLabel>
+            <translation>Water and sanitation</translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Alimentos y Bebidas</masterLabel>
+            <translation>Food and Drinks</translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Almacenamiento</masterLabel>
+            <translation>Storage</translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Alquiler de bienes</masterLabel>
+            <translation>Rental of Goods</translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Automotor de Carga</masterLabel>
+            <translation>Freight Automotive</translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Automotor de Pasajeros</masterLabel>
+            <translation>Passanger Automotive</translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Automotores y Camiones</masterLabel>
+            <translation>Automotive and Trucks</translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Aéreo de Carga</masterLabel>
+            <translation>Freight Air</translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Aéreo de Pasajeros</masterLabel>
+            <translation>Passenger Air</translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Banca</masterLabel>
+            <translation>Banking</translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Call Centers</masterLabel>
+            <translation>Call Centers</translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Centros Comerciales</masterLabel>
+            <translation>Shoppings</translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Combustibles y Lubricantes</masterLabel>
+            <translation>Fuels and Lubricants</translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Construccion</masterLabel>
+            <translation>Construction</translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Contenido Multimedia</masterLabel>
+            <translation>Multimedia Content</translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Cooperativa</masterLabel>
+            <translation>Cooperative</translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Defensa y Seguridad Pública</masterLabel>
+            <translation>Defense and Public Safety</translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Desarrollo de Sistemas</masterLabel>
+            <translation>System Development</translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Droguerías</masterLabel>
+            <translation>Drug stores</translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Educacion</masterLabel>
+            <translation>Education</translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Electricas</masterLabel>
+            <translation>Electrical</translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Esparcimiento Cultural y Deportivo</masterLabel>
+            <translation>Cultural and Sporting Entertainment</translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Ferroviario de Carga</masterLabel>
+            <translation>Freight Rail</translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Ferroviario de Pasajeros</masterLabel>
+            <translation>Passanger Rail</translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Fluvial / Marítimo de Carga</masterLabel>
+            <translation>Freight Fluvial / Maritime</translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Fluvial / Marítimo de Pasajeros</masterLabel>
+            <translation>Passangers Fluvial / Maritime</translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Gas</masterLabel>
+            <translation>Gas</translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Gastronomía</masterLabel>
+            <translation>Gastronomy</translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Gobierno Municipal</masterLabel>
+            <translation>Municipal Government</translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Gobierno Nacional</masterLabel>
+            <translation>National Goverment</translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Gobierno Provincial</masterLabel>
+            <translation>Provincial Goverment</translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Grupo Telefonica</masterLabel>
+            <translation>Telefonica Group</translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Hardware Tecnológico</masterLabel>
+            <translation>Technological Hardware</translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Hotelería</masterLabel>
+            <translation>Hotel</translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Industria Alimentos</masterLabel>
+            <translation>Food industry</translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Industria Automotriz y Autopartes</masterLabel>
+            <translation>Automotive Industry and Autoparts</translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Industria Ligera y Manufacturas</masterLabel>
+            <translation>Light industry and Manufactures</translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Industria Metalurgica y Pesada</masterLabel>
+            <translation>Metallurgical and Heavy Industry</translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Industria Química</masterLabel>
+            <translation>Chemical Industry</translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Industria Textil y Calzado</masterLabel>
+            <translation>Textile Industry and Footwear</translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Inmobiliario</masterLabel>
+            <translation>Real Estate</translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Instituciones financieras no bancarias</masterLabel>
+            <translation>Non-bank Financial Institutions</translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Laboratorios</masterLabel>
+            <translation>Labs</translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Medios de Pago</masterLabel>
+            <translation>Payment Methods</translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Mensajería y Paquetería</masterLabel>
+            <translation>Courier services</translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Mineria</masterLabel>
+            <translation>Mining</translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Organizaciones No Gubernamentales (ONGs)</masterLabel>
+            <translation>ONG</translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Otros Administracion publica</masterLabel>
+            <translation>Other Public Administration</translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Otros Comercios</masterLabel>
+            <translation>Other Commerces</translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Otros Industria</masterLabel>
+            <translation>Other Industries</translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Otros Servicios</masterLabel>
+            <translation>Other Services</translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Petroleo y Gas</masterLabel>
+            <translation>Gas and Oil</translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Residuos y Reciclaje</masterLabel>
+            <translation>Waste and Recycling</translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Salud</masterLabel>
+            <translation>Health</translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Seguridad Privada</masterLabel>
+            <translation>Private Security</translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Seguros</masterLabel>
+            <translation>Insurance</translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Servicios Profesionales y Consultoría</masterLabel>
+            <translation>Professional Services and Consulting</translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Software</masterLabel>
+            <translation>Software</translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Supermercados</masterLabel>
+            <translation>Supermarkets</translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Telcos e Internet</masterLabel>
+            <translation>Internet</translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Textil y Calzado</masterLabel>
+            <translation>Textile and Footwear</translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Tienda Departamental</masterLabel>
+            <translation>Department Store</translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Todos</masterLabel>
+            <translation>All</translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Turismo</masterLabel>
+            <translation>Tourism</translation>
+        </picklistValues>
+    </fields>
+    <nameFieldLabel><!-- Nombre de FourPlanning Hito global --></nameFieldLabel>
+    <startsWith><!-- Consonant --></startsWith>
+</CustomObjectTranslation>

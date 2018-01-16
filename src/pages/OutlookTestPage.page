@@ -1,0 +1,145 @@
+<apex:page controller="OutlookTestPageController" tabStyle="Strategic_Client_Plan__tab" sidebar="false" showHeader="true" docType="html-5.0">
+    
+    <c:SCPMenu ></c:SCPMenu>
+    
+    <apex:includeScript value="{!$Resource.Ploty}"/>
+    
+    <style>
+        
+                .pbSubheader h3 {
+        display: inline;
+        margin-left: 5px;
+        font-weight: bold;
+        }
+        
+    </style>
+    <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
+    
+    <apex:outputpanel styleClass="container-fluid bootstrap-sf1" id="pageContent" style="background-color:white">
+        
+                <div class="panel panel-default">
+            <div class="panel-heading" style="height: 60px;">
+                <h2 class="panel-title">
+                    <span style="float:left;">
+                        Outlook por Territorio
+                    </span>
+                </h2>
+               </div>
+               </div>
+        <apex:form >
+                            
+            <apex:actionFunction action="{!actualizarValores}" name="establecerZonaObjetivo" reRender="grafico" />
+            
+            <apex:pageBlock title="" mode="maindetail">
+                <apex:pageBlockSection title="Valores del Grafico" columns="2">
+                    
+                        <apex:input value="{!previusFiscalYear}" label="Previus Fiscal Year" />
+                        <apex:input value="{!ytdRevenue}" label="YTD Revenue" />
+                        
+                        <apex:input value="{!projected}" label="Projected Recurrent" />
+
+                        <apex:input value="{!backlog}" label="backlog" />
+                        
+                        <apex:input value="{!forecast}" label="forecast" />
+                        
+                        <apex:input value="{!Budget}" label="Budget" />
+                        
+                        <apex:input style="display:none" />
+                        
+                    <button type="button" style="margin-right: 10px;" class="btn btn-default btn-sm pull-right" onclick="establecerZonaObjetivo()">
+                        <span class="glyphicon glyphicon-refresh"></span>&nbsp;Generar Grafico
+                    </button>
+                    
+                </apex:pageBlockSection>
+            </apex:pageBlock>
+            
+        </apex:form>
+        
+        <apex:outputPanel id="grafico" >
+         <apex:outputPanel rendered="{!mostrarGrafico}">
+         <div id="myDiv" style="width: 100%; height: 500px;" />
+         
+         <script>   
+        var xData = ['Previus Fiscal Year', 'YTD Revenue','Projected Recurrent', 'Backlog','Forecast', 'Challenge', 'Budget'];
+        
+        var yData = [{!previusFiscalYear-30}, {!ytdRevenue-30}, {!ytdRevenue+projected-30}, {!ytdRevenue+projected+backlog-30}, {!ytdRevenue+projected+backlog+forecast-30}, {!ytdRevenue+projected+backlog+forecast+challenge/2},{!Budget-30}]; //se calcula
+        
+        var textList = ['$'+{!previusFiscalYear}, '$'+{!ytdRevenue}, '$'+{!projected}, '$'+{!backlog}, '$'+{!forecast}, '$'+{!challenge}, '$'+{!Budget}]; // se calcula
+        
+        //Base
+        
+        var asd1 = {
+          x: xData,
+          y: [0, 0, {!ytdRevenue}, {!ytdRevenue+projected}, {!ytdRevenue+projected+backlog}, {!ytdRevenue+projected+backlog+forecast}, 0],
+          marker: {
+            color: 'rgba(1,1,1,0.0)'
+          },
+          type: 'bar',
+          name: 'eje x'
+        };
+        
+        //Revenue
+        
+        var trace2 = {
+          x: xData,
+          y: [{!previusFiscalYear}, {!ytdRevenue}, {!projected}, {!backlog}, {!forecast}, {!challenge}, 0],
+          type: 'bar',
+          name: '',
+          marker: {
+            color: 'rgba(55,128,191,0.7)',
+            line: {
+              color: 'rgba(55,128,191,1.0)',
+              width: 2
+            }
+          }
+        };
+        
+        
+        //Profit
+        
+        var trace4 = {
+          x: xData,
+          y: [0, 0, 0, 0, 0, 0, {!Budget}],
+          type: 'bar',
+          name: '',
+          marker: {
+            color: 'rgba(50,171, 96, 0.7)',
+            line: {
+              color: 'rgba(50,171,96,1.0)',
+              width: 2
+            }
+          }
+        };
+        
+        var data = [asd1, trace2, trace4];
+        
+        var layout = {
+          title: 'Outlook de Ingresos',
+          barmode: 'stack',
+          showlegend: false,
+          annotations: []
+        };
+        
+        for ( var i = 0 ; i < 7 ; i++ ) {
+          var result = {
+            x: xData[i],
+            y: yData[i],
+            text: textList[i],
+            font: {
+              family: 'Arial',
+              size: 14,
+              color: 'rgba(245,246,249,1)'
+            },
+            showarrow: false
+          };
+          layout.annotations.push(result);
+        };
+        
+        Plotly.newPlot('myDiv', data, layout, {displayModeBar: true, displaylogo: false, showlegend: false, modeBarButtonsToRemove: ['resetScale2d','hoverClosestCartesian','zoomOut2d','zoomIn2d','pan2d','toImage','sendDataToCloud','zoom2d','select2d','lasso2d','hoverClosestCartesian','hoverCompareCartesian','autoScale2d'] });
+        </script>
+        
+        </apex:outputPanel>
+</apex:outputPanel>
+
+    </apex:outputPanel>
+</apex:page>

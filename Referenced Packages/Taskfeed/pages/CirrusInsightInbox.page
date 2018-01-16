@@ -1,0 +1,17 @@
+<apex:page controller="taskfeed1.CirrusInsightInboxController" showHeader="false" sidebar="false">
+	<c:Taskboard id="inboxApp" 
+				 boardsStyle="GroupedSection"
+                 queryString="{!soqlQuery}" 
+                 customNoTaskMessage="No Tasks are related to the current Inbox record."
+                 showBoardSwitcher="false"
+                 showViewSwitcher="false"
+                 showNotificationBell="false"
+                 showFilters="false"
+                 showHeader="false"
+                 embeddedIframesAllowed="false"
+                 touchScope="false"
+                 guessBoard="false"
+                 rememberFilters="false"
+                 embeddedMode="true">
+  </c:Taskboard>
+</apex:page>

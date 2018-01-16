@@ -1,0 +1,489 @@
+<apex:page controller="DesarrolloCuentaController" tabStyle="Strategic_Client_Plan__tab" sidebar="false" showHeader="true" rendered="{!mostrar}" docType="html-5.0">
+    
+
+    <c:SCPMenu ></c:SCPMenu>
+
+    
+    <apex:includeScript value="{!$Resource.html2canvas}"/>
+    <apex:includeScript value="{!$Resource.RGBColor}"/>
+    <apex:includeScript value="{!$Resource.Canvg}"/>
+    <apex:includeScript value="{!$Resource.StackBlur}"/>
+    
+    
+    <style>
+        
+        .icon-sectors-botonera {
+        width: 38px;            
+        }
+        
+        .pbSubheader h3 {
+        display: inline;
+        margin-left: 5px;
+        font-weight: bold;
+        }
+        
+        .menorDeSetenta{
+        background-color:#F1E100 !important;
+        border: .2em solid #000 !important;
+        }
+        
+        .menorDeVeinte{
+        background-color:#FF0009 !important;
+        border: .2em solid #000 !important;
+        }
+        .menorDeCincuenta{
+        background-color:#FF8E00 !important;
+        border: .2em solid #000 !important;
+        }
+        
+        .completo{
+        background-color:#009813 !important;
+        border: .2em solid #000 !important;
+        }
+        
+        .casicompleto{
+        background-color:#55C500 !important;
+        border: .2em solid #000 !important;
+        }
+    </style>
+        
+    <script  type="text/javascript">
+        
+        
+        $j = jQuery.noConflict();
+    
+    window.onload = function() {
+        //load '../path/to/your.svg' in the canvas with id = 'canvas'
+        //canvg()
+    }
+    
+    $j(document).ready(function() {
+        
+        //Bajar linea como imagen
+        $j(".generateImg").click(function(){
+            
+            canvg();
+            
+            zoom=1;
+            $j("#myDiv").animate({ 'zoom': zoom }, 0);
+            var chartArea = $j('#myDiv');
+            html2canvas(chartArea, {
+                onrendered: function(canvas) {          
+                    var img = canvas.toDataURL("image/png");
+                    //window.location.href = img.replace('image/png', 'image/octet-stream');
+                    var ua = window.navigator.userAgent;
+                    if (ua.indexOf("Chrome") > 0) {
+                        var link = document.createElement('a');
+                        link.download = "{!$Label.certa_scp__desarrollo_cuenta}.png";
+                        link.href = img.replace('image/png', 'image/octet-stream');
+                        link.click();
+                    } else {
+                        window.location.href = img.replace('image/png', 'image/octet-stream');
+                    }
+                },
+                allowTaint: true
+            }); 
+            
+            location.reload();
+        });
+        
+        
+    });
+    
+    </script>
+    
+
+        <apex:outputpanel styleClass="container-fluid bootstrap-sf1" id="pageContent">
+            <div class="panel panel-default">
+                <div class="panel-heading" style="height: 129px;">
+                    <h2 class="panel-title">
+                        <span style="float:left;">
+                            {!$Label.certa_scp__desarrollo_cuenta}
+                        </span>
+                    </h2>
+                    
+                    <div class="row paddingRight">
+                        <div class="btn-group pull-right" role="group" aria-label="...">
+                            
+                            <apex:outputPanel id="buttonPanel">
+                                <div class="btn-group pull-right" role="group" aria-label="...">
+                                    
+                                    <!-- boton descargar imagin (inabilitado hasta nuevo aviso)
+                                    <button type="button" class="btn btn-default btn-sm generateImg" data-value="saveImg" data-msg="{!$Label.save_msg}">
+                                        <span class="glyphicon glyphicon-picture icon-btn-left"></span>&nbsp;{!$Label.save_image}
+                                    </button>
+                                    -->
+                                   <button type="button" class="btn btn-default btn-sm" onclick="irAInicio()">
+                                    <!--<apex:image style="height:35px;" url="{!URLFOR($Resource.icono4Planning)}" styleClass="icon-sectors-botonera"/>-->
+                                    <span class="glyphicon glyphicon-home"></span>&nbsp; 4Planning
+                                </button>
+                                
+                                <button type="button"  class="btn btn-default btn-sm" onclick="irAPlanDeAccion()">
+                                    <!--<apex:image url="{!URLFOR($Resource.iconoHitos)}" styleClass="icon-sectors-botonera"/>-->
+                                    <span class="glyphicon glyphicon-calendar icon-btn-left"></span>&nbsp;Hitos
+                                </button> 
+                                
+                                
+                                <button type="button" class="btn btn-default btn-sm"  disabled="true" onclick="irADesarrolloCuenta()">
+                                    <!--<apex:image url="{!URLFOR($Resource.Iconos, '256/flow-market-icon.png')}" styleClass="icon-sectors-botonera"/>-->
+                                    <span class="glyphicon glyphicon-stats"></span>&nbsp;Coeficiente Cuenta
+                                </button> 
+                                
+                                <button type="button" class="btn btn-default btn-sm" onclick="irAEjesDeTrabajo()">
+                                    <!--<apex:image url="{!URLFOR($Resource.iconoRetos)}" styleClass="icon-sectors-botonera"/>-->
+                                    <span class="glyphicon glyphicon-list"></span>&nbsp;Retos
+                                </button>  
+                                
+                                <button type="button" class="btn btn-default btn-sm" onclick="irAForYou()">
+                                    <!--<apex:image style="height:35px;" url="{!URLFOR($Resource.iconoForYou)}" styleClass="icon-sectors-botonera"/>-->
+                                    <span class="glyphicon glyphicon-gift"></span>&nbsp;4You
+                                </button>                                
+                                    
+                                    
+                                </div>
+                            </apex:outputPanel>  
+                            
+                        </div>
+                    </div>
+                    
+                    <apex:outputPanel rendered="{!hayDatos}">
+                        <div>
+                            <span style="margin-top:-0.5%; float: left;font-weight: bold;font-size: 70%;">{!$Label.Coeficiente_d_Desarrollo_de_Cuenta}: {!fourPlanning.conocimiento_de_la_cuenta__c}%</span>
+                            <br/>
+                            
+                            <div class="row col-md-6" style="margin-top:-1%">
+                                <div class="col-md-1 {!IF(fourPlanning.conocimiento_de_la_cuenta__c < 20, 'menorDeVeinte','')}" style="background-color: #F6898D;border: .1em solid #ccc;height: 24px;width: 12%;"></div>
+                                <div class="col-md-1 {!IF(fourPlanning.conocimiento_de_la_cuenta__c < 40 && fourPlanning.conocimiento_de_la_cuenta__c > 19, 'menorDeCincuenta','')}" style="background-color: #FDC175;border: .1em solid #ccc;height: 24px;width: 12%;"></div>
+                                <div class="col-md-1 {!IF(fourPlanning.conocimiento_de_la_cuenta__c < 60 && fourPlanning.conocimiento_de_la_cuenta__c > 39, 'menorDeSetenta','')}" style="background-color: #FFF9A1;border: .1em solid #ccc;height: 24px;width: 12%;"></div>
+                                <div class="col-md-1 {!IF(fourPlanning.conocimiento_de_la_cuenta__c < 80 && fourPlanning.conocimiento_de_la_cuenta__c > 59, 'casiCompleto','')}" style="background-color: #ECF9B3;border: .1em solid #ccc;height: 24px;width: 12%;"></div>
+                                <div class="col-md-1 {!IF(fourPlanning.conocimiento_de_la_cuenta__c > 79, 'completo','')}" style="background-color: #86DA73;border: .1em solid #ccc;height: 24px;width: 12%;"></div>
+                            </div>
+                        </div>
+                    </apex:outputPanel>
+                    
+                    <div style="margin-top: -1%;" class="btn-group pull-right" role="group" aria-label="...">
+                        
+                                 <button type="button" class="btn btn-default btn-sm generateImg" data-value="saveImg" data-msg="{!$Label.save_msg}">
+                                <!--<apex:image style="height:35px;" url="{!URLFOR($Resource.iconoDescarga)}" styleClass="icon-sectors-botonera"/>-->
+                        		<span class="glyphicon glyphicon-picture icon-btn-left"></span>&nbsp;Descargar imágen
+                                </button>
+                                <button type="button" class="btn btn-default btn-sm" onclick="irACuestionario()">
+                                    <span class="glyphicon glyphicon-arrow-left icon-btn-left"></span>&nbsp;Cuestionario
+                                </button> 
+                    </div>
+                    
+                </div>
+                
+                <apex:form >
+                    <apex:actionFunction action="{!irAForYou}" name="irAForYou"/>
+                    <apex:actionFunction action="{!irACuestionario}" name="irACuestionario" status="renderMeStatus"/>
+                    <apex:actionFunction action="{!irAPlanDeAccion}" name="irAPlanDeAccion" status="renderMeStatus"/>
+                    <apex:actionFunction action="{!irAEjesDeTrabajo}" name="irAEjesDeTrabajo"/>
+                    <apex:actionFunction action="{!irAInicio}" name="irAInicio"/>
+                </apex:form>            
+                
+                <apex:outputPanel rendered="{! !hayDatos}">
+                    
+                    <div style = "width: 98%;" class="center-block alert alert-warning" role="alert">
+                        <span class="glyphicon glyphicon-warning-sign" aria-hidden="true"></span>
+                        {!$Label.No_hay_datos_cargados_en_4Planning_Lite_Complete_el_cuestionario_y_vuelva_a_ing}
+                    </div>
+                    
+                </apex:outputPanel>
+                
+                <apex:outputPanel rendered="{!hayDatos}">
+                    <br/><br/>
+                    
+                    <!-- Sacado de https://plot.ly/javascript/ -->
+                    <apex:includeScript value="{!$Resource.Ploty}"/>
+                    
+                    <apex:outputPanel id="imagenes">
+                        <div id="myDiv" style="width: 100%; height: 500px;"></div>
+                    
+                    
+                    <script>
+                    
+                    var trace1 = {
+                        x: [{!promedioPais},90],
+                        y: [1,{!alturaNombre}],
+                        text: ['{!$Label.Promedio_Pais}','{!$Label.Zona_Objetivo}'],
+                        textfont: {
+                            family: 'sans serif',
+                            size: 16,
+                            color: 'balck'
+                        },
+                        mode: 'text',
+                        name: '{!$Label.Referencias}'
+                    };
+                    
+                    var trace3 = {
+                        x: [{!primerQ.ejeX}, {!segundoQ.ejeX}, {!tercerQ.ejeX}, {!ultimoQ.ejeX}],
+                        y: [{!primerQ.ejeY}, {!segundoQ.ejeY}, {!tercerQ.ejeY}, {!ultimoQ.ejeY}],
+                        mode: 'markers+text',
+                        marker: {
+                            color: ['rgba(204, 0, 0, 0.84)', 'rgba(13, 109, 2, 0.84)',  'rgb(242, 207, 91)', 'rgb(11, 40, 74)'],
+                            opacity: [1, 1, 0.8, 0.8],
+                            size: [{!primerQ.valorParaGraficarseEnPixeles}, {!segundoQ.valorParaGraficarseEnPixeles}, {!tercerQ.valorParaGraficarseEnPixeles},{!ultimoQ.valorParaGraficarseEnPixeles}]
+                        },
+                        text: ['{!primerQ.nombre}', '{!segundoQ.nombre}', '{!tercerQ.nombre}', '{!ultimoQ.nombre}'],
+                        textfont: {
+                            family: 'sans serif',
+                            size: 16,
+                            color: '#fff'
+                        },
+                        type: 'scatter',
+                        name: '{!$Label.Bolas}'
+                    };
+                    
+                    var data = [trace1, trace3];
+                    var layout = {
+                        xaxis: {
+                            title: '{!$Label.Coeficiente_de_Desarrollo_de_cuenta}',
+                            autotick: false,
+                            ticks: 'outside',
+                            tick0: 0,
+                            dtick: 10,
+                            ticklen: 4,
+                            tickwidth: 2,
+                            tickcolor: '#000',
+                            range: [0, 100]
+                            
+                        },
+                        yaxis: {
+                            title: '{!$Label.Ventas_Nav}',
+                            autotick: true,//antes estaba como false
+                            ticks: 'outside',
+                            //tick0: 0,
+                            //dtick: 10,
+                            ticklen: 4,
+                            tickwidth: 2,
+                            tickcolor: '#000',
+                            //range: [0,20]
+                            
+                            
+                        },
+                        shapes: [
+                            
+                            //Rectangulo
+                            
+                            {
+                                type: 'rect',
+                                xref: 'x',
+                                yref: 'y',
+                                x0: {!zonaObjetivo.Zona_Objetivo_valor_1_eje_x__c},
+                                y0: {!zonaObjetivo.altura_zona_objetivo_minima__c},
+                                x1: {!zonaObjetivo.Zona_Objetivo_valor_2_eje_x__c},
+                                y1: {!zonaObjetivo.altura_zona_objetivo_maxima__c},
+                                line: {
+                                    color: 'rgb(55, 128, 191)',
+                                    width: 3
+                                },
+                                fillcolor: 'rgba(55, 128, 191, 0.6)'
+                            },
+                            
+                            //Linea de puntos
+                            {
+                                type: 'line',
+                                x0: {!promedioPais},
+                                y0: 2,
+                                x1: {!promedioPais},
+                                y1: {!alturaPromedioPais},
+                                line: {
+                                    color: 'rgb(204, 0, 0)',
+                                    width: 3,
+                                    dash: 'dot'
+                                }
+                            }
+                        ]
+                        
+                    };
+                    Plotly.newPlot('myDiv', data, layout, {displayModeBar: true, displaylogo: false, showlegend: false, modeBarButtonsToRemove: ['toImage','sendDataToCloud','zoom2d','select2d','lasso2d','hoverClosestCartesian','hoverCompareCartesian','autoScale2d'] });
+                    //'toImage',
+                    </script>
+                    </apex:outputPanel>
+                    
+                    <!-- panel de valores de las q -->
+                    <br/>
+                    <apex:outputPanel id="valoresQ">
+                    <div style="font-style: oblique;font-size: 13px;" class="pull-right">
+                        {!$Label.Tama_o_Bola_Tama_o_Funnel}
+                        <p>
+                            
+                        </p>
+                        <P>
+
+                                {!primerQ.nombre} {!$Label.Rojo_parentesis} = {!nombreDiametroQ1} ({!monedaDeLaCuenta})
+                        </P>
+                        <p>
+
+                                {!segundoQ.nombre} {!$Label.Verde_parentesis} = {!nombreDiametroQ2} ({!monedaDeLaCuenta})
+                        </p>
+                        <p>
+
+                                {!tercerQ.nombre} {!$Label.Amarillo_parentesis} = {!nombreDiametroQ3} ({!monedaDeLaCuenta})
+                        </p>
+                        <p>
+
+                            {!ultimoQ.nombre} {!$Label.Azul_parentesis} = {!nombreDiametroQ4} ({!monedaDeLaCuenta})
+                        </p>
+                    </div>
+                </apex:outputPanel>
+                
+                    
+                    <!-- setear los valores de la zona objetivo -->
+                    <div>
+                        <apex:form >
+                            
+                            <apex:actionFunction action="{!establecerZonaObjetivo}" name="establecerZonaObjetivo" reRender="imagenes, valoresQ" />
+                            
+                            <apex:pageBlock title="" mode="maindetail">
+                                <apex:pageBlockSection title="{!$Label.certa_scp__establecer_zona_objetivo}" columns="2">
+                                    
+                                        <apex:inputField value="{!zonaObjetivo.altura_zona_objetivo_minima__c}" label="{!$Label.certa_scp__ventas_nav_objetivo_minimo}" />
+                                        <apex:inputField value="{!zonaObjetivo.altura_zona_objetivo_maxima__c}" label="{!$Label.certa_scp__ventas_nav_objetivo_maximo}" />
+                                        
+                                        <apex:inputField value="{!zonaObjetivo.Zona_Objetivo_valor_1_eje_x__c}" label="{!$Label.certa_scp__coeficiente_de_desarrollo_de_cuenta_objetivo_minimo}" />
+
+                                        <apex:input style="display:none" />
+                                        <apex:input style="display:none" />
+                                    <button type="button" style="margin-right: 10px;" class="btn btn-default btn-sm pull-right" onclick="establecerZonaObjetivo()">
+                                        <span class="glyphicon glyphicon-refresh"></span>&nbsp;{!$Label.Actualizar_Grafico}
+                                    </button>
+                                    
+                                </apex:pageBlockSection>
+                            </apex:pageBlock>
+                            
+                        </apex:form>
+                    </div>
+
+                    
+                    <div class = "row" >
+                        
+                        
+                        <apex:outputPanel styleClass="col-md-6">
+                            <span style="float: left;font-weight: bold;">{!$Label.Principales_Desafios_o_Iniciativa_Estrategicas_de_este_cliente}</span>
+                            <table id="mainOppsTable" class="table table-striped table-bordered table-condensed" style="width:100%;">                               
+                                <thead>
+                                    <tr class="headerRow">
+                                        <th scope="col" class=" deemphasize">{!$Label.Description}</th>
+                                    </tr>
+                                </thead>                                                                            
+                                <tbody>
+                                    <apex:repeat value="{!iniciativasEstrategiasPrincipales}" var="item">          
+                                        <tr class="dataRow even">
+                                            <td>
+                                                {!item.Strategic_Initiative__c}
+                                            </td>
+                                        </tr>                                              
+                                    </apex:repeat>
+                                </tbody>
+                            </table>
+                        </apex:outputPanel>
+                        
+                        
+                        <apex:outputPanel styleClass="col-md-6">
+                            <span style="float: left;font-weight: bold;">{!$Label.Los_tres_principales_competidores}</span>
+                            <table id="mainOppsTable" class="table table-striped table-bordered table-condensed" style="width:100%;">                               
+                                <thead>
+                                    <tr class="headerRow">
+                                        <th scope="col" class=" deemphasize">{!$Label.Nombre}</th>
+                                    </tr>
+                                </thead>                                                                            
+                                <tbody>
+                                    <apex:repeat value="{!competidores}" var="item">          
+                                        <tr class="dataRow even">
+                                            <td>
+                                                {!item}
+                                            </td>
+                                        </tr>                                              
+                                    </apex:repeat>
+                                </tbody>
+                            </table>
+                        </apex:outputPanel>
+                        
+                    </div>
+                    
+                    <br/><br/><br/>
+                    
+                    <div class="row" style="margin: 0% 0% 0% -1%;">
+                        
+                        <apex:outputPanel styleClass="col-md-6">
+                            
+                            <span style="float: left;font-weight: bold;">{!$Label.Los_tres_principales_retos}</span>
+                            <table id="mainOppsTable" class="table table-striped table-bordered table-condensed" style="width:100%;">                               
+                                <thead>
+                                    <tr class="headerRow">
+                                        <th scope="col" class=" deemphasize">{!$Label.Nombre_Reto}</th>
+                                    </tr>
+                                </thead>                                                                            
+                                <tbody>
+                                    <apex:repeat value="{!retosPrincipales}" var="item">          
+                                        <tr class="dataRow even">
+                                            <td>
+                                                {!item.Nombre_del_Reto__c}
+                                            </td>
+                                        </tr>                                              
+                                    </apex:repeat>
+                                </tbody>
+                            </table>
+                            
+                        </apex:outputPanel>
+                        
+                    </div>
+                </apex:outputPanel>
+                
+                <br/><br/>
+                <div class="row paddingRight">
+                    <div class="btn-group pull-right" style="margin-right:1%;" role="group" aria-label="...">
+                        
+                        <apex:outputPanel id="buttonPanelBotton">
+                            <div class="btn-group pull-right" role="group" aria-label="...">
+                                
+                                <button type="button" class="btn btn-default btn-sm" onclick="irAInicio()">
+                                    <!--<apex:image style="height:35px;" url="{!URLFOR($Resource.icono4Planning)}" styleClass="icon-sectors-botonera"/>-->
+                                    <span class="glyphicon glyphicon-home"></span>&nbsp; 4Planning
+                                </button>
+                                
+                                <button type="button"  class="btn btn-default btn-sm" onclick="irAPlanDeAccion()">
+                                    <!--<apex:image url="{!URLFOR($Resource.iconoHitos)}" styleClass="icon-sectors-botonera"/>-->
+                                    <span class="glyphicon glyphicon-calendar icon-btn-left"></span>&nbsp;Hitos
+                                </button> 
+                                
+                                
+                                <button type="button"  disabled="true" class="btn btn-default btn-sm" onclick="irADesarrolloCuenta()">
+                                    <!--<apex:image url="{!URLFOR($Resource.Iconos, '256/flow-market-icon.png')}" styleClass="icon-sectors-botonera"/>-->
+                                    <span class="glyphicon glyphicon-stats"></span>&nbsp;Coeficiente Cuenta
+                                </button> 
+                                
+                                <button type="button" class="btn btn-default btn-sm" onclick="irAEjesDeTrabajo()">
+                                    <!--<apex:image url="{!URLFOR($Resource.iconoRetos)}" styleClass="icon-sectors-botonera"/>-->
+                                    <span class="glyphicon glyphicon-list"></span>&nbsp;Retos
+                                </button>  
+                                
+                                <button type="button" class="btn btn-default btn-sm" onclick="irAForYou()">
+                                    <!--<apex:image style="height:35px;" url="{!URLFOR($Resource.iconoForYou)}" styleClass="icon-sectors-botonera"/>-->
+                                    <span class="glyphicon glyphicon-gift"></span>&nbsp;4You
+                                </button>   
+                                
+                                <br/>
+                                
+                                <div style="margin-top:2%;" class="btn-group pull-right" role="group" aria-label="...">
+                                
+                                <button type="button" class="btn btn-default btn-sm" onclick="irACuestionario()">
+                                    <span class="glyphicon glyphicon-arrow-left icon-btn-left"></span>&nbsp;Cuestionario
+                                </button>
+                                </div>                             
+                                
+                            </div>
+                        </apex:outputPanel>  
+                        
+                    </div>
+                </div>
+                
+                <c:FastTask page="{!$Label.certa_scp__trend}" account="{!idCuenta}"></c:FastTask>
+                <chatter:feed entityId="{!idCuenta}" />
+                
+            </div>
+        </apex:outputpanel>
+
+</apex:page>

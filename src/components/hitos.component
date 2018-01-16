@@ -1,0 +1,300 @@
+<apex:component controller="PlanDeAccionController">
+
+    <apex:includeScript value="{!$Resource.html2canvas}"/>
+    
+    <link title="timeline-styles" rel="stylesheet" href="https://cdn.knightlab.com/libs/timeline3/latest/css/timeline.css"/>
+    
+    <apex:includeScript value="{!URLFOR($Resource.TimeLineJs3, 'js/timeline-min.js')}" />
+    <!--apex:stylesheet value="{!URLFOR($Resource.TimeLineJs3, 'css/timeline.css')}"/-->
+    
+    <style>
+        .icon-Bandera{
+        width: 3%;
+        }
+        
+        .tl-storyslider{
+        //display:none !important;
+        height: 230px !important;
+        }
+        
+        .tl-menubar{
+        top:255px !important;
+        }
+        
+        .tl-attribution{
+        display:none;
+        }
+        .tl-timeline{
+        //height: 200px !important;
+        }
+        
+        .colorVencimiento{
+        background-color:red !important;
+        }
+        
+        .colorVencimientoCompetencia{
+        background-color:hsla(132,100%,40%,1) !important;
+        }
+        
+        .colorVencimientoSecundario{
+        background-color:hsla(132,100%,55%,1) !important;
+        }
+        
+        .RFPComunicaciones{
+        background-color:hsla(273,100%,66%,1) !important;
+        }
+        
+        .RFPTI{
+        background-color:hsla(30,100%,50%,1) !important;
+        }
+        
+        .clientes{
+        background-color:hsla(359,100%,75%,1) !important;
+        }
+        
+        .eventoRelevante{
+        background-color:hsl(218, 100%, 75%) !important;
+        }
+        
+        .topTres{
+        background-color:hsla(57,100%,69%,1) !important;
+        }
+        
+        .colorReto{
+        background-color:hsla(154,98%,39%,1) !important;
+        }
+        
+        .menorDeSetenta{
+        background-color:#F1E100 !important;
+        border: .2em solid #000 !important;
+        }
+        
+        .menorDeVeinte{
+        background-color:#FF0009 !important;
+        border: .2em solid #000 !important;
+        }
+        .menorDeCincuenta{
+        background-color:#FF8E00 !important;
+        border: .2em solid #000 !important;
+        }
+        
+        .completo{
+        background-color:#009813 !important;
+        border: .2em solid #000 !important;
+        }
+        
+        .icon-sectors-botonera {
+        width: 38px;            
+        }
+        
+        .casiCompleto{
+        background-color:#55C500 !important;
+        border: .2em solid #000 !important;
+        }
+        
+        .tl-headline{
+        color: #000000 !important;
+        }
+        
+        .colorOtros{
+        background-color:white;
+        }
+    </style>
+    <script  type="text/javascript">
+        
+    function colorearLineaDeTiempo(){
+        $j('h2').each(function() {
+            
+            var contenido = $j(this).text();
+            
+            if(contenido == 'Reto' || contenido == '{!$Label.reto}'){
+                var parent = $j(this).parent().parent().parent();
+                if(parent.hasClass("tl-timemarker-content-container")){
+                    parent.addClass("colorReto");
+                }
+            }
+            
+            if(contenido == 'Vencimiento' || contenido == 'Vencimiento Contrato Activo con Telefónica' || contenido == '{!$Label.Vencimiento_Contrato_Activo_con_Telef_nica}' || contenido == '{!$Label.vencimiento}'){
+                var parent = $j(this).parent().parent().parent();
+                if(parent.hasClass("tl-timemarker-content-container")){
+                    parent.addClass("colorVencimiento");
+                }
+            }
+            
+            if(contenido == 'Vencimiento Contrato Activo con la Competencia' || contenido == '{!$Label.Vencimiento_Contrato_Activo_con_la_Competencia}'){
+                var parent = $j(this).parent().parent().parent();
+                if(parent.hasClass("tl-timemarker-content-container")){
+                    parent.addClass("colorVencimientoCompetencia");
+                }
+            }
+            
+            if(contenido == 'Publicación RFP Comunicaciones' || contenido == '{!$Label.Publicaci_n_RFP_Comunicaciones}'){
+                var parent = $j(this).parent().parent().parent();
+                if(parent.hasClass("tl-timemarker-content-container")){
+                    parent.addClass("RFPComunicaciones");
+                }
+            }
+            
+            if(contenido == 'Publicación RFP TI' || contenido == '{!$Label.Publicaci_n_RFP_TI}'){
+                var parent = $j(this).parent().parent().parent();
+                if(parent.hasClass("tl-timemarker-content-container")){
+                    parent.addClass("RFPTI");
+                }
+            }
+            
+            if(contenido == 'Evento para clientes de Telefonica' || contenido == 'Evento Telefónica' || contenido == '{!$Label.Evento_para_clientes_de_Telefonica}' || contenido == '{!$Label.Evento_Telef_nica}'){
+                var parent = $j(this).parent().parent().parent();
+                if(parent.hasClass("tl-timemarker-content-container")){
+                    parent.addClass("clientes");
+                }
+            }
+            
+            if(contenido == 'Evento Relevante de la industria' || contenido == '{!$Label.Evento_Relevante_de_la_industria}'){
+                var parent = $j(this).parent().parent().parent();
+                if(parent.hasClass("tl-timemarker-content-container")){
+                    parent.addClass("eventoRelevante");
+                }
+            }
+            
+            if(contenido == 'Previsión Cierre TOP 3 deals' || contenido == '{!$Label.Previsi_n_Cierre_TOP_3_deals}'){
+                var parent = $j(this).parent().parent().parent();
+                if(parent.hasClass("tl-timemarker-content-container")){
+                    parent.addClass("topTres");
+                }
+            }
+            
+        });
+    }
+    
+    function marcarTodas(elem, tabla){
+        
+        var valores = document.getElementsByClassName(tabla);
+        var i;
+        
+        for(i = 0; i< valores.length; i++){
+            
+            if(elem.checked){
+                valores[i].checked = true;
+                
+            } else {
+                valores[i].checked = false;
+            }
+        }
+    }
+    
+    </script>
+    
+    <apex:outputpanel style="background-color: white;" styleClass="container-fluid bootstrap-sf1" id="pageContent">
+        <div class="panel panel-default">
+            
+            <apex:form >
+                <apex:actionFunction action="{!irAForYou}" name="irAForYou"/>
+                <apex:actionFunction action="{!irADesarrolloCuenta}" name="irADesarrolloDeCuenta"/>
+                <apex:actionFunction action="{!irACuestionario}" name="irACuestionario" status="renderMeStatus"/>
+                <apex:actionFunction action="{!irAEjesDeTrabajo}" name="irAEjesDeTrabajo"/>
+                <apex:actionFunction action="{!irAInicio}" name="irAInicio"/>
+                
+                <apex:outputPanel id="lineaDeTiempo">
+				
+                        <div class="panel-body">
+                            
+                            <div class="alert alert-info" role="alert">	
+                                <span class="glyphicon glyphicon-info-sign"></span>	    				
+                                <span class="messageText"><span style="font-weight:bold;  margin:5px">{!$Label.Asignaci_n_de_Eventos}</span>
+                                    <span class="colorSpanReferencias" style="margin-left:3px;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
+                                    <span class="colorSpanReferencias">{!$Label.Todos}</span>&nbsp;<apex:inputCheckbox styleClass="todos" value="{!todos}" onclick="marcarTodas(this, 'checkboxFiltroTimeLine')" /><br/>
+                                    
+                                    <div class="row">
+                                        <div class= "col-md-4 colorSpanReferencias">
+                                            <span class="colorVencimiento" style="margin-left:3px;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
+                                            <span class="colorSpanReferencias">{!$Label.Vencimiento}</span>&nbsp;<apex:inputCheckbox styleClass="checkboxFiltroTimeLine" value="{!filtroVencimiento}" /><br/>
+                                            <span class="colorReto" style="margin-left:3px;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
+                                            <span class="colorSpanReferencias">{!$Label.Reto}</span>&nbsp;<apex:inputCheckbox styleClass="checkboxFiltroTimeLine" value="{!filtroEventosDeTipoReto}" /><br/>
+                                            <span class="colorVencimientoSecundario" style="margin-left:3px;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
+                                            <span class="colorSpanReferencias">{!$Label.Vencimiento_Contrato_Activo_con_la_Competencia}</span>&nbsp;<apex:inputCheckbox styleClass="checkboxFiltroTimeLine" value="{!filtroVencimientoCompetencia}" /><br/>
+                                        </div>
+                                        
+                                        <div class= "col-md-4 colorSpanReferencias"> 
+                                            <span class="clientes" style="margin-left:3px;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
+                                            <span class="colorSpanReferencias">{!$Label.Evento_Telef_nica}</span>&nbsp;<apex:inputCheckbox styleClass="checkboxFiltroTimeLine" value="{!filtroEventoTelefonica}" /><br/>
+                                            <span class="eventoRelevante" style="margin-left:3px;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
+                                            <span class="colorSpanReferencias">{!$Label.Evento_Relevante_de_la_industria}</span>&nbsp;<apex:inputCheckbox styleClass="checkboxFiltroTimeLine" value="{!filtroEventoIndustria}" /><br/>
+                                            <span class="topTres" style="margin-left:3px;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
+                                            <span class="colorSpanReferencias">{!$Label.Previsi_n_Cierre_TOP_3_deals}</span>&nbsp;<apex:inputCheckbox styleClass="checkboxFiltroTimeLine" value="{!filtroPrevisionTOP3}" /><br/>
+                                        </div>
+                                        
+                                        <div class= "col-md-4 colorSpanReferencias">
+                                            <span class="RFPComunicaciones" style="margin-left:3px;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
+                                            <span class="colorSpanReferencias">{!$Label.Publicaci_n_RFP_Comunicaciones}</span>&nbsp;<apex:inputCheckbox styleClass="checkboxFiltroTimeLine" value="{!filtroPublicacionRFPComunicacion}" /><br/>
+                                            <span class="RFPTI" style="margin-left:3px;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
+                                            <span class="colorSpanReferencias">{!$Label.Publicaci_n_RFP_TI}</span>&nbsp;<apex:inputCheckbox styleClass="checkboxFiltroTimeLine" value="{!filtroPublicacionRFPTI}" /><br/> 
+                                            <span class="colorOtros" style="margin-left:3px;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
+                                            <span class="colorSpanReferencias">{!$Label.otros}</span>&nbsp;<apex:inputCheckbox styleClass="checkboxFiltroTimeLine" value="{!filtroOtroTipoDeEvento}" /><br/>
+                                        </div>
+                                        
+                                    </div>
+                                    
+                                </span>
+                            </div>
+                            <apex:commandButton styleClass="btn btn-default btn-xs botonFiltros" action="{!filtrarTimeLine}" value="{!$Label.certa_scp__apply_filters}" rerender="panelesDeLineaDeTiempo, timeLine, filtrosDeLineTime, lineaDeTiempo" oncomplete="colorearLineaDeTiempo();" status="filtrarTimeLineStatus" />
+                            &nbsp;
+                            <apex:actionStatus id="filtrarTimeLineStatus">
+                                <apex:facet name="start">
+                                    <img src="/img/loading.gif"/>
+                                </apex:facet>
+                            </apex:actionStatus>
+                            
+                            <apex:outputPanel rendered="{!mostrarLineaDeTiempo}">
+                                <apex:outputPanel id="timeLine">
+                                    <div id='timeline-embed' style="width: 100%; height: 430px"></div>
+                                    <script type="text/javascript">
+                                    
+                                    var timeline_json = {!miJson};
+                                    
+                                    var options = {
+                                        hash_bookmark: false,
+                                        language: "es",
+                                        scale_factor: -50,
+                                        start_at_slide: 1,
+                                        initial_zoom: 1
+                                    }
+                                    
+                                    window.timeline = new TL.Timeline('timeline-embed',
+                                                                      timeline_json, options);
+                                    window.timeline.setZoom(0); 
+                                    </script>
+                                    
+                                    
+                                </apex:outputPanel>
+                            </apex:outputPanel>
+                    </div> 
+                    
+                    <apex:outputPanel rendered="{! !mostrarLineaDeTiempo}">
+                        <br/>
+                        <div style = "width: 98%;" class="center-block alert alert-warning" role="alert">
+                            <span class="glyphicon glyphicon-warning-sign" aria-hidden="true"></span>
+                            {!$Label.No_hay_fechas_cargadas_en_el_cuestionario_4Planning_Lite_Complete_el_cuestionar}
+                        </div>
+                    </apex:outputPanel>
+                    
+                </apex:outputPanel>
+                    
+
+                
+                <br/><br/>
+                <div class="row paddingRight">
+                    <div class="btn-group pull-right" style="margin-right:1%;" role="group" aria-label="...">
+                        
+                        <apex:outputPanel id="buttonPanelButton">
+
+                        </apex:outputPanel>  
+                        
+                    </div>
+                </div>
+                
+            </apex:form>
+
+        </div>
+    </apex:outputpanel>
+    
+</apex:component>

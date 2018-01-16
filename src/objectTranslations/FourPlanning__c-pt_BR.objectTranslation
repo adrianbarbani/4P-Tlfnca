@@ -1,0 +1,1415 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomObjectTranslation xmlns="http://soap.sforce.com/2006/04/metadata">
+    <caseValues>
+        <plural>false</plural>
+        <value><!-- FourPlanning --></value>
+    </caseValues>
+    <caseValues>
+        <plural>true</plural>
+        <value><!-- FourPlanning --></value>
+    </caseValues>
+    <fields>
+        <help>Temos agenda regular executiva com participação do nível de direção de ambas  organizações ?</help>
+        <label>Agenda Periódica executiva</label>
+        <name>Agenda_Periodica_Ejecutiva__c</name>
+        <picklistValues>
+            <masterLabel>No</masterLabel>
+            <translation>Não</translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Si</masterLabel>
+            <translation>Sim</translation>
+        </picklistValues>
+    </fields>
+    <fields>
+        <help>Temos agenda regular operacional sobre a qualidade dos serviços prestados ?</help>
+        <label>Agenda Periódica operacional</label>
+        <name>Agenda_Periodica_Operacional__c</name>
+        <picklistValues>
+            <masterLabel>No</masterLabel>
+            <translation>Não</translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Si</masterLabel>
+            <translation>Sim</translation>
+        </picklistValues>
+    </fields>
+    <fields>
+        <label>Agenda de trabalho 1</label>
+        <name>Agenda_de_Trabajo_1__c</name>
+        <picklistValues>
+            <masterLabel>1</masterLabel>
+            <translation><!-- 1 --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>2</masterLabel>
+            <translation><!-- 2 --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>3</masterLabel>
+            <translation><!-- 3 --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>4</masterLabel>
+            <translation><!-- 4 --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>5</masterLabel>
+            <translation><!-- 5 --></translation>
+        </picklistValues>
+    </fields>
+    <fields>
+        <label>Agenda de trabalho 2</label>
+        <name>Agenda_de_Trabajo_2__c</name>
+        <picklistValues>
+            <masterLabel>1</masterLabel>
+            <translation><!-- 1 --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>2</masterLabel>
+            <translation><!-- 2 --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>3</masterLabel>
+            <translation><!-- 3 --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>4</masterLabel>
+            <translation><!-- 4 --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>5</masterLabel>
+            <translation><!-- 5 --></translation>
+        </picklistValues>
+    </fields>
+    <fields>
+        <label>Agenda de trabalho 3</label>
+        <name>Agenda_de_Trabajo_3__c</name>
+        <picklistValues>
+            <masterLabel>1</masterLabel>
+            <translation><!-- 1 --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>2</masterLabel>
+            <translation><!-- 2 --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>3</masterLabel>
+            <translation><!-- 3 --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>4</masterLabel>
+            <translation><!-- 4 --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>5</masterLabel>
+            <translation><!-- 5 --></translation>
+        </picklistValues>
+    </fields>
+    <fields>
+        <label>Agenda de trabalho 4</label>
+        <name>Agenda_de_Trabajo_4__c</name>
+        <picklistValues>
+            <masterLabel>1</masterLabel>
+            <translation><!-- 1 --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>2</masterLabel>
+            <translation><!-- 2 --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>3</masterLabel>
+            <translation><!-- 3 --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>4</masterLabel>
+            <translation><!-- 4 --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>5</masterLabel>
+            <translation><!-- 5 --></translation>
+        </picklistValues>
+    </fields>
+    <fields>
+        <label>Agenda de trabalho 5</label>
+        <name>Agenda_de_Trabajo_5__c</name>
+        <picklistValues>
+            <masterLabel>1</masterLabel>
+            <translation><!-- 1 --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>2</masterLabel>
+            <translation><!-- 2 --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>3</masterLabel>
+            <translation><!-- 3 --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>4</masterLabel>
+            <translation><!-- 4 --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>5</masterLabel>
+            <translation><!-- 5 --></translation>
+        </picklistValues>
+    </fields>
+    <fields>
+        <label>Campo de ação</label>
+        <name>Ambito_de_actuacion__c</name>
+        <picklistValues>
+            <masterLabel>Internacional</masterLabel>
+            <translation><!-- Internacional --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Local</masterLabel>
+            <translation><!-- Local --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Nacional</masterLabel>
+            <translation><!-- Nacional --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Regional</masterLabel>
+            <translation><!-- Regional --></translation>
+        </picklistValues>
+    </fields>
+    <fields>
+        <help>Existem áreas no cliente onde , tendo produtos e soluções , não temos relação?</help>
+        <label>Área sem sucesso no passado</label>
+        <name>Area_que_fracasamos_en_el_pasado__c</name>
+    </fields>
+    <fields>
+        <help>Quais são as áreas com as quais seria aconselhável trabalhar e ainda não estamos fazendo?</help>
+        <label>Áreas em que seria bom para trabalhar</label>
+        <name>Areas_que_Seria_Bueno_Trabajar__c</name>
+    </fields>
+    <fields>
+        <label>Canal de vendas do cliente</label>
+        <name>Canal_Comercializacion_cliente__c</name>
+        <picklistValues>
+            <masterLabel>Ambos</masterLabel>
+            <translation><!-- Ambos --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>No disponible</masterLabel>
+            <translation>Nåo Disponível</translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Off-Line</masterLabel>
+            <translation><!-- Off-Line --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>On-Line</masterLabel>
+            <translation><!-- On-Line --></translation>
+        </picklistValues>
+    </fields>
+    <fields>
+        <help>Qual é o canal de vendas com maior crescimento</help>
+        <label>Canal de vendas que mais cresce</label>
+        <name>Canal_Comercializacion_que_mas_crece__c</name>
+        <picklistValues>
+            <masterLabel>Ambos</masterLabel>
+            <translation><!-- Ambos --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Nula</masterLabel>
+            <translation>Nulo</translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Off-Line</masterLabel>
+            <translation><!-- Off-Line --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>On-Line</masterLabel>
+            <translation><!-- On-Line --></translation>
+        </picklistValues>
+    </fields>
+    <fields>
+        <label><!-- Canal de comercialización multiple --></label>
+        <name>Canal_de_comercializaci_n_multiple__c</name>
+        <picklistValues>
+            <masterLabel>Agencias o Sucursales Físicas Propias</masterLabel>
+            <translation><!-- Agencias o Sucursales Físicas Propias --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Agencias o Sucursales Físicas de Terceros</masterLabel>
+            <translation><!-- Agencias o Sucursales Físicas de Terceros --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Agentes Comercializadores de Terceros (Canales)</masterLabel>
+            <translation><!-- Agentes Comercializadores de Terceros (Canales) --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Agentes Comercializadores propios (Empleados)</masterLabel>
+            <translation><!-- Agentes Comercializadores propios (Empleados) --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Aplicativo Móvil</masterLabel>
+            <translation><!-- Aplicativo Móvil --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Contact Center</masterLabel>
+            <translation><!-- Contact Center --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Máquinas de Autoservicios (ATMs, Vending, etc…)</masterLabel>
+            <translation><!-- Máquinas de Autoservicios (ATMs, Vending, etc…) --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Web Propia</masterLabel>
+            <translation><!-- Web Propia --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Web de Terceros</masterLabel>
+            <translation><!-- Web de Terceros --></translation>
+        </picklistValues>
+    </fields>
+    <fields>
+        <label>Canal disponível</label>
+        <name>Canal_que_Dispone__c</name>
+        <picklistValues>
+            <masterLabel>App</masterLabel>
+            <translation><!-- App --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Cajeros</masterLabel>
+            <translation>Caixa</translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Redes Sociales</masterLabel>
+            <translation>Redes Sociais</translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Sucursal</masterLabel>
+            <translation>Ramo</translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Web</masterLabel>
+            <translation>Agências</translation>
+        </picklistValues>
+    </fields>
+    <fields>
+        <label>Não utilizado</label>
+        <name>Cantidad_de_Empleados__c</name>
+        <picklistValues>
+            <masterLabel>0 - 100</masterLabel>
+            <translation><!-- 0 - 100 --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>100 - 500</masterLabel>
+            <translation><!-- 100 - 500 --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>500 - 1000</masterLabel>
+            <translation><!-- 500 - 1000 --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Mas de 1000</masterLabel>
+            <translation>Mais do 1000</translation>
+        </picklistValues>
+    </fields>
+    <fields>
+        <label>Não utilizado</label>
+        <name>Cantidad_de_Sedes__c</name>
+        <picklistValues>
+            <masterLabel>+ de 100</masterLabel>
+            <translation>Mais do 1000</translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>0 - 19</masterLabel>
+            <translation><!-- 0 - 19 --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>20 - 39</masterLabel>
+            <translation><!-- 20 - 39 --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>40 - 59</masterLabel>
+            <translation><!-- 40 - 59 --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>60 - 79</masterLabel>
+            <translation><!-- 60 - 79 --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>80 - 100</masterLabel>
+            <translation><!-- 80 - 100 --></translation>
+        </picklistValues>
+    </fields>
+    <fields>
+        <label>Número exato de funcionários</label>
+        <name>Cantidad_de_empleados_exacto__c</name>
+    </fields>
+    <fields>
+        <label>Quantidade exata de agências</label>
+        <name>Cantidad_de_sedes_exactas__c</name>
+    </fields>
+    <fields>
+        <label>Número de agências</label>
+        <name>Cantidad_de_sucursales__c</name>
+    </fields>
+    <fields>
+        <label>???</label>
+        <name>Como_se_mantiene_el_numero_de_sucursales__c</name>
+        <picklistValues>
+            <masterLabel>Crece</masterLabel>
+            <translation>Aumenta</translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Decrece</masterLabel>
+            <translation>Diminui</translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Se Mantiene</masterLabel>
+            <translation>Não</translation>
+        </picklistValues>
+    </fields>
+    <fields>
+        <label>Principal concorrente 1</label>
+        <name>Competidor_Principal_1__c</name>
+    </fields>
+    <fields>
+        <label>Principal concorrente 2</label>
+        <name>Competidor_Principal_2__c</name>
+    </fields>
+    <fields>
+        <label>Principal concorrente 3</label>
+        <name>Competidor_Principal_3__c</name>
+    </fields>
+    <fields>
+        <label><!-- Compra de caracter politico o tecnico --></label>
+        <name>Compra_de_caracter_politico_o__c</name>
+        <picklistValues>
+            <masterLabel>Político</masterLabel>
+            <translation><!-- Político --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Técnico</masterLabel>
+            <translation><!-- Técnico --></translation>
+        </picklistValues>
+    </fields>
+    <fields>
+        <label>Contacto com maior afinidade 1</label>
+        <name>Contacto_con_mayor_afinidad_1__c</name>
+        <relationshipLabel>4Plannings</relationshipLabel>
+    </fields>
+    <fields>
+        <label>Pessoa de contato com maior afinidade 2</label>
+        <name>Contacto_con_mayor_afinidad_2__c</name>
+        <relationshipLabel>4Planning (pessoa de contacto com maior afinidade 2)</relationshipLabel>
+    </fields>
+    <fields>
+        <label>Contato com maior afinidade 3</label>
+        <name>Contacto_con_mayor_afinidad_3__c</name>
+        <relationshipLabel>4Planning (pessoa de contacto com maior afinidade 3)</relationshipLabel>
+    </fields>
+    <fields>
+        <label>Conta</label>
+        <name>Cuenta__c</name>
+        <relationshipLabel>4Plannings</relationshipLabel>
+    </fields>
+    <fields>
+        <label><!-- De cuantos vehículos dispone el parque --></label>
+        <name>De_cuantos_veh_culos_dispone_el_parque__c</name>
+    </fields>
+    <fields>
+        <label>Desafio da Empresa 1</label>
+        <name>Desafio_de_la_Empresa_1__c</name>
+    </fields>
+    <fields>
+        <label>Desafio da Empresa 2</label>
+        <name>Desafio_de_la_Empresa_2__c</name>
+    </fields>
+    <fields>
+        <label>Desafio da Empresa 3</label>
+        <name>Desafio_de_la_Empresa_3__c</name>
+    </fields>
+    <fields>
+        <label>Ele tem frota de veículos?</label>
+        <name>Dispone_de_parque_automotor__c</name>
+        <picklistValues>
+            <masterLabel>No</masterLabel>
+            <translation>Permanece</translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Si</masterLabel>
+            <translation>Sim</translation>
+        </picklistValues>
+    </fields>
+    <fields>
+        <label><!-- Empleados Crece Decrece Matiene --></label>
+        <name>Empleados_Crece_Decrece_Matiene__c</name>
+        <picklistValues>
+            <masterLabel>Crece</masterLabel>
+            <translation><!-- Crece --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Decrece</masterLabel>
+            <translation><!-- Decrece --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Se mantiene</masterLabel>
+            <translation><!-- Se mantiene --></translation>
+        </picklistValues>
+    </fields>
+    <fields>
+        <help>Você pretende convidarles para alguns evento da VIVO?</help>
+        <label><!-- Evento telefonica cliente --></label>
+        <name>Evento_telefonica_cliente__c</name>
+    </fields>
+    <fields>
+        <label>Receita</label>
+        <name>Facturacion__c</name>
+    </fields>
+    <fields>
+        <help>Data</help>
+        <label>Data do evento</label>
+        <name>Fecha_Evento__c</name>
+    </fields>
+    <fields>
+        <label><!-- Fecha Vencimiento Contratos Voz Fija --></label>
+        <name>Fecha_Vencimiento_Contratos_Voz_Fija__c</name>
+    </fields>
+    <fields>
+        <label>4Plannig Área 1</label>
+        <name>FourPlanning_Area_1__c</name>
+        <relationshipLabel>4Plannig</relationshipLabel>
+    </fields>
+    <fields>
+        <label>4Plannig Área 2</label>
+        <name>FourPlanning_Area_2__c</name>
+        <relationshipLabel>4Plannings (fourplanning Área 2)</relationshipLabel>
+    </fields>
+    <fields>
+        <label>4Planning Área 3</label>
+        <name>FourPlanning_Area_3__c</name>
+        <relationshipLabel>4Plannings (fourplanning Área 2)</relationshipLabel>
+    </fields>
+    <fields>
+        <label><!-- Obsoleto --></label>
+        <name>FourPlanning_Area_4__c</name>
+        <relationshipLabel><!-- 4Planning (FourPlanning Area 4) --></relationshipLabel>
+    </fields>
+    <fields>
+        <label><!-- Obsoleto --></label>
+        <name>FourPlanning_Area_5__c</name>
+        <relationshipLabel><!-- 4Planning (FourPlanning Area 5) --></relationshipLabel>
+    </fields>
+    <fields>
+        <help>Com que frequência você se reunir com o cliente ?</help>
+        <label>Frequência Funcionários do Cliente</label>
+        <name>Frecuencia_Funcionarios_del_Cliente__c</name>
+        <picklistValues>
+            <masterLabel>Mensual</masterLabel>
+            <translation><!-- Mensual --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>No me reúno</masterLabel>
+            <translation>Nåo me reuno</translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Quincenal</masterLabel>
+            <translation><!-- Quincenal --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Semanal</masterLabel>
+            <translation><!-- Semanal --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Trimestral</masterLabel>
+            <translation><!-- Trimestral --></translation>
+        </picklistValues>
+    </fields>
+    <fields>
+        <label>Frequência de Contato com o Cliente</label>
+        <name>Frecuencia_de_Contacto_con_el_Cliente__c</name>
+        <picklistValues>
+            <masterLabel>Diaria</masterLabel>
+            <translation><!-- Diaria --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Mensual</masterLabel>
+            <translation><!-- Mensual --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>No me reúno</masterLabel>
+            <translation>Nåo me reuno</translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Ocasional</masterLabel>
+            <translation><!-- Ocasional --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Quincenal</masterLabel>
+            <translation><!-- Quincenal --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Semanal</masterLabel>
+            <translation><!-- Semanal --></translation>
+        </picklistValues>
+    </fields>
+    <fields>
+        <label>Marco Relevante 1</label>
+        <name>Hito_Relevante_1__c</name>
+    </fields>
+    <fields>
+        <label>Marco Relevante 2 Data</label>
+        <name>Hito_Relevante_1_fecha__c</name>
+    </fields>
+    <fields>
+        <label>Marco Relevante 2</label>
+        <name>Hito_Relevante_2__c</name>
+    </fields>
+    <fields>
+        <label>Marco Relevante 2 Data</label>
+        <name>Hito_Relevante_2_fecha__c</name>
+    </fields>
+    <fields>
+        <label>Marco Relevante 3</label>
+        <name>Hito_Relevante_3__c</name>
+    </fields>
+    <fields>
+        <label>Marco Relevante 3 Data</label>
+        <name>Hito_Relevante_3_fecha__c</name>
+    </fields>
+    <fields>
+        <label><!-- ISC --></label>
+        <name>ISC__c</name>
+        <picklistValues>
+            <masterLabel>Botton 3</masterLabel>
+            <translation>Bottom 3</translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Top 3</masterLabel>
+            <translation><!-- Top 3 --></translation>
+        </picklistValues>
+    </fields>
+    <fields>
+        <label>Importância crescimento de agências</label>
+        <name>Importancia_crecimiento_oficinas__c</name>
+        <picklistValues>
+            <masterLabel>1</masterLabel>
+            <translation><!-- 1 --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>2</masterLabel>
+            <translation><!-- 2 --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>3</masterLabel>
+            <translation><!-- 3 --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>4</masterLabel>
+            <translation><!-- 4 --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>5</masterLabel>
+            <translation><!-- 5 --></translation>
+        </picklistValues>
+    </fields>
+    <fields>
+        <label><!-- Importancia red de cajeros --></label>
+        <name>Importancia_red_de_cajeros__c</name>
+        <picklistValues>
+            <masterLabel>1</masterLabel>
+            <translation><!-- 1 --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>2</masterLabel>
+            <translation><!-- 2 --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>3</masterLabel>
+            <translation><!-- 3 --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>4</masterLabel>
+            <translation><!-- 4 --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>5</masterLabel>
+            <translation><!-- 5 --></translation>
+        </picklistValues>
+    </fields>
+    <fields>
+        <label><!-- Importancia web banking --></label>
+        <name>Importancia_web__c</name>
+        <picklistValues>
+            <masterLabel>1</masterLabel>
+            <translation><!-- 1 --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>2</masterLabel>
+            <translation><!-- 2 --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>3</masterLabel>
+            <translation><!-- 3 --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>4</masterLabel>
+            <translation><!-- 4 --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>5</masterLabel>
+            <translation><!-- 5 --></translation>
+        </picklistValues>
+    </fields>
+    <fields>
+        <label><!-- No se utiliza --></label>
+        <name>Ir_a_4Planning__c</name>
+    </fields>
+    <fields>
+        <label><!-- Le afectan los cambios politicos --></label>
+        <name>Le_afectan_los_cambios_politicos__c</name>
+        <picklistValues>
+            <masterLabel>No</masterLabel>
+            <translation><!-- No --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Si</masterLabel>
+            <translation><!-- Si --></translation>
+        </picklistValues>
+    </fields>
+    <fields>
+        <label>Maior nível de contato com o cliente</label>
+        <name>Mayor_Nivel_de_Contacto_con_el_Cliente__c</name>
+        <picklistValues>
+            <masterLabel>Analista</masterLabel>
+            <translation><!-- Analista --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>C level</masterLabel>
+            <translation>C Level</translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Director</masterLabel>
+            <translation>Diretor</translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Gerente</masterLabel>
+            <translation>Manager</translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Jefe</masterLabel>
+            <translation><!-- Jefe --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Otros</masterLabel>
+            <translation><!-- Otros --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Sin Contacto</masterLabel>
+            <translation>No contact</translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Usuarios</masterLabel>
+            <translation>Users</translation>
+        </picklistValues>
+    </fields>
+    <fields>
+        <help>Em áreas com as quais temos relação, você acha que o relacionamento poderia melhorar se nós tivemos mais reuniões ?</help>
+        <label>Iria melhorar a relação com o cliente</label>
+        <name>Mejoraria_Relacion_Con_El_Cliente__c</name>
+        <picklistValues>
+            <masterLabel>No</masterLabel>
+            <translation>Não</translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Si</masterLabel>
+            <translation>Sim</translation>
+        </picklistValues>
+    </fields>
+    <fields>
+        <label><!-- Nivel contacto publico --></label>
+        <name>Nivel_contacto_publico__c</name>
+        <picklistValues>
+            <masterLabel>Director General/CIO/Director Tecnología/CIO/Director Tecnología</masterLabel>
+            <translation><!-- Director General/CIO/Director Tecnología/CIO/Director Tecnología --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Director de Compras/Jefe Compras</masterLabel>
+            <translation><!-- Director de Compras/Jefe Compras --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Gerente de Area</masterLabel>
+            <translation><!-- Gerente de Area --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Ministro/ Vice Ministro/Gerente General/ Secretario Area/Regidor/Síndico/Asesor</masterLabel>
+            <translation><!-- Ministro/ Vice Ministro/Gerente General/ Secretario Area/Regidor/Síndico/Asesor --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Otros</masterLabel>
+            <translation><!-- Otros --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Presidente país/Municipal/Prefeito/Intendente</masterLabel>
+            <translation><!-- Presidente país/Municipal/Prefeito/Intendente --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Responsable/ Especialista Proyecto</masterLabel>
+            <translation><!-- Responsable/ Especialista Proyecto --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Sin contacto</masterLabel>
+            <translation><!-- Sin contacto --></translation>
+        </picklistValues>
+    </fields>
+    <fields>
+        <label>Nível de conhecimento da área1</label>
+        <name>Nivel_de_conocimiento_area1__c</name>
+        <picklistValues>
+            <masterLabel>Alto</masterLabel>
+            <translation>High</translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Bajo</masterLabel>
+            <translation>Low</translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Medio</masterLabel>
+            <translation>Medium</translation>
+        </picklistValues>
+    </fields>
+    <fields>
+        <label>Nível de conhecimento da área2</label>
+        <name>Nivel_de_conocimiento_area2__c</name>
+        <picklistValues>
+            <masterLabel>Alto</masterLabel>
+            <translation>High</translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Bajo</masterLabel>
+            <translation>Low</translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Medio</masterLabel>
+            <translation>Medium</translation>
+        </picklistValues>
+    </fields>
+    <fields>
+        <label>Nível de conhecimento da área3</label>
+        <name>Nivel_de_conocimiento_area3__c</name>
+        <picklistValues>
+            <masterLabel>Alto</masterLabel>
+            <translation>High</translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Bajo</masterLabel>
+            <translation>Low</translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Medio</masterLabel>
+            <translation>Medium</translation>
+        </picklistValues>
+    </fields>
+    <fields>
+        <label><!-- Obsoleto --></label>
+        <name>Nivel_de_conocimiento_area4__c</name>
+        <picklistValues>
+            <masterLabel>Alto</masterLabel>
+            <translation>High</translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Bajo</masterLabel>
+            <translation>Low</translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Medio</masterLabel>
+            <translation>Medium</translation>
+        </picklistValues>
+    </fields>
+    <fields>
+        <label><!-- Obsoleto --></label>
+        <name>Nivel_de_conocimiento_area5__c</name>
+        <picklistValues>
+            <masterLabel>Alto</masterLabel>
+            <translation>High</translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Bajo</masterLabel>
+            <translation>Low</translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Medio</masterLabel>
+            <translation>Medium</translation>
+        </picklistValues>
+    </fields>
+    <fields>
+        <label>Nível de maturidade do relacionamento</label>
+        <name>Nivel_de_madurez_de_nuestra_soluci_n_res__c</name>
+        <picklistValues>
+            <masterLabel>Aprobación</masterLabel>
+            <translation>Aprobaçåo</translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Elaboración</masterLabel>
+            <translation>Elaboraçåo</translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Negociación de Compras</masterLabel>
+            <translation>Negociaçåo</translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Presentación Técnica</masterLabel>
+            <translation>Apresentaçåo Tecnica</translation>
+        </picklistValues>
+    </fields>
+    <fields>
+        <label><!-- No informa dato --></label>
+        <name>No_informa_dato__c</name>
+    </fields>
+    <fields>
+        <label>Número de funcionários</label>
+        <name>Numero_de_Empleados__c</name>
+        <picklistValues>
+            <masterLabel>+ de 5000</masterLabel>
+            <translation><!-- + de 5000 --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>0-100</masterLabel>
+            <translation><!-- 0-100 --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>100-500</masterLabel>
+            <translation><!-- 100-500 --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>1000-5000</masterLabel>
+            <translation><!-- 1000-5000 --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>500-1000</masterLabel>
+            <translation><!-- 500-1000 --></translation>
+        </picklistValues>
+    </fields>
+    <fields>
+        <label>Número de agências</label>
+        <name>Numero_de_sucursales__c</name>
+        <picklistValues>
+            <masterLabel>+ de 500</masterLabel>
+            <translation><!-- + de 500 --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>0-10</masterLabel>
+            <translation><!-- 0-10 --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>10-50</masterLabel>
+            <translation><!-- 10-50 --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>100-200</masterLabel>
+            <translation><!-- 100-200 --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>200-500</masterLabel>
+            <translation><!-- 200-500 --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>50-100</masterLabel>
+            <translation><!-- 50-100 --></translation>
+        </picklistValues>
+    </fields>
+    <fields>
+        <label><!-- Otro nivel de contacto con cliente --></label>
+        <name>Otro_nivel_de_contacto_con_cliente__c</name>
+    </fields>
+    <fields>
+        <label><!-- Otros Servicios --></label>
+        <name>Otros_Servicios__c</name>
+    </fields>
+    <fields>
+        <label>A frota é de propriedade our gerido</label>
+        <name>Parque_Automotor_Propio_o_Gestionado__c</name>
+        <picklistValues>
+            <masterLabel>Gestionado</masterLabel>
+            <translation>Geståo</translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Mixta</masterLabel>
+            <translation>Misto</translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Sin géstion</masterLabel>
+            <translation>Sem Geståo</translation>
+        </picklistValues>
+    </fields>
+    <fields>
+        <label><!-- Cuestionario completo al --></label>
+        <name>Porcentaje_de_completitud_de_la_cuenta__c</name>
+    </fields>
+    <fields>
+        <label><!-- Porcentaje facturacion fija --></label>
+        <name>Porcentaje_facturacion_fija__c</name>
+    </fields>
+    <fields>
+        <label><!-- Porcentaje facturacion variable --></label>
+        <name>Porcentaje_facturacion_variable__c</name>
+    </fields>
+    <fields>
+        <help>Presença regional \ número agências em America</help>
+        <label>Presença regional</label>
+        <name>Presencia_Regional__c</name>
+        <picklistValues>
+            <masterLabel>Alemania</masterLabel>
+            <translation><!-- Alemania --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Argentina</masterLabel>
+            <translation><!-- Argentina --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Brasil</masterLabel>
+            <translation><!-- Brasil --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Chile</masterLabel>
+            <translation><!-- Chile --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Colombia</masterLabel>
+            <translation><!-- Colombia --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Costa Rica</masterLabel>
+            <translation><!-- Costa Rica --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Ecuador</masterLabel>
+            <translation><!-- Ecuador --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>El Salvador</masterLabel>
+            <translation><!-- El Salvador --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>España</masterLabel>
+            <translation>Espanha</translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Guatemala</masterLabel>
+            <translation><!-- Guatemala --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>México</masterLabel>
+            <translation><!-- México --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Nicaragua</masterLabel>
+            <translation><!-- Nicaragua --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Panamá</masterLabel>
+            <translation><!-- Panamá --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Perú</masterLabel>
+            <translation><!-- Perú --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Resto Países</masterLabel>
+            <translation>Rest of World</translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>UK</masterLabel>
+            <translation><!-- UK --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>USA</masterLabel>
+            <translation><!-- USA --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Uruguay</masterLabel>
+            <translation><!-- Uruguay --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Venezuela</masterLabel>
+            <translation><!-- Venezuela --></translation>
+        </picklistValues>
+    </fields>
+    <fields>
+        <label><!-- ¿Qué presupuesto anual maneja tu cliente --></label>
+        <name>Qu_presupuesto_anual_maneja_tu_cliente__c</name>
+    </fields>
+    <fields>
+        <label><!-- Rango Edificios --></label>
+        <name>Rango_Edificios__c</name>
+        <picklistValues>
+            <masterLabel>10-20</masterLabel>
+            <translation><!-- 10-20 --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>5-10</masterLabel>
+            <translation><!-- 5-10 --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>&lt; 5</masterLabel>
+            <translation><!-- &lt; 5 --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>&gt; 20</masterLabel>
+            <translation><!-- &gt; 20 --></translation>
+        </picklistValues>
+    </fields>
+    <fields>
+        <label><!-- Rango Empleados --></label>
+        <name>Rango_Empleados__c</name>
+        <picklistValues>
+            <masterLabel>3K-5K</masterLabel>
+            <translation><!-- 3K-5K --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>500-3K</masterLabel>
+            <translation><!-- 500-3K --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>5K-10K</masterLabel>
+            <translation><!-- 5K-10K --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>&lt; 500</masterLabel>
+            <translation><!-- &lt; 500 --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>&gt; 10K</masterLabel>
+            <translation><!-- &gt; 10K --></translation>
+        </picklistValues>
+    </fields>
+    <fields>
+        <label><!-- Rango Sucursales --></label>
+        <name>Rango_Sucursales__c</name>
+        <picklistValues>
+            <masterLabel>100-250</masterLabel>
+            <translation><!-- 100-250 --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>50-100</masterLabel>
+            <translation><!-- 50-100 --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>&lt; 50</masterLabel>
+            <translation><!-- &lt; 50 --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>&gt; 250</masterLabel>
+            <translation><!-- &gt; 250 --></translation>
+        </picklistValues>
+    </fields>
+    <fields>
+        <label><!-- SeleccionMultipleContactoPublico --></label>
+        <name>SeleccionMultipleContactoPublico__c</name>
+        <picklistValues>
+            <masterLabel>Director General/CIO/Director Tecnología</masterLabel>
+            <translation><!-- Director General/CIO/Director Tecnología --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Director de Compras/Jefe Compras</masterLabel>
+            <translation><!-- Director de Compras/Jefe Compras --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Gerente de Area</masterLabel>
+            <translation><!-- Gerente de Area --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Ministro/ Vice Ministro/Gerente General</masterLabel>
+            <translation><!-- Ministro/ Vice Ministro/Gerente General --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Otro</masterLabel>
+            <translation><!-- Otro --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Presidente país/Municipal/Prefeito/Intendente</masterLabel>
+            <translation><!-- Presidente país/Municipal/Prefeito/Intendente --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Responsable/ Especialista Proyecto</masterLabel>
+            <translation><!-- Responsable/ Especialista Proyecto --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Secretario Area/Regidor/Síndico/Asesor</masterLabel>
+            <translation><!-- Secretario Area/Regidor/Síndico/Asesor --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Sin contacto</masterLabel>
+            <translation><!-- Sin contacto --></translation>
+        </picklistValues>
+    </fields>
+    <fields>
+        <label><!-- SeleccionMultipleContactoCliente --></label>
+        <name>SeleccionMultiple__c</name>
+        <picklistValues>
+            <masterLabel>Analista</masterLabel>
+            <translation><!-- Analista --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>C level</masterLabel>
+            <translation><!-- C level --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Director</masterLabel>
+            <translation><!-- Director --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Gerente</masterLabel>
+            <translation><!-- Gerente --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Jefe</masterLabel>
+            <translation><!-- Jefe --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Otro</masterLabel>
+            <translation><!-- Otro --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Sin Contacto</masterLabel>
+            <translation><!-- Sin Contacto --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Usuarios</masterLabel>
+            <translation><!-- Usuarios --></translation>
+        </picklistValues>
+    </fields>
+    <fields>
+        <label><!-- Tiene Presencia Internacional --></label>
+        <name>Tiene_Presencia_Internacional__c</name>
+        <picklistValues>
+            <masterLabel>No</masterLabel>
+            <translation><!-- No --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Si</masterLabel>
+            <translation><!-- Si --></translation>
+        </picklistValues>
+    </fields>
+    <fields>
+        <label><!-- Tipo de Banca --></label>
+        <name>Tipo_de_Banca__c</name>
+        <picklistValues>
+            <masterLabel>Banca Privada</masterLabel>
+            <translation>Private Banking</translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Banca Publica</masterLabel>
+            <translation>Public Banking</translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Banca Retail</masterLabel>
+            <translation>Retail Banking</translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Banca de Inversión</masterLabel>
+            <translation>Investement Banking</translation>
+        </picklistValues>
+    </fields>
+    <fields>
+        <label>????</label>
+        <name>Tipo_de_Extraccion__c</name>
+        <picklistValues>
+            <masterLabel>Gas</masterLabel>
+            <translation>Gás</translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Minería</masterLabel>
+            <translation>Mineraçao</translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Petroleo</masterLabel>
+            <translation>Oleo</translation>
+        </picklistValues>
+    </fields>
+    <fields>
+        <label>Tipo de Área 1</label>
+        <name>Titulo_Area_1__c</name>
+    </fields>
+    <fields>
+        <label>Tipo de Área 2</label>
+        <name>Titulo_Area_2__c</name>
+    </fields>
+    <fields>
+        <label>Tipo de Área 3</label>
+        <name>Titulo_Area_3__c</name>
+    </fields>
+    <fields>
+        <label><!-- Obsoleto --></label>
+        <name>Titulo_Area_4__c</name>
+    </fields>
+    <fields>
+        <label><!-- Obsoleto --></label>
+        <name>Titulo_Area_5__c</name>
+    </fields>
+    <fields>
+        <label><!-- Top 5 de proveedores --></label>
+        <name>Top_5_de_proveedores__c</name>
+    </fields>
+    <fields>
+        <help>Data de expiração do contrato de dados fixos</help>
+        <label>Vencimento Dados Fixos</label>
+        <name>Vencimiento_Datos_Fijos__c</name>
+    </fields>
+    <fields>
+        <help>Data de expiração do contrato de outros servicos</help>
+        <label>Data de expiração outros serviços</label>
+        <name>Vencimiento_Otros_Servicios__c</name>
+    </fields>
+    <fields>
+        <help>Data de expiração do contrato de moveis</help>
+        <label>Data de expiração do contrato moveis</label>
+        <name>Vencimiento_Servicios_Moviles__c</name>
+    </fields>
+    <fields>
+        <label><!-- Volumen de Extraccion --></label>
+        <name>Volumen_de_Extraccion__c</name>
+    </fields>
+    <fields>
+        <label><!-- Volumen de Produccion --></label>
+        <name>Volumen_de_Produccion__c</name>
+    </fields>
+    <fields>
+        <label><!-- 4 Planning Pro --></label>
+        <name>X4_Planning_Pro__c</name>
+    </fields>
+    <fields>
+        <label><!-- centro distribucion propia --></label>
+        <name>centro_distribucion_propia__c</name>
+        <picklistValues>
+            <masterLabel>No</masterLabel>
+            <translation>Não</translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Si</masterLabel>
+            <translation>Sim</translation>
+        </picklistValues>
+    </fields>
+    <fields>
+        <label><!-- comercializacion que mas crece multiple --></label>
+        <name>comercializacion_que_mas_crece_multiple__c</name>
+        <picklistValues>
+            <masterLabel>Agencias o Sucursales Físicas Propias</masterLabel>
+            <translation><!-- Agencias o Sucursales Físicas Propias --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Agencias o Sucursales Físicas de Terceros</masterLabel>
+            <translation><!-- Agencias o Sucursales Físicas de Terceros --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Agentes Comercializadores de Terceros (Canales)</masterLabel>
+            <translation><!-- Agentes Comercializadores de Terceros (Canales) --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Agentes Comercializadores propios (Empleados)</masterLabel>
+            <translation><!-- Agentes Comercializadores propios (Empleados) --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Aplicativo Móvil</masterLabel>
+            <translation><!-- Aplicativo Móvil --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Contact Center</masterLabel>
+            <translation><!-- Contact Center --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Máquinas de Autoservicios (ATMs, Vending, etc…)</masterLabel>
+            <translation><!-- Máquinas de Autoservicios (ATMs, Vending, etc…) --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Web Propia</masterLabel>
+            <translation><!-- Web Propia --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Web de Terceros</masterLabel>
+            <translation><!-- Web de Terceros --></translation>
+        </picklistValues>
+    </fields>
+    <fields>
+        <label>Conhecimento da conta</label>
+        <name>conocimiento_de_la_cuenta__c</name>
+    </fields>
+    <fields>
+        <label><!-- esta en el futuro del cliente --></label>
+        <name>esta_en_el_futuro_del_cliente__c</name>
+    </fields>
+    <fields>
+        <label><!-- facturacion cliente garantizada --></label>
+        <name>facturacion_cliente_garantizada__c</name>
+    </fields>
+    <fields>
+        <label>Frota própria</label>
+        <name>flota_vehiculos_propios__c</name>
+        <picklistValues>
+            <masterLabel>Mixta</masterLabel>
+            <translation>Mista</translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>No</masterLabel>
+            <translation>Não</translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Si</masterLabel>
+            <translation>Sim</translation>
+        </picklistValues>
+    </fields>
+    <fields>
+        <label>Importância móbile banking</label>
+        <name>importancia_banca_movil__c</name>
+        <picklistValues>
+            <masterLabel>1</masterLabel>
+            <translation><!-- 1 --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>2</masterLabel>
+            <translation><!-- 2 --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>3</masterLabel>
+            <translation><!-- 3 --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>4</masterLabel>
+            <translation><!-- 4 --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>5</masterLabel>
+            <translation><!-- 5 --></translation>
+        </picklistValues>
+    </fields>
+    <fields>
+        <label><!-- lanes estratégicos de tu cliente --></label>
+        <name>lanes_estrat_gicos_de_tu_cliente__c</name>
+    </fields>
+    <fields>
+        <label><!-- prospecta venta tecnologia cliente --></label>
+        <name>prospecta_venta_tecnologia_cliente__c</name>
+    </fields>
+    <fields>
+        <help>Você sabe o que a Telefônica faz em outros países com clientes semelhantes?</help>
+        <label>Relação Empresa / Outros clientes</label>
+        <name>realcion_empresa_otros_clientes__c</name>
+        <picklistValues>
+            <masterLabel>No</masterLabel>
+            <translation>Não</translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Si</masterLabel>
+            <translation>Sim</translation>
+        </picklistValues>
+    </fields>
+    <fields>
+        <label><!-- vinculo direccion tecnologia --></label>
+        <name>vinculo_direccion_tecnologia__c</name>
+    </fields>
+    <gender><!-- Feminine --></gender>
+    <layouts>
+        <layout>Formato FourPlanning</layout>
+        <sections>
+            <label><!-- Vínculos personalizados --></label>
+            <section>Vínculos personalizados</section>
+        </sections>
+    </layouts>
+    <nameFieldLabel><!-- Nombre de FourPlanning --></nameFieldLabel>
+</CustomObjectTranslation>

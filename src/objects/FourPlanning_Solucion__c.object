@@ -1,0 +1,473 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomObject xmlns="http://soap.sforce.com/2006/04/metadata">
+    <actionOverrides>
+        <actionName>Accept</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>CancelEdit</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Clone</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Delete</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Edit</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>List</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>New</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>SaveEdit</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Tab</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>View</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <allowInChatterGroups>false</allowInChatterGroups>
+    <compactLayoutAssignment>SYSTEM</compactLayoutAssignment>
+    <deploymentStatus>Deployed</deploymentStatus>
+    <deprecated>false</deprecated>
+    <enableActivities>false</enableActivities>
+    <enableBulkApi>true</enableBulkApi>
+    <enableFeeds>false</enableFeeds>
+    <enableHistory>false</enableHistory>
+    <enableReports>true</enableReports>
+    <enableSearch>false</enableSearch>
+    <enableSharing>true</enableSharing>
+    <enableStreamingApi>true</enableStreamingApi>
+    <externalSharingModel>ControlledByParent</externalSharingModel>
+    <fields>
+        <fullName>Competidor__c</fullName>
+        <deprecated>false</deprecated>
+        <externalId>false</externalId>
+        <label>Competidor</label>
+        <length>100</length>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Lista_de_Soluciones__c</fullName>
+        <deprecated>false</deprecated>
+        <externalId>false</externalId>
+        <label>Lista de Soluciones</label>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Picklist</type>
+        <valueSet>
+            <valueSetDefinition>
+                <sorted>false</sorted>
+                <value>
+                    <fullName>Comunicaciones Fijas</fullName>
+                    <default>false</default>
+                </value>
+                <value>
+                    <fullName>Comunicaciones Móviles</fullName>
+                    <default>false</default>
+                </value>
+                <value>
+                    <fullName>IT</fullName>
+                    <default>false</default>
+                </value>
+                <value>
+                    <fullName>Cloud</fullName>
+                    <default>false</default>
+                </value>
+                <value>
+                    <fullName>IoT</fullName>
+                    <default>false</default>
+                </value>
+                <value>
+                    <fullName>Seguridad</fullName>
+                    <default>false</default>
+                </value>
+                <value>
+                    <fullName>Big Data</fullName>
+                    <default>false</default>
+                </value>
+                <value>
+                    <fullName>Soluciones Sectoriales</fullName>
+                    <default>false</default>
+                </value>
+            </valueSetDefinition>
+        </valueSet>
+    </fields>
+    <fields>
+        <fullName>Nivel_de_Desarrollo__c</fullName>
+        <deprecated>false</deprecated>
+        <externalId>false</externalId>
+        <label>Nivel de Desarrollo</label>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Picklist</type>
+        <valueSet>
+            <valueSetDefinition>
+                <sorted>false</sorted>
+                <value>
+                    <fullName>Disponible</fullName>
+                    <default>false</default>
+                </value>
+                <value>
+                    <fullName>En Desarrollo</fullName>
+                    <default>false</default>
+                </value>
+                <value>
+                    <fullName>No Disponible</fullName>
+                    <default>false</default>
+                </value>
+            </valueSetDefinition>
+        </valueSet>
+    </fields>
+    <fields>
+        <fullName>Observaci_n_sobre_el_producto__c</fullName>
+        <deprecated>false</deprecated>
+        <externalId>false</externalId>
+        <label>Observación sobre el producto</label>
+        <length>20000</length>
+        <trackTrending>false</trackTrending>
+        <type>LongTextArea</type>
+        <visibleLines>5</visibleLines>
+    </fields>
+    <fields>
+        <fullName>Otra_Solucion__c</fullName>
+        <deprecated>false</deprecated>
+        <externalId>false</externalId>
+        <label>Otra Solucion</label>
+        <length>255</length>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Reto__c</fullName>
+        <deprecated>false</deprecated>
+        <externalId>false</externalId>
+        <label>FourPlanning Reto</label>
+        <referenceTo>FourPlanning_Reto__c</referenceTo>
+        <relationshipLabel>FourPlanning Soluciones</relationshipLabel>
+        <relationshipName>FourPlanning_Soluciones</relationshipName>
+        <relationshipOrder>0</relationshipOrder>
+        <reparentableMasterDetail>false</reparentableMasterDetail>
+        <trackTrending>false</trackTrending>
+        <type>MasterDetail</type>
+        <writeRequiresMasterRead>false</writeRequiresMasterRead>
+    </fields>
+    <fields>
+        <fullName>SubcategoriaSolucion__c</fullName>
+        <deprecated>false</deprecated>
+        <externalId>false</externalId>
+        <label>SubcategoriaSolucion</label>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Picklist</type>
+        <valueSet>
+            <controllingField>Lista_de_Soluciones__c</controllingField>
+            <restricted>true</restricted>
+            <valueSetDefinition>
+                <sorted>false</sorted>
+                <value>
+                    <fullName>Voz</fullName>
+                    <default>false</default>
+                </value>
+                <value>
+                    <fullName>Red de Datos (WAN, Fibra, MPLS, etc.)</fullName>
+                    <default>false</default>
+                </value>
+                <value>
+                    <fullName>Internet</fullName>
+                    <default>false</default>
+                </value>
+                <value>
+                    <fullName>Servicio de Red inteligente (0800, 900, etc.)</fullName>
+                    <default>false</default>
+                </value>
+                <value>
+                    <fullName>Datos</fullName>
+                    <default>false</default>
+                </value>
+                <value>
+                    <fullName>Terminales</fullName>
+                    <default>false</default>
+                </value>
+                <value>
+                    <fullName>SVA (MDM, SMS, etc)</fullName>
+                    <default>false</default>
+                </value>
+                <value>
+                    <fullName>Call/Contact Center</fullName>
+                    <default>false</default>
+                </value>
+                <value>
+                    <fullName>Outsourcing</fullName>
+                    <default>false</default>
+                </value>
+                <value>
+                    <fullName>Comunicaciones Unificadas</fullName>
+                    <default>false</default>
+                </value>
+                <value>
+                    <fullName>Videoconferencia (telepresencia, webconference, etc)</fullName>
+                    <default>false</default>
+                </value>
+                <value>
+                    <fullName>Atención Ciudadana / 911</fullName>
+                    <default>false</default>
+                </value>
+                <value>
+                    <fullName>Digitalización y Gestión Documental</fullName>
+                    <default>false</default>
+                </value>
+                <value>
+                    <fullName>Educación Digital</fullName>
+                    <default>false</default>
+                </value>
+                <value>
+                    <fullName>E-learning</fullName>
+                    <default>false</default>
+                </value>
+                <value>
+                    <fullName>Mesas de Dinero y Grabación</fullName>
+                    <default>false</default>
+                </value>
+                <value>
+                    <fullName>Puesto de Trabajo</fullName>
+                    <default>false</default>
+                </value>
+                <value>
+                    <fullName>Seguridad Ciudadana</fullName>
+                    <default>false</default>
+                </value>
+                <value>
+                    <fullName>Videovigilancia y Seguridad Perimetral</fullName>
+                    <default>false</default>
+                </value>
+                <value>
+                    <fullName>Otros</fullName>
+                    <default>false</default>
+                </value>
+                <value>
+                    <fullName>Go to Cloud (migración a Servidores Virtuales, VDC, OpenCloud, SAP Gestionado, Office 365)</fullName>
+                    <default>false</default>
+                </value>
+                <value>
+                    <fullName>Cloud Hibrida (Servicios gestionados, Multicloud)</fullName>
+                    <default>false</default>
+                </value>
+                <value>
+                    <fullName>Consolidación de Datacenter (Hosting, Housing, HW y SW Reselling)</fullName>
+                    <default>false</default>
+                </value>
+                <value>
+                    <fullName>Conectividad Gestionada (M2M, alarmas, contadores, silos, barcos, POS, contenedores, ascensores..)</fullName>
+                    <default>false</default>
+                </value>
+                <value>
+                    <fullName>Gestión de empleados (geogestión)</fullName>
+                    <default>false</default>
+                </value>
+                <value>
+                    <fullName>Gestión de flotas (asset Traking, GPS, etc)</fullName>
+                    <default>false</default>
+                </value>
+                <value>
+                    <fullName>Eficiencia energética</fullName>
+                    <default>false</default>
+                </value>
+                <value>
+                    <fullName>Marketing Dinámico / On The Spot / Cartelería Digital</fullName>
+                    <default>false</default>
+                </value>
+                <value>
+                    <fullName>Big Data (Infraestructura, Servicios, Consultoría, Synergic Partnert)</fullName>
+                    <default>false</default>
+                </value>
+                <value>
+                    <fullName>Smart Steps (transito, audiencia, store, turismo)</fullName>
+                    <default>false</default>
+                </value>
+                <value>
+                    <fullName>Smart Digits (autenticación, seguridad, identidad)</fullName>
+                    <default>false</default>
+                </value>
+                <value>
+                    <fullName>Seguridad gestionada</fullName>
+                    <default>false</default>
+                </value>
+                <value>
+                    <fullName>Ciberseguridad</fullName>
+                    <default>false</default>
+                </value>
+                <value>
+                    <fullName>Seguridad embebida (SMDM, AntiDDoS, Identidad Digital)</fullName>
+                    <default>false</default>
+                </value>
+            </valueSetDefinition>
+            <valueSettings>
+                <controllingFieldValue>Comunicaciones Móviles</controllingFieldValue>
+                <controllingFieldValue>Comunicaciones Fijas</controllingFieldValue>
+                <valueName>Voz</valueName>
+            </valueSettings>
+            <valueSettings>
+                <controllingFieldValue>Comunicaciones Móviles</controllingFieldValue>
+                <valueName>Datos</valueName>
+            </valueSettings>
+            <valueSettings>
+                <controllingFieldValue>Comunicaciones Móviles</controllingFieldValue>
+                <valueName>Terminales</valueName>
+            </valueSettings>
+            <valueSettings>
+                <controllingFieldValue>Comunicaciones Móviles</controllingFieldValue>
+                <valueName>SVA (MDM, SMS, etc)</valueName>
+            </valueSettings>
+            <valueSettings>
+                <controllingFieldValue>Seguridad</controllingFieldValue>
+                <valueName>Seguridad gestionada</valueName>
+            </valueSettings>
+            <valueSettings>
+                <controllingFieldValue>Seguridad</controllingFieldValue>
+                <valueName>Ciberseguridad</valueName>
+            </valueSettings>
+            <valueSettings>
+                <controllingFieldValue>Seguridad</controllingFieldValue>
+                <valueName>Seguridad embebida (SMDM, AntiDDoS, Identidad Digital)</valueName>
+            </valueSettings>
+            <valueSettings>
+                <controllingFieldValue>Big Data</controllingFieldValue>
+                <valueName>Big Data (Infraestructura, Servicios, Consultoría, Synergic Partnert)</valueName>
+            </valueSettings>
+            <valueSettings>
+                <controllingFieldValue>Big Data</controllingFieldValue>
+                <valueName>Smart Steps (transito, audiencia, store, turismo)</valueName>
+            </valueSettings>
+            <valueSettings>
+                <controllingFieldValue>Big Data</controllingFieldValue>
+                <valueName>Smart Digits (autenticación, seguridad, identidad)</valueName>
+            </valueSettings>
+            <valueSettings>
+                <controllingFieldValue>IoT</controllingFieldValue>
+                <valueName>Conectividad Gestionada (M2M, alarmas, contadores, silos, barcos, POS, contenedores, ascensores..)</valueName>
+            </valueSettings>
+            <valueSettings>
+                <controllingFieldValue>IoT</controllingFieldValue>
+                <valueName>Gestión de empleados (geogestión)</valueName>
+            </valueSettings>
+            <valueSettings>
+                <controllingFieldValue>IoT</controllingFieldValue>
+                <valueName>Gestión de flotas (asset Traking, GPS, etc)</valueName>
+            </valueSettings>
+            <valueSettings>
+                <controllingFieldValue>IoT</controllingFieldValue>
+                <valueName>Eficiencia energética</valueName>
+            </valueSettings>
+            <valueSettings>
+                <controllingFieldValue>IoT</controllingFieldValue>
+                <valueName>Marketing Dinámico / On The Spot / Cartelería Digital</valueName>
+            </valueSettings>
+            <valueSettings>
+                <controllingFieldValue>Soluciones Sectoriales</controllingFieldValue>
+                <valueName>Atención Ciudadana / 911</valueName>
+            </valueSettings>
+            <valueSettings>
+                <controllingFieldValue>Soluciones Sectoriales</controllingFieldValue>
+                <valueName>Digitalización y Gestión Documental</valueName>
+            </valueSettings>
+            <valueSettings>
+                <controllingFieldValue>Soluciones Sectoriales</controllingFieldValue>
+                <valueName>Educación Digital</valueName>
+            </valueSettings>
+            <valueSettings>
+                <controllingFieldValue>Soluciones Sectoriales</controllingFieldValue>
+                <valueName>E-learning</valueName>
+            </valueSettings>
+            <valueSettings>
+                <controllingFieldValue>Soluciones Sectoriales</controllingFieldValue>
+                <valueName>Mesas de Dinero y Grabación</valueName>
+            </valueSettings>
+            <valueSettings>
+                <controllingFieldValue>Soluciones Sectoriales</controllingFieldValue>
+                <valueName>Puesto de Trabajo</valueName>
+            </valueSettings>
+            <valueSettings>
+                <controllingFieldValue>Soluciones Sectoriales</controllingFieldValue>
+                <valueName>Seguridad Ciudadana</valueName>
+            </valueSettings>
+            <valueSettings>
+                <controllingFieldValue>Soluciones Sectoriales</controllingFieldValue>
+                <valueName>Videovigilancia y Seguridad Perimetral</valueName>
+            </valueSettings>
+            <valueSettings>
+                <controllingFieldValue>Soluciones Sectoriales</controllingFieldValue>
+                <controllingFieldValue>IT</controllingFieldValue>
+                <valueName>Otros</valueName>
+            </valueSettings>
+            <valueSettings>
+                <controllingFieldValue>IT</controllingFieldValue>
+                <valueName>Call/Contact Center</valueName>
+            </valueSettings>
+            <valueSettings>
+                <controllingFieldValue>IT</controllingFieldValue>
+                <valueName>Outsourcing</valueName>
+            </valueSettings>
+            <valueSettings>
+                <controllingFieldValue>IT</controllingFieldValue>
+                <valueName>Comunicaciones Unificadas</valueName>
+            </valueSettings>
+            <valueSettings>
+                <controllingFieldValue>IT</controllingFieldValue>
+                <valueName>Videoconferencia (telepresencia, webconference, etc)</valueName>
+            </valueSettings>
+            <valueSettings>
+                <controllingFieldValue>Cloud</controllingFieldValue>
+                <valueName>Go to Cloud (migración a Servidores Virtuales, VDC, OpenCloud, SAP Gestionado, Office 365)</valueName>
+            </valueSettings>
+            <valueSettings>
+                <controllingFieldValue>Cloud</controllingFieldValue>
+                <valueName>Cloud Hibrida (Servicios gestionados, Multicloud)</valueName>
+            </valueSettings>
+            <valueSettings>
+                <controllingFieldValue>Cloud</controllingFieldValue>
+                <valueName>Consolidación de Datacenter (Hosting, Housing, HW y SW Reselling)</valueName>
+            </valueSettings>
+            <valueSettings>
+                <controllingFieldValue>Comunicaciones Fijas</controllingFieldValue>
+                <valueName>Red de Datos (WAN, Fibra, MPLS, etc.)</valueName>
+            </valueSettings>
+            <valueSettings>
+                <controllingFieldValue>Comunicaciones Fijas</controllingFieldValue>
+                <valueName>Internet</valueName>
+            </valueSettings>
+            <valueSettings>
+                <controllingFieldValue>Comunicaciones Fijas</controllingFieldValue>
+                <valueName>Servicio de Red inteligente (0800, 900, etc.)</valueName>
+            </valueSettings>
+        </valueSet>
+    </fields>
+    <gender>Feminine</gender>
+    <label>FourPlanning Solucion</label>
+    <nameField>
+        <label>Nombre de FourPlanning Solucion</label>
+        <type>Text</type>
+    </nameField>
+    <pluralLabel>FourPlanning Soluciones</pluralLabel>
+    <searchLayouts/>
+    <sharingModel>ControlledByParent</sharingModel>
+</CustomObject>

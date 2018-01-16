@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomObjectTranslation xmlns="http://soap.sforce.com/2006/04/metadata">
+    <caseValues>
+        <plural>false</plural>
+        <value><!-- SB - Cuenta - Pregunta --></value>
+    </caseValues>
+    <caseValues>
+        <plural>true</plural>
+        <value><!-- SB - Cuenta - Pregunta --></value>
+    </caseValues>
+    <fields>
+        <label><!-- Cuenta --></label>
+        <name>Cuenta__c</name>
+        <relationshipLabel><!-- SB - Cuenta - Preguntas --></relationshipLabel>
+    </fields>
+    <fields>
+        <label><!-- DependenciaNo --></label>
+        <name>DependenciaNo__c</name>
+        <relationshipLabel><!-- SB - Cuenta - Preguntas (DependenciaNo) --></relationshipLabel>
+    </fields>
+    <fields>
+        <label><!-- Posicion --></label>
+        <name>Posicion__c</name>
+    </fields>
+    <fields>
+        <label><!-- Pregunta --></label>
+        <name>Pregunta__c</name>
+    </fields>
+    <fields>
+        <label><!-- Respuesta --></label>
+        <name>Respuesta__c</name>
+        <picklistValues>
+            <masterLabel>No</masterLabel>
+            <translation><!-- No --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Si</masterLabel>
+            <translation>yes</translation>
+        </picklistValues>
+    </fields>
+    <fields>
+        <label><!-- Super Ball - Nodo --></label>
+        <name>Super_Ball_Nodo__c</name>
+        <relationshipLabel><!-- SB - Cuenta - Preguntas --></relationshipLabel>
+    </fields>
+    <fields>
+        <label><!-- Super Ball - Pregunta --></label>
+        <name>Super_Ball_Pregunta__c</name>
+        <relationshipLabel><!-- SB - Cuenta - Preguntas (Super Ball - Pregunta) --></relationshipLabel>
+    </fields>
+    <fields>
+        <label><!-- dependenciaSi --></label>
+        <name>dependenciaSi__c</name>
+        <relationshipLabel><!-- SB - Cuenta - Preguntas --></relationshipLabel>
+    </fields>
+    <fields>
+        <label><!-- esHija --></label>
+        <name>esHija__c</name>
+    </fields>
+    <nameFieldLabel><!-- Nombre de SB - Cuenta - Pregunta --></nameFieldLabel>
+    <startsWith><!-- Consonant --></startsWith>
+</CustomObjectTranslation>

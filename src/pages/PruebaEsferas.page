@@ -1,0 +1,118 @@
+<apex:page sidebar="false" showQuickActionVfHeader="false" docType="html-5.0">
+    
+
+ <html>
+
+        <head>
+            <!-- Plotly.js -->
+            <apex:includeScript value="{!$Resource.Ploty}"/>
+            
+            </head>
+            <body>
+                <!-- Plotly chart will be drawn inside this DIV -->
+                    <div id="myDiv" style="width: 100%; height: 500px;"></div>
+               
+
+            <script>
+
+			var trace1 = {
+                x: [55,90],
+                y: [1,17],
+                text: ['Promedio Pais','Zona Objetivo'],
+                textfont: {
+                    family: 'sans serif',
+                    size: 16,
+                    color: 'balck'
+                },
+                mode: 'text',
+                name: 'Referencias'
+            };
+
+            var trace3 = {
+                x: [10, 17, 20],
+                y: [5, 8, 13],
+                mode: 'markers+text',
+                marker: {
+                    color: ['rgb(0, 84, 156)', 'rgb(49, 133, 157)',  'rgb(11, 40, 74)'],
+                    opacity: [1, 1, 1],
+                    size: [40, 60, 80]
+                },
+                text: ['Q1', 'Q2', 'Q3'],
+                textfont: {
+                    family: 'sans serif',
+                    size: 16,
+                    color: '#fff'
+                },
+                type: 'scatter',
+                name: 'Bolas'
+            };
+            
+            var data = [trace1, trace3];
+            var layout = {
+                xaxis: {
+                    title: 'Desarrollo de mi Cliente',
+                    autotick: false,
+                    ticks: 'outside',
+                    tick0: 0,
+                    dtick: 10,
+                    ticklen: 4,
+                    tickwidth: 2,
+                    tickcolor: '#000',
+                    range: [0, 100]
+
+                },
+                yaxis: {
+                    title: 'Ventas Nav',
+                    autotick: false,
+                    ticks: 'outside',
+                    tick0: 0,
+                    dtick: 10,
+                    ticklen: 4,
+                    tickwidth: 2,
+                    tickcolor: '#000',
+                    range: [0, 20]
+
+                },
+                shapes: [
+
+                    //Rectangulo
+                    
+                    {
+                        type: 'rect',
+                        xref: 'x',
+                        yref: 'y',
+                        x0: 50,
+                        y0: 11,
+                        x1: 100,
+                        y1: 20,
+                        line: {
+                            color: 'rgb(55, 128, 191)',
+                            width: 3
+                        },
+                        fillcolor: 'rgba(55, 128, 191, 0.6)'
+                    },
+                    
+                    //Linea de puntos
+                    {
+                        type: 'line',
+                        x0: 55,
+                        y0: 2,
+                        x1: 55,
+                        y1: 100,
+                        line: {
+                            color: 'rgb(204, 0, 0)',
+                            width: 3,
+                            dash: 'dot'
+                        }
+                    }
+                ]
+                
+            };
+            Plotly.newPlot('myDiv', data, layout, {displayModeBar: true, displaylogo: false, showlegend: false, modeBarButtonsToRemove: ['toImage','sendDataToCloud','zoom2d','select2d','lasso2d','hoverClosestCartesian','hoverCompareCartesian','autoScale2d'] });
+
+            </script>
+            
+        </body>
+
+         </html>  
+</apex:page>

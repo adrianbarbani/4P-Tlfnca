@@ -1,0 +1,235 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomObjectTranslation xmlns="http://soap.sforce.com/2006/04/metadata">
+    <caseValues>
+        <plural>false</plural>
+        <value><!-- business Landscape --></value>
+    </caseValues>
+    <caseValues>
+        <plural>true</plural>
+        <value><!-- business Landscape --></value>
+    </caseValues>
+    <fields>
+        <label>Account</label>
+        <name>Account__c</name>
+        <relationshipLabel><!-- business Landscapes --></relationshipLabel>
+    </fields>
+    <fields>
+        <label>Anual spend</label>
+        <name>AnnualSpend__c</name>
+    </fields>
+    <fields>
+        <label>Category Service</label>
+        <name>Category_Service__c</name>
+        <picklistValues>
+            <masterLabel>Big Data</masterLabel>
+            <translation><!-- Big Data --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Cloud</masterLabel>
+            <translation><!-- Cloud --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Comunicaciones unificadas y servicios de colaboración</masterLabel>
+            <translation>Unified Comms &amp; Collaboration Services</translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>IoT</masterLabel>
+            <translation><!-- IoT --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Otros servicios</masterLabel>
+            <translation>Other Services</translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Seguridad</masterLabel>
+            <translation>Security</translation>
+        </picklistValues>
+    </fields>
+    <fields>
+        <label>Buying Level</label>
+        <name>Compra_a_nivel__c</name>
+        <picklistValues>
+            <masterLabel>Global</masterLabel>
+            <translation><!-- Global --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Local</masterLabel>
+            <translation><!-- Local --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Regional</masterLabel>
+            <translation><!-- Regional --></translation>
+        </picklistValues>
+    </fields>
+    <fields>
+        <label>Contract end Date</label>
+        <name>ContractEndDate__c</name>
+    </fields>
+    <fields>
+        <label>Country</label>
+        <name>Country__c</name>
+    </fields>
+    <fields>
+        <label>Current Provider</label>
+        <name>CurrentProvider__c</name>
+    </fields>
+    <fields>
+        <label><!-- Decision maker --></label>
+        <name>Decision_maker__c</name>
+        <relationshipLabel><!-- business Landscapes --></relationshipLabel>
+    </fields>
+    <fields>
+        <label>Level</label>
+        <name>Level__c</name>
+        <picklistValues>
+            <masterLabel>Green</masterLabel>
+            <translation><!-- Green --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Red</masterLabel>
+            <translation><!-- Red --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Yellow</masterLabel>
+            <translation><!-- Yellow --></translation>
+        </picklistValues>
+    </fields>
+    <fields>
+        <label>Number of Chanel</label>
+        <name>NumberOfChannels__c</name>
+    </fields>
+    <fields>
+        <label>Other Information</label>
+        <name>OtherInformation__c</name>
+    </fields>
+    <fields>
+        <label>Service</label>
+        <name>Service__c</name>
+        <picklistValues>
+            <masterLabel>Almacenamiento</masterLabel>
+            <translation>Housing &amp; Hosting</translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Conectividad IoT</masterLabel>
+            <translation>IoT Connectivity</translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Enterprise Mobile IT</masterLabel>
+            <translation><!-- Enterprise Mobile IT --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Gestión de Servicios Cloud</masterLabel>
+            <translation>Managed Cloud Services</translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Gestión de Servicios Móviles</masterLabel>
+            <translation>Managed Mobility Services</translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Identidad &amp; Privacidad</masterLabel>
+            <translation>Identity &amp; Privacy</translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Nuevo Negocio IoT</masterLabel>
+            <translation>New IoT business</translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>SaaS</masterLabel>
+            <translation><!-- SaaS --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Seguridad Cloud</masterLabel>
+            <translation>Cloud Security</translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Seguridad Mgmt</masterLabel>
+            <translation>Security Mgmt &amp; Governance</translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Seguridad cibernética</masterLabel>
+            <translation>Cybersecurity</translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Seguridad en Comunicaciones</masterLabel>
+            <translation>Comms Security</translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Servicios de Red</masterLabel>
+            <translation>Networking Services</translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Smart Cities</masterLabel>
+            <translation><!-- Smart Cities --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Smart Digits</masterLabel>
+            <translation><!-- Smart Digits --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Smart Mobility</masterLabel>
+            <translation><!-- Smart Mobility --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Smart Retail</masterLabel>
+            <translation><!-- Smart Retail --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Smart Steps</masterLabel>
+            <translation><!-- Smart Steps --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Unificación de Comunicaciones y Servicios de Colaboración</masterLabel>
+            <translation>Unified Communications  and Collaboration Services</translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>laaS &amp; PaaS</masterLabel>
+            <translation><!-- laaS &amp; PaaS --></translation>
+        </picklistValues>
+    </fields>
+    <fields>
+        <label>Sub Category Service</label>
+        <name>Sub_Category_Service__c</name>
+        <picklistValues>
+            <masterLabel>Consultas y soluciones de integración</masterLabel>
+            <translation>Consulting &amp; Solutions integration</translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Gestión de servicios</masterLabel>
+            <translation>Service Management</translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>M2M</masterLabel>
+            <translation><!-- M2M --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Seguridad</masterLabel>
+            <translation>Security</translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Servicio de Internet</masterLabel>
+            <translation>Internet Services</translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Servicios WAN</masterLabel>
+            <translation>WAN Services</translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Servicios de conferencias</masterLabel>
+            <translation>Service Management</translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Servicios unificados de comunicación</masterLabel>
+            <translation>Unified Communications Services</translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Soluciones de Productividad</masterLabel>
+            <translation>Productivity Solutions</translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Soluciones de conectividad</masterLabel>
+            <translation>Connectivity Solutions</translation>
+        </picklistValues>
+    </fields>
+    <nameFieldLabel><!-- Nombre de business Landscape --></nameFieldLabel>
+    <startsWith><!-- Consonant --></startsWith>
+</CustomObjectTranslation>

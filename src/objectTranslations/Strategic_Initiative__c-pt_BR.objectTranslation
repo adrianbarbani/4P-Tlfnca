@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomObjectTranslation xmlns="http://soap.sforce.com/2006/04/metadata">
+    <caseValues>
+        <plural>false</plural>
+        <value><!-- Strategic Initiative --></value>
+    </caseValues>
+    <caseValues>
+        <plural>true</plural>
+        <value><!-- Strategic Initiative --></value>
+    </caseValues>
+    <fields>
+        <label>Conta</label>
+        <name>Account__c</name>
+        <relationshipLabel><!-- Strategic Initiatives --></relationshipLabel>
+    </fields>
+    <fields>
+        <label><!-- Strategic_Initiative_URL --></label>
+        <name>Strategic_Initiative_URL__c</name>
+    </fields>
+    <fields>
+        <label><!-- Strategic Initiative --></label>
+        <name>Strategic_Initiative__c</name>
+    </fields>
+    <fields>
+        <label><!-- Título --></label>
+        <name>Title__c</name>
+    </fields>
+    <fields>
+        <label><!-- Titulo Iniciativa --></label>
+        <name>Titulo_Iniciativa__c</name>
+        <picklistValues>
+            <masterLabel>Aumentar la participación de mercado</masterLabel>
+            <translation><!-- Aumentar la participación de mercado --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Eficiencia en sus procesos</masterLabel>
+            <translation><!-- Eficiencia en sus procesos --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Expansión Internacional</masterLabel>
+            <translation><!-- Expansión Internacional --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Fidelización de clientes</masterLabel>
+            <translation><!-- Fidelización de clientes --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Gestión de la Transformación Digital</masterLabel>
+            <translation><!-- Gestión de la Transformación Digital --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Innovación Tecnológica</masterLabel>
+            <translation><!-- Innovación Tecnológica --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Mejorar modelo de atención</masterLabel>
+            <translation><!-- Mejorar modelo de atención --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Otro</masterLabel>
+            <translation><!-- Otro --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Reducción de costes</masterLabel>
+            <translation><!-- Reducción de costes --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Seguridad de la información</masterLabel>
+            <translation><!-- Seguridad de la información --></translation>
+        </picklistValues>
+    </fields>
+    <gender><!-- Feminine --></gender>
+    <nameFieldLabel><!-- Strategic Initiatives --></nameFieldLabel>
+</CustomObjectTranslation>

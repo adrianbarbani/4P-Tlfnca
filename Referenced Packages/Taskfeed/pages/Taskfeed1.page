@@ -1,0 +1,55 @@
+<apex:page showHeader="false" docType="html-5.0" 
+      ApplyBodyTag="false" standardStylesheets="false" cache="false" title="Taskfeed1">
+<html>
+    <head>
+        <meta name="viewport" content="width=device-width, initial-scale=1"></meta>
+        <link rel="apple-touch-icon" href="{!URLFOR($Resource.taskfeed, '/img/Taskfeed-Mark_White_Trans.png')}"></link>
+        <meta name="apple-mobile-web-app-capable" content="yes"></meta>
+        <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent"></meta>
+        <style>
+
+            html,body {
+                margin:0px;
+                overflow: hidden;
+
+                color: #000;
+                font: normal 14px Helvetica, Arial, sans-serif;     
+                font-size: 12px;
+                
+                background-color: #00e58b;
+               /* background-image: url("{!URLFOR($Resource.taskfeed, '/img/Mark-White-on-Trans.png')}");*/
+                background-repeat: no-repeat;
+                background-attachment: fixed;
+                background-position: center; 
+            }
+
+        </style>
+    </head>
+    <body>
+        <div id="taskfeedWrapper"><!-- bit of a fix for the salsforce header pading -->
+            <c:Taskboard boardId="{!$CurrentPage.parameters.boardId}" 
+                        recordId="{!$CurrentPage.parameters.recordId}" 
+                        relationshipName="{!$CurrentPage.parameters.relationshipName}" 
+                        showHeader="false" 
+                        showFilters="true"
+                        showBoardSwitcher="true"
+                        embeddedIframesAllowed="true"
+                        touchScope="{!if($CurrentPage.parameters.touchScope=='true',true,false)}" >
+            </c:Taskboard>
+        </div>
+
+        <script>
+            function fixWidth() {
+                var w = Math.max(document.documentElement.clientWidth, window.innerWidth || 0);
+                $j('#taskfeedWrapper').css('width', w);
+            }
+
+            $j( window ).resize(function() {
+                fixWidth();
+            });
+
+            fixWidth();//do on init
+        </script>
+    </body>
+</html>
+</apex:page>

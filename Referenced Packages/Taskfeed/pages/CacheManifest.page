@@ -1,0 +1,33 @@
+<apex:page contentType="text/cache-manifest" applyHtmlTag="false" standardStylesheets="false" showHeader="false">CACHE MANIFEST
+CACHE:
+# 2014-10-31:00
+{!URLFOR($Resource.taskfeed1__jquery, '/css/ui-lightness/jquery-ui-1.10.4.custom.min.css')}
+{!URLFOR($Resource.taskfeed1__bootstrap, '/css/bootstrap-inline-responsive-override.css')}
+{!URLFOR($Resource.taskfeed1__bootstrap, '/css/bootstrap-taskfeed-mod.css')}
+{!URLFOR($Resource.taskfeed1__bootstrap, '/css/bootstrap-scrumboard-override.css')}
+{!URLFOR($Resource.taskfeed1__taskfeed, '/css/taskfeed.css')}
+{!URLFOR($Resource.taskfeed1__datatables, '/css/dataTables.bootstrap.css')}
+{!URLFOR($Resource.taskfeed1__jquery, '/js/jquery-1.10.2.js')}
+{!URLFOR($Resource.taskfeed1__jquery, '/js/jquery-ui-1.10.4.custom.min.js')}
+{!URLFOR($Resource.taskfeed1__jquery, '/js/extensions/jquery.ui.touch-punch.min.js')}
+{!URLFOR($Resource.taskfeed1__jquery, '/js/extensions/jquery.hotkeys.js')}
+{!URLFOR($Resource.taskfeed1__jquery, '/js/extensions/jquery.cookie.js')}
+{!URLFOR($Resource.taskfeed1__jquery, '/js/extensions/jquery.hoverIntent.minified.js')}
+{!URLFOR($Resource.taskfeed1__bootstrap, '/js/bootstrap.min.js')}
+{!URLFOR($Resource.taskfeed1__jquery, '/js/extensions/jquery.easing.1.3.js')}
+{!URLFOR($Resource.taskfeed1__jquery, '/js/extensions/jquery.scrollsnap.js')}
+{!URLFOR($Resource.taskfeed1__jquery, '/js/extensions/jquery.scrollstop.js')}
+{!URLFOR($Resource.taskfeed1__typeaheadjs, 'typeahead.bundle.min.js')}
+{!URLFOR($Resource.taskfeed1__typeaheadjs, 'typeahead.jquery.js')}
+{!URLFOR($Resource.taskfeed1__typeaheadjs, 'handlebars.js')}
+{!URLFOR($Resource.taskfeed1__taskfeed, '/js/rgbcolor.js')}
+{!URLFOR($Resource.taskfeed1__datatables, '/js/jquery.dataTables.min.js')}
+{!URLFOR($Resource.taskfeed1__datatables, '/js/dataTables.bootstrap.js')}
+{!URLFOR($Resource.taskfeed1__taskfeed, '/js/taskfeed.js')}
+{!URLFOR($Resource.taskfeed1__taskfeed, '/js/dragupload.js')}
+
+# All other resources (e.g. sites) require the user to be online. 
+NETWORK:
+*
+
+</apex:page>

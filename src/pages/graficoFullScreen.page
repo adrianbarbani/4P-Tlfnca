@@ -1,0 +1,473 @@
+<apex:page sidebar="false" controller="graficoSBController" docType="html-5.0" showHeader="false"  >
+
+    <head>
+        <apex:includeScript value="{!$Resource.visjs}"/>
+        <apex:stylesheet value="{!$Resource.viscss}"/>
+        
+        <apex:includeScript value="{!URLFOR($Resource.bootstrapSF, 'js/JQueryToBS.js')}"/>
+        <apex:includeScript value="{!URLFOR($Resource.bootstrapSF, 'js/bootstrap.min.js')}"/>
+        <apex:includeScript value="{!$Resource.JQuery}" />
+        
+        <apex:stylesheet value="{!URLFOR($Resource.bootstrapSF, 'css/bootstrap-namespaced.min.css')}"/>	 
+        <apex:stylesheet value="{!URLFOR($Resource.bootstrapSF, 'css/BSCustomSyles.css')}"/>
+		        
+        <style type="text/css">
+            #mynetwork {
+            width: 100%;
+            height: 600px;
+            }
+            
+            .NotUsed{
+            background-color: #FF2D2D ! important;
+            }
+            
+            .hasPotentialBussiness {
+            background-color: #3796F7 ! important;    
+            }
+            
+            .hasOpportunity {
+            background-color: #128E2C  ! important;        
+            }
+            
+            .vendidoEnElPasado{
+            background-color: #FFC200 ! important;
+            }
+            
+            .noAplica{
+            background-color: #808080 ! important;
+            }
+            
+            .hasOpportunityAndPotencial{
+            background: #3796F7 ; 
+            background-color:  #128E2C ! important;
+            }
+            
+            .NotUsedSampleText, .hasPotentialBussinessSampleText, .hasOpportunitySampleText {
+            /*font-weight:bold;  margin:10px*/
+            font-size:14px;
+            }
+            
+            .NotUsedSample, .hasPotentialBussinessSample, .hasOpportunitySample {
+            /*border: 1px solid black;*/    
+            width: 20px;
+            height: 20px;
+            /*line-height: 30px;*/    
+            }
+            
+            .NotUsedSampleText {    
+            color: white ! important;
+            color: #2d839a ! important;
+            }
+            .NotUsedSample {    		    
+            background-color: #FF2D2D ! important;		    
+            }
+            
+            .hasPotentialBussinessSampleText {    
+            color: #1797c0 ! important;
+            color: #2d839a ! important;
+            }
+            .hasPotentialBussinessSample {    		    
+            background-color: #3796F7 ! important;        	
+            }
+            
+            .hasOpportunitySampleText {    
+            color: #FEE ! important;
+            color: #2d839a ! important;
+            } 
+            
+            .hasOpportunitySample {
+            background-color: #128E2C ! important;       	
+            }
+        </style>
+    </head>
+    <body>
+        
+        <apex:outputpanel styleClass="container-fluid bootstrap-sf1" id="pageContent" style="background-color:white">
+            <apex:outputPanel layout="block"  styleClass="panel panel-default" style="box-shadow: 0 0px 1px rgba(0,0,0,.05);">
+                <apex:form id="Form">
+                    <apex:actionFunction action="{!volverDePantallaCompleta}" name="irACuestionario"/>
+                    <apex:outputPanel layout="block"  styleClass="panel-heading">
+                        <h2 class="panel-title">
+                            
+                            <span style="float:left;">
+                                
+                            </span>
+                        </h2>
+                        <div class="row paddingRight">
+                            <div class="btn-group pull-right" role="group" aria-label="...">
+                                <button type="button" class="btn btn-default btn-sm pull-right" onclick="irACuestionario()">
+                                    <span class="glyphicon glyphicon-resize-small"></span>&nbsp;
+                                </button>
+                            </div>
+                        </div>
+                    </apex:outputPanel>
+                </apex:form>
+            </apex:outputPanel>
+        
+        <div id="mynetwork"></div>
+        
+        <script type="text/javascript">
+        // create an array with nodes
+        
+
+        /*
+        var nodes = new vis.DataSet([
+            
+            //OTROS CANALES ==========================================
+            {id: 1, label: 'OTROS CANALES', 
+             color: {background:'#004250', border:'grey'}, 
+             shape:'circle',
+             widthConstraint: { maximum: 140, minimum: 140 },
+             font: '14px arial white'},
+            {id: 2, label: 'App & WebBanking', 
+             shape:'circle',
+             widthConstraint: { maximum: 90, minimum: 90 },
+             color: {background:'grey', border:'grey'},
+             font: '10px arial white'},
+            {id: 3, label: 'Mesas de Tesoreria', shape:'circle',
+             widthConstraint: { maximum: 90, minimum: 90 },
+             color: {background:'grey', border:'grey'},
+             font: '10px arial white'},
+            {id: 4, label: 'ATM, Banca corresponsal', 
+             shape:'circle',
+             widthConstraint: { maximum: 90, minimum: 90 },
+             color: {background:'#ea7501', border:'grey'},
+             font: '10px arial white'},
+            {id: 5, label: '0800 DATOS', shape:'box', 
+             font: '10px arial grey',
+             color: {background:'white', border:'green'},},
+            {id: 6, label: 'Mesas IPC', shape:'box', 
+             font: '10px arial grey',
+             color: {background:'white', border:'#1797c0'},},
+            {id: 7, label: 'Conectividad Gestionada', shape:'box', 
+             font: '10px arial white',
+             color: {background:'#8000c5', border:'white'},},
+            {id: 8, label: 'Geogestion', shape:'box', 
+             font: '10px arial grey',
+             color: {background:'white', border:'#8000c5'},},
+            {id: 9, label: 'Fllet Mgmt', shape:'box', 
+             font: '10px arial grey',
+             color: {background:'white', border:'#8000c5'},},
+            //========== ==========================================
+            
+            //CANAL SUCURSAL ======================================
+            {id: 10, label: 'CANAL SUCURSAL', 
+             color: {background:'#004250', border:'grey'}, 
+             shape:'circle',
+             widthConstraint: { maximum: 140, minimum: 140 },
+             font: '14px arial white'},
+            {id: 11, label: 'Transformación Customer Journey',
+             widthConstraint: { maximum: 90, minimum: 90 },
+             shape:'circle',
+             color: {background:'grey', border:'grey'},
+             font: '10px arial white'},
+            {id: 12, label: 'Planes Expansión',
+             widthConstraint: { maximum: 90, minimum: 90 },
+             shape:'circle',
+             color: {background:'grey', border:'grey'},
+             font: '10px arial white'},
+            {id: 13, label: 'Comunicaciones oficinas',
+             widthConstraint: { maximum: 90, minimum: 90 },
+             shape:'circle',
+             color: {background:'#1797c0', border:'grey'},
+             font: '10px arial white'},
+            {id: 14, label: 'On-the-Spot', shape:'box', 
+             font: '10px arial grey',
+             color: {background:'white', border:'#8000c5'},},
+            {id: 15, label: 'LUCA Store', shape:'box', 
+             font: '10px arial grey',
+             color: {background:'white', border:'#8000c5'},},
+            {id: 16, label: 'Voz Fija', shape:'box', 
+             font: '10px arial white',
+             color: {background:'green', border:'green'},},
+            {id: 17, label: 'Datos Fijos', shape:'box', 
+             font: '10px arial white',
+             color: {background:'green', border:'green'},},
+            {id: 18, label: 'Outsourcing Comms', shape:'box', 
+             font: '10px arial white',
+             color: {background:'green', border:'green'},},
+            //========== ==========================================
+            
+            //EMPLEADO DIGITAL ====================================
+            {id: 20, label: 'EMPLEADO DIGITAL', 
+             color: {background:'#004250', border:'grey'}, 
+             shape:'circle',
+             widthConstraint: { maximum: 140, minimum: 140 },
+             font: '14px arial white'},
+            {id: 21, label: 'Puesto de Trabajo Fijo', 
+             widthConstraint: { maximum: 90, minimum: 90 },
+             shape:'circle',
+             color: {background:'grey', border:'grey'},
+             font: '10px arial white'},
+            {id: 22, label: 'Puesto de Trabajo Móvil',
+             widthConstraint: { maximum: 90, minimum: 90 },
+             shape:'circle',
+             color: {background:'#1797c0', border:'grey'},
+             font: '10px arial white'},
+            {id: 23, label: 'MOVIL', shape:'box', 
+             font: '10px arial white',
+             color: {background:'green', border:'green'},},
+            {id: 24, label: 'MDM', shape:'box', 
+             font: '10px arial white',
+             color: {background:'green', border:'green'},},
+            {id: 25, label: 'PdT Móvil', shape:'box', 
+             font: '10px arial grey',
+             color: {background:'white', border:'green'},},
+            {id: 26, label: 'UNIFIED COMMS', shape:'box', 
+             font: '10px arial grey',
+             color: {background:'white', border:'green'},},
+            {id: 27, label: 'PdT Fijo', shape:'box', 
+             font: '10px arial grey',
+             color: {background:'white', border:'green'},},
+            //========== ==========================================
+            
+            //INFRAES. Y SERV. CENTRALES ==========================
+            {id: 30, label: 'INFRAES. Y SERV. CENTRALES', 
+             color: {background:'#004250', border:'grey'}, 
+             shape:'circle',
+             widthConstraint: { maximum: 140, minimum: 140 },
+             font: '14px arial white'},
+            {id: 31, label: 'Infraestructura Tecnológica',
+             widthConstraint: { maximum: 90, minimum: 90 },
+             shape:'circle',
+             color: {background:'grey', border:'grey'},
+             font: '10px arial white'},
+             {id: 32, label: 'CPDs', 
+              widthConstraint: { maximum: 90, minimum: 90 },
+             shape:'circle',
+             color: {background:'#1797c0', border:'grey'},
+             font: '10px arial white'},
+            {id: 33, label: 'Managed Services', shape:'box', 
+             font: '10px arial grey',
+             color: {background:'white', border:'#8000c5'},},
+            {id: 34, label: 'OpenCloud', shape:'box', 
+             font: '10px arial grey',
+             color: {background:'white', border:'#8000c5'},},
+            {id: 35, label: 'VDC', shape:'box', 
+             font: '10px arial grey',
+             color: {background:'white', border:'#8000c5'},},
+            {id: 36, label: 'Housing', shape:'box', 
+             font: '10px arial grey',
+             color: {background:'white', border:'#8000c5'},},
+            {id: 37, label: 'HW&SW Resselling', shape:'box', 
+             font: '10px arial white',
+             color: {background:'#8000c5', border:'#8000c5'},},
+            //========== ==========================================
+            
+            //SEGURIDAD, RIESGOS y COMPLIANCE =====================
+			{id: 40, label: 'SEGURIDAD, RIESGOS y COMPLIANCE', 
+             color: {background:'#004250', border:'grey'}, 
+             shape:'circle',
+             widthConstraint: { maximum: 140, minimum: 140 },
+             font: '14px arial white'},
+            {id: 41, label: 'Seguridad Bancaria',
+             widthConstraint: { maximum: 90, minimum: 90 },
+             shape:'circle',
+             color: {background:'grey', border:'grey'},
+             font: '10px arial white'},
+            {id: 42, label: 'Riesgos',
+             widthConstraint: { maximum: 90, minimum: 90 },
+             shape:'circle',
+             color: {background:'grey', border:'grey'},
+             font: '10px arial white'},
+            {id: 43, label: 'Compliance', 
+             widthConstraint: { maximum: 90, minimum: 90 },
+             shape:'circle',
+             color: {background:'grey', border:'grey'},
+             font: '10px arial white'},
+            {id: 44, label: 'Segur. Apps',
+             widthConstraint: { maximum: 90, minimum: 90 },
+             shape:'circle',
+             color: {background:'grey', border:'grey'},
+             font: '10px arial white'},
+            {id: 45, label: 'Información Usuario',
+             widthConstraint: { maximum: 90, minimum: 90 },
+             shape:'circle',
+             color: {background:'grey', border:'grey'},
+             font: '10px arial white'},
+            {id: 46, label: 'Seg. Digital',
+             widthConstraint: { maximum: 90, minimum: 90 },
+             shape:'circle',
+             color: {background:'grey', border:'grey'},
+             font: '10px arial white'},
+            {id: 47, label: 'Grabación Voz Mesas', 
+             shape:'box', 
+             font: '10px arial grey',
+             color: {background:'white', border:'#1797c0'},},
+            {id: 48, label: 'Anti DDos', shape:'box', 
+             font: '10px arial grey',
+             color: {background:'white', border:'#8000c5'},},
+            {id: 49, label: 'Foca', shape:'box', 
+             font: '10px arial grey',
+             color: {background:'white', border:'#8000c5'},},
+            {id: 50, label: 'Methashield', shape:'box', 
+             font: '10px arial grey',
+             color: {background:'white', border:'#8000c5'},},
+            {id: 51, label: 'Latch', shape:'box', 
+             font: '10px arial grey',
+             color: {background:'white', border:'#8000c5'},},
+            {id: 52, label: 'Mobile Connect', shape:'box', 
+             font: '10px arial grey',
+             color: {background:'white', border:'#8000c5'},},
+            {id: 53, label: 'Smart Digits', shape:'box', 
+             font: '10px arial grey',
+             color: {background:'white', border:'#8000c5'},},
+            {id: 54, label: 'Disr Recovery', shape:'box', 
+             font: '10px arial grey',
+             color: {background:'white', border:'#8000c5'},},
+            {id: 55, label: 'MSS', shape:'box', 
+             font: '10px arial grey',
+             color: {background:'white', border:'#8000c5'},},
+            {id: 56, label: 'Vamps', shape:'box', 
+             font: '10px arial grey',
+             color: {background:'white', border:'#8000c5'},},
+            {id: 57, label: 'Cyberthreats', shape:'box', 
+             font: '10px arial grey',
+             color: {background:'white', border:'#8000c5'},},
+        ]);*/
+        
+        var nodes = new vis.DataSet({!nodosJson});
+        var edges = new vis.DataSet({!edgesJson});
+        // create an array with edges
+        /*
+        var edges = new vis.DataSet([
+            //otros canales
+            {from: 1, to: 3, length: 150, color: {color:'#1797c0'}},
+            {from: 1, to: 2, length: 150, color: {color:'#1797c0'}},
+            {from: 1, to: 4, length: 150, color: {color:'#1797c0'}},
+            {from: 2, to: 5, length: 150},
+            {from: 3, to: 6, length: 150},
+            {from: 4, to: 7, length: 100, color: {color:'#ea7501'}, width: 8},
+            {from: 4, to: 8, length: 150},
+            {from: 7, to: 9, length: 150, color: {color:'grey'}},
+            //canal sucursal
+            {from: 10, to: 11, length: 150, color: {color:'#1797c0'}},
+            {from: 10, to: 12, length: 150, color: {color:'#1797c0'}},
+            {from: 10, to: 13, length: 150, color: {color:'#1797c0'}},
+            {from: 12, to: 15, length: 150},
+            {from: 11, to: 14, length: 150},
+            {from: 13, to: 16, length: 100, color: {color:'#1797c0'}, width: 8},
+            {from: 16, to: 17, length: 100, color: {color:'green'}, width: 8},
+            {from: 17, to: 18, length: 100, color: {color:'#ea7501'}, width: 8},
+            //Empleado digital
+            {from: 20, to: 21, length: 150, color: {color:'#1797c0'}},
+            {from: 20, to: 22, length: 150, color: {color:'#1797c0'}},
+            {from: 21, to: 26, length: 150},
+            {from: 26, to: 27, length: 150, color: {color:'grey'}},
+            {from: 22, to: 23, length: 100, color: {color:'#1797c0'}, width: 8},
+            {from: 23, to: 24, length: 100, color: {color:'green'}, width: 8},
+            {from: 24, to: 25, length: 150, color: {color:'grey'}},
+            //Infraestructura y servicios centrales
+            {from: 30, to: 31, length: 150, color: {color:'#1797c0'}},
+            {from: 30, to: 32, length: 150, color: {color:'#1797c0'}},
+            {from: 31, to: 33, length: 150, color: {color:'grey'}},
+            {from: 32, to: 34, length: 100, color: {color:'#1797c0'}, width: 8},
+            {from: 32, to: 35, length: 150, color: {color:'grey'}},
+            {from: 32, to: 36, length: 150, color: {color:'grey'}},
+            {from: 32, to: 37, length: 100, color: {color:'#ea7501'}, width: 8},
+            //SEGURIDAD, RIESGOS y COMPLIANCE
+			{from: 40, to: 41, length: 150, color: {color:'#1797c0'}},
+            {from: 40, to: 42, length: 150, color: {color:'#1797c0'}},
+            {from: 40, to: 43, length: 150, color: {color:'#1797c0'}},
+		    {from: 42, to: 44, length: 150, color: {color:'#1797c0'}},
+            {from: 42, to: 45, length: 150, color: {color:'#1797c0'}},
+            {from: 42, to: 46, length: 150, color: {color:'#1797c0'}},
+            {from: 43, to: 47, length: 150, color: {color:'grey'}},
+            {from: 46, to: 48, length: 150, color: {color:'grey'}},
+            {from: 46, to: 49, length: 150, color: {color:'grey'}},
+            {from: 46, to: 50, length: 150, color: {color:'grey'}},
+            {from: 45, to: 51, length: 150, color: {color:'grey'}},
+            {from: 45, to: 52, length: 150, color: {color:'grey'}},
+            {from: 44, to: 53, length: 150, color: {color:'grey'}},
+            {from: 44, to: 54, length: 150, color: {color:'grey'}},
+            {from: 41, to: 55, length: 150, color: {color:'grey'}},
+            {from: 41, to: 56, length: 150, color: {color:'grey'}},
+            {from: 41, to: 57, length: 150, color: {color:'grey'}},
+            
+            //Union de esferas centrales.
+            {from: 1, to: 10, length: 50},
+            {from: 10, to: 20, length: 50},
+            {from: 20, to: 30, length: 50},
+            {from: 30, to: 40, length: 50},
+            {from: 40, to: 1, length: 50},
+            
+        ]);
+        */
+        
+        // create a network
+        var container = document.getElementById('mynetwork');
+        
+        // provide the data in the vis format
+        var data = {
+            nodes: nodes,
+            edges: edges
+        };
+        
+        var options = {
+            nodes: {
+                shape: 'dot',
+                size: 30,
+                font: {
+                    size: 32
+                },
+                borderWidth: 2,
+                shadow:false
+            },
+            edges: {
+                width: 3,
+                shadow:false,
+                arrowStrikethrough: true
+            },
+            physics: {
+                enabled: true,
+                repulsion: {
+                    nodeDistance: 1000,
+                    centralGravity: 0,
+                    springLength: 1000
+                }
+            },
+            layout:{
+				randomSeed:8
+            }
+        };
+        
+        // initialize your network!
+        var network = new vis.Network(container, data, options);
+        </script>
+        </apex:outputpanel>
+        <br/>
+        <br/>
+        <table style="width:100%;">
+            <tr>
+                <td style="width:20%;
+                           text-align:center;">
+                    <span class="hasPotentialBussiness" style="margin-left:0px;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
+                    <span class="hasPotentialBussinessSampleText">{!$Label.Oportunidades_Ganadas}&nbsp;&nbsp;</span><br/>               
+                </td>
+                <td style="width:20%;
+                           text-align:center;">
+                    <span class="hasOpportunity" style="margin-left:0px;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
+                    <span class="hasOpportunitySampleText">{!$Label.Oportunidades_En_Funnel}.&nbsp;&nbsp;</span><br/>             
+                </td>
+                <td style="width:20%;
+                           text-align:center;">
+                    <span class="vendidoEnElPasado" style="margin-left:0px;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
+                    <span class="hasOpportunitySampleText">{!$Label.Lineas_De_Trabajo_Priorizadas}.&nbsp;&nbsp;</span><br/>             
+                </td>
+                <td style="width:20%;
+                           text-align:center;">
+                    <span class="noAplica" style="margin-left:0px;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
+                    <span class="hasOpportunitySampleText">{!$Label.Lineas_A_Explorar}.&nbsp;&nbsp; </span>             
+                </td>
+                <td style="width:20%;
+                           text-align:center;">
+                    <span class="NotUsed" style="margin-left:0px;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
+                    <span class="NotUsedSampleText">{!$Label.Lineas_que_no_Aplican_en_el_Cliente}&nbsp;&nbsp;</span><br/>             
+                </td>
+                
+            </tr>  
+        </table>
+        
+    </body>
+
+</apex:page>

@@ -1,0 +1,1 @@
+<apex:page controller="taskfeed1.iCalendarServiceController" applyHtmlTag="false" applyBodyTag="false" showHeader="false" sidebar="false" contentType="text/ical" cache="false">{!VCal}</apex:page>

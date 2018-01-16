@@ -1,0 +1,402 @@
+<apex:page standardController="Solicitud_Capex__c" extensions="SolicitudCapexController"  sidebar="false" docType="html-5.0">
+    
+    <apex:includeScript value="{!URLFOR($Resource.bootstrapSF, 'js/JQueryToBS.js')}"/>
+    <apex:includeScript value="{!URLFOR($Resource.bootstrapSF, 'js/bootstrap.min.js')}"/>
+    <apex:includeScript value="{!$Resource.JQuery}" />
+    <apex:stylesheet value="{!URLFOR($Resource.bootstrapSF, 'css/bootstrap-namespaced.min.css')}"/>	 
+    <apex:stylesheet value="{!URLFOR($Resource.bootstrapSF, 'css/BSCustomSyles.css')}"/>
+    <script>
+    //-----------------------------------------------------------------------------
+    //Add the newer versions with noConflict(true) in reverse load order leaving 1.6.1 first
+    var jq161 = jQuery.noConflict(true);
+    var jq213 = jQuery.noConflict(true);
+    
+    jQuery = jq161;
+    $j = jq213;
+    
+    $j(document).ready(function() {      
+        captureFileButtons();
+    });
+    
+    function captureFileButtons() {
+        $j("[name=newNote]").on("mousedown", function(){
+            SaveChangesBeforeAttach();
+        });
+        $j("[name=attachFile]").on("mousedown", function(){
+            SaveChangesBeforeAttach();
+        });            
+        $j("[name=viewAll]").on("mousedown", function(){
+            SaveChangesBeforeAttach();
+        });
+    }
+    
+    //-----------------------------------------------------------------------------
+    </script>
+    <style>
+        .bootstrap-sf1 * {
+        font-family:  Calibri, ProximaNovaSoft-Regular, 'Helvetica Neue', 'Gill Sans', 'Gill Sans MT', Candara, Segoe, 'Segoe UI', Arial, sans-serif;
+        }
+        
+        .paddingRight {
+        padding-right: 15px;
+        }
+        
+        .inlineEditUndo {
+        display: none;
+        }
+        
+        .inlineEditWriteOn {
+        background: rgba(0, 0, 0, 0) url("/img/func_icons/util/pencil12.gif") no-repeat scroll right 2px;		    
+        }
+        
+        .PopupHolderOpp {
+        float:right;
+        margin-right: 6px;
+        margin: 5px;
+        cursor: pointer;
+        }
+        
+        .PopupHolderOpp *{
+        box-sizing: content-box ! important;
+        }
+        
+        .PopupHolderOpp .pbHeader {
+        border:0px;
+        border-top: 3px solid #f3ae4e !important;
+        }
+        
+        .PopupHolderOpp .pbHeader .mainTitle {
+        font-size: 18px !important;
+        font-weight: bold !important;	
+        }
+        
+        .PopupHolderOpp .pbBody .labelCol {
+        font-size: 16px !important;
+        font-weight: bold !important;	
+        }
+        
+        .PopupHolderOpp .pbBody .dataCol {
+        font-size: 16px !important;
+        font-weight: normal !important;
+        }
+        
+        .agregarButton {
+        padding: 3px 20px !important;
+        font-size: 13px !important;
+        }
+    </style>
+    
+    
+    <script>
+    
+    
+    </script>
+    
+    <apex:outputpanel styleClass="container-fluid bootstrap-sf1" id="pageContent">
+        
+        <div class="panel-heading">
+            <h1 class="panel-title">
+                <span style="float:left; margin-right: 5px; font-weight: bold; font-size: 110%;">
+                    {!$Label.Solicitud_Capex}
+                </span>
+            </h1>
+            
+            <apex:actionStatus id="loadingSend">
+                <apex:facet name="start">
+                    <img src="/img/loading.gif"/>
+                </apex:facet>
+            </apex:actionStatus>
+            
+            <div class="btn-group pull-right">
+                <apex:outputLink value="{!$Page.OpportunitySnapshot}?id={!idOportunidad}">
+                    <button type="button" class="btn btn-default btn-sm">
+                        <span class="glyphicon glyphicon-remove icon-btn-left"></span>&nbsp;Cancelar
+                    </button>
+                </apex:outputLink>
+            </div>
+			<div class="btn-group pull-right">
+                <div>
+                 &nbsp;&nbsp;
+                </div>    
+            </div>   
+            <div class="btn-group pull-right">
+                <button type="button" class="btn btn-default btn-sm" onclick="SaveChanges()">
+                    <span class="glyphicon glyphicon glyphicon-envelope icon-btn-left"></span>&nbsp;{!$Label.send}
+                </button>
+            </div>
+        </div>
+        
+        <br/>
+        
+        <!-- Message Sended -->
+        <apex:outputPanel id="msgPanel">
+            <br/>
+
+            <apex:messages style="width: 98%;" styleClass="center-block alert alert-danger" />
+            
+            <apex:outputPanel rendered="{! enviado != null}">
+                <br/>
+                <div style = "width: 98%;" class="center-block alert alert-success" role="alert">
+                    <span class="glyphicon glyphicon-ok" aria-hidden="true"></span>
+                    {!enviado}
+                </div>
+            </apex:outputPanel>
+        </apex:outputPanel>
+        <br/>                  
+        
+        <apex:form >
+            <apex:actionFunction action="{!guardarSinValidar}" name="SaveChangesBeforeAttach" />
+            <apex:actionFunction action="{!send}" name="SaveChanges" reRender="msgPanel, mensajes" status="loadingSend" oncomplete="enviar(); return false;" />
+            <apex:actionFunction action="{!enviarMail}" name="enviar" reRender="msgPanel" />
+            
+            <!-- Solicitante -->
+            <apex:pageBlock title="{!$Label.Solicitante}">
+                
+                <apex:pageBlockSection >
+                    <apex:outputField label="{!$Label.Operador_Pais}" value="{!solicitud.Operator_or_country__c}"/>
+                </apex:pageBlockSection>
+                
+                <apex:pageBlockSection >
+
+                    <apex:outputText label="{!$Label.Quien_realiza_la_solicitud}">
+                        <div class="requiredInput">
+                            <div class="requiredBlock"></div>
+                            <apex:inputField value="{!solicitud.applicant_name__c}"/>
+                        </div>
+                    </apex:outputText>
+
+                    <apex:inputField value="{!solicitud.Applicant_Position__c}" label="{!$Label.Posicion_y_Area_del_solicitante}" />
+                    <apex:outputField label="{!$Label.Fecha_de_solicitud}" value="{!solicitud.Application_Date__c}" />
+                </apex:pageBlockSection>
+            </apex:pageBlock>
+            
+            <!-- Informacion General de la Oportunidad -->
+            <apex:pageBlock title="{!$Label.Informacion_General_del_Proyecto}" >
+                
+                <apex:pageBlockSection >
+                    <apex:outputField label="{!$Label.Nombre_del_Proyecto}" value="{!solicitud.Proyect_Name__c}"/>
+                    <apex:outputField label="{!$Label.Codigo_en_Salesforce}" value="{!solicitud.Salesforce_code__c}"/>
+                    <apex:outputField label="{!$Label.Descripcion_breve_del_proyecto}" value="{!solicitud.Proyect_description__c}"/>
+                    <apex:outputField label="{!$Label.Nombre_del_Cliente}" value="{!solicitud.Client_Name__c}"/>
+                    
+                    <apex:pageBlockSectionItem >
+                        <label>{!$Label.Fecha_de_licitacion}</label>    
+                        <apex:inputField showDatePicker="false" value="{!solicitud.Fecha_de_Licitacion__c}"/>
+                    </apex:pageBlockSectionItem> 
+                    
+                </apex:pageBlockSection>
+            </apex:pageBlock>
+            
+            <!-- Informacíon Economica del Proyecto -->
+            <apex:pageBlock title="{!$Label.Informacion_Economica}">
+                
+                <apex:pageBlockSection >
+                    <apex:outputField label="FCV" value="{!solicitud.FCV__c}"/>
+                    
+                    <apex:outputText label="{!$Label.TIR_anual}">
+                        <div class="requiredInput">
+                            <div class="requiredBlock"></div>
+                            <apex:inputField value="{!solicitud.TIR__c}"/>
+                        </div>
+                    </apex:outputText>
+                    
+                    <apex:outputField label="NAV" value="{!solicitud.NAV__c}"/>
+                    
+                    <apex:outputText label="{!$Label.Margen_OIBDA}">
+                        <div class="requiredInput">
+                            <div class="requiredBlock"></div>
+                            <apex:inputField value="{!solicitud.OIBDA__c}"/>
+                        </div>
+                    </apex:outputText>
+                     
+                    <apex:inputCheckbox label="Descargar Plantilla resumen Business Case" value="{!enviarBusinessCase}" />
+                    
+                </apex:pageBlockSection>
+            </apex:pageBlock>
+            
+            <!-- Capex -->
+            <apex:pageBlock title="{!$Label.Capex}">
+                
+                <apex:pageBlockSection >
+                    <apex:outputField label="{!$Label.Capex_Total_de_la_oportunidad}" value="{!solicitud.Total_Capex__c}"/>
+                    
+                    <apex:outputText label="{!$Label.Capex_solicitado} {!monedaDeLaOportunidad}">
+                        <div class="requiredInput">
+                            <div class="requiredBlock"></div>
+                            <apex:inputField value="{!solicitud.Requested_Capex__c}"/>
+                        </div>
+                    </apex:outputText>
+                    
+                    <apex:outputText label="{!$Label.Es_una_disposicion_multianual}">
+                        <div class="requiredInput">
+                            <div class="requiredBlock"></div>
+                            <apex:inputField value="{!solicitud.Multiyear_Disposition__c}"/>
+                        </div>
+                    </apex:outputText>
+                    
+                    <apex:pageBlockSectionItem >
+                        <label>{!$Label.En_caso_de_ser_multianual} {!monedaDeLaOportunidad}</label>    
+                        <apex:inputField value="{!solicitud.Capex_Import_for_this_year__c}" />
+                    </apex:pageBlockSectionItem>
+                    
+                    <apex:outputText label="{!$Label.Concepto_para_el_que_se_solicita}">
+                        <div class="requiredInput">
+                            <div class="requiredBlock"></div>
+                            <apex:inputField value="{!solicitud.Solicitation_Concept__c}"/>
+                        </div>
+                    </apex:outputText>
+
+                    <apex:pageBlockSectionItem >
+                        <label>{!$Label.Capex_marco_inversor_del_ano_en_curso} {!monedaDeLaOportunidad}</label>    
+                        <apex:inputField value="{!solicitud.Capex_Investor_current_year__c}"/>
+                    </apex:pageBlockSectionItem>
+                    
+                    <apex:pageBlockSectionItem >
+                        <label>{!$Label.Capex_marco_inversor_ya_comprometido} {!monedaDeLaOportunidad}</label>    
+                        <apex:inputField value="{!solicitud.Capex_Investor_commited__c}"/>
+                    </apex:pageBlockSectionItem>
+                    
+                </apex:pageBlockSection>
+            </apex:pageBlock>
+            
+            <!-- Documentacion -->
+            <apex:pageBlock title="{!$Label.Documentacion}">
+                
+                <apex:pageBlockSection >
+                    
+                    <apex:outputText label="{!$Label.Adjunta_el_Business_Case}">
+                        <div class="requiredInput">
+                            <div class="requiredBlock"></div>
+                            <apex:inputField value="{!solicitud.Attach_Business_case__c}"/>
+                        </div>
+                    </apex:outputText>
+                    
+                    <apex:outputText label="{!$Label.Ha_sido_revisado_por_su_controlador_de_gestion_local}">
+                        <div class="requiredInput">
+                            <div class="requiredBlock"></div>
+                            <apex:inputField value="{!solicitud.Reviewed_by_management_control__c}"/>
+                        </div>
+                    </apex:outputText>
+   
+                    <apex:pageBlockSectionItem >
+                        <label>{!$Label.Ha_sido_aprobado_por_su_controlador_de_gestion_local}</label>
+                        <apex:inputField value="{!solicitud.approved_by_management_control__c}" id="aprobado"/>
+                    </apex:pageBlockSectionItem>
+                    
+                    <apex:pageBlockSectionItem >
+                        <label>{!$Label.Explique_por_que_no_ha_sido_aprobado}</label>   
+                        <apex:inputField value="{!solicitud.Description_Not_Approved__c}"/>
+                    </apex:pageBlockSectionItem>
+                    
+                    <apex:pageBlockSectionItem >
+                        <label>{!$Label.Informacion_adicional_que_se_adjunta}</label>
+                        <apex:inputField value="{!solicitud.Aditional_information__c}" />
+                    </apex:pageBlockSectionItem>
+                    
+                </apex:pageBlockSection>
+            </apex:pageBlock>            
+        </apex:form>	
+        
+        <apex:form >
+            <apex:actionFunction action="{!eliminarMail}" name="borrar" reRender="mailsAEnviar" />
+            <apex:actionFunction action="{!agregarMail}" name="add" reRender="mailsAEnviar" status="loadingTable" />
+            <!-- tabla de Email a enviar -->
+            
+            <apex:pageBlock id="mailsAEnviar">
+                
+
+                <div class ="col-md-6" >
+                     
+                    <apex:outputPanel rendered="{!destinatariosPorDefault.size > 0}">
+                        <apex:pageBlockTable styleClass="right" value="{!destinatariosPorDefault}" var="destinatario" >
+                            <apex:column style="width: 40%; padding-left: 5px;" HeaderValue="{!$Label.Destinatario_solicitud_capEx}" value="{!destinatario.name}" />
+                            <apex:column style="width: 40%; padding-left: 5px;" HeaderValue="Correo Electronico" value="{!destinatario.Email__c}"/>
+                        </apex:pageBlockTable>
+                    </apex:outputPanel>
+                    <br/><br/>
+                    
+                    <label>{!$Label.Agregar_un_correo_adicional_al_cual_enviar_la_solicitud}&nbsp; </label> 
+                    <n/>
+                    <br/>
+                    <br/>
+                        <label>Nombre:&nbsp;</label><apex:input style="width: 24%;" html-placeholder="Nombre" type="text" value="{!nombreEmail}"/>
+                        <label>Correo:&nbsp;</label><apex:input style="width: 24%;" html-placeholder="Ejemplo@ejemplo.com" type="text" value="{!mailExterno}"/>
+
+
+                    
+                    &nbsp;&nbsp;   
+                    <div class="btn-group">
+                        <button type="button" class="btn btn-default btn-sm agregarButton" onclick="add()" >
+                            <span class="glyphicon glyphicon-plus icon-btn-left"></span>&nbsp;Agregar
+                        </button>
+                        &nbsp;
+                        <apex:actionStatus id="loadingTable">
+                            <apex:facet name="start">
+                                <img src="/img/loading.gif"/>
+                            </apex:facet>
+                        </apex:actionStatus>
+                        
+                    </div>
+                    <br/><br/>
+                    
+ 
+                    
+                </div>
+                
+                <apex:outputPanel styleClass="col-md-6" rendered="{!wrappersMails.size > 0}">
+                    <apex:pageBlockTable styleClass="right" value="{!wrappersMails}" var="wppEmail" >
+                        <apex:column style="width:5%; text-align: center; ">
+                            <apex:inputCheckbox value="{!wppEmail.eliminar}"/>
+                        </apex:column>
+                        <apex:column style="width: 40%" HeaderValue="Nombre" value="{!wppEmail.nombre}"/>
+                        <apex:column style="width: 40%" HeaderValue="Direccion de correo electronico adicional" value="{!wppEmail.email}"/>
+                        
+                    </apex:pageBlockTable>
+                    
+                    <br/>
+                    <div class="btn-group pull-right">
+                        <button type="button" class="btn btn-default btn-sm" onclick="borrar()">
+                            <span class="glyphicon glyphicon-trash icon-btn-left"></span>&nbsp;Eliminar
+                        </button>
+                        <br/>
+                        <br/>
+                        
+                    </div>
+                </apex:outputPanel>
+
+
+            </apex:pageBlock>
+        </apex:form> 
+        
+        <br/><br/>
+        <!-- Archivos Adjuntos -->
+        <apex:actionRegion >
+        <apex:pageBlock mode="maindetail">
+            <apex:pageBlockSection columns="1">         
+                <apex:relatedList list="CombinedAttachments" />
+            </apex:pageBlockSection>
+        </apex:pageBlock>
+        </apex:actionRegion>
+        
+        
+        <div class="btn-group pull-right">
+            <apex:outputLink value="{!$Page.OpportunitySnapshot}?id={!idOportunidad}">
+                <button type="button" class="btn btn-default btn-sm">
+                    <span class="glyphicon glyphicon-remove icon-btn-left"></span>&nbsp;Cancelar
+                </button>
+            </apex:outputLink>
+        </div>
+        <div class="btn-group pull-right">
+            <div>
+                &nbsp;&nbsp;
+            </div>    
+        </div>
+        <div class="btn-group pull-right">
+            <button type="button" class="btn btn-default btn-sm" onclick="SaveChanges()">
+                <span class="glyphicon glyphicon glyphicon-envelope icon-btn-left"></span>&nbsp;{!$Label.send}
+            </button>
+        </div>
+        
+    </apex:outputpanel>
+    
+</apex:page>

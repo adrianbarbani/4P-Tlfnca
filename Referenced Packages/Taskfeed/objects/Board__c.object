@@ -1,0 +1,556 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomObject xmlns="http://soap.sforce.com/2006/04/metadata">
+    <actionOverrides>
+        <actionName>Accept</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>CancelEdit</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Clone</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Delete</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Edit</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>List</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>New</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>SaveEdit</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Tab</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>View</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <allowInChatterGroups>false</allowInChatterGroups>
+    <compactLayoutAssignment>Taskfeed_Board_Compact_Layout</compactLayoutAssignment>
+    <compactLayouts>
+        <fullName>Taskfeed_Board_Compact_Layout</fullName>
+        <fields>Name</fields>
+        <fields>Type__c</fields>
+        <fields>OwnerId</fields>
+        <fields>Status_Overview__c</fields>
+        <fields>Start_Date__c</fields>
+        <fields>End_Date__c</fields>
+        <label>Taskfeed Board Compact Layout</label>
+    </compactLayouts>
+    <deploymentStatus>Deployed</deploymentStatus>
+    <deprecated>false</deprecated>
+    <description>A project is a group of tasks which can relate to most objects within Salesforce e.g. Account, Opportunity, Campaign or Custom Object.</description>
+    <enableActivities>false</enableActivities>
+    <enableBulkApi>true</enableBulkApi>
+    <enableFeeds>true</enableFeeds>
+    <enableHistory>true</enableHistory>
+    <enableReports>true</enableReports>
+    <enableSearch>true</enableSearch>
+    <enableSharing>true</enableSharing>
+    <enableStreamingApi>true</enableStreamingApi>
+    <externalSharingModel>Private</externalSharingModel>
+    <fieldSets>
+        <fullName>editBoardPopup</fullName>
+        <availableFields>
+            <field>Color__c</field>
+            <isFieldManaged>false</isFieldManaged>
+            <isRequired>false</isRequired>
+        </availableFields>
+        <availableFields>
+            <field>Decays_Warning_Amber__c</field>
+            <isFieldManaged>false</isFieldManaged>
+            <isRequired>false</isRequired>
+        </availableFields>
+        <availableFields>
+            <field>Decays_Warning_Red__c</field>
+            <isFieldManaged>false</isFieldManaged>
+            <isRequired>false</isRequired>
+        </availableFields>
+        <availableFields>
+            <field>LastModifiedDate</field>
+            <isFieldManaged>false</isFieldManaged>
+            <isRequired>false</isRequired>
+        </availableFields>
+        <availableFields>
+            <field>LastReferencedDate</field>
+            <isFieldManaged>false</isFieldManaged>
+            <isRequired>false</isRequired>
+        </availableFields>
+        <availableFields>
+            <field>LastViewedDate</field>
+            <isFieldManaged>false</isFieldManaged>
+            <isRequired>false</isRequired>
+        </availableFields>
+        <availableFields>
+            <field>Number_of_Lists__c</field>
+            <isFieldManaged>false</isFieldManaged>
+            <isRequired>false</isRequired>
+        </availableFields>
+        <availableFields>
+            <field>Number_of_Tasks__c</field>
+            <isFieldManaged>false</isFieldManaged>
+            <isRequired>false</isRequired>
+        </availableFields>
+        <description>Edit Board Popup in Taskfeed</description>
+        <displayedFields>
+            <field>Name</field>
+            <isFieldManaged>false</isFieldManaged>
+            <isRequired>false</isRequired>
+        </displayedFields>
+        <displayedFields>
+            <field>Archived__c</field>
+            <isFieldManaged>false</isFieldManaged>
+            <isRequired>false</isRequired>
+        </displayedFields>
+        <label>editBoardPopup</label>
+    </fieldSets>
+    <fields>
+        <fullName>Archived__c</fullName>
+        <defaultValue>false</defaultValue>
+        <deprecated>false</deprecated>
+        <externalId>false</externalId>
+        <label>Archived</label>
+        <trackFeedHistory>false</trackFeedHistory>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Checkbox</type>
+    </fields>
+    <fields>
+        <fullName>Color__c</fullName>
+        <deprecated>false</deprecated>
+        <externalId>false</externalId>
+        <inlineHelpText>Enter a CSS compliant back-ground color to customise the look of the board</inlineHelpText>
+        <label>Color</label>
+        <length>10</length>
+        <required>false</required>
+        <trackFeedHistory>false</trackFeedHistory>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Contributors_Autofollow_Tasks__c</fullName>
+        <defaultValue>false</defaultValue>
+        <deprecated>false</deprecated>
+        <externalId>false</externalId>
+        <inlineHelpText>When selected new tasks will automatically be followed by Board Contributors</inlineHelpText>
+        <label>Contributors Auto-follow Tasks</label>
+        <trackFeedHistory>false</trackFeedHistory>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Checkbox</type>
+    </fields>
+    <fields>
+        <fullName>Decays_Warning_Amber__c</fullName>
+        <defaultValue>168</defaultValue>
+        <deprecated>false</deprecated>
+        <externalId>false</externalId>
+        <inlineHelpText>Decay warning will show a label on the task cards when a card has been ignored beyond the threshold e.g. 1 Week = 168 hours. Decay is always measured in hours.</inlineHelpText>
+        <label>Decays Warning Amber</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>0</scale>
+        <trackFeedHistory>false</trackFeedHistory>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Decays_Warning_Red__c</fullName>
+        <defaultValue>730</defaultValue>
+        <deprecated>false</deprecated>
+        <externalId>false</externalId>
+        <inlineHelpText>Decay warning will show a label on the task cards when a card has been ignored beyond the threshold e.g. 1 Month = 730 hours. Decay is always measured in hours.</inlineHelpText>
+        <label>Decays Warning Red</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>0</scale>
+        <trackFeedHistory>false</trackFeedHistory>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Default_Taskfeed_List__c</fullName>
+        <deleteConstraint>SetNull</deleteConstraint>
+        <deprecated>false</deprecated>
+        <externalId>false</externalId>
+        <label>Default Taskfeed List</label>
+        <lookupFilter>
+            <active>true</active>
+            <errorMessage>Default List must be a member of this Board.</errorMessage>
+            <filterItems>
+                <field>$Source.Id</field>
+                <operation>equals</operation>
+                <valueField>List__c.Board__r.Id</valueField>
+            </filterItems>
+            <isOptional>false</isOptional>
+        </lookupFilter>
+        <referenceTo>List__c</referenceTo>
+        <relationshipLabel>Taskfeed Board Defaults</relationshipLabel>
+        <relationshipName>Taskfeed_Boards_Default</relationshipName>
+        <required>false</required>
+        <trackFeedHistory>false</trackFeedHistory>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Lookup</type>
+    </fields>
+    <fields>
+        <fullName>End_DateTime__c</fullName>
+        <deprecated>false</deprecated>
+        <description>End Date is a calculated field using the earliest End Date for all Tasks on the Board.</description>
+        <externalId>false</externalId>
+        <label>End Date/Time (Deprecated)</label>
+        <required>false</required>
+        <trackFeedHistory>false</trackFeedHistory>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>DateTime</type>
+    </fields>
+    <fields>
+        <fullName>End_Date__c</fullName>
+        <deprecated>false</deprecated>
+        <externalId>false</externalId>
+        <label>End Date</label>
+        <required>false</required>
+        <trackFeedHistory>false</trackFeedHistory>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Date</type>
+    </fields>
+    <fields>
+        <fullName>Group_by_Lists_in_Plan_View__c</fullName>
+        <defaultValue>false</defaultValue>
+        <deprecated>false</deprecated>
+        <externalId>false</externalId>
+        <inlineHelpText>When selected the Plan view will be split by each List. This is useful when Lists represent Phases of a Project.</inlineHelpText>
+        <label>Group by Lists in Plan View</label>
+        <trackFeedHistory>false</trackFeedHistory>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Checkbox</type>
+    </fields>
+    <fields>
+        <fullName>Is_Complete__c</fullName>
+        <deprecated>false</deprecated>
+        <description>If there are Tasks on the Board the if they are all complete then the Board is considered complete.</description>
+        <externalId>false</externalId>
+        <formula>IF( Number_of_Tasks__c &gt; 0, (Number_of_Completed_Tasks__c == Number_of_Tasks__c), false)</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>Is Complete</label>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Checkbox</type>
+    </fields>
+    <fields>
+        <fullName>List_Template__c</fullName>
+        <deprecated>false</deprecated>
+        <description>This field was used for automating the selected of List Template. From v1.67 this was replaced with a Type field on Board for mapping Board to List Template. For more information please visit help.taskfeedapp.com</description>
+        <externalId>false</externalId>
+        <label>List Template (Deprecated)</label>
+        <length>255</length>
+        <required>false</required>
+        <trackFeedHistory>false</trackFeedHistory>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Number_of_Completed_Tasks__c</fullName>
+        <deprecated>false</deprecated>
+        <externalId>false</externalId>
+        <label>Number of Completed Tasks</label>
+        <summarizedField>List__c.Number_of_Completed_Tasks__c</summarizedField>
+        <summaryForeignKey>List__c.Board__c</summaryForeignKey>
+        <summaryOperation>sum</summaryOperation>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Summary</type>
+    </fields>
+    <fields>
+        <fullName>Number_of_Lists__c</fullName>
+        <deprecated>false</deprecated>
+        <externalId>false</externalId>
+        <label>Number of Lists</label>
+        <summaryForeignKey>List__c.Board__c</summaryForeignKey>
+        <summaryOperation>count</summaryOperation>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Summary</type>
+    </fields>
+    <fields>
+        <fullName>Number_of_Tasks__c</fullName>
+        <deprecated>false</deprecated>
+        <externalId>false</externalId>
+        <label>Number of Tasks</label>
+        <summarizedField>List__c.Number_of_Tasks__c</summarizedField>
+        <summaryForeignKey>List__c.Board__c</summaryForeignKey>
+        <summaryOperation>sum</summaryOperation>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Summary</type>
+    </fields>
+    <fields>
+        <fullName>Open__c</fullName>
+        <deprecated>false</deprecated>
+        <externalId>false</externalId>
+        <formula>HYPERLINK(&apos;/apex/taskfeed1__Taskfeed?boardId=&apos;+Id, &apos;Open board...&apos;)</formula>
+        <label>Open...</label>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Order__c</fullName>
+        <deprecated>false</deprecated>
+        <externalId>false</externalId>
+        <inlineHelpText>Order is a manually managed value to control the presentation order of Boards in a multiboard view.</inlineHelpText>
+        <label>Order</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>0</scale>
+        <trackFeedHistory>false</trackFeedHistory>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Pc_Complete__c</fullName>
+        <deprecated>false</deprecated>
+        <externalId>false</externalId>
+        <formula>IF(Number_of_Tasks__c &gt; 0, Number_of_Completed_Tasks__c/Number_of_Tasks__c,0)</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>% Complete</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>0</scale>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Percent</type>
+    </fields>
+    <fields>
+        <fullName>Post_New_Task_Notification_to_Chatter__c</fullName>
+        <defaultValue>false</defaultValue>
+        <deprecated>false</deprecated>
+        <externalId>false</externalId>
+        <inlineHelpText>When selected New Tasks will be posted to the Boards Chatter feed</inlineHelpText>
+        <label>Post New Task Notification to Chatter</label>
+        <trackFeedHistory>false</trackFeedHistory>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Checkbox</type>
+    </fields>
+    <fields>
+        <fullName>Start_DateTime__c</fullName>
+        <deprecated>false</deprecated>
+        <description>Start Date is a calculated field using the earliest Start Date for all Tasks on the Board.</description>
+        <externalId>false</externalId>
+        <label>Start Date/Time (Deprecated)</label>
+        <required>false</required>
+        <trackFeedHistory>false</trackFeedHistory>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>DateTime</type>
+    </fields>
+    <fields>
+        <fullName>Start_Date__c</fullName>
+        <deprecated>false</deprecated>
+        <externalId>false</externalId>
+        <label>Start Date</label>
+        <required>false</required>
+        <trackFeedHistory>false</trackFeedHistory>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Date</type>
+    </fields>
+    <fields>
+        <fullName>Status_Overview__c</fullName>
+        <deprecated>false</deprecated>
+        <externalId>false</externalId>
+        <formula>TEXT(ROUND(Pc_Complete__c*100,0)) + &quot;% (&quot; +  TEXT(Number_of_Completed_Tasks__c) + &quot;/&quot; +  TEXT(Number_of_Tasks__c) + &quot;)&quot;</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>Status Overview</label>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Task_Template__c</fullName>
+        <deprecated>false</deprecated>
+        <externalId>false</externalId>
+        <label>Task Template (Deprecated)</label>
+        <length>255</length>
+        <required>false</required>
+        <trackFeedHistory>false</trackFeedHistory>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Type__c</fullName>
+        <deprecated>false</deprecated>
+        <externalId>false</externalId>
+        <inlineHelpText>&quot;The Type of Board can define the Lists, default Tasks and Sharing Rules for the Board.&quot;</inlineHelpText>
+        <label>Type</label>
+        <required>false</required>
+        <trackFeedHistory>false</trackFeedHistory>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Picklist</type>
+        <valueSet>
+            <valueSetDefinition>
+                <sorted>false</sorted>
+                <value>
+                    <fullName>Private</fullName>
+                    <default>true</default>
+                </value>
+                <value>
+                    <fullName>Project</fullName>
+                    <default>false</default>
+                </value>
+            </valueSetDefinition>
+        </valueSet>
+    </fields>
+    <label>Taskfeed Board</label>
+    <listViews>
+        <fullName>All</fullName>
+        <filterScope>Everything</filterScope>
+        <label>All</label>
+    </listViews>
+    <listViews>
+        <fullName>All_Boards</fullName>
+        <columns>NAME</columns>
+        <columns>Type__c</columns>
+        <columns>Start_Date__c</columns>
+        <columns>End_Date__c</columns>
+        <columns>Status_Overview__c</columns>
+        <columns>Open__c</columns>
+        <filterScope>Everything</filterScope>
+        <label>All Boards</label>
+    </listViews>
+    <listViews>
+        <fullName>All_Boards_In_Progress</fullName>
+        <columns>NAME</columns>
+        <columns>Type__c</columns>
+        <columns>Start_Date__c</columns>
+        <columns>End_Date__c</columns>
+        <columns>Status_Overview__c</columns>
+        <columns>Open__c</columns>
+        <filterScope>Everything</filterScope>
+        <filters>
+            <field>Is_Complete__c</field>
+            <operation>equals</operation>
+            <value>0</value>
+        </filters>
+        <label>All Boards (In Progress)</label>
+    </listViews>
+    <listViews>
+        <fullName>My_Boards</fullName>
+        <columns>NAME</columns>
+        <columns>Type__c</columns>
+        <columns>Start_Date__c</columns>
+        <columns>End_Date__c</columns>
+        <columns>Status_Overview__c</columns>
+        <columns>Open__c</columns>
+        <filterScope>Mine</filterScope>
+        <label>My Boards</label>
+    </listViews>
+    <listViews>
+        <fullName>My_Boards_In_Progress</fullName>
+        <columns>NAME</columns>
+        <columns>Type__c</columns>
+        <columns>Start_Date__c</columns>
+        <columns>End_Date__c</columns>
+        <columns>Status_Overview__c</columns>
+        <columns>Open__c</columns>
+        <filterScope>Mine</filterScope>
+        <filters>
+            <field>Is_Complete__c</field>
+            <operation>equals</operation>
+            <value>0</value>
+        </filters>
+        <label>My Boards (In Progress)</label>
+    </listViews>
+    <nameField>
+        <label>Board Name</label>
+        <trackFeedHistory>false</trackFeedHistory>
+        <trackHistory>false</trackHistory>
+        <type>Text</type>
+    </nameField>
+    <pluralLabel>Taskfeed Boards</pluralLabel>
+    <searchLayouts>
+        <customTabListAdditionalFields>Type__c</customTabListAdditionalFields>
+        <customTabListAdditionalFields>Start_Date__c</customTabListAdditionalFields>
+        <customTabListAdditionalFields>End_Date__c</customTabListAdditionalFields>
+        <customTabListAdditionalFields>Status_Overview__c</customTabListAdditionalFields>
+        <customTabListAdditionalFields>Open__c</customTabListAdditionalFields>
+        <lookupDialogsAdditionalFields>Type__c</lookupDialogsAdditionalFields>
+        <lookupDialogsAdditionalFields>Start_Date__c</lookupDialogsAdditionalFields>
+        <lookupDialogsAdditionalFields>End_Date__c</lookupDialogsAdditionalFields>
+        <lookupDialogsAdditionalFields>Number_of_Tasks__c</lookupDialogsAdditionalFields>
+        <lookupDialogsAdditionalFields>Number_of_Completed_Tasks__c</lookupDialogsAdditionalFields>
+        <searchResultsAdditionalFields>Type__c</searchResultsAdditionalFields>
+        <searchResultsAdditionalFields>Start_Date__c</searchResultsAdditionalFields>
+        <searchResultsAdditionalFields>End_Date__c</searchResultsAdditionalFields>
+        <searchResultsAdditionalFields>Number_of_Tasks__c</searchResultsAdditionalFields>
+        <searchResultsAdditionalFields>Number_of_Completed_Tasks__c</searchResultsAdditionalFields>
+        <searchResultsAdditionalFields>Open__c</searchResultsAdditionalFields>
+    </searchLayouts>
+    <sharingModel>Private</sharingModel>
+    <sharingReasons>
+        <fullName>Contributor__c</fullName>
+        <label>Contributor</label>
+    </sharingReasons>
+    <validationRules>
+        <fullName>MAX_LIST_COUNT</fullName>
+        <active>true</active>
+        <description>Restrict number of lists on a board to 12</description>
+        <errorConditionFormula>(Number_of_Lists__c &gt; PRIORVALUE( Number_of_Lists__c )) &amp;&amp; Number_of_Lists__c &gt;= 12</errorConditionFormula>
+        <errorMessage>To protect performance a board can have a maximum of 12 lists</errorMessage>
+    </validationRules>
+    <validationRules>
+        <fullName>MAX_TASK_COUNT</fullName>
+        <active>true</active>
+        <description>Restrict number of tasks on a board to 500</description>
+        <errorConditionFormula>/*** if the number of tasks has increased  and over 500 **/
+
+(Number_of_Tasks__c &gt; PRIORVALUE( Number_of_Tasks__c )) &amp;&amp; Number_of_Tasks__c &gt; 500</errorConditionFormula>
+        <errorMessage>To protect performance a board can have a maximum of 500 tasks</errorMessage>
+    </validationRules>
+    <webLinks>
+        <fullName>Go_to_board</fullName>
+        <availability>online</availability>
+        <displayType>button</displayType>
+        <encodingKey>UTF-8</encodingKey>
+        <linkType>url</linkType>
+        <masterLabel>Go to board...</masterLabel>
+        <openType>replace</openType>
+        <protected>false</protected>
+        <url>{!URLFOR($Site.Prefix + &quot;/apex/taskfeed1__Taskfeed?boardId=&quot; + Board__c.Id, null, null)}</url>
+    </webLinks>
+</CustomObject>

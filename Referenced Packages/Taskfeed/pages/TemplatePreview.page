@@ -1,0 +1,59 @@
+<apex:page standardController="taskfeed1__Template__c" extensions="taskfeed1.TemplatePreviewControllerExtension" action="{!validateTemplate}">
+<c:includes />
+
+<style>
+.divspacing {
+	padding: 5px;
+}
+</style>
+
+<apex:outputPanel rendered="{!NOT(ISBLANK(ErrorMessage))}">
+	<div class="alert alert-warning" role="alert">
+	  <div><strong>Warning.</strong> There was an issue when validating this template. The template may still be used however should be tested manually.</div>
+	  <div>The error returned from validation was: {!ErrorMessage}.</div>
+	</div>
+</apex:outputPanel>
+
+<apex:detail subject="{!taskfeed1__Template__c.Id}" title="true" inlineEdit="true" relatedList="true" relatedListHover="true" />
+
+<apex:outputPanel id="previewSection">
+	<apex:outputPanel id="previewSectionContainer" >
+		<apex:outputPanel id="uploadFile">
+			<div>
+	            <div class="taskmodal-section-title"><i class="fa fa-file-excel-o"></i> Upload Template file</div>
+	        </div>
+			<apex:form enctype="multipart/form-data">
+				 <div class="divspacing"><apex:inputFile value="{!attachmentBody}" fileName="{!attachmentName}" accept=".csv" id="file" /></div>
+				 <div style="clear: left;"></div>
+				 <div class="divspacing"><apex:commandButton action="{!upload}" value="Upload and Validate Template File"/></div>
+			</apex:form>
+		</apex:outputPanel>
+		<apex:outputPanel id="previewTable">
+			<div>
+	            <div class="taskmodal-section-title"><i class="fa fa-table"></i> Template Preview</div>
+	        </div>
+	        <apex:outputPanel rendered="{!AND(previewSize!=null,previewSize>0)}">
+	        <div class="divspacing">
+	        	<apex:outputPanel rendered="{!attach!=null}">
+	        		<i class="fa fa-cloud-download"></i> <apex:outputLink value="{!URLFOR($Action.Attachment.Download, attach.id)}" target="_blank" html-download="true"> Download...</apex:outputLink>
+	        	</apex:outputPanel>
+	        </div>
+			<div class="table-responsive">
+				<table class="table table-striped table-condensed">
+					<tbody>
+					<apex:repeat value="{!templateBody}" var="row" id="rowRepeat">
+						<tr>
+							<apex:repeat value="{!row}" var="col" id="colRepeat">
+								<td><apex:outputText value="{!col}" /></td>
+							</apex:repeat>
+						</tr>
+					</apex:repeat>
+					</tbody>
+				</table>
+			</div>
+			</apex:outputPanel>
+		</apex:outputPanel>
+	</apex:outputPanel>
+</apex:outputPanel>
+
+</apex:page>

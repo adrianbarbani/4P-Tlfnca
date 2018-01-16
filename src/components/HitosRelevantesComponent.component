@@ -1,0 +1,136 @@
+<apex:component controller="FourPlanningController" >
+    <style>
+        .headerRow {    
+        background-color: #F2F3F3;          
+        color: #000000;
+        font-size: 0.9em;
+        font-weight: bold;
+        padding: 5px 2px;
+        text-align: center;         
+        } 
+    </style>
+    
+    <table class="table table-striped table-bordered table-condensed">
+        <thead>
+            <tr>
+    			<th class="headerRow">                    
+                    <apex:outputText value="Pregunta" />
+                </th>
+                <th class="headerRow">
+                    <apex:outputText value="Respuesta" />
+                </th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr class="dataRow">
+                <td class="dataCell">
+                    <apex:outputText value="{!$Label.certa_scp__fecha_de_vencimiento_de_contratos_de_datos_fijos}" />
+                </td>
+                <td class="dataCell">
+                    <apex:outputField value="{!fourPlanning.Vencimiento_Datos_Fijos__c}" />
+                </td>
+            </tr>
+            <tr class="dataRow">
+                <td class="dataCell">
+                    <apex:outputText value="{!$Label.certa_scp__fecha_vencimiento_contratos_voz_fija}" />
+                </td>
+                <td class="dataCell">
+                    <apex:outputField value="{!fourPlanning.Fecha_Vencimiento_Contratos_Voz_Fija__c}" />
+                </td>
+            </tr>
+            <tr class="dataRow">
+                <td class="dataCell">
+                    <apex:outputText value="{!$Label.certa_scp__fecha_de_vencimiento_de_contrato_de_servicios_m_viles}" />
+                </td>
+                <td class="dataCell">
+                    <apex:outputField value="{!fourPlanning.Vencimiento_Servicios_Moviles__c}" />
+                </td>
+            </tr>
+            <tr class="dataRow">
+                <td class="dataCell">
+                    <apex:outputText value="{!$Label.certa_scp__fecha_de_vencimiento_de_contratos_de_otros_servicios}" />
+                </td>
+                <td class="dataCell">
+                    <apex:outputText value="{!fourPlanning.Vencimiento_Otros_Servicios__c} {!fourPlanning.Otros_Servicios__c}" />
+                </td>
+            </tr>
+            <apex:outputPanel rendered="{!esSectorPublico}">
+            <tr class="dataRow">
+                <td class="dataCell">
+                    <apex:outputText value="{!$Label.certa_scp__afectan_cambios_politicos}" />
+                </td>
+                <td class="dataCell">
+                    <apex:outputText value="{!fourPlanning.Le_afectan_los_cambios_politicos__c}" />
+                </td>
+            </tr>
+            </apex:outputPanel>
+            
+            <apex:outputPanel rendered="{!esSectorPublico}">
+            <tr class="dataRow">
+                <td class="dataCell">
+                    <apex:outputText value="{!$Label.certa_scp__persona_decision_servicios}" />
+                </td>
+                <td class="dataCell">
+                    <apex:outputText value="{!fourPlanning.Compra_de_caracter_politico_o__c}" />
+                </td>
+            </tr>
+            </apex:outputPanel>
+            <tr class="dataRow">
+                <td class="dataCell">
+                    <apex:outputText value="{!$Label.certa_scp__a_qu_evento_de_telef_nica_vas_a_invitar_al_cliente} {!$Label.certa_scp__fecha_del_evento}" />
+                </td>
+                <td class="dataCell">
+                    <apex:outputText value="{!fourPlanning.Evento_telefonica_cliente__c} {!fourPlanning.Fecha_Evento__c}" />
+                </td>
+        </tr>
+        <tr class="dataRow">
+                <td class="dataCell">
+                    <apex:outputText value="{!$Label.certa_scp__porcentaje_facturacion_cliente}" />
+                </td>
+                <td class="dataCell">
+                    <apex:outputText value="{!fourPlanning.facturacion_cliente_garantizada__c}" />
+                </td>
+        </tr>
+        
+        
+</tbody>
+</table>
+
+
+<span style="font-weight: bold; font-size: 14px;">Otros Hitos Relevantes:</span>
+
+<table class="table table-striped table-bordered table-condensed">
+    <thead>
+            <tr>
+                <th class="headerRow">
+                    {!$Label.certa_scp__description}
+                </th>
+                <th class="headerRow">
+                    {!$Label.certa_scp__fecha} 
+                </th>
+                <th class="headerRow">
+                    {!$Label.certa_scp__categoria}
+                </th>
+</tr>
+</thead>
+<tbody>
+<apex:variable var="c" value="{!0}"/>
+                <apex:repeat value="{!hitos}" var="hito" id="number">
+                    <tr>
+                        <td id="elemento - {!c+1}">
+                            <apex:variable var="c" value="{!c+1}"/>
+                            <apex:outputText value="{!hito.Descripcion__c}"/>
+                        </td>
+                        <td>
+                            <apex:outputText value="{0,date,dd/MM/yyyy}"> <apex:param value="{!hito.Fecha__c}" /> </apex:outputText>
+                        </td>
+                        <td >
+                            <apex:outputField value="{!hito.Categoria__c}"/>
+                        </td>
+                    </tr>
+                </apex:repeat>
+</tbody>
+</table>
+
+
+</apex:component>

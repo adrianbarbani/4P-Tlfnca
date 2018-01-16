@@ -1,0 +1,457 @@
+<apex:page controller="taskfeed1.SettingsController" showHeader="false" standardStylesheets="false" sidebar="false" applyHtmlTag="false" applyBodyTag="false" docType="html-5.0">    
+
+<html xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">    
+
+<head>
+    <title>Taskfeed Settings — Taskfeed</title>
+    <apex:includeScript value="{!URLFOR($Resource.taskfeed1__jquery, '/js/jquery-1.10.2.js')}"/>
+    <apex:stylesheet value="{!URLFOR($Resource.taskfeed1__lightning_design_system, 'assets/styles/salesforce-lightning-design-system-vf.css')}" />
+    <style>
+        html,body { margin: 0px; }
+    </style>
+</head>    
+
+<body>
+
+<apex:form >
+    <apex:actionFunction name="scheduleTaskArchiveBatch" action="{!scheduleTaskArchiveBatch}" />
+    <apex:actionFunction name="scheduleInboxDueDateBatch" action="{!scheduleInboxDueDateBatch}" />
+    <apex:actionFunction name="execInboxDueDateBatch" action="{!execInboxDueDateBatch}" />
+    <apex:actionFunction name="execEmailDailySummaryBatch" action="{!execEmailDailySummaryBatch}" />
+    <apex:actionFunction name="scheduleEmailDailySummaryBatch" action="{!scheduleEmailDailySummaryBatch}" />
+    <apex:actionFunction name="createDefaultListTemplate" action="{!createDefaultListTemplate}" />
+</apex:form>
+
+  <!-- REQUIRED SLDS WRAPPER -->
+  <div class="slds">    
+
+    <!-- PAGE HEADER -->
+    <div class="slds-page-header" role="banner">
+    
+      <!-- LAYOUT GRID -->
+      <div class="slds-grid">
+    
+        <!-- GRID COL -->
+        <div class="slds-col">
+    
+          <!-- HEADING AREA -->
+            <!-- MEDIA OBJECT = FIGURE + BODY -->
+            <div class="slds-media">
+            
+              <div class="slds-media__figure">
+              <svg aria-hidden="true" class="slds-icon slds-icon--medium slds-icon-action-new-custom-8">
+                <use xlink:href="{!URLFOR($Resource.lightning_design_system, '/assets/icons/utility-sprite/svg/symbols.svg#settings')}"></use>
+              </svg>
+            </div>
+            
+              <div class="slds-media__body">
+                <p class="slds-text-heading--label">Settings</p>
+                <h1 class="slds-text-heading--medium">Taskfeed Settings</h1>
+              </div>
+            
+            </div>
+            <!-- / MEDIA OBJECT -->
+          <!-- /HEADING AREA -->
+
+    
+        </div>
+    
+        <!-- GRID COL -->
+        <div class="slds-col slds-no-flex slds-align-middle">
+        </div>
+        <!-- / GRID COL -->
+    
+      </div>
+      <!-- / LAYOUT GRID -->
+        
+    </div>
+    <!-- / PAGE HEADER -->
+
+
+    <!-- MASTHEAD -->
+    <div class="slds-m-around--medium">
+        <nav role="navigation">
+            <p id="bread-crumb-label" class="slds-assistive-text">You are here:</p>
+                <ol class="slds-breadcrumb slds-list--horizontal" aria-labelledby="bread-crumb-label">
+                    <li class="slds-list__item slds-text-heading--label"><a href="/apex/taskfeed">Taskfeed</a></li>
+                    <li class="slds-list__item slds-text-heading--label"><a href="#">Taskfeed Settings</a></li>
+                </ol>
+        </nav>
+    </div>
+    <!-- / MASTHEAD --> 
+
+    
+     <apex:outputPanel rendered="{!NOT(ISBLANK(notification))}">
+        <div class="slds-notify-container">
+          <div class="slds-notify slds-notify--toast slds-theme--success" role="alert">
+            <span class="slds-assistive-text">Info</span>
+            <button class="slds-button slds-button--icon-inverse slds-notify__close" onClick="clearNotifications();">
+              <svg aria-hidden="true" class="slds-button__icon button__icon--inverse">
+                <use xlink:href="{!URLFOR($Resource.lightning_design_system, '/assets/icons/action-sprite/svg/symbols.svg#close')}"></use>
+              </svg>
+              <span class="slds-assistive-text">Close</span>
+            </button>
+            <div class="notify__content slds-grid">
+                <svg aria-hidden="true" class="slds-icon slds-icon--small slds-m-right--small slds-col slds-no-flex">
+                    <use xlink:href="{!URLFOR($Resource.lightning_design_system, '/assets/icons/utility-sprite/svg/symbols.svg#success')}"></use>
+                </svg>
+                <div class="slds-col slds-align-middle">
+                    <h2 class="slds-text-heading--small">{!notification}</h2>
+                </div>
+            </div>
+          </div>
+        </div>
+    </apex:outputPanel>
+    
+        
+     <apex:outputPanel rendered="{!NOT(ISBLANK(errorNotification))}">
+        <div class="slds-notify-container">
+          <div class="slds-notify slds-notify--toast slds-theme--error" role="alert">
+            <span class="slds-assistive-text">Info</span>
+            <button class="slds-button slds-button--icon-inverse slds-notify__close" onClick="clearNotifications();">
+              <svg aria-hidden="true" class="slds-button__icon button__icon--inverse">
+                <use xlink:href="{!URLFOR($Resource.lightning_design_system, '/assets/icons/action-sprite/svg/symbols.svg#close')}"></use>
+              </svg>
+              <span class="slds-assistive-text">Close</span>
+            </button>
+            <div class="notify__content slds-grid">
+                <svg aria-hidden="true" class="slds-icon slds-icon--small slds-m-right--small slds-col slds-no-flex">
+                    <use xlink:href="{!URLFOR($Resource.lightning_design_system, '/assets/icons/utility-sprite/svg/symbols.svg#warning')}"></use>
+                </svg>
+                <div class="slds-col slds-align-middle">
+                    <h2 class="slds-text-heading--small">{!errorNotification}</h2>
+                </div>
+            </div>
+          </div>
+        </div>
+    </apex:outputPanel>
+    
+    <!--
+    <apex:outputPanel rendered="{!NOT(ISBLANK(errorNotification))}">
+        <div class="slds-notify slds-notify--toast slds-theme--error" role="alert">
+            <span class="slds-assistive-text">Error</span>
+            <button class="slds-button slds-button--icon-inverse slds-notify__close">
+                <svg aria-hidden="true" class="slds-button__icon slds-button__icon--large">
+                    <use xmlns:xlink="{!URLFOR($Resource.lightning_design_system, '/assets/icons/action-sprite/svg/symbols.svg#close')}"></use>
+                </svg>
+                <span class="slds-assistive-text">Close</span>
+            </button>
+            <div class="notify__content slds-grid">
+                <svg aria-hidden="true" class="slds-icon slds-icon--small slds-m-right--small slds-col slds-no-flex">
+                    <use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="{!URLFOR($Resource.lightning_design_system, '/assets/icons/utility-sprite/svg/symbols.svg#warning')}"></use>
+                </svg>
+                <div class="slds-col slds-align-middle">
+                    <h2 class="slds-text-heading--small">{!errorNotification}</h2>
+                </div>
+            </div>
+        </div>
+    </apex:outputPanel>-->
+  
+    <!-- PRIMARY CONTENT WRAPPER -->
+    <div class="myapp">
+
+        <!-- GRID SYSTEM -->    
+        <div class="slds-grid slds-wrap">
+
+            <div class="slds-col slds-col--padded slds-size--1-of-1 slds-medium-size--1-of-2 slds-large-size--1-of-2">
+    
+                 <!-- NOTIFICATION SECTION -->
+                  <div aria-labelledby="taskArchive">
+                
+                    <!-- BOXED AREA -->
+                    <fieldset class="slds-box slds-theme--default slds-container">
+                
+                      <legend id="taskArchive" class="slds-text-heading--medium slds-p-vertical--medium">
+
+                        <span>
+                          <svg aria-hidden="true" class="slds-icon slds-icon--small slds-icon-text-default">
+                            <use xlink:href="{!URLFOR($Resource.lightning_design_system, '/assets/icons/action-sprite/svg/symbols.svg#apex')}"></use>
+                          </svg>
+                        </span>
+                        Task Archive Process
+                      </legend>
+
+                      <div class="slds-text-body--regular">Nightly process responsible for marking tasks as Archived.  Task will be set to archived when their archived date is in the future. This happens when a List is congifured for auto-archive.</div>
+
+                      <apex:outputPanel rendered="{!ISNULL(archiveJob)}">
+
+                        <br />
+                        <span class="slds-badge slds-theme--warning slds-m-top--medium">
+                            <span class="slds-icon__container">
+                              <svg class="slds-icon slds-icon--x-small slds-icon-text-default">
+                                <use xlink:href="{!URLFOR($Resource.lightning_design_system, '/assets/icons/utility-sprite/svg/symbols.svg#warning')}"></use>
+                              </svg>
+                            <span class="slds-assistive-text">Disabled icon</span>
+                          </span>
+                          Disabled
+                        </span>
+                        <apex:outputText styleClass="slds-text-body--small slds-m-around--medium" value="This process is disabled and will not run."></apex:outputText>
+            
+                      <!-- BUTTON -->
+                        <div class="slds-form-element">
+                            <button class="slds-button slds-button--neutral slds-m-around--xx-small slds-m-top--medium slds-float--right" onClick="scheduleTaskArchiveBatch()">
+                                <svg aria-hidden="true" class="slds-button__icon slds-button__icon--left">
+                                    <use xlink:href="{!URLFOR($Resource.lightning_design_system, '/assets/icons/utility-sprite/svg/symbols.svg#clock')}"></use>
+                                </svg>
+                                Schedule Task Archive Process
+                            </button>
+                        </div>
+                      <!-- / BUTTON -->
+
+                    </apex:outputPanel>
+
+                    <apex:outputPanel rendered="{!NOT(ISNULL(archiveJob))}">
+                        <br />
+                        <span class="slds-badge slds-theme--success slds-m-top--medium"> 
+                          <span class="slds-icon__container">
+                              <svg class="slds-icon slds-icon--x-small">
+                                <use xlink:href="{!URLFOR($Resource.lightning_design_system, '/assets/icons/utility-sprite/svg/symbols.svg#success')}"></use>
+                              </svg>
+                            <span class="slds-assistive-text">Success icon</span>
+                          </span>
+                          Schedule Active
+                        </span>
+                        <apex:outputText styleClass="slds-text-body--small slds-m-around--medium" value="Scheduled to run next at {0,date,MM/dd/yyyy 'at' HH:mm z}">
+                          <apex:param value="{!archiveJob.NextFireTime}" />
+                        </apex:outputText>
+                    </apex:outputPanel>
+                    </fieldset>
+                    <!-- / BOXED AREA -->
+                
+                  </div>
+                  <!-- / NOTIFICATION SECTION -->
+
+            </div>
+
+          <div class="slds-col slds-col--padded slds-size--1-of-1 slds-medium-size--1-of-2 slds-large-size--1-of-2">
+
+              <!-- SECTION -->
+              <div aria-labelledby="taskInbox">
+            
+                <!-- BOXED AREA -->
+                <fieldset class="slds-box slds-theme--default slds-container">
+            
+                  <legend id="taskInbox" class="slds-text-heading--medium slds-p-vertical--medium">
+
+                    <span>
+                      <svg aria-hidden="true" class="slds-icon slds-icon--small slds-icon-text-default">
+                        <use xlink:href="{!URLFOR($Resource.lightning_design_system, '/assets/icons/action-sprite/svg/symbols.svg#apex')}"></use>
+                      </svg>
+                    </span>
+                    Task Inbox
+                  </legend>
+
+                  <div class="slds-text-body--regular">Nightly process responsible for re-ordering users Task Inbox.</div>
+
+                      <apex:outputPanel rendered="{!ISNULL(inboxJob)}">
+
+                        <br />
+                        <span class="slds-badge slds-theme--warning slds-m-top--medium">
+                            <span class="slds-icon__container">
+                              <svg class="slds-icon slds-icon--x-small slds-icon-text-default">
+                                <use xlink:href="{!URLFOR($Resource.lightning_design_system, '/assets/icons/utility-sprite/svg/symbols.svg#warning')}"></use>
+                              </svg>
+                            <span class="slds-assistive-text">Disabled icon</span>
+                          </span>
+                          Disabled
+                        </span>
+                        <apex:outputText styleClass="slds-text-body--small slds-m-around--medium" value="This process is disabled and will not run."></apex:outputText>
+            
+                      <!-- BUTTON -->
+                        <div class="slds-form-element">
+                            <button class="slds-button slds-button--neutral slds-m-around--xx-small slds-m-top--medium slds-float--right" onClick="scheduleInboxDueDateBatch()">
+                                <svg aria-hidden="true" class="slds-button__icon slds-button__icon--left">
+                                    <use xlink:href="{!URLFOR($Resource.lightning_design_system, '/assets/icons/utility-sprite/svg/symbols.svg#clock')}"></use>
+                                </svg>
+                                Schedule Task Inbox Nightly Process
+                            </button>
+                        </div>
+                      <!-- / BUTTON -->
+
+                    </apex:outputPanel>
+
+                    <apex:outputPanel rendered="{!NOT(ISNULL(inboxJob))}">
+                        <br />
+                        <span class="slds-badge slds-theme--success slds-m-top--medium"> 
+                          <span class="slds-icon__container">
+                              <svg class="slds-icon slds-icon--x-small">
+                                <use xlink:href="{!URLFOR($Resource.lightning_design_system, '/assets/icons/utility-sprite/svg/symbols.svg#success')}"></use>
+                              </svg>
+                            <span class="slds-assistive-text">Success icon</span>
+                          </span>
+                          Schedule Active
+                        </span>
+                        <apex:outputText styleClass="slds-text-body--small slds-m-around--medium" value="Scheduled to run next at {0,date,MM/dd/yyyy 'at' HH:mm z}">
+                          <apex:param value="{!inboxJob.NextFireTime}" />
+                        </apex:outputText>
+                    </apex:outputPanel>
+                      
+                      <!-- BUTTON -->
+                        <div class="slds-form-element">
+                            <button class="slds-button slds-button--neutral slds-m-around--xx-small slds-m-top--medium slds-float--right" onClick="execInboxDueDateBatch()">
+                                <svg aria-hidden="true" class="slds-button__icon slds-button__icon--left">
+                                    <use xlink:href="{!URLFOR($Resource.lightning_design_system, '/assets/icons/utility-sprite/svg/symbols.svg#right')}"></use>
+                                </svg>
+                                Run Task Inbox Process Now
+                            </button>
+                        </div>
+                      <!-- / BUTTON -->
+            
+                </fieldset>
+                <!-- / BOXED AREA -->
+            
+              </div>
+              <!-- / SECTION -->
+
+          </div>
+          
+          <div class="slds-col slds-col--padded slds-size--1-of-1 slds-medium-size--1-of-2 slds-large-size--1-of-2">
+
+              <!-- SECTION -->
+              <div aria-labelledby="dailySummary">
+            
+                <!-- BOXED AREA -->
+                <fieldset class="slds-box slds-theme--default slds-container">
+            
+                  <legend id="dailySummary" class="slds-text-heading--medium slds-p-vertical--medium">
+
+                    <span>
+                      <svg aria-hidden="true" class="slds-icon slds-icon--small slds-icon-text-default">
+                        <use xlink:href="{!URLFOR($Resource.lightning_design_system, '/assets/icons/action-sprite/svg/symbols.svg#apex')}"></use>
+                      </svg>
+                    </span>
+                    Daily Summary
+                  </legend>
+
+                    <div class="slds-text-body--regular">Process to run each morning. Will send an email to users who have tasks due or with a summary of notifications from the day before.</div>
+
+                    <apex:outputPanel rendered="{!ISNULL(emailDailysummaryJob)}">
+
+                        <br />
+                        <span class="slds-badge slds-theme--warning slds-m-top--medium">
+                            <span class="slds-icon__container">
+                              <svg class="slds-icon slds-icon--x-small slds-icon-text-default">
+                                <use xlink:href="{!URLFOR($Resource.lightning_design_system, '/assets/icons/utility-sprite/svg/symbols.svg#warning')}"></use>
+                              </svg>
+                            <span class="slds-assistive-text">Disabled icon</span>
+                          </span>
+                          Disabled
+                        </span>
+                        <apex:outputText styleClass="slds-text-body--small slds-m-around--medium" value="This process is disabled and will not run."></apex:outputText>
+            
+                      <!-- BUTTON -->
+                        <div class="slds-form-element">
+                            <button class="slds-button slds-button--neutral slds-m-around--xx-small slds-m-top--medium slds-float--right" onClick="scheduleEmailDailySummaryBatch()">
+                                <svg aria-hidden="true" class="slds-button__icon slds-button__icon--left">
+                                    <use xlink:href="{!URLFOR($Resource.lightning_design_system, '/assets/icons/utility-sprite/svg/symbols.svg#clock')}"></use>
+                                </svg>
+                                Schedule Daily Summary Process
+                            </button>
+                        </div>
+                      <!-- / BUTTON -->
+
+
+                    </apex:outputPanel>
+
+                    <apex:outputPanel rendered="{!NOT(ISNULL(emailDailysummaryJob))}">
+                        <br />
+                        <span class="slds-badge slds-theme--success slds-m-top--medium"> 
+                          <span class="slds-icon__container">
+                              <svg class="slds-icon slds-icon--x-small">
+                                <use xlink:href="{!URLFOR($Resource.lightning_design_system, '/assets/icons/utility-sprite/svg/symbols.svg#success')}"></use>
+                              </svg>
+                            <span class="slds-assistive-text">Success icon</span>
+                          </span>
+                          Schedule Active
+                        </span>
+                        <apex:outputText styleClass="slds-text-body--small slds-m-around--medium" value="Scheduled to run next at {0,date,MM/dd/yyyy 'at' HH:mm z}">
+            							<apex:param value="{!emailDailysummaryJob.NextFireTime}" />
+            						</apex:outputText>
+                    </apex:outputPanel>
+                      
+                      <!-- BUTTON -->
+                        <div class="slds-form-element">
+                            <button class="slds-button slds-button--neutral slds-m-around--xx-small slds-m-top--medium slds-float--right" onClick="execEmailDailySummaryBatch()">
+                                <svg aria-hidden="true" class="slds-button__icon slds-button__icon--left">
+                                    <use xlink:href="{!URLFOR($Resource.lightning_design_system, '/assets/icons/utility-sprite/svg/symbols.svg#right')}"></use>
+                                </svg>
+                                Run Daily Summary Process Now
+                            </button>
+                        </div>
+                      <!-- / BUTTON -->
+            
+                </fieldset>
+                <!-- / BOXED AREA -->
+            
+              </div>
+              <!-- / SECTION -->
+
+          </div>
+
+          <div class="slds-col slds-col--padded slds-size--1-of-1 slds-medium-size--1-of-2 slds-large-size--1-of-2">
+
+              <!-- SECTION -->
+              <div aria-labelledby="defaultListTemplate">
+            
+                <!-- BOXED AREA -->
+                <fieldset class="slds-box slds-theme--default slds-container">
+            
+                  <legend id="defaultListTemplate" class="slds-text-heading--medium slds-p-vertical--medium">
+
+                    <span>
+                      <svg aria-hidden="true" class="slds-icon slds-icon--small slds-icon-text-default">
+                        <use xlink:href="{!URLFOR($Resource.lightning_design_system, '/assets/icons/utility-sprite/svg/symbols.svg#insert_template')}"></use>
+                      </svg>
+                    </span>
+                    Default List Template
+                  </legend>
+
+                    <div class="slds-text-body--regular">Will re-create the default List Template. Can be used if the Default List template has become corrupt or lost.</div>
+            
+                      <!-- BUTTON -->
+                        <div class="slds-form-element">
+                            <button class="slds-button slds-button--neutral slds-m-around--xx-small slds-m-top--medium slds-float--right" onClick="createDefaultListTemplate()">
+                                <svg aria-hidden="true" class="slds-button__icon slds-button__icon--left">
+                                    <use xlink:href="{!URLFOR($Resource.lightning_design_system, '/assets/icons/utility-sprite/svg/symbols.svg#insert_template')}"></use>
+                                </svg>
+                                Create Default List Template
+                            </button>
+                        </div>
+                      <!-- / BUTTON -->
+            
+                </fieldset>
+                <!-- / BOXED AREA -->
+            
+              </div>
+              <!-- / SECTION -->
+
+          </div>
+
+      </div>
+      <!-- / GRID SYSTEM -->
+
+    </div>
+    <!-- / PRIMARY CONTENT WRAPPER -->
+
+  
+
+    <!-- FOOTER -->
+    <footer role="contentinfo" class="slds-p-around--large">
+      <!-- LAYOUT GRID -->
+      <!-- / LAYOUT GRID -->
+    </footer>
+    <!-- / FOOTER -->
+      
+  </div>
+  <!-- / REQUIRED SLDS WRAPPER -->    
+
+<script>
+    var $j = jQuery.noConflict();
+    function clearNotifications() {
+        $j('.slds-notify-container').html('');
+    }
+
+</script>
+</body>    
+</html>
+</apex:page>

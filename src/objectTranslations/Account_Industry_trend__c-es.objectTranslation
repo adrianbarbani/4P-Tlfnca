@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomObjectTranslation xmlns="http://soap.sforce.com/2006/04/metadata">
+    <caseValues>
+        <plural>false</plural>
+        <value>Account - Industry trend</value>
+    </caseValues>
+    <caseValues>
+        <plural>true</plural>
+        <value>Accounts &amp; Industry Trends</value>
+    </caseValues>
+    <fields>
+        <label><!-- Account --></label>
+        <name>Account__c</name>
+        <relationshipLabel><!-- Accounts &amp; Industry Trends --></relationshipLabel>
+    </fields>
+    <fields>
+        <label><!-- Estado actual --></label>
+        <name>Current_state__c</name>
+        <picklistValues>
+            <masterLabel>No aplica</masterLabel>
+            <translation><!-- No aplica --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Vendido en el pasado</masterLabel>
+            <translation><!-- Vendido en el pasado --></translation>
+        </picklistValues>
+    </fields>
+    <fields>
+        <label><!-- Industry Trend --></label>
+        <name>Industry_Trend__c</name>
+        <relationshipLabel><!-- Accounts &amp; Industry Trends --></relationshipLabel>
+    </fields>
+    <gender>Masculine</gender>
+</CustomObjectTranslation>

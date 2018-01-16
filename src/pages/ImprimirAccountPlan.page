@@ -1,0 +1,83 @@
+<apex:page controller="ImprimirAccountPlanController" sidebar="false" tabStyle="Strategic_Client_Plan__tab">
+
+	<c:SCPMenu ></c:SCPMenu>
+   	
+	
+	<apex:outputPanel layout="block" styleClass="container-fluid bootstrap-sf1" id="EvaluatedContactsPageBlock">
+		<div class="panel panel-default">			
+	   		<div Class="panel-heading">
+    			<h3 class="panel-title">
+    				<span style="float:left;">
+    					{!$Label.certa_scp__imprimir_account}
+    				</span>	    				
+    			</h3>
+    			<div class="row paddingRight" style="margin-top: 20px;">
+	    			<div class="btn-group pull-right">
+	    			 	<apex:outputText rendered="{!canEdit}">
+	           				<button type="button" class="btn btn-default btn-sm" onclick="SaveChanges()">
+		   						<span class="glyphicon glyphicon-floppy-disk icon-btn-left"></span>&nbsp;{!$Label.save}
+		                    </button>
+		                </apex:outputText>    
+           				<button type="button" class="btn btn-default btn-sm" onclick="ExportToWord()">
+	   						<span class="glyphicon glyphicon-file icon-btn-left"></span>&nbsp;{!$Label.Export_to_Word}
+	                    </button>					                    
+    				</div>
+   				</div>
+    		</div>
+			<div class="panel-body">
+				<apex:form >
+					<apex:actionFunction action="{!ExportToWord}" name="ExportToWord"/>
+   					<apex:actionFunction action="{!save}" name="SaveChanges" rerender="pageContent" status="renderMeStatus"/>					
+					
+					<p class="h1"><apex:outputText value="Secciones a Exportar" /></p>
+					
+					<div style="float:left;">
+					<apex:inputField value="{!customReport.Descripcion_Cliente__c}"/>&nbsp;<apex:outputText value="{!$Label.certa_scp__descripcion_del_cliente}" /> 
+					<br/>
+					<apex:inputField value="{!customReport.Conocimiento_Negocio__c}"/>&nbsp;<apex:outputText value="{!$Label.certa_scp__conocimiento_de_la_actividad}" />
+					<br/>
+					<apex:inputField value="{!customReport.Relacion_Institucional__c}"/>&nbsp;<apex:outputText value="{!$Label.certa_scp__relacion}" />
+					</div>
+					
+					<div style="margin-left: 20%;">
+					<apex:inputField value="{!customReport.Contacto_Ejecutivo__c}"/>&nbsp;<apex:outputText value="{!$Label.certa_scp__contacto_ejecutivo}" />
+					<br/>
+					<apex:inputField value="{!customReport.Hitos__c}"/>&nbsp;<apex:outputText value="{!$Label.certa_scp__hitos_relevantes}" />
+					<br/>
+					<apex:inputField value="{!customReport.influenceMap__c}"/>&nbsp;<apex:outputText value="{!$Label.certa_scp__influence_org}" />
+					</div>
+                   
+                   <!-- Todas las secciones del cuestionario -->
+					
+								
+						<c:TodasLasSeccionesComponent />
+					
+					<br/>
+                    
+                   <!-- influence Map/Org -->
+					<p class="h1"><apex:outputText value="{!$Label.certa_scp__influence_org}" /></p>
+					<div style="margin:10px;border-bottom: 1px solid rgb(237, 239, 240);padding-bottom: 15px;">				
+						<c:accountOrganizationChartWindowComponent />
+					</div>
+					<br/>
+					
+					<!-- Grafico de Retos -->
+					<p class="h1"><apex:outputText value="{!$Label.certa_scp__ejes_de_trabajo}" /></p>
+					<div style="margin:10px;border-bottom: 1px solid rgb(237, 239, 240);padding-bottom: 15px;">				
+						<c:GraficoDeRetosComponent />
+					</div>
+					<br/>
+					
+					<!-- Grafico de CDC -->
+					<p class="h1"><apex:outputText value="{!$Label.certa_scp__desarrollo_cuenta}" /></p>
+					<div style="margin:10px;border-bottom: 1px solid rgb(237, 239, 240);padding-bottom: 15px;">				
+						<c:DesarrolloDeCuentaComponent />
+					</div>
+					<br/>
+					
+				
+				</apex:form>
+			</div>
+		</div>
+	</apex:outputPanel>
+</apex:page>

@@ -1,0 +1,8 @@
+<apex:component controller="ImprimirAccountPlanBIController">
+    
+    <apex:outputpanel style="background-color:white" styleClass="container-fluid bootstrap-sf1" id="pageContent">
+        
+        <iframe width="100%" height="1790" src="{!url}" frameborder="0" allowFullScreen="true"></iframe>    
+        
+    </apex:outputpanel>
+</apex:component>

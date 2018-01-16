@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomObjectTranslation xmlns="http://soap.sforce.com/2006/04/metadata">
+    <caseValues>
+        <plural>false</plural>
+        <value><!-- Pregunta AccountGrowthStrategy --></value>
+    </caseValues>
+    <caseValues>
+        <plural>true</plural>
+        <value><!-- Pregunta AccountGrowthStrategy --></value>
+    </caseValues>
+    <fields>
+        <label><!-- Cuenta --></label>
+        <name>Cuenta__c</name>
+        <relationshipLabel><!-- Preguntas AccountGrowthStrategy --></relationshipLabel>
+    </fields>
+    <fields>
+        <label><!-- For these TOP opps you just mentioned, p --></label>
+        <name>For_these_TOP_opps_you_just_mentioned_p__c</name>
+    </fields>
+    <fields>
+        <label><!-- Include more relevant opportunities you --></label>
+        <name>Include_more_relevant_opportunities_you__c</name>
+    </fields>
+    <fields>
+        <label><!-- What are your Top opportunities that wil --></label>
+        <name>What_are_your_Top_opportunities_that_wil__c</name>
+    </fields>
+    <fields>
+        <label><!-- What are your plans to develop and grow --></label>
+        <name>What_are_your_plans_to_develop_and_grow__c</name>
+    </fields>
+    <gender><!-- Feminine --></gender>
+    <nameFieldLabel><!-- Nombre de Preguntas AccountGro --></nameFieldLabel>
+</CustomObjectTranslation>

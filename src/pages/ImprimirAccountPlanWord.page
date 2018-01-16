@@ -1,0 +1,94 @@
+<apex:page controller="ImprimirAccountPlanController" sidebar="false" tabStyle="Strategic_Client_Plan__tab" showheader="false" contentType="application/msword#{!wordName}">
+	<head>
+        <meta http-equiv="Content-Type" content="text/html;charset=UTF-8" />
+    </head>
+
+	<style>
+		p.h1 {
+			background-color: #d4ebf2;
+			font-size: 15px;
+			padding: 6px;
+			font-weight: bold;
+			font-family: arial;
+		}
+		
+		p.h2 {
+			font-weight: bold;
+			font-family: arial;
+		}
+		
+		p.h3{
+		    background-color: #d4ebf2;
+			font-size: 20px;
+			padding: 6px;
+			font-weight: bold;
+			font-family: arial;
+		}
+		
+		font-family: arial;
+		
+	</style>
+    
+    
+    <p class="h3"><apex:outputText value="Account Plan - {!account.Name} - {!Today()}" /></p>
+    
+	<apex:pageBlock >
+		
+        <!-- Descripcion del Cliente -->
+		<apex:outputPanel rendered="{!customReport.Descripcion_Cliente__c}">
+			<p class="h1"><apex:outputText value="{!$Label.certa_scp__descripcion_del_cliente}" /></p>
+			<div style="margin:10px;">				
+				<c:DescripcionDelClienteComponent />
+			</div>
+			<br/><br/>
+		</apex:outputPanel>
+        
+        <!-- Conocimiento del negocio del cliente -->
+		<apex:outputPanel rendered="{!customReport.Conocimiento_Negocio__c}">
+			<p class="h1"><apex:outputText value="{!$Label.certa_scp__conocimiento_de_la_actividad}" /></p>
+			<div style="margin:10px;">				
+				<c:ConocimientoDelNegocioComponent />
+			</div>
+			<br/><br/>
+		</apex:outputPanel>
+        
+        <!-- Relacion Institucional -->
+		<apex:outputPanel rendered="{!customReport.Relacion_Institucional__c}">
+			<p class="h1"><apex:outputText value="{!$Label.certa_scp__relacion}" /></p>
+			<div style="margin:10px;">				
+				<c:RelacionInstitucionalComponent />
+			</div>
+			<br/><br/>
+		</apex:outputPanel>
+        
+        <!-- Contacto Ejecutivo -->
+		<apex:outputPanel rendered="{!customReport.Contacto_Ejecutivo__c}">
+			<p class="h1"><apex:outputText value="{!$Label.certa_scp__contacto_ejecutivo}" /></p>
+			<div style="margin:10px;">				
+				<c:ContactoEjecutivoComponent />
+			</div>
+			<br/><br/>
+		</apex:outputPanel>
+        
+        <!-- Hitos -->
+		<apex:outputPanel rendered="{!customReport.Hitos__c}">
+			<p class="h1"><apex:outputText value="{!$Label.certa_scp__hitos_relevantes}" /></p>
+			<div style="margin:10px;">				
+			    <c:HitosRelevantesComponent />	
+			</div>
+			<br/><br/>
+		</apex:outputPanel>
+        
+        <!-- influence Map/Org -->
+		<apex:outputPanel rendered="{!customReport.influenceMap__c}">
+			<p class="h1"><apex:outputText value="{!$Label.certa_scp__influence_org}" /></p>
+			<div style="margin:10px;">				
+				<c:accountOrganizationChartWindowComponent />
+			</div>
+			<br/><br/>
+		</apex:outputPanel>
+        
+		
+	</apex:pageBlock>
+
+</apex:page>

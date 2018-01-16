@@ -1,0 +1,89 @@
+<apex:page sidebar="false" controller="PreguntasAccountGrowthStrategyController"  tabStyle="Strategic_Client_Plan__tab" rendered="{!mostrar}" docType="html-5.0" action="{!insertarSetDePreguntas}">
+
+	<c:SCPMenu ></c:SCPMenu>
+	
+	
+	<style>
+		.inlineEditWriteOn, .inlineEditWrite, .readOnly span {
+			padding-right: 15px;
+		}		
+	</style>
+		
+	<script  type="text/javascript">
+	    $j = jQuery.noConflict();
+		 
+	</script>
+
+    <apex:outputPanel layout="block" styleClass="container-fluid bootstrap-sf1">
+        <apex:outputPanel layout="block"  styleClass="panel panel-default">
+            <apex:form id="Form">
+                <apex:outputPanel layout="block"  styleClass="panel-heading">
+                    <h3 class="panel-title">
+                        <span style="float:left;">
+                           {!$Label.Estrategias_de_crecimiento_de_la_cuenta}
+                        </span>
+                        <!--<c:tutorial />-->
+                        <span style="float:left;">
+                            <c:showVideo />
+                        </span>
+                    </h3>
+                    
+                    
+                    <div class="row paddingRight">	
+                        <apex:actionFunction action="{!saveChanges}" name="SaveChanges" rerender="pageContent" status="renderMeStatus"/>
+                        <div class="btn-group pull-right" role="group" aria-label="...">	
+                            
+                            <div style="float:left; margin-right: 10px">
+                                <apex:actionStatus id="renderMeStatus">
+                                    <apex:facet name="start">
+                                        <img src="/img/loading.gif"/>
+                                    </apex:facet>
+                                </apex:actionStatus>
+                            </div>
+                            
+                            <button type="button" class="btn btn-default btn-sm" onclick="SaveChanges()">
+                                <span class="glyphicon glyphicon-floppy-disk icon-btn-left"></span>&nbsp;{!$Label.save}
+                            </button>
+                            
+                        </div>
+                    </div>
+                </apex:outputPanel>
+                
+                <apex:outputPanel layout="block" styleClass="panel-body" id="pageContent">
+                    <apex:pageBlock title="" mode="maindetail">
+                        <apex:pageBlockSection columns="1">
+                            
+                        <apex:outputText >{!$Label.certa_scp__cuales_son_tus_planes_para_desarrollar_y_crecer_esta_cuenta}</apex:outputText>
+                        <apex:inputField style="width:100%" value="{!setDeRespuestas.What_are_your_plans_to_develop_and_grow__c}" label="" />
+                            <br/>   
+                        <apex:outputText >{!$Label.certa_scp__cual_es_el_top_de_oportunidades_que_te_va_a_permitir_conocer_tus_ventas_y_tus}</apex:outputText>
+                        <apex:inputField style="width:100%" value="{!setDeRespuestas.What_are_your_Top_opportunities_that_wil__c}" label="" />
+                            <br/>
+                        <apex:outputText >{!$Label.certa_scp__nombre_las_oportunidades_mas_relevantes_en_las_que_estas_trabajando_ahora_para_g}</apex:outputText>
+                        <apex:inputField style="width:100%" value="{!setDeRespuestas.Include_more_relevant_opportunities_you__c}" label="" />
+                            <br/>
+                        <apex:outputText >{!$Label.certa_scp__para_estas_oportunidades_que_acaba_de_mencionar_apliqueles_su_modelo_grow_goal}</apex:outputText>
+                        <apex:inputField style="width:100%" value="{!setDeRespuestas.For_these_TOP_opps_you_just_mentioned_p__c}" label="" />
+                            
+                        </apex:pageBlockSection>
+                    </apex:pageBlock>
+                </apex:outputPanel>
+                
+                <apex:outputPanel layout="block"  styleClass="panel-footer">
+                    <div class="row paddingRight">	
+                        <div class="btn-group pull-right" role="group" aria-label="...">
+                            
+                            <button type="button" class="btn btn-default btn-sm" onclick="SaveChanges()">
+                                <span class="glyphicon glyphicon-floppy-disk icon-btn-left"></span>&nbsp;{!$Label.save}
+                            </button>
+                            
+                        </div>
+                    </div>
+                </apex:outputPanel>
+                
+			</apex:form>
+			<c:FastTask page="{!$Label.certa_scp__net_activity}" account="{!idCuenta}"></c:FastTask>
+			<chatter:feed entityId="{!idCuenta}" />
+		</apex:outputPanel>
+	</apex:outputPanel>
+</apex:page>

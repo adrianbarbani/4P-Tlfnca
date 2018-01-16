@@ -1,0 +1,27 @@
+<apex:page controller="PdfTestController" >
+
+    <apex:outputpanel styleClass="container-fluid bootstrap-sf1" id="pageContent">
+        
+        <apex:form >
+            <apex:pageBlock >
+                
+                <apex:pageBlockSection >
+                    <apex:inputField value="{!oportunidad.description}" id="general-info-client-where-is-client" label="asd"
+                                     />
+                    <apex:inputField value="{!oportunidad.description}" id="general-info-client-fcv-current-contracts"
+                                     label="{!$ObjectType.Big_deals_Survey__c.fields.FCV_de_contratos_actuales__c.inlineHelpText}"
+                                     />
+                    <apex:outputField value="{!oportunidad.name}" id="general-info-client-defaulter"
+                                      label="nombre"
+                                      />
+                </apex:pageBlockSection> 
+                
+                <apex:pageBlockButtons >
+                    <apex:commandButton action="{!sendPdf}" value="Send PDF"/>
+                </apex:pageBlockButtons>
+                
+            </apex:pageBlock>
+        </apex:form>
+        
+    </apex:outputpanel>
+</apex:page>
