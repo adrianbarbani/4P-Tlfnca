@@ -13,6 +13,10 @@
         <name>Link__c</name>
     </fields>
     <fields>
+        <label><!-- Posición --></label>
+        <name>Posici_n__c</name>
+    </fields>
+    <fields>
         <label><!-- Super Ball - Nodo --></label>
         <name>Super_Ball_Nodo__c</name>
         <relationshipLabel><!-- Super Ball - Recursos --></relationshipLabel>

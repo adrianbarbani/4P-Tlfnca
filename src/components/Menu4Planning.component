@@ -252,17 +252,17 @@
                 <div class="item_content" ><!-- style="font-size: 8px;"-->
                     <ul class = "centerVertical">
                         
+                        <li><apex:outputLink styleClass="links" target="_parent" value="{!$Page.Planificacion}?id={!AcctId}&section=section4">{!$Label.certa_scp__retos_opps}</apex:outputLink></li>
                         <li><apex:outputLink styleClass="links" target="_parent" value="{!$Page.Planificacion}?id={!AcctId}&section=section1">{!$Label.certa_scp__vencimientos}</apex:outputLink></li>
                         <li><apex:outputLink styleClass="links" target="_parent" value="{!$Page.Planificacion}?id={!AcctId}&section=section2">{!$Label.certa_scp__hitos_relevantes}</apex:outputLink></li>
-                        <li><apex:outputLink styleClass="links" target="_parent" value="{!$Page.Planificacion}?id={!AcctId}&section=section3">{!$Label.certa_scp__up_cross_selling}</apex:outputLink></li>
-                        <li><apex:outputLink styleClass="links" target="_parent" value="{!$Page.Planificacion}?id={!AcctId}&section=section4">{!$Label.certa_scp__retos_opps}</apex:outputLink></li>
+                        <!--li><apex:outputLink styleClass="links" target="_parent" value="{!$Page.Planificacion}?id={!AcctId}&section=section3">{!$Label.certa_scp__up_cross_selling}</apex:outputLink></li-->
                         <li><apex:outputLink styleClass="links" target="_parent" value="{!$Page.Planificacion}?id={!AcctId}&section=section5">{!$Label.certa_scp__plan_de_action}</apex:outputLink></li>
 
                     </ul> 
                 </div>
             </div>
             
-            <!-- Acerca de nuestro negocio con el cliente-->
+            
             <div class="item" id = "tercerTitulo">
                 <a class="link "><div class="icon_world"></div></a>
                 <div class="item_content">
@@ -280,7 +280,7 @@
 						<li><apex:outputLink styleClass="links" target="_parent" value="{!$Page.Utilidades}?id={!AcctId}&section=section1">{!$Label.certa_scp__one_click_report}</apex:outputLink></li>
                         <li><apex:outputLink styleClass="links" target="_parent" value="{!$Page.Utilidades}?id={!AcctId}&section=section2">{!$Label.certa_scp__cronograma_de_la_cuenta}</apex:outputLink></li>
                         <li><apex:outputLink styleClass="links" target="_parent" value="{!$Page.Utilidades}?id={!AcctId}&section=section3">{!$Label.certa_scp__retos}</apex:outputLink></li>
-                        <li><apex:outputLink styleClass="links" target="_parent" value="{!$Page.Utilidades}?id={!AcctId}&section=section4">{!$Label.certa_scp__coeficiente_de_cuenta}</apex:outputLink></li>
+                        <!--li><apex:outputLink styleClass="links" target="_parent" value="{!$Page.Utilidades}?id={!AcctId}&section=section4">{!$Label.certa_scp__coeficiente_de_cuenta}</apex:outputLink></li-->
                     </ul>
                 </div>
             </div>

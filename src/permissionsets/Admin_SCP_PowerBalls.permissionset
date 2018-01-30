@@ -185,6 +185,18 @@
         <enabled>false</enabled>
     </classAccesses>
     <classAccesses>
+        <apexClass>GraficosCarteraTest</apexClass>
+        <enabled>false</enabled>
+    </classAccesses>
+    <classAccesses>
+        <apexClass>HitosPrincipalesController</apexClass>
+        <enabled>false</enabled>
+    </classAccesses>
+    <classAccesses>
+        <apexClass>HitosPrincipalesTest</apexClass>
+        <enabled>false</enabled>
+    </classAccesses>
+    <classAccesses>
         <apexClass>ImprimirAccountPlanBIController</apexClass>
         <enabled>false</enabled>
     </classAccesses>
@@ -198,6 +210,22 @@
     </classAccesses>
     <classAccesses>
         <apexClass>InfoSCPForAccountBatch</apexClass>
+        <enabled>false</enabled>
+    </classAccesses>
+    <classAccesses>
+        <apexClass>InformacionDeLaCuentaComponentController</apexClass>
+        <enabled>false</enabled>
+    </classAccesses>
+    <classAccesses>
+        <apexClass>InformacionDeLaCuentaComponentTest</apexClass>
+        <enabled>false</enabled>
+    </classAccesses>
+    <classAccesses>
+        <apexClass>InformacionDeLaCuentaPadre</apexClass>
+        <enabled>false</enabled>
+    </classAccesses>
+    <classAccesses>
+        <apexClass>InformacionDeLaCuentaPadreTest</apexClass>
         <enabled>false</enabled>
     </classAccesses>
     <classAccesses>
@@ -257,7 +285,35 @@
         <enabled>false</enabled>
     </classAccesses>
     <classAccesses>
+        <apexClass>PlanificacionComponentController</apexClass>
+        <enabled>false</enabled>
+    </classAccesses>
+    <classAccesses>
+        <apexClass>PlanificacionComponentTest</apexClass>
+        <enabled>false</enabled>
+    </classAccesses>
+    <classAccesses>
+        <apexClass>PlanificacionComponentsTest</apexClass>
+        <enabled>false</enabled>
+    </classAccesses>
+    <classAccesses>
         <apexClass>PlanificacionController</apexClass>
+        <enabled>false</enabled>
+    </classAccesses>
+    <classAccesses>
+        <apexClass>PlanificacionMNController</apexClass>
+        <enabled>false</enabled>
+    </classAccesses>
+    <classAccesses>
+        <apexClass>PlanificacionPrincipalController</apexClass>
+        <enabled>false</enabled>
+    </classAccesses>
+    <classAccesses>
+        <apexClass>PlanificacionPrincipalTest</apexClass>
+        <enabled>false</enabled>
+    </classAccesses>
+    <classAccesses>
+        <apexClass>PlanificacionPrincipalsTest</apexClass>
         <enabled>false</enabled>
     </classAccesses>
     <classAccesses>
@@ -270,6 +326,10 @@
     </classAccesses>
     <classAccesses>
         <apexClass>PostInstallTest</apexClass>
+        <enabled>false</enabled>
+    </classAccesses>
+    <classAccesses>
+        <apexClass>PreguntaTipoListaController</apexClass>
         <enabled>false</enabled>
     </classAccesses>
     <classAccesses>
@@ -385,6 +445,10 @@
         <enabled>false</enabled>
     </classAccesses>
     <classAccesses>
+        <apexClass>UtilidadesMNController</apexClass>
+        <enabled>false</enabled>
+    </classAccesses>
+    <classAccesses>
         <apexClass>ValueChainWrapper</apexClass>
         <enabled>false</enabled>
     </classAccesses>
@@ -494,6 +558,10 @@
     </classAccesses>
     <classAccesses>
         <apexClass>graficoSBControllerTest</apexClass>
+        <enabled>false</enabled>
+    </classAccesses>
+    <classAccesses>
+        <apexClass>informacionDeLaCuentaMNController</apexClass>
         <enabled>false</enabled>
     </classAccesses>
     <classAccesses>
@@ -1019,6 +1087,16 @@
     <fieldPermissions>
         <editable>false</editable>
         <field>Account_Review__c.Customer_Contacts__c</field>
+        <readable>false</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>false</editable>
+        <field>Account_Review__c.Date__c</field>
+        <readable>false</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>false</editable>
+        <field>Account_Review__c.Description__c</field>
         <readable>false</readable>
     </fieldPermissions>
     <fieldPermissions>
@@ -2198,6 +2276,16 @@
     </fieldPermissions>
     <fieldPermissions>
         <editable>false</editable>
+        <field>FourPlanning_Hito__c.Pais__c</field>
+        <readable>false</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>false</editable>
+        <field>FourPlanning_Hito__c.Sector__c</field>
+        <readable>false</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>false</editable>
         <field>FourPlanning_Hito_global__c.Categoria__c</field>
         <readable>false</readable>
     </fieldPermissions>
@@ -2698,6 +2786,11 @@
     </fieldPermissions>
     <fieldPermissions>
         <editable>false</editable>
+        <field>FourPlanning__c.Pais__c</field>
+        <readable>false</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>false</editable>
         <field>FourPlanning__c.Parque_Automotor_Propio_o_Gestionado__c</field>
         <readable>false</readable>
     </fieldPermissions>
@@ -3034,6 +3127,26 @@
     <fieldPermissions>
         <editable>false</editable>
         <field>Linea_de_Servicio__c.Catalogo__c</field>
+        <readable>false</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>false</editable>
+        <field>New_Account_Review__c.Account_Review__c</field>
+        <readable>false</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>false</editable>
+        <field>New_Account_Review__c.Description__c</field>
+        <readable>false</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>false</editable>
+        <field>New_Account_Review__c.Fecha__c</field>
+        <readable>false</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>false</editable>
+        <field>New_Account_Review__c.User__c</field>
         <readable>false</readable>
     </fieldPermissions>
     <fieldPermissions>
@@ -3543,6 +3656,11 @@
     </fieldPermissions>
     <fieldPermissions>
         <editable>false</editable>
+        <field>SB_Cuenta_Pregunta__c.Opciones_picklist__c</field>
+        <readable>false</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>false</editable>
         <field>SB_Cuenta_Pregunta__c.Posicion__c</field>
         <readable>false</readable>
     </fieldPermissions>
@@ -3554,6 +3672,16 @@
     <fieldPermissions>
         <editable>false</editable>
         <field>SB_Cuenta_Pregunta__c.Respuesta__c</field>
+        <readable>false</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>false</editable>
+        <field>SB_Cuenta_Pregunta__c.Respuesta_libre__c</field>
+        <readable>false</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>false</editable>
+        <field>SB_Cuenta_Pregunta__c.Tipo_de_pregunta__c</field>
         <readable>false</readable>
     </fieldPermissions>
     <fieldPermissions>
@@ -3893,6 +4021,11 @@
     </fieldPermissions>
     <fieldPermissions>
         <editable>false</editable>
+        <field>Super_Ball_Arbol__c.Link__c</field>
+        <readable>false</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>false</editable>
         <field>Super_Ball_Arbol__c.Pais__c</field>
         <readable>false</readable>
     </fieldPermissions>
@@ -3933,6 +4066,11 @@
     </fieldPermissions>
     <fieldPermissions>
         <editable>false</editable>
+        <field>Super_Ball_Pregunta__c.Opciones_picklist__c</field>
+        <readable>false</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>false</editable>
         <field>Super_Ball_Pregunta__c.Posicion__c</field>
         <readable>false</readable>
     </fieldPermissions>
@@ -3943,12 +4081,22 @@
     </fieldPermissions>
     <fieldPermissions>
         <editable>false</editable>
+        <field>Super_Ball_Pregunta__c.Tipo_de_pregunta__c</field>
+        <readable>false</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>false</editable>
         <field>Super_Ball_Pregunta__c.esHija__c</field>
         <readable>false</readable>
     </fieldPermissions>
     <fieldPermissions>
         <editable>false</editable>
         <field>Super_Ball_Recurso__c.Link__c</field>
+        <readable>false</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>false</editable>
+        <field>Super_Ball_Recurso__c.Posici_n__c</field>
         <readable>false</readable>
     </fieldPermissions>
     <fieldPermissions>
@@ -4242,6 +4390,10 @@
         <enabled>false</enabled>
     </pageAccesses>
     <pageAccesses>
+        <apexPage>DecisionCriterilMatrixMN</apexPage>
+        <enabled>false</enabled>
+    </pageAccesses>
+    <pageAccesses>
         <apexPage>DesarrolloCuenta</apexPage>
         <enabled>false</enabled>
     </pageAccesses>
@@ -4278,7 +4430,15 @@
         <enabled>false</enabled>
     </pageAccesses>
     <pageAccesses>
+        <apexPage>InformacionDeLaCuentaMultiNacional</apexPage>
+        <enabled>false</enabled>
+    </pageAccesses>
+    <pageAccesses>
         <apexPage>Menu4PlanningEnCuenta</apexPage>
+        <enabled>false</enabled>
+    </pageAccesses>
+    <pageAccesses>
+        <apexPage>Menu4PlanningMNenCuenta</apexPage>
         <enabled>false</enabled>
     </pageAccesses>
     <pageAccesses>
@@ -4310,6 +4470,10 @@
         <enabled>false</enabled>
     </pageAccesses>
     <pageAccesses>
+        <apexPage>PlanificacionMN</apexPage>
+        <enabled>false</enabled>
+    </pageAccesses>
+    <pageAccesses>
         <apexPage>PreguntasAccountGrowthStrategy</apexPage>
         <enabled>false</enabled>
     </pageAccesses>
@@ -4335,6 +4499,10 @@
     </pageAccesses>
     <pageAccesses>
         <apexPage>Utilidades</apexPage>
+        <enabled>false</enabled>
+    </pageAccesses>
+    <pageAccesses>
+        <apexPage>UtilidadesMN</apexPage>
         <enabled>false</enabled>
     </pageAccesses>
     <pageAccesses>

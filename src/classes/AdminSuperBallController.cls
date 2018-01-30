@@ -13,7 +13,7 @@ public class AdminSuperBallController {
     }
     
     public void obtenerArboles(){
-        arboles = [select id, name, pais__c, sector__c, descripcion__c from Super_Ball_Arbol__c];
+        arboles = [select id, name, pais__c, sector__c, Link__c from Super_Ball_Arbol__c];
     }
     
     public void insertarArbol(){

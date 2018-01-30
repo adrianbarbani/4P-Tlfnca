@@ -113,7 +113,7 @@
         <defaultValue>false</defaultValue>
         <deprecated>false</deprecated>
         <externalId>false</externalId>
-        <inlineHelpText>&quot;When selected Tasks moved to this list will be archived. When a Task is archived it will not be shown on the Board. Archived tasks still appear when looking at related lists, search results, and reports. Archived Tasks still count towards your storage&quot;</inlineHelpText>
+        <inlineHelpText>When selected Tasks moved to this list will be archived. When a Task is archived it will not be shown on the Board. Archived tasks still appear when looking at related lists, search results, and reports. Archived Tasks still count towards your storage</inlineHelpText>
         <label>Enable Archive</label>
         <trackTrending>false</trackTrending>
         <type>Checkbox</type>

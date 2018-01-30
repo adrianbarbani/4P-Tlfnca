@@ -185,6 +185,10 @@
         <name>Analistas_Fabricantes_Canales</name>
     </customLabels>
     <customLabels>
+        <label><!-- Año --></label>
+        <name>Anio</name>
+    </customLabels>
+    <customLabels>
         <label><!-- &lt; Anterior --></label>
         <name>Anterior</name>
     </customLabels>
@@ -313,6 +317,10 @@
         <name>Buscar</name>
     </customLabels>
     <customLabels>
+        <label>Nivel de Compra</label>
+        <name>Buying_Level</name>
+    </customLabels>
+    <customLabels>
         <label><!-- Cadena de Valor y Procesos --></label>
         <name>Cadena_de_Valor_y_Procesos</name>
     </customLabels>
@@ -439,10 +447,6 @@
     <customLabels>
         <label><!-- Coeficiente [d] Desarrollo de cuenta (%) --></label>
         <name>Coeficiente_d_Desarrollo_de_cuenta_porciento</name>
-    </customLabels>
-    <customLabels>
-        <label><!-- Coeficiente de Cuenta --></label>
-        <name>Coeficiente_de_Cuenta</name>
     </customLabels>
     <customLabels>
         <label><!-- Coeficiente de Desarrollo de Cartera --></label>
@@ -617,6 +621,10 @@
         <name>Created_Date</name>
     </customLabels>
     <customLabels>
+        <label>Creado Por</label>
+        <name>Created_by</name>
+    </customLabels>
+    <customLabels>
         <label><!-- Crecimiento y transformación de oficinas --></label>
         <name>Crecimiento_y_transformaci_n_de_oficinas</name>
     </customLabels>
@@ -679,6 +687,18 @@
     <customLabels>
         <label><!-- Cuantificar_estimar_el_volumen_de_penalizaci_n_m_ximo_con_respecto_al_total_del --></label>
         <name>Cuantificar_estimar_el_volumen_de_penalizaci_n_m_ximo_con_respecto_al_total_del</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- Cuanto tenemos nosotros --></label>
+        <name>Cuanto_tenemos_nosotros</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- Cuanto tiene la competencia --></label>
+        <name>Cuanto_tiene_la_competencia</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- Cuenta --></label>
+        <name>Cuenta</name>
     </customLabels>
     <customLabels>
         <label><!-- Cuestionario --></label>
@@ -795,6 +815,10 @@
     <customLabels>
         <label><!-- Digital --></label>
         <name>Digital</name>
+    </customLabels>
+    <customLabels>
+        <label>Servicios_Digitales</label>
+        <name>Digital_Services</name>
     </customLabels>
     <customLabels>
         <label><!-- Diseño --></label>
@@ -1045,6 +1069,14 @@
         <name>Extend_the_start_date_to_three_weeks</name>
     </customLabels>
     <customLabels>
+        <label><!-- Familia --></label>
+        <name>Familia</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- Familia Local --></label>
+        <name>Familia_Local</name>
+    </customLabels>
+    <customLabels>
         <label><!-- Fecha --></label>
         <name>Fecha</name>
     </customLabels>
@@ -1165,6 +1197,10 @@
         <name>Generar_plan_de_accion</name>
     </customLabels>
     <customLabels>
+        <label>Generar Plan de Acción</label>
+        <name>Generate_Action_Plan</name>
+    </customLabels>
+    <customLabels>
         <label><!-- Get SLA definitions --></label>
         <name>Get_SLA_definitions</name>
     </customLabels>
@@ -1191,6 +1227,14 @@
     <customLabels>
         <label>Iniciativas Estratégicas del Cliente</label>
         <name>Global_Strategic_Initiative</name>
+    </customLabels>
+    <customLabels>
+        <label>Matrix de Decisión Criteria</label>
+        <name>Go_to_Value_Map</name>
+    </customLabels>
+    <customLabels>
+        <label>Ir a la Oportunidad</label>
+        <name>Go_to_the_Opportunity</name>
     </customLabels>
     <customLabels>
         <label>Guardar Datos</label>
@@ -1497,6 +1541,10 @@
         <name>Los_tres_principales_retos</name>
     </customLabels>
     <customLabels>
+        <label>Búsqueda Key Decisión Maker</label>
+        <name>Main_Decision_maker</name>
+    </customLabels>
+    <customLabels>
         <label><!-- Mala --></label>
         <name>Mala</name>
     </customLabels>
@@ -1529,6 +1577,10 @@
         <name>Missing_field_error_base</name>
     </customLabels>
     <customLabels>
+        <label>Movil</label>
+        <name>Mobil</name>
+    </customLabels>
+    <customLabels>
         <label><!-- Modify RDM --></label>
         <name>Modify_RDM</name>
     </customLabels>
@@ -1543,6 +1595,10 @@
     <customLabels>
         <label><!-- Months to go --></label>
         <name>Months_to_go</name>
+    </customLabels>
+    <customLabels>
+        <label>Nombre de cuenta</label>
+        <name>Name_Account</name>
     </customLabels>
     <customLabels>
         <label>Nombre de nuestros Competidores</label>
@@ -1603,6 +1659,10 @@
     <customLabels>
         <label><!-- Nivel de relación --></label>
         <name>Nivel_de_relaci_n</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- Niveles interlocucion cliente --></label>
+        <name>Niveles_interlocucion_cliente</name>
     </customLabels>
     <customLabels>
         <label><!-- No --></label>
@@ -1757,8 +1817,20 @@
         <name>Nuevo_Hito_Relevante</name>
     </customLabels>
     <customLabels>
+        <label><!-- Nuevo Presupuesto --></label>
+        <name>Nuevo_Presupuesto</name>
+    </customLabels>
+    <customLabels>
         <label><!-- Nuevo Reto --></label>
         <name>Nuevo_Reto</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- Nuevo Servicio --></label>
+        <name>Nuevo_Servicio</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- Nuevo vencimiento --></label>
+        <name>Nuevo_vencimiento</name>
     </customLabels>
     <customLabels>
         <label><!-- Numero Centros Crece --></label>
@@ -1859,6 +1931,10 @@
     <customLabels>
         <label><!-- Organismo Parque Automotor --></label>
         <name>Organismo_Parque_Automotor</name>
+    </customLabels>
+    <customLabels>
+        <label>Otros</label>
+        <name>Ot</name>
     </customLabels>
     <customLabels>
         <label><!-- Other --></label>
@@ -2013,6 +2089,10 @@
         <name>Presupuesto_Anual_Cliente</name>
     </customLabels>
     <customLabels>
+        <label><!-- Presupuesto Total --></label>
+        <name>Presupuesto_Total</name>
+    </customLabels>
+    <customLabels>
         <label><!-- Previsión Cierre TOP 3 deals --></label>
         <name>Previsi_n_Cierre_TOP_3_deals</name>
     </customLabels>
@@ -2071,6 +2151,10 @@
     <customLabels>
         <label><!-- Prospección --></label>
         <name>Prospecci_n</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- Proveedor Actual --></label>
+        <name>Proveedor_Actual</name>
     </customLabels>
     <customLabels>
         <label><!-- Proveedores Importantes --></label>
@@ -2159,6 +2243,14 @@
     <customLabels>
         <label><!-- RRHH, ventas, Etc --></label>
         <name>RRHH_ventas_Etc</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- Rama --></label>
+        <name>Rama</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- Rama Local --></label>
+        <name>Rama_Local</name>
     </customLabels>
     <customLabels>
         <label><!-- Reach --></label>
@@ -2411,6 +2503,10 @@
     <customLabels>
         <label><!-- Statu Quo help --></label>
         <name>Statu_Quo_help</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- Status --></label>
+        <name>Status</name>
     </customLabels>
     <customLabels>
         <label><!-- Step1 --></label>
@@ -2823,6 +2919,10 @@
     <customLabels>
         <label><!-- cual es el nivel de desarrollo de nuestra oferta --></label>
         <name>cual_es_el_nivel_de_desarrollo_de_nuestra_oferta</name>
+    </customLabels>
+    <customLabels>
+        <label>fecha del evento</label>
+        <name>date_of_the_event</name>
     </customLabels>
     <customLabels>
         <label><!-- dblClickToAddCapability --></label>

@@ -1,0 +1,131 @@
+<apex:page controller="UtilidadesMNController" tabStyle="Strategic_Client_Plan__tab" sidebar="false" showHeader="true" docType="html-5.0">
+    <c:FourPlanningMenuSuperior />
+    
+    <apex:includeScript value="{!$Resource.JQueryUI}"  />
+    <apex:includeScript value="{!$Resource.JQueryUITouch}" />
+    <apex:includeScript value="{!$Resource.DataTable}"  />
+   <script>
+        
+    $j = jq213; //jQuery.noConflict();
+    
+    $j(document).ready(function() {
+        colorearLineaDeTiempo();
+        $j("#" + GetURLParameter("section")).click();
+        
+        agregarEstiloAlTabActivo();
+        
+        $j(".botonFiltros").click();
+        
+        $j('.verSeccion').on('click', function() {
+            console.log( $j( this ).attr('Id') );
+            paraFunction($j( this ).attr('Id'));
+        });
+        
+        $j( "#section2" ).click(function() {
+            $j(".botonFiltros").click();
+        });
+    });     
+ 
+    function agregarEstiloAlTabActivo(){
+        $j("#li" + GetURLParameter("id")).addClass("active");
+    }
+    
+    
+    function GetURLParameter(sParam) {
+        
+        console.log('entre');
+        var sPageURL = window.location.search.substring(1);
+        var sURLVariables = sPageURL.split('&');
+        
+        for (var i = 0; i < sURLVariables.length; i++) {
+            var sParameterName = sURLVariables[i].split('=');
+            if (sParameterName[0] == sParam) {
+                console.log(sParameterName[1]);
+                return sParameterName[1];
+            }
+        }
+    }
+
+    </script>
+    
+    <apex:outputpanel style="background-color:white" styleClass="container-fluid bootstrap-sf1" id="pageContent">
+        
+        <apex:form >
+            <apex:actionFunction name="paraFunction" action="{!guardarAtributo}" rerender="idDelForm" oncomplete="agregarEstiloAlTabActivo()" >     
+                <apex:param id="aname" name="interviewDate" value="" />
+            </apex:actionFunction>
+        </apex:form>
+        
+        <apex:outputPanel id="idDelForm" > 
+            <ul class="nav nav-tabs" role="tablist">
+                <li id="li{!idCuentaPrincipal}" role="presentation" class="liPrincipal "><a href="{!$Page.UtilidadesMN}?id={!idCuentaPrincipal}&section={!seccion}">{!cuenta.name}</a></li>
+                
+                <apex:repeat value="{!listaQueContieneTodasLasCuentasHijas}" var="cHijas">
+                    <li id="li{!cHijas.id}" role="presentation"><a href="{!$Page.UtilidadesMN}?id={!cHijas.id}&IdPadre={!idCuentaPrincipal}&section={!seccion}">{!cHijas.name}</a></li>
+                </apex:repeat>                
+                
+            </ul>
+        </apex:outputPanel>
+        
+        <div class="panel panel-default">
+            <div class="panel-heading" style="height: 70px;">
+                <h2 class="panel-title">
+                    <span style="float:left;">
+                        {!$Label.Utilidades}
+                    </span>
+                </h2>
+                
+                
+                <div class="row paddingRight">
+                    <div class="btn-group pull-right" role="group" >                        
+                    </div>
+                </div>
+            </div>
+            
+            <div class="panel-body">
+                <apex:outputPanel id="botones">
+                    
+                    <apex:outputPanel >
+                        <ul class="nav nav-tabs" role="tablist">
+                            <li role="presentation" class="active"><a class="verSeccion" id="section1" href="#div-one-click-report" aria-controls="div-one-click-report" role="tab" data-toggle="tab">{!$Label.One_Click_Report}</a></li>
+                            <li role="presentation"><a class="verSeccion" id="section2" href="#div-hitos" aria-controls="div-hitos" role="tab" data-toggle="tab">{!$Label.Cronograma_de_la_Cuenta}</a></li>
+                            <li role="presentation"><a class="verSeccion" id="section3" href="#div-retos" aria-controls="div-retos" role="tab" data-toggle="tab">{!$Label.Retos}</a></li>
+                            <!--li role="presentation"><a class="verSeccion" id="section4" href="#div-coecuenta" aria-controls="div-coecuenta" role="tab" data-toggle="tab">{!$Label.Coeficiente_de_Cuenta}</a></li-->
+                        </ul>
+                    </apex:outputPanel>
+                </apex:outputPanel>
+                
+                
+                <br/>
+                <div class="tab-content" id="big-deal-tab-content">
+                   
+                    <!-- one click report -->
+                    <div id="div-one-click-report" role="tabpanel" class="tab-pane active fade in">
+                        <c:oneClickReport ></c:oneClickReport>
+                    </div>
+                    
+                    <!-- Hitos -->
+                    <div id="div-hitos" class="tab-pane fade">
+                        <apex:outputText rendered="{! !esCuentaPrincipal}">
+                            <c:hitos ></c:hitos>
+                        </apex:outputText>
+                        <apex:outputText rendered="{!esCuentaPrincipal}">
+                            <c:hitosPrincipales ></c:hitosPrincipales>
+                        </apex:outputText>
+                    </div>
+
+                    <!-- Retos -->
+                    <div id="div-retos" class="tab-pane fade">
+                        <c:retos ></c:retos>                  
+                    </div>
+
+                    <!-- Coeficiente de cuenta -->
+                    <div id="div-coecuenta" class="tab-pane fade">
+                        <c:coecuenta ></c:coecuenta>                  
+                    </div>
+                    
+                </div>
+            </div>
+            </div>
+    </apex:outputpanel>
+</apex:page>

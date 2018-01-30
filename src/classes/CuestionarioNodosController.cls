@@ -35,13 +35,13 @@ public class CuestionarioNodosController {
         
         //Me traigo las preguntas, los interlocuores, las soluciones y los recursos que hay cargados en administracion.
         List<Super_Ball_Nodo__c> hijosDeNodos = [select id, Nodo_Padre__c, name, Descripci_n__c, posicion__c,
-                                                 (select id, Pregunta__c, Super_Ball_Nodo__c, posicion__c,
+                                                 (select id, Pregunta__c, tipo_de_pregunta__c, Super_Ball_Nodo__c, posicion__c, Opciones_picklist__c,
                                                   Dependencia_Si__c, Dependencia_No__c,  Dependencia_Si__r.pregunta__c, Dependencia_No__r.pregunta__c 
                                                   from Super_Ball_Preguntas__r 
                                                   where esHija__c != true order by posicion__c asc),
                                                  (select id, name, Super_Ball_Nodo__c, posicion__c from Super_Ball_Soluciones__r order by posicion__c asc),
                                                  (select id, name, contacto__c, Super_Ball_Nodo__c from Super_Ball_Interlocutores__r order by createdDate asc),
-                                                 (select id, name, link__c, Super_Ball_Nodo__c from Super_Ball_Recursos__r order by createdDate asc)
+                                                 (select id, name, link__c, Super_Ball_Nodo__c, posici_n__c from Super_Ball_Recursos__r order by posici_n__c asc)
                                                  from Super_Ball_Nodo__c 
                                                  where Nodo_Padre__c =: idNodoPadre
                                                  order by posicion__c asc];
@@ -79,6 +79,8 @@ public class CuestionarioNodosController {
                 preguntaPrincipal.posicion__c = pregunta.posicion__c;
                 preguntaPrincipal.Super_Ball_Nodo__c = hijoNodo.id;
                 preguntaPrincipal.Super_Ball_Pregunta__c = pregunta.id;
+                preguntaPrincipal.tipo_de_pregunta__c = pregunta.tipo_de_pregunta__c;
+                preguntaPrincipal.Opciones_picklist__c = pregunta.Opciones_picklist__c;
                 
                 WrapperPregunta preguntawpp = new WrapperPregunta(preguntaPrincipal);
                 if(preguntaDependenciaSi != null){
@@ -132,12 +134,12 @@ public class CuestionarioNodosController {
         
         //Me traigo las preguntas, los interlocutores, las soluciones y los recursos que hay cargados a nivel cuenta, para ese nodo, menos los recursos.
         List<Super_Ball_Nodo__c> hijosDeNodos = [select id, Nodo_Padre__c, name, Descripci_n__c,
-                                                 (select id, Pregunta__c, Super_Ball_Nodo__c, posicion__c,
+                                                 (select id, Pregunta__c, tipo_de_pregunta__c, Super_Ball_Nodo__c, posicion__c, Respuesta_libre__c, Opciones_picklist__c,
                                                   DependenciaSi__c, DependenciaNo__c,  DependenciaSi__r.pregunta__c, DependenciaNo__r.pregunta__c, Super_Ball_Pregunta__c 
                                                   from SB_Cuenta_Preguntas__r order by posicion__c asc),
                                                  (select id, name, Super_Ball_Nodo__c, Super_Ball_Solucion__c, posicion__c from SB_Cuenta_Soluciones__r order by posicion__c asc),
                                                  (select id, contacto__c, Super_Ball_Nodo__c, Super_Ball_Interlocutor__c from SB_Cuenta_Interlocutores__r order by createdDate asc),
-                                                 (select id, name, link__c, Super_Ball_Nodo__c from Super_Ball_Recursos__r order by createdDate asc)
+                                                 (select id, name, link__c, Super_Ball_Nodo__c, posici_n__c from Super_Ball_Recursos__r order by posici_n__c asc)
                                                  from Super_Ball_Nodo__c 
                                                  where Nodo_Padre__c =: idNodoPadre
                                                  order by createdDate asc];
@@ -214,8 +216,8 @@ public class CuestionarioNodosController {
         update solucionesModificacadasAActualizar;
         update preguntasModificacadasAActualizar;
         
-        List<Super_Ball_Nodo__c> nodosConPreguntasPadre = [select id, Nodo_Padre__c, name, Descripci_n__c, posicion__c,
-                                                           (select id, Pregunta__c, Super_Ball_Nodo__c,
+        List<Super_Ball_Nodo__c> nodosConPreguntasPadre = [select id, Nodo_Padre__c, name, Descripci_n__c, posicion__c, 
+                                                           (select id, Pregunta__c, Super_Ball_Nodo__c, tipo_de_pregunta__c, Respuesta_libre__c, Opciones_picklist__c,
                                                             DependenciaSi__c, DependenciaNo__c, respuesta__c, DependenciaSi__r.pregunta__c, DependenciaNo__r.pregunta__c,
                                                             Super_Ball_Pregunta__c 
                                                             from SB_Cuenta_Preguntas__r 
@@ -229,8 +231,8 @@ public class CuestionarioNodosController {
             preguntasPadre.addAll(nodo.SB_Cuenta_Preguntas__r);
         }
         
-        List<Super_Ball_Nodo__c> nodosConPreguntashijas = [select id, Nodo_Padre__c, name, Descripci_n__c, posicion__c,
-                                                           (select id, Pregunta__c, Super_Ball_Nodo__c, posicion__c,
+        List<Super_Ball_Nodo__c> nodosConPreguntashijas = [select id, Nodo_Padre__c, name, Descripci_n__c, posicion__c, 
+                                                           (select id, Pregunta__c, Super_Ball_Nodo__c, posicion__c, tipo_de_pregunta__c, Respuesta_libre__c, Opciones_picklist__c,
                                                             DependenciaSi__c, DependenciaNo__c, respuesta__c, DependenciaSi__r.pregunta__c, DependenciaNo__r.pregunta__c,
                                                             Super_Ball_Pregunta__c 
                                                             from SB_Cuenta_Preguntas__r 
@@ -284,14 +286,14 @@ public class CuestionarioNodosController {
     
     public void TraerInfoDeCadaNodo(){
         TodosLosNodos = [select id, Nodo_Padre__c, name, Descripci_n__c, posicion__c, 
-                         (select id, Pregunta__c, Super_Ball_Nodo__c, posicion__c,
+                         (select id, Pregunta__c, Super_Ball_Nodo__c, posicion__c, Respuesta_libre__c, Opciones_picklist__c,
                           DependenciaSi__c, DependenciaNo__c, respuesta__c, DependenciaSi__r.pregunta__c, DependenciaNo__r.pregunta__c,
-                          Super_Ball_Pregunta__c, DependenciaSi__r.respuesta__c, DependenciaNo__r.respuesta__c 
+                          Super_Ball_Pregunta__c, DependenciaSi__r.respuesta__c, DependenciaNo__r.respuesta__c, tipo_de_pregunta__c
                           from SB_Cuenta_Preguntas__r 
                           where esHija__c != true order by posicion__c asc),
                          (select id, name, Super_Ball_Nodo__c, estado__c, Super_Ball_Solucion__c, posicion__c from SB_Cuenta_Soluciones__r order by posicion__c asc),
                          (select id, name, contacto__c, Super_Ball_Nodo__c, Super_Ball_Interlocutor__c from SB_Cuenta_Interlocutores__r order by createdDate asc),
-                         (select id, name, link__c, Super_Ball_Nodo__c from Super_Ball_Recursos__r order by createdDate asc)
+                         (select id, name, link__c, Super_Ball_Nodo__c, posici_n__c from Super_Ball_Recursos__r order by posici_n__c asc)
                          from Super_Ball_Nodo__c 
                          where Nodo_Padre__c =: idNodoPadre
                          order by posicion__c asc];
@@ -360,9 +362,29 @@ public class CuestionarioNodosController {
         public SB_Cuenta_Pregunta__c pregunta{get;set;}
         public SB_Cuenta_Pregunta__c DependenciaSi{get;set;}
         public SB_Cuenta_Pregunta__c DependenciaNo{get;set;}
+        public List<String> opciones {get;set;}		
+        public list<SelectOption> ValoresPickList {get;set;}
         
         public WrapperPregunta(SB_Cuenta_Pregunta__c preguntaPrincipal){
             pregunta = preguntaPrincipal;
+            opciones = new List<String>();
+            if(pregunta.tipo_de_pregunta__c == 'Lista'){
+                opciones = pregunta.Opciones_picklist__c.split(';');
+            }
+            
+            ValoresPickList = obtenerValoresPickList();
         }
+        
+        public List<SelectOption> obtenerValoresPickList() {
+            
+            List<SelectOption> options = new List<SelectOption>();
+            options.add(new SelectOption('--Ninguno--','--Ninguno--'));
+            for(String valor: opciones){
+                options.add(new SelectOption(valor,valor));    
+            }
+            
+            return options; 
+        }
+
     }
 }

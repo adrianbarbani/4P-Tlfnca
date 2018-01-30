@@ -590,9 +590,9 @@
     }
     
     
-    $j(window).bind('beforeunload', function(){
+    /*$j(window).bind('beforeunload', function(){
         return 'saksdk';
-    });
+    });*/
     
     function resetCamposHito(){
         
@@ -2258,7 +2258,7 @@
                                         
                                     </apex:outputText>   
                                     
-                                    <apex:inputField value="{!fourPlanning.realcion_empresa_otros_clientes__c}" label="{!$Label.certa_scp__conoces_lo_que_telef_nica_hace_en_otros_pa_ses_con_clientes_semejantes_al_tuyo}" />
+                                    <!--apex:inputField value="{!fourPlanning.realcion_empresa_otros_clientes__c}" label="{!$Label.certa_scp__conoces_lo_que_telef_nica_hace_en_otros_pa_ses_con_clientes_semejantes_al_tuyo}" /-->
                                     
                                     <apex:outputText >&nbsp;</apex:outputText>
                                     

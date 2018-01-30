@@ -1,0 +1,1911 @@
+<apex:component controller="InformacionDeLaCuentaPadre" allowDML="true" >
+    
+    <apex:attribute name="unId" assignTo="{!idCuenta}" description="El id de la cuenta" type="String" required="true"/>
+    
+    <apex:includeScript value="{!$Resource.JQueryUI}"  />
+    <apex:includeScript value="{!$Resource.JQueryUITouch}" />
+    <apex:includeScript value="{!$Resource.DataTable}"  />
+    
+    <script>
+    jQuery.extend( jQuery.fn.dataTableExt.oSort, {
+        "date-uk-pre": function ( a ) {
+            if (a == null || a == "") {
+                return 0;
+            }
+            var ukDatea = a.split('/');
+            return (ukDatea[2] + ukDatea[1] + ukDatea[0]) * 1;
+        },
+        
+        "date-uk-asc": function ( a, b ) {
+            return ((a < b) ? -1 : ((a > b) ? 1 : 0));
+        },
+        
+        "date-uk-desc": function ( a, b ) {
+            return ((a < b) ? 1 : ((a > b) ? -1 : 0));
+        }
+    } );
+    
+    jQuery.extend( jQuery.fn.dataTableExt.oSort, {
+        "currency-pre": function ( a ) {
+            a = (a==="-") ? 0 : a.replace( /[^\d\-\.]/g, "" );
+            return parseFloat( a );
+        },
+        
+        "currency-asc": function ( a, b ) {
+            return a - b;
+        },
+        
+        "currency-desc": function ( a, b ) {
+            return b - a;
+        }
+    } );
+    </script>
+    
+    <style>
+        .pbSubheader h3 {
+        display: inline;
+        margin-left: 5px;
+        font-weight: bold;
+        }
+        
+        .dataTables_filter {
+        text-align: right !important;
+        }
+        
+        .separator {
+        width: 100%;
+        margin-top: 20px;
+        }
+        
+        #big-deal-tab-content th {
+        width : 55%;
+        text-align : left;
+        padding-left : 20%;
+        font-size: 14px;
+        font-weight: normal;
+        }
+        
+        
+        #big-deal-tab-content th label {
+        font-size: 14px;
+        font-weight: normal;
+        }
+        
+        .icon-sectors {
+        width: 90px;            
+        }
+        
+        .icon-sectors-botonera {
+        width: 38px;            
+        }
+        
+        #ul-menu-img2 {
+        width: 100% ! important;
+        border-bottom: 0px solid #cfd0d2;
+        
+        }
+        
+        #ul-menu-img2 li {
+        text-align: center;
+        width: 14.2%;
+        height: 185px;
+        min-height: 190px;
+        max-height: 190px;
+        text-transform: none ! important;
+        }
+        
+        #ul-menu-img2 li:hover, #ul-menu-img2 li.active {
+        border: 2px solid #539fc6;
+        
+        }
+        
+        #ul-menu-img2 li a, #ul-menu-img2 li a:hover {
+        border: 0px solid #539fc6 ! important;
+        
+        }
+        
+        #ul-menu-img {
+        width: 100% ! important;
+        border-bottom: 0px solid #cfd0d2;
+        }
+        
+        #ul-menu-img li {
+        text-align: center;
+        width: 16.6%;
+        height: 185px;
+        min-height: 190px;
+        max-height: 190px;
+        text-transform: none ! important;
+        }
+        
+        #ul-menu-img li:hover, #ul-menu-img li.active {
+        border: 2px solid #539fc6;            
+        }
+        
+        #ul-menu-img li a, #ul-menu-img li a:hover {
+        border: 0px solid #539fc6 ! important;
+        }
+        
+        
+        .ocultar{
+        display:none;
+        }
+        
+        .bordesDeTabla{ 
+        border-bottom: 1px solid #ececec;
+        border-bottom-width: 1px;
+        border-bottom-style: solid;
+        }
+        
+        .tituloLabel{
+        text-align: left;
+        padding-left: 15% !important;
+        }
+        
+        .esCero{
+        background-color: black !important;
+        }
+        
+        .menorDeSetenta{
+        background-color:#F1E100 !important;
+        }
+        
+        .menorDeVeinte{
+        background-color:#FF0009 !important;
+        }
+        .menorDeCincuenta{
+        background-color:#FF0009 !important;
+        }
+        
+        .completo{
+        background-color:#009813 !important;
+        }
+        
+        .casiCompleto{
+        background-color:#55C500 !important;
+        }
+        
+        #custom-handle {
+        width: 3em;
+        height: 1.6em;
+        top: 50%;
+        margin-top: -.8em;
+        text-align: center;
+        line-height: 1.6em;
+        }
+        
+        #custom-handle-nosotros {
+        width: 3em;
+        height: 1.6em;
+        top: 50%;
+        margin-top: -.8em;
+        text-align: center;
+        line-height: 1.6em;
+        }
+        
+        #custom-handle-competencia {
+        width: 3em;
+        height: 1.6em;
+        top: 50%;
+        margin-top: -.8em;
+        text-align: center;
+        line-height: 1.6em;
+        }
+        
+        #custom-handle-porcentajeFijo {
+        width: 3em;
+        height: 1.6em;
+        top: 50%;
+        margin-top: -.8em;
+        text-align: center;
+        line-height: 1.6em;
+        }
+        
+        #custom-handle-porcentajeVariable {
+        width: 3em;
+        height: 1.6em;
+        top: 50%;
+        margin-top: -.8em;
+        text-align: center;
+        line-height: 1.6em;
+        }
+        
+        #circle {
+        width: 20px;
+        height: 20px;
+        -webkit-border-radius: 25px;
+        -moz-border-radius: 25px;
+        border-radius: 25px;
+        float:left;
+        }
+        
+        .datePicker {
+        z-index: 9999;/*Changed this css property which was 100 prior*/
+        position: absolute;
+        display: none;
+        top: 0;
+        left: 0;
+        width: 17em;
+        background-color: #b7c6b2;
+        border-bottom: 1px solid #000;
+        border-right: 1px solid #000;
+        margin: 0;
+        padding: 1px 1px 2px 2px;
+        }
+        
+        .modal-dialog{
+        overflow-y: initial !important
+        }
+        .modal-body{
+        height: 250px;
+        overflow-y: auto;
+        }
+        
+        .rTable {
+        display: table;
+        width: 21%;
+        float: left;
+        }
+        
+        .rTable2 {
+        display: table;
+        width: 47%;
+        float: left;
+        }
+        
+        .rTableSoluciones {
+        display: table;
+        width: 31%;
+        float: left;
+        }
+        .rTableContactos {
+        display: table;
+        width: 22%;
+        
+        }
+        .rTableRow {
+        display: table-row;
+        }
+        .rTableHeading {
+        display: table-header-group;
+        background-color: #1a3a54;
+        
+        }
+        
+        .rTableHeading2 {
+        display: table-header-group;
+        background-color: white;
+        min-height: 43px;
+        
+        }
+        
+        .rTableCell {
+        background-color: #e2e2f5;
+        font-size:14px;
+        }
+        .rTableCell, .rTableHead {
+        display: table-cell;
+        padding: 3px 10px;
+        border: 1px solid white;
+        }
+        .rTableHeading {
+        display: table-header-group;
+        background-color: #1a3a54;
+        font-weight: bold;
+        }
+        .rTableFoot {
+        display: table-footer-group;
+        font-weight: bold;
+        background-color: #ddd;
+        }
+        .rTableBody {
+        display: table-row-group;
+        } 
+        
+        .tituloDeTabla{
+        
+        color: white;
+        font-size: 14px;
+        text-align: center;
+        height:32px;
+        }
+        
+        .tablaUser {
+        /*background-color: #4eb1cb;*/
+        background-color: #C1D6D6;
+        }
+        
+        .bordeTablaRetos{
+        border-bottom: 2px solid white;
+        }
+        
+        .thVencimiento{
+        width: 0 !important; 
+        text-align: center !important;
+        padding-left: 0 !important; 
+        font-size: 14px; 
+        font-weight: 900 !important;
+        background-color: #1a3a54;
+        color: white;
+        border-color: white;
+        cursor:pointer;
+        }
+        
+        .button {
+		padding: 1px 7px;
+		}
+        
+    </style>
+    
+    <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css"/>
+    <link rel="stylesheet" href="/resources/demos/style.css"/>
+    <apex:includeScript value="{!$Resource.Ploty}"/>
+    
+    <!--
+<apex:includeScript value="{!$Resource.jquery112}" />
+-->
+    <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+    <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
+    
+    <script>
+        
+        $j = jq213; //jQuery.noConflict();
+    $j2 = jq161;
+    
+    $j(document).ready(function() {
+        initializeToggles();
+        iniciarDataTable();        
+        $j( "#tabsNuevos" ).tab();
+        
+        $j("#" + GetURLParameter("section")).click();        
+        //Sliders ========================
+        
+        
+        
+        var handle = $( "#custom-handle" );
+        $( "#porcentajeFacturacion" ).slider({
+            range: "max",
+            min: 0,
+            max: 100,
+            value: {!fourPlanning.facturacion_cliente_garantizada__c},
+            create: function() {
+                handle.text( $( this ).slider( "value" ) );
+            },
+            slide: function( event, ui ) {
+                $( ".porcentajeFacturacion" ).val( ui.value );
+                handle.text( ui.value+'%' );
+                verPorcentajeFijoYVariable();
+            }
+        });
+        
+        $( ".porcentajeFacturacion" ).val( $( "#porcentajeFacturacion" ).slider( "value" ) );
+        
+        
+        
+        //=====================================================================        
+        
+        
+        $j("#" + GetURLParameter("section")).click();
+        
+        siEstaEnNoDejoVerLaSeccion();
+        
+        $j(".mostrarCuestionario").change(function(){
+            
+            siEstaEnNoDejoVerLaSeccion();
+            
+        }); 
+        
+        
+        $j(".tipoDeContacto").change(function(){
+            console.log($j(".tipoDeContacto").val());
+            funcion2();
+        });
+        
+        function funcion2(){
+            if($j(".tipoDeContacto").val() === 'Otro'){
+                $j('.campoContacto').removeClass('ocultar');
+            }else{
+                $j('.campoContacto').addClass('ocultar');
+            }            
+        }
+        
+        
+        
+        verOtro();
+        verPorcentajeFijoYVariable();
+        siEstaEnSiSeVeLaFlota();              
+        
+        $j('.guardar').on('click',function(){
+            SaveChanges{!idCuenta}();
+        });
+        
+        $j(".nivelDeContacto").change(function(){
+            if($j(this).val() === 'Otros'){
+                $j(".otroNivel").fadeIn();
+            }else{
+                $j(".otroNivel").fadeOut();
+            }
+        });
+        
+        
+        $j(".porcentajeFacturacion").change(function(){
+            console.log('dentro de cambiar');
+            if($j(this).val() > 0){
+                $j(".especificarPorcentaje").fadeIn();
+            }else{
+                $j(".especificarPorcentaje").fadeOut();
+            }
+        });
+        
+        
+        function iniciarDataTable(){
+            
+            $j2('#mainOppsTable').dataTable({
+                "bPaginate": false,        
+                "bInfo": false,
+                "aoColumns": [
+                    null,
+                    null,
+                    { "sType": "date-uk" },
+                    { "sType": "currency" },
+                    null
+                ],                
+                "oLanguage": {
+                    "sSearch": "<span>{!$Label.Buscar}:</span>",
+                    "sEmptyTable": "<span>{!$Label.No_hay_opps_cargadas}</span>",
+                    "sZeroRecords": "{!$Label.No_hay_opps_busqueda}",
+                    //search
+                },
+                "language": {
+                    "sSearch": "{!$Label.Buscar}",
+                    "search": "{!$Label.Buscar} ",
+                    "sEmptyTable": "{!$Label.No_hay_opps_cargadas}",
+                    "zeroRecords": "{!$Label.No_hay_opps_busqueda}"
+                }
+            });
+            
+        }
+        
+        $j(".disponeDeAutomotor{!idCuenta}").change(function(){
+            siEstaEnSiSeVeLaFlota();
+        });
+        
+        $j('#myModalHito').on('shown.bs.modal', function () {
+            $j('body').animate({ scrollTop: 0 }, 400);
+        });
+        
+        function siEstaEnNoDejoVerLaSeccion(){
+            if($j(".mostrarCuestionario").val() === 'No'){
+                $j(".cuestionarioOculto").removeClass('ocultar');    
+            }else{
+                $j(".cuestionarioOculto").addClass('ocultar');
+            }
+        }
+        
+        function siEstaEnSiSeVeLaFlota(){
+            console.log($j(".disponeDeAutomotor{!idCuenta}").val());
+            if($j(".disponeDeAutomotor{!idCuenta}").val() === 'Si'){
+                $j('.cuestionarioFlota{!idCuenta}').removeClass('ocultar');
+            }else{
+                $j('.cuestionarioFlota{!idCuenta}').addClass('ocultar');
+            }
+        }
+        
+        $j(".nombreIniciativa").change(function(){
+            funcion1();
+        });
+        
+        
+        function funcion1(){
+            console.log($j(".nombreIniciativa").val());
+            if($j(".nombreIniciativa").val() === 'Otro'){
+                $j('.campoIniciativa').removeClass('ocultar');
+            }else{
+                $j('.campoIniciativa').addClass('ocultar');
+            }            
+        }
+        
+        
+        
+        $j(".nombreCategoria").change(function(){
+            funcion4();
+        });
+        
+        function funcion4(){
+            console.log($j(".nombreCategoria").val());
+            if($j(".nombreCategoria").val() === 'Otro'){
+                $j('.campoCategoria').removeClass('ocultar');
+            }else{
+                $j('.campoCategoria').addClass('ocultar');
+            }            
+        }
+        
+        $j(".tipoDeContactoEnTabla").click(function(){
+            console.log($j(".tipoDeContactoEnTabla").val());
+            funcionTabla();
+        });
+        
+        function funcionTabla(){
+            console.log($j(".tipoDeContactoEnTabla").val());
+            if($j(".tipoDeContactoEnTabla").val() === 'Otro'){
+                $j('.campoDeContactoEnTabla').removeClass('ocultar');
+            }else{
+                $j('.campoDeContactoEnTabla').addClass('ocultar');
+            }            
+        }
+        
+        $j(".celdaContenedoraDeActitud").tooltip({ 
+            bodyHandler: function() { 
+                return $j($j(this).children(".info")).html(); 
+            }, 
+            showURL: false 
+        });
+        
+        var smallcell = $j(".celdaContenedoraDeActitud").outerWidth();
+        
+        
+        
+        $j(".paises").change(function(){
+            siEstaEnSiSeVePregunta();
+        });
+        
+        
+        function siEstaEnSiSeVePregunta(){
+            console.log($j(".paises").val());
+            if($j(".paises").val() === 'Si'){
+                $j('.cuestionarioPaises').removeClass('ocultar');
+            }else{
+                $j('.cuestionarioPaises').addClass('ocultar');
+            }            
+        }
+        
+        renderizarPagina();
+    });
+    
+    
+    
+    function prueba(){
+        console.log($j(".tipoDeContactoEnTabla").val());
+        if($j(".tipoDeContactoEnTabla").val() === 'Otro'){
+            $j('.campoDeContactoEnTabla').removeClass('ocultar');
+        }else{
+            $j('.campoDeContactoEnTabla').addClass('ocultar');
+        }            
+    }
+    
+    
+    
+    
+    function prueba2(){
+        console.log($j(".inputTipo").val());
+        if($j(".inputTipo").val() === 'Gestión'){
+            $j('.tabla2').removeClass('ocultar');
+            $j('.tabla1').addClass('ocultar');
+        }else{
+            $j('.tabla2').addClass('ocultar');
+            $j('.tabla1').removeClass('ocultar');
+        } 
+        
+        if($j(".inputTipo").val() === ''){
+            $j('.tabla2').addClass('ocultar');
+            $j('.tabla1').addClass('ocultar');
+        }
+    }
+    
+    /*
+    $j(window).bind('beforeunload', function(){
+        return 'saksdk';
+    });*/
+    
+    function resetCamposHito(){
+        
+        
+        $j('.resetHito').each(function() {
+            $j(this).val("");    
+        });
+        
+        $j('.resetReto').each(function() {
+            $j(this).val("");    
+        });
+        
+        
+        $j('.nosotrosInput').each(function() {
+            $j(this).val("");    
+        });
+        
+        $j('.competenciaInput').each(function() {
+            $j(this).val("");    
+        });
+    }
+    
+    function verOtro(){
+        if($j(".nivelDeContacto").val() === 'Otros'){
+            $j(".otroNivel").fadeIn();
+        }else{
+            $j(".otroNivel").fadeOut();
+        }
+    }
+    
+    function verPorcentajeFijoYVariable(){
+        if($j(".porcentajeFacturacion").val() > 0){
+            $j(".especificarPorcentaje").fadeIn();
+        }else{
+            $j(".especificarPorcentaje").fadeOut();
+        }
+        
+    }
+    
+    function resetCamposIniciativa(){
+        
+        $j('.resetIniciativa').each(function() {
+            $j(this).val("");    
+        });
+    }
+    
+    
+    
+    function GetURLParameter(sParam) {
+        
+        var sPageURL = window.location.search.substring(1);
+        var sURLVariables = sPageURL.split('&');
+        
+        for (var i = 0; i < sURLVariables.length; i++) {
+            var sParameterName = sURLVariables[i].split('=');
+            if (sParameterName[0] == sParam) {
+                return sParameterName[1];
+            }
+        }
+    }
+    
+    function ajaxshow () {
+        $j(".ajaxloader").show();
+    }
+    function ajaxstop () {
+        $j(".ajaxloader").hide();
+    }
+    
+    function initializeToggles () {
+        var toggle = $j("[id$=reach-defined-checkbox]");
+        toggle.click(function () {
+            toggleRowClass("reach-file-upload", this.checked);
+            toggleRow("reach-file-valoration", this.checked);
+        });
+        toggleRowClass("reach-file-upload", toggle.is(':checked'));
+        toggleRow("reach-file-valoration", toggle.is(':checked'));
+        //---------------------------------------------------------------------
+        toggle = $j("[id$=reach-similar-projects-exp]");
+        toggle.click(function () {
+            toggleRow("reach-similar-projects-exp-detail", 
+                      $j(this).find('option:selected').val() === "Si");
+        });
+        toggleRow("reach-similar-projects-exp-detail", toggle.find('option:selected').val() === "Si");
+        
+        //---------------------------------------------------------------------
+        toggle = $j("[id$=reach-technical-checkbox]");
+        toggle.click(function () {
+            //toggleRow("reach-technical-text", this.checked);
+            toggleRowClass("reach-technical-text", this.checked);
+            toggleRow("reach-technical-valoration", this.checked);
+        });
+        //toggleRow("reach-technical-text", toggle.is(':checked'));
+        toggleRowClass("reach-technical-text", toggle.is(':checked'));
+        toggleRow("reach-technical-valoration", toggle.is(':checked'));
+        //---------------------------------------------------------------------
+        toggle = $j("[id$=reach-third-party-required-checkbox]");
+        toggle.click(function () {
+            toggleRow("reach-third-party-amount", this.checked);
+        });
+        toggleRow("reach-third-party-amount", toggle.is(':checked'));
+        //---------------------------------------------------------------------
+        toggle = $j("[id$=reach-hire-checkbox]");
+        toggle.click(function () {
+            toggleRow("reach-hire-amount", this.checked);
+        });
+        toggleRow("reach-hire-amount", toggle.is(':checked'));
+        //---------------------------------------------------------------------
+        toggle = $j("[id$=team-fte-not-present]");
+        var toggleB = $j("[id$=team-fte-third-party]");
+        var toggleFunction = function () {
+            toggleRow("team-fte-detail", 
+                      ($j("[id$=team-fte-not-present]").find('option:selected').val() !== "" && 
+                       $j("[id$=team-fte-not-present]").find('option:selected').val() !== "0") ||
+                      ($j("[id$=team-fte-third-party]").find('option:selected').val() !== "" && 
+                       $j("[id$=team-fte-third-party]").find('option:selected').val() !== "0"));
+        }
+        toggle.click(toggleFunction);
+        toggleB.click(toggleFunction);
+        toggleFunction();
+        //---------------------------------------------------------------------
+        toggle = $j("[id$=risk-project-SLA-checkbox]");
+        toggle.click(function () {
+            toggleRowClass("risk-project-SLA-detail", this.checked);
+            toggleRow("risk-project-SLA-valoration", this.checked);
+        });
+        toggleRowClass("risk-project-SLA-detail", toggle.is(':checked'));
+        toggleRow("risk-project-SLA-valoration", toggle.is(':checked'));
+    }
+    
+    function toggleRow(id, condition) {
+        //the closest("tr") obtain the element that is generated as 
+        //part of the pageBlockSection that contains both the title and
+        //the input field
+        if(condition) {
+            $j("[id$=" + id + "]").closest("tr").show("fast");
+        }
+        else {
+            $j("[id$=" + id + "]").closest("tr").hide("fast");
+        }
+    }
+    
+    function toggleRowClass(aClass, condition) {
+        //the closest("tr") obtain the element that is generated as 
+        //part of the pageBlockSection that contains both the title and
+        //the input field
+        if(condition) {
+            $j("." + aClass).closest("tr").show("fast");
+        }
+        else {
+            $j("." + aClass).closest("tr").hide("fast");
+        }
+    }
+    
+    function fillInitiative{!idCuenta}() {
+        $j("#spanIniciative{!idCuenta} input").val($j("#textIniciative{!idCuenta}").val());
+        $j("#textIniciative{!idCuenta}").val("");
+    }
+    
+    
+    function setearValorIdDelRetoActual(id){
+        $j(".setearIdDelRetoDelContacto").val(id);
+    }
+    
+    function setearValorIdDeSolucionActual{!idCuenta}(id){
+        $j(".setearIdDeSolucion").val(id);
+    }
+    
+    function twistSectionInsideARepeat(twisty, sectionId) {
+        var parentDiv = twisty;
+        while (parentDiv.tagName != 'DIV') { parentDiv = parentDiv.parentNode; }
+        var div = parentDiv.nextSibling; 
+        var elemWasOn = false; 
+        if (div.style.display != 'none') { 
+            div.style.display = 'none'; 
+            twisty.className ='showListButton';
+            twisty.alt = twisty.title = 'Mostrar sección - '+twisty.name;
+            elemWasOn = true; 
+        } else {
+            div.style.display = 'block'; 
+            twisty.className = 'hideListButton';
+            twisty.alt = twisty.title = 'Ocultar sección - '+twisty.name;
+        } 
+        return !elemWasOn;
+    }
+    
+    function botonSi () {
+        $j( "#detail-reach" ).click();
+        $j('body').animate({ scrollTop: 127 }, 400);
+    }
+    
+    function probandoRender(){
+        $j("[data-toggle='tab']").toggle('destroy')                 
+        $j("[data-toggle='tab']").toggle('create');    
+        
+    }
+    
+    
+    function pruebaCategoria(){
+        console.log($j(".tipoDeCategoriaEnTabla").val());
+        if($j(".tipoDeCategoriaEnTabla").val() === 'Otro'){
+            $j('.campoDeCategoriaEnTabla').removeClass('ocultar');
+        }else{
+            $j('.campoDeCategoriaEnTabla').addClass('ocultar');
+        }            
+    }
+    
+    
+    
+    function cambiarColor(id){
+        
+        var picklist = $j("."+id);
+        
+        console.log(picklist.val());
+        
+        if(picklist.val() == 'Oportunidades Ganadas'){
+            $j("#"+id).css('background-color','#337ab7');
+        }
+        
+        if(picklist.val() == 'Oportunidades en Funnel'){
+            $j("#"+id).css('background-color','green');
+        }
+        
+        if(picklist.val() == 'Lineas de trabajo Priorizadas'){
+            $j("#"+id).css('background-color','orange');
+        }
+        if(picklist.val() == 'Lineas a Explorar'){
+            $j("#"+id).css('background-color','grey');
+        }
+        if(picklist.val() == 'Lineas que no Aplican en el Cliente'){
+            $j("#"+id).css('background-color','red');
+        }
+        if(picklist.val() == ''){
+            $j("#"+id).css('background-color','black');
+        }
+        
+    }
+    
+    
+    
+    </script>
+    
+    <apex:outputpanel style="background-color:white" styleClass="container-fluid bootstrap-sf1" id="pageContent">
+        
+        <div class="panel panel-default">
+            <div class="panel-heading" style="height: 129px;">
+                <h2 class="panel-title">
+                    <span style="float:left;">
+                        {!$Label.Informacion_de_la_cuenta}
+                    </span>
+                </h2>
+                
+                
+                <div class="row paddingRight">
+                    <div class="btn-group pull-right" role="group" >
+                        
+                        <apex:outputPanel id="buttonPanel">
+                            <div class="btn-group pull-right" role="group" aria-label="...">
+                                
+                                <button style="margin-top:-14%;float:left;" type="button" class="btn btn-default btn-sm" onclick="SaveChanges{!idCuenta}()">
+                                    <span class="glyphicon glyphicon-floppy-disk icon-btn-left"></span>&nbsp;{!$Label.Guardar_Datos} 
+                                </button>  
+                                
+                                <apex:actionStatus id="loadingSave">
+                                    <apex:facet name="start">
+                                        <img src="/img/loading.gif"/>
+                                    </apex:facet>
+                                </apex:actionStatus>  
+                                
+                            </div>
+                        </apex:outputPanel>  
+                        
+                    </div>
+                    
+                </div>
+                
+                <!-- porcentaje completo -->
+                
+                <apex:outputPanel id="porcentajeCuenta">    
+                    <span style="float: left;font-weight: bold;font-size: 70%; margin-top:-0.5%">{!$Label.Cuestionario_completo_al} {!porcentaje}%</span>
+                    <br/>
+                    
+                    <div  class="row col-md-6" style="width: 25%; margin-top:-1%">
+                        
+                        <div class="progress">
+                            <div class="progress-bar {!IF(porcentaje == 0, 'esCero','')} {!IF(porcentaje < 20, 'menorDeVeinte','')} {!IF(porcentaje > 79, 'completo','')} {!IF(porcentaje < 80 && porcentaje > 59, 'casiCompleto','')} {!IF(porcentaje < 60 && porcentaje > 49, 'menorDeSetenta','')} {!IF(porcentaje < 49 && porcentaje > 19, 'menorDeCincuenta','')}" role="progressbar" aria-valuenow="{!porcentaje}" aria-valuemin="0" aria-valuemax="100" style="width: {!porcentaje}%;min-width: 11%;">
+                                {!porcentaje}%
+                            </div>
+                        </div>
+
+                    </div>
+                    
+                </apex:outputPanel>
+                
+                
+            </div>
+            
+            <div class="panel-body">
+                
+                <apex:form >                    
+                    <apex:actionFunction action="{!guardarFourPlanningCompleto}" name="SaveChanges{!idcuenta}" oncomplete="calcularPorcentajeCuestionarioCompleto()" reRender="cadaArea, msgPanel, porcentajeCuenta, presupuesto, todo, tablaModalRetos, contactosAfinidad" status="loadingSave"/>
+                    
+                    <apex:actionFunction action="{!irAPlanDeAccion}" name="irAPlanDeAccion"/>
+                    <apex:actionFunction action="{!calcularPorcentajeCuestionarioCompleto}" name="calcularPorcentajeCuestionarioCompleto" reRender="porcentajeCuenta"/>
+                    <apex:actionFunction action="{!irADesarrolloCuenta}" name="irADesarrolloCuenta"/>
+                    <apex:actionFunction action="{!irAEjesDeTrabajo}" name="irAEjesDeTrabajo"/>
+
+                    <apex:actionFunction action="{!irAInicio}" name="irAInicio"/>
+                    <apex:actionFunction action="{!renderizarPagina}" name="renderizarPagina" reRender="cadaArea"/>
+                    <apex:actionFunction action="{!guardoPro}" name="guardarCheckbox" oncomplete="SaveChanges{!idcuenta}();" reRender="botones" status="loadingSave"  /> 
+                    <apex:actionFunction action="{!cambioTodosADonuts}" name="cambioTodosADonuts" rerender="presupuesto" />
+                    <apex:actionFunction action="{!cambioTodosABarras}" name="cambioTodosABarras" rerender="presupuesto" />
+                    
+                    <apex:actionFunction action="{!goToOrg}" name="goToOrg"/> 
+                    
+                    <apex:actionFunction name="renderizaModal" rerender="tablaModalOportunidades" action="renderizarPagina"/>
+                    
+                    <apex:actionFunction name="renderizaModalRetos" rerender="tablaModalRetos" action="renderizarPagina"/>
+                    
+                    <apex:actionFunction action="{!guardarFourPlanningCompleto}" name="laprueba" reRender="preguntas, tablaIniciativasDeNegocio, hitosRelevantes, contacto, contactosAfinidad" status="loadingSave"/>
+                    
+                    <apex:actionFunction name="idDelRetoAlQuePerteneceElContacto" reRender="cadaArea" >
+                        <apex:param name="idDelRetoDelContacto" value="" assignTo="{!idDelRetoDelContacto}" />
+                    </apex:actionFunction>
+                    
+                    <apex:actionFunction action="crearEventoUtil" name="eventoUtil" reRender="panelBotonBackShop, panelRespuestaBackShop" >
+                        <apex:param name="idDelEvento" value="" assignTo="{!idDelEvento}" />
+                    </apex:actionFunction>
+                    
+                    <apex:actionFunction action="crearEventoInutil" name="eventoInutil" reRender="panelBotonBackShop, panelRespuestaBackShop" >
+                        <apex:param name="idDelEvento" value="" assignTo="{!idDelEvento}" />
+                    </apex:actionFunction>
+                    
+                    <apex:input label="" value="{!idDelRetoDelContacto}" style="display:none" styleClass="setearIdDelRetoDelContacto" />
+                    
+                    <apex:input label="" value="{!idDeSolucion}" style="display:none" styleClass="setearIdDeSolucion" />
+                    <br/>
+                    
+                    <apex:outputPanel id="botones">
+                        
+                        <apex:outputPanel > 
+                            <ul class="nav nav-tabs" role="tablist">
+                                <li role="presentation" class="active"><a class="verSeccion" id="section1" href="#div-general-info{!idCuenta}" aria-controls="div-general-info{!idCuenta}" role="tab" data-toggle="tab">{!$Label.certa_scp__descripcion_del_cliente}</a></li>
+                                <li role="presentation"><a class="verSeccion" id="section2" href="#div-economical-info{!idCuenta}" aria-controls="div-economical-info{!idCuenta}" role="tab" data-toggle="tab">{!$Label.certa_scp__iniciativas_estrategicas}</a></li>                              
+                                <li role="presentation"><a class="verSeccion" id="section4" href="#div-presupuesto{!idCuenta}" aria-controls="div-presupuesto{!idCuenta}" role="tab" data-toggle="tab">{!$Label.certa_scp__cobertura_del_portfolio}</a></li>
+                                <li role="presentation"><a class="verSeccion" id="section5" href="#div-Team-offer-presale{!idCuenta}" aria-controls="div-Team-offer-presale{!idCuenta}" role="tab" data-toggle="tab">{!$Label.certa_scp__relacion}</a></li>
+                            </ul>
+                        </apex:outputPanel>
+                    </apex:outputPanel>
+                    <apex:outputPanel id="msgPanel">
+                        <br/>
+                        <apex:messages style="width: 98%;" styleClass="center-block alert alert-danger" />
+                        
+                    </apex:outputPanel>   
+                    
+                    
+                    <br/>
+                    <div class="tab-content" id="big-deal-tab-content">
+                        
+                        <!-- Descripcion del cliente ----------------------------------------------------------- -->
+                        <div id="div-general-info{!idCuenta}" class="tab-pane fade active in">
+                            <apex:pageBlock id="preguntas" title="" mode="maindetail">
+                                <apex:pageBlockSection title="{!$Label.certa_scp__descripcion_del_cliente}" columns="1">
+                                    
+                                    <apex:inputField value="{!cuenta.Industry}" label="{!$Label.certa_scp__sector}"/>                                              
+                                    
+                                    <apex:inputField value="{!cuenta.Micro_Industry__c}" label="{!$Label.certa_scp__sub_sector}" onchange="laprueba()" />
+                                    
+                                    
+                                    <!-- Publico y privado -->
+                                    
+                                    <apex:outputText label="{!$Label.certa_scp__cu_les_son_los_ingresos_anuales_del_cliente_de_su_negocio_no_de_nuestro_nego} {!monedaDeLaCuenta}">
+                                        
+                                        
+                                        <apex:outputPanel id="panel1">
+                                            <apex:outputPanel rendered="{! !fourPlanning.No_informa_dato__c}">
+                                                <apex:outputField value="{!fourPlanning.Facturacion__c}"/>&nbsp; &nbsp; 
+                                            </apex:outputPanel>
+                                            
+                                            <apex:outputPanel rendered="{!fourPlanning.No_informa_dato__c}">
+                                                <apex:outputField html-disabled="true" value="{!fourPlanning.Facturacion__c}"/>&nbsp; &nbsp; 
+                                            </apex:outputPanel>
+                                            
+                                        </apex:outputPanel>
+                                        
+                                        
+                                    </apex:outputText>
+
+                                    
+
+                                    
+                                    <apex:outputText rendered="{! !esSectorPublico}" label="{!$Label.certa_scp__cantidad_empleados}" >
+                                        <div class="requiredInput">
+                                            <div class="requiredBlock"></div>
+                                            <apex:outputField value="{!fourPlanning.Cantidad_de_empleados_exacto__c}"/>
+                                        </div></apex:outputText>
+                                    
+                                    
+                                    <apex:outputText rendered="{!esSectorPublico}" label="{!$Label.certa_scp__numero_empleados_organismo}" >
+                                        <div class="requiredInput">
+                                            <div class="requiredBlock"></div>
+                                            <apex:outputField value="{!fourPlanning.Cantidad_de_empleados_exacto__c}"/>
+                                        </div></apex:outputText>
+                                    
+                                    
+                                    <apex:inputField value="{!fourPlanning.Empleados_Crece_Decrece_Matiene__c}" label="{!$Label.certa_scp__numero_emleados_crece_decrece_mantiene}">
+                                    </apex:inputField>
+                                    
+                                    
+                                    
+                                    <apex:outputText label="{!$Label.certa_scp__cantidad_de_edificios_centrales_y_o_administrativos}" >
+                                        <div class="requiredInput">
+                                            <div class="requiredBlock"></div>
+                                            <apex:outputField value="{!fourPlanning.Cantidad_de_sedes_exactas__c}"  />
+                                        </div></apex:outputText>
+                                    
+                                    
+                                    <!-- Publico y privado -->
+                                    <apex:outputText rendered="{! !esSectorPublico}" label="{!$Label.certa_scp__indica_la_cantidad_de_sucursales}"  >
+                                        <div class="requiredInput">
+                                            <div class="requiredBlock"></div>
+                                            <apex:outputField value="{!fourPlanning.Cantidad_de_sucursales__c}" />
+                                        </div></apex:outputText>
+                                    
+                                    <apex:outputText rendered="{!esSectorPublico}"  label="{!$Label.certa_scp__numero_centros_institucion}"   >
+                                        <div class="requiredInput">
+                                            <div class="requiredBlock"></div>
+                                            <apex:outputField value="{!fourPlanning.Cantidad_de_sucursales__c}" />
+                                        </div></apex:outputText>
+                                    
+                                    
+                                    <!-- Publico o privado --> 
+                                    <apex:inputField rendered="{! !esSectorPublico}" value="{!fourPlanning.Como_se_mantiene_el_numero_de_sucursales__c}" label="{!$Label.certa_scp__el_n_mero_de_sucursales_crece_decrece_o_se_mantiene}" />
+                                    
+                                    <apex:inputField rendered="{!esSectorPublico}" value="{!fourPlanning.Como_se_mantiene_el_numero_de_sucursales__c}" label="{!$Label.certa_scp__numero_centros_crece}" />
+                                    
+                                    <!-- Publico o privado --> 
+                                    <!--
+                                    <apex:outputText rendered="{! !esSectorPublico}" label="{!$Label.certa_scp__el_cliente_dispone_de_parque_automotor}"  >
+                                        <div class="requiredInput">
+                                            <div class="requiredBlock"></div>
+                                            <apex:inputField styleClass="disponeDeAutomotor{!idCuenta}" value="{!fourPlanning.Dispone_de_parque_automotor__c}"  />
+                                        </div></apex:outputText>
+                                    
+                                    
+                                    <apex:outputText rendered="{!esSectorPublico}"  label="{!$Label.certa_scp__organismo_parque_automotor}"  >
+                                        <div class="requiredInput">
+                                            <div class="requiredBlock"></div>
+                                            <apex:inputField styleClass="disponeDeAutomotor{!idCuenta}" value="{!fourPlanning.Dispone_de_parque_automotor__c}"  />
+                                        </div></apex:outputText>
+                                                                      
+                                    <!-- cuestionario flota 
+                                    <apex:outputPanel styleClass="cuestionarioFlota{!idCuenta} ocultar" >
+                                        
+                                        <table class="detailList" border="0" cellpadding="0" cellspacing="0">
+                                            <tbody>
+                                                <tr class="">
+                                                    <th class="labelCol vfLabelColTextWrap first" scope="row">
+                                                        <label>{!$Label.Parque_Automotor_Propio_o_Gestionado}</label>
+                                                    </th>
+                                                    <td class="data2Col">
+                                                        <apex:inputField value="{!fourPlanning.Parque_Automotor_Propio_o_Gestionado__c}"/> 
+                                                    </td>
+                                                </tr>
+                                                <tr class="">
+                                                    <th class="labelCol vfLabelColTextWrap first" scope="row">
+                                                        <label>{!$Label.certa_scp__cantidad_vehiculos_parque}</label>
+                                                    </th>
+                                                    <td class="data2Col">
+                                                        <apex:inputField value="{!fourPlanning.De_cuantos_veh_culos_dispone_el_parque__c}"/> 
+                                                    </td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                        
+                                    </apex:outputPanel>
+                                    
+                                    
+                                    
+                                    <apex:outputPanel styleClass="cuestionarioPaises ocultar" >
+                                        
+                                        <table class="detailList" border="0" cellpadding="0" cellspacing="0">
+                                            <tbody>
+                                                <tr class="">
+                                                    <th class="labelCol vfLabelColTextWrap first" scope="row">
+                                                        <label>{!$Label.Selecciona_Paises_Negocio}</label>
+                                                    </th>
+                                                    <td class="data2Col">
+                                                        <apex:inputField value="{!fourPlanning.Presencia_Regional__c}"/> 
+                                                    </td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                        
+                                    </apex:outputPanel>
+                                    
+                                    <!--
+                                    <apex:outputText rendered="{! !esSectorPublico}" label="{!$Label.certa_scp__indica_cu_les_son_las_principales_empresas_con_las_que_compite_tu_cliente}">
+                                        <apex:inputField value="{!fourPlanning.Competidor_Principal_1__c}" />&nbsp;  
+                                        <apex:inputField value="{!fourPlanning.Competidor_Principal_2__c}" />&nbsp;
+                                        <apex:inputField value="{!fourPlanning.Competidor_Principal_3__c}" />  
+                                    </apex:outputText> 
+                                    
+                                    
+                                    <apex:inputField rendered="{! !esSectorPublico}" value="{!fourPlanning.Canal_de_comercializaci_n_multiple__c}" label="{!$Label.certa_scp__indica_cu_les_son_los_canales_de_comercializaci_n_que_utiliza_tu_cliente} {!$Label.certa_scp__indique_por_orden_de_importancia}" />
+                                    <apex:inputField rendered="{!esSectorPublico}" value="{!fourPlanning.Canal_de_comercializaci_n_multiple__c}" label="{!$Label.certa_scp__selecciona_los_canales_que_utiliza_para_interactuar_con_el_ciudadano} {!$Label.certa_scp__indique_por_orden_de_importancia}" />
+                                    
+                                    <apex:inputField rendered="{! !esSectorPublico}" value="{!fourPlanning.comercializacion_que_mas_crece_multiple__c}" label="{!$Label.certa_scp__cu_l_es_el_canal_de_comercializaci_n_que_m_s_esta_creciendo} {!$Label.certa_scp__indique_por_orden_de_importancia}" />
+                                    <apex:inputField rendered="{!esSectorPublico}" value="{!fourPlanning.comercializacion_que_mas_crece_multiple__c}" label="{!$Label.certa_scp__proveedores_importantes}" />
+                                    -->
+                                    
+                                </apex:pageBlockSection>
+                                
+                            </apex:pageBlock>
+                        </div>
+                        
+                        <!-- Iniciativas estrategicas -------------------------------------------------------- -->
+                        <div id="div-economical-info{!idCuenta}" class="tab-pane fade">
+                            
+                            <apex:pageBlock title="" mode="maindetail" id="tablaIniciativasDeNegocio">
+                                <apex:pageBlockSection title="{!$Label.certa_scp__iniciativas_estrategicas}" columns="1" >                            
+                                    
+                                    
+                                    <apex:outputText label="{!$Label.certa_scp__cu_les_son_los_principales_desaf_os_e_iniciativas_estrat_gicas_del_cliente}">     
+                                    </apex:outputText> 
+                                    
+                                    <apex:pageBlockSectionItem >
+                                        <apex:outputPanel layout="none" >
+                                            <table style="width: 80%;margin-left: 10%;margin-bottom: 0px;" class ="table table-striped table-bordered table-condensed">
+                                                <thead>
+                                                    <tr>
+                                                        <th style="width: 20%;padding-left: 0%;text-align:center;">
+                                                            {!$Label.Cuenta}
+                                                        </th>
+                                                        <th style="width: 20%;padding-left: 0%;text-align:center;">
+                                                            {!$Label.Titulo}
+                                                        </th>
+                                                        <th style="padding-left: 0%;text-align:center;width: 50%;">
+                                                            {!$Label.certa_scp__description}
+                                                        </th>
+                                                        <th style="width: 10%;">
+                                                            
+                                                        </th>
+                                                    </tr>
+                                                </thead>
+                                                <tbody>
+                                                    <apex:repeat value="{!iniciativasDelNegocioDelCliente}" var="item">
+                                                        <tr>
+                                                            <td style="text-align:center;">
+                                                                <apex:outputField value="{!item.account__r.name}"/>
+                                                            </td>
+                                                            <td style="text-align:center;">
+                                                                <apex:outputField value="{!item.Titulo_Iniciativa__c}">
+                                                                    <apex:inlineEditSupport event="ondblclick"/>
+                                                                </apex:outputField>
+                                                                
+                                                            </td>
+                                                            <td style="text-align:center;">
+                                                                <apex:outputField value="{!item.Strategic_Initiative__c}">
+                                                                    <apex:inlineEditSupport event="ondblclick"/>
+                                                                </apex:outputField>
+                                                                
+                                                            </td>
+                                                            <td style="text-align:center;">
+                                                                <apex:commandButton styleClass="btn btn-default btn-sm" value="{!$Label.certa_scp__delete}" reRender="tablaIniciativasDeNegocio" action="{!DeleteStrategicInitiatives}">
+                                                                    <apex:param assignTo="{!delid}" name="delid" value="{!item.id}"/>
+                                                                </apex:commandButton>
+                                                            </td>
+                                                        </tr>
+                                                    </apex:repeat>
+                                                </tbody>
+                                            </table>  
+                                        </apex:outputPanel>
+                                    </apex:pageBlockSectionItem>
+                                    
+                                    <apex:outputText >
+                                        <button style="margin-left: 69%;" type="button" class="btn btn-default btn-sm" data-toggle="modal" data-target="#myModal{!idCuenta}">
+                                            <span class="glyphicon glyphicon-plus icon-btn-left"></span>&nbsp;{!$Label.add_buttom}&nbsp;{!$Label.Initiative}
+                                        </button>
+                                        <br/>
+                                    </apex:outputText>
+                                    <br/>
+                                    
+                                    
+                                </apex:pageBlockSection>
+                                
+                            </apex:pageBlock>
+   
+                        </div>
+                        
+                        <!-- Relacion Institucional -------------------------------------------------------- -->
+                        <div id="div-Team-offer-presale{!idCuenta}" class="tab-pane fade">
+                            <apex:pageBlock title="" mode="maindetail">
+                                <apex:pageBlockSection title="{!$Label.certa_scp__relacion}" columns="1">
+                                    
+                                    <apex:outputPanel >
+										
+                                        <button style="margin-top:2%;background-color: limegreen;color: black;border: 1px solid black;" type="button" class="btn btn-default btn-sm pull-right" onclick="goToOrg()">
+                                            <span class="glyphicon glyphicon-edit icon-btn-left"></span>&nbsp;{!$Label.view_influence_map}
+                                        </button> 
+			                                        
+                                        <table class="detailList" border="0" cellpadding="0" cellspacing="0">
+                                            <tbody>
+                                                <tr class="bordesDeTabla">
+                                                    <th class="labelCol vfLabelColTextWrap first" scope="row">
+                                                        <label></label>
+                                                    </th>
+                                                    <td class="data2Col first">
+                                                        
+                                                    </td>
+                                                </tr>
+                                                <tr class="bordesDeTabla">
+                                                    <th class="labelCol vfLabelColTextWrap first" scope="row">
+                                                        <label>{!$Label.Top_Proveedores_Cliente}</label>
+                                                    </th>
+                                                    <td class="data2Col first">
+                                                        
+                                                    </td>
+                                                </tr>
+                                                <tr class="bordesDeTabla">
+                                                    <td class="data2Col first">
+                                                        <div style="float:left;margin-left: 25%;width:22%;">
+                                                            <em style="color: grey;">{!$Label.No_Cinco_Primeros}&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</em>
+                                                        </div> 
+                                                        <!--<div id="slider" style="width:25%;float: left;margin-top: 0.5%;"></div>-->
+                                                        
+                                                        <div style="float:left;">
+                                                            <apex:selectRadio value="{!relacionInstitucional1}"> 
+                                                                
+                                                                <apex:selectOptions value="{!respuestas}"/>
+                                                                
+                                                            </apex:selectRadio>
+                                                        </div>
+                                                        
+                                                        
+                                                        <div >
+                                                            <em style="color: grey;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{!$Label.Estamos_Primeros}</em>
+                                                        </div>
+                                                        
+                                                        <!--<apex:inputField label="" styleClass="primerInput" style="display:none" value="{!fourPlanning.Top_5_de_proveedores__c}" />-->
+                                                    </td>
+                                                </tr>
+                                                
+                                                <tr class="bordesDeTabla">
+                                                    <th class="labelCol vfLabelColTextWrap first" scope="row">
+                                                        <label>{!$Label.Vinculo_Direcciones} </label>
+                                                    </th>
+                                                    <td class="data2Col first">
+                                                        
+                                                    </td>
+                                                </tr>
+                                                <tr class="bordesDeTabla">
+                                                    <td class="data2Col first">
+                                                        <div style="float:left;margin-left: 25%;width:22%">
+                                                            <em style="color: grey;">{!$Label.No_Tenemos_Vinculo}&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</em>
+                                                        </div> 
+                                                        <!--<div id="sliderVinculo" style="width:25%;float: left;margin-top: 0.5%;"></div> -->
+                                                        <div style="float:left;">
+                                                            <apex:selectRadio value="{!relacionInstitucional2}"> 
+                                                                
+                                                                <apex:selectOptions value="{!respuestas}"/>
+                                                                
+                                                            </apex:selectRadio>
+                                                        </div>
+                                                        
+                                                        <div >
+                                                            <em style="color: grey;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{!$Label.Tenemos_Estrecho_Vinculo}</em>
+                                                        </div>
+                                                        
+                                                        <!--<apex:inputField label="" styleClass="segundoInput" style="display:none" value="{!fourPlanning.vinculo_direccion_tecnologia__c}" />-->
+                                                    </td>
+                                                </tr>
+                                                
+                                                <tr class="bordesDeTabla">
+                                                    <th class="labelCol vfLabelColTextWrap first" scope="row">
+                                                        <label>{!$Label.Quien_Prospecta_Venta}</label>
+                                                    </th>
+                                                    <td class="data2Col first">
+                                                        
+                                                    </td>
+                                                </tr>
+                                                <tr class="bordesDeTabla">
+                                                    <td class="data2Col first">
+                                                        <div style="float:left;margin-left: 25%;width:22%">
+                                                            <em style="color: grey;">{!$Label.Analistas_Fabricantes_Canales}&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</em>
+                                                        </div> 
+                                                        <!-- <div id="sliderVentaTecnologica" style="width:25%;float: left;margin-top: 0.5%;"></div> -->
+                                                        <div style="float:left;">
+                                                            <apex:selectRadio value="{!relacionInstitucional3}"> 
+                                                                
+                                                                <apex:selectOptions value="{!respuestas}"/>
+                                                                
+                                                            </apex:selectRadio>
+                                                        </div>
+                                                        
+                                                        <div >
+                                                            <em style="color: grey;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{!$Label.Consultoras_Telefonica}</em>
+                                                        </div>
+                                                        
+                                                        <!-- <apex:inputField label="" styleClass="tercerInput" style="display:none" value="{!fourPlanning.prospecta_venta_tecnologia_cliente__c}" />-->
+                                                    </td>
+                                                </tr>
+                                                
+                                                <tr class="bordesDeTabla">
+                                                    <th class="labelCol vfLabelColTextWrap first" scope="row">
+                                                        <label>{!$Label.Estas_Futuro_Cliente}</label>
+                                                    </th>
+                                                    <td class="data2Col first">
+                                                        
+                                                    </td>
+                                                </tr>
+                                                <tr class="bordesDeTabla">
+                                                    <td class="data2Col first">
+                                                        <div style="float:left;margin-left: 25%;width:22%">
+                                                            <em style="color: grey;">{!$Label.No_Considera_Futuro}&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</em>
+                                                        </div> 
+                                                        <!--<div id="sliderFuturoCliente" style="width:25%;float: left;margin-top: 0.5%;"></div> -->
+                                                        <div style="float:left;">
+                                                            <apex:selectRadio value="{!relacionInstitucional4}"> 
+                                                                
+                                                                <apex:selectOptions value="{!respuestas}"/>
+                                                                
+                                                            </apex:selectRadio>
+                                                        </div>
+                                                        
+                                                        <div >
+                                                            <em style="color: grey;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{!$Label.Principal_Socio_Futuro}
+                                                            </em>
+                                                        </div>
+                                                        
+                                                        <!--<apex:inputField label="" styleClass="cuartoInput" style="display:none" value="{!fourPlanning.esta_en_el_futuro_del_cliente__c}" />-->
+                                                    </td>
+                                                </tr>
+                                                
+                                                <tr class="bordesDeTabla">
+                                                    <th class="labelCol vfLabelColTextWrap first" scope="row">
+                                                        <label>{!$Label.Planes_Cliente}</label>
+                                                    </th>
+                                                    <td class="data2Col first">
+                                                        
+                                                    </td>
+                                                </tr>
+                                                <tr class="bordesDeTabla">
+                                                    <td class="data2Col first" style="border-bottom: solid white 1px;">
+                                                        <div style="float:left;margin-left: 25%;width:22%">
+                                                            <em style="color: grey;">{!$Label.No_los_conozco}&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</em>
+                                                        </div>  
+                                                        <!--<div id="sliderPlanesEstrategicos" style="width:25%;float: left;margin-top: 0.5%;"></div> -->
+                                                        <div style="float:left;">
+                                                            <apex:selectRadio value="{!relacionInstitucional5}"> 
+                                                                
+                                                                <apex:selectOptions value="{!respuestas}"/>
+                                                                
+                                                            </apex:selectRadio>
+                                                        </div>
+                                                        
+                                                        <div >
+                                                            <em style="color: grey;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{!$Label.Son_Compartidos_Telefonica}
+                                                            </em>
+                                                        </div>
+                                                        
+                                                        <!--<apex:inputField label="" styleClass="quintoInput" style="display:none" value="{!fourPlanning.lanes_estrat_gicos_de_tu_cliente__c}" />-->
+                                                    </td>
+                                                </tr>
+                                                
+                                            </tbody>
+                                        </table>
+                                        
+                                    </apex:outputPanel>
+                                    
+                                    <apex:outputText label="{!$Label.certa_scp__con_qu_frecuencia_nos_reunimos_con_el_cliente}" >
+                                        <div style="float:left;" class="requiredInput">
+                                            <div class="requiredBlock"></div>
+                                            <apex:inputField value="{!fourPlanning.Frecuencia_de_Contacto_con_el_Cliente__c}" />
+                                        </div>
+                                    </apex:outputText>
+                                    
+                                    <apex:outputText label="{!$Label.certa_scp__niveles_interlocucion_cliente}" >
+                                        <div>
+                                            <apex:inputField rendered="{! !esSectorPublico}" styleClass="nivelDeContacto" value="{!fourPlanning.SeleccionMultiple__c}"/>
+                                            <apex:inputField rendered="{!esSectorPublico}" styleClass="nivelDeContacto" value="{!fourPlanning.SeleccionMultipleContactoPublico__c}" />    
+                                        </div>                                        
+                                    </apex:outputText>
+                                    
+                                    <apex:inputField value="{!fourPlanning.Agenda_Periodica_Ejecutiva__c}" label="{!$Label.certa_scp__tenemos_agenda_peri_dica_ejecutiva_con_participaci_n_de_nivel_directivo_de_amba}" />
+                                    
+                                    <apex:outputText label="{!$Label.certa_scp__tenemos_agenda_peri_dica_operacional_sobre_la_calidad_de_los_servicios_prestado}" >
+                                        <div class="requiredInput">
+                                            <div class="requiredBlock"></div>
+                                            <apex:inputField value="{!fourPlanning.Agenda_Periodica_Operacional__c}" />
+                                        </div>
+                                    </apex:outputText>
+                                    
+                                    <apex:outputText label="{!$Label.certa_scp__selecciona_los_3_contactos_en_el_cliente_con_los_que_tiene_mayor_afinidad}">
+                                        
+                                        <apex:outputPanel id="contactosAfinidad">
+                                            <apex:actionFunction name="probando" rerender="contactosAfinidad" action="{!cambioContacto}"/>
+                                            
+                                            <apex:inputField onchange="{probando();}" value="{!fourPlanning.Contacto_con_mayor_afinidad_1__c}" />&nbsp; 
+                                            <apex:outputText value="({!fourPlanning.Contacto_con_mayor_afinidad_1__r.Title})" />&nbsp; <br/>
+                                            
+                                            <apex:inputField onchange="{probando();}" value="{!fourPlanning.Contacto_con_mayor_afinidad_2__c}" />&nbsp;
+                                            <apex:outputText value="({!fourPlanning.Contacto_con_mayor_afinidad_2__r.Title})" />&nbsp; <br/>
+                                            
+                                            <apex:inputField onchange="{probando();}" value="{!fourPlanning.Contacto_con_mayor_afinidad_3__c}" />
+                                            <apex:outputText value="({!fourPlanning.Contacto_con_mayor_afinidad_3__r.Title})" />
+                                            <br/>
+                                        </apex:outputPanel>
+                                        <apex:outPutPanel >
+
+                                        </apex:outPutPanel> 
+                                        
+                                    </apex:outputText>   
+                                    
+                                    <!--apex:inputField value="{!fourPlanning.realcion_empresa_otros_clientes__c}" label="{!$Label.certa_scp__conoces_lo_que_telef_nica_hace_en_otros_pa_ses_con_clientes_semejantes_al_tuyo}" /-->
+                                    
+                                    <apex:outputText >&nbsp;</apex:outputText>
+                                    
+                                    
+                                    <apex:outputText label="{!$Label.certa_scp__nuestra_agenda_de_trabajo_con_el_cliente_es_principalmente}"/>
+                                    
+                                    <apex:outputPanel >
+                                        
+                                        <table class="detailList" border="0" cellpadding="0" cellspacing="0">
+                                            <tbody>
+                                                <tr class="bordesDeTabla">
+                                                    <td class="data2Col first" style="width:100%">
+                                                        <div style="float:left;margin-left: 30%;width:10%;">
+                                                            <em style="color: grey;">1 {!$Label.Operativa}&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</em>
+                                                        </div> 
+                                                        
+                                                        <div style="float:left;">
+                                                            <apex:selectRadio value="{!contactoEjecutivo1}"> 
+                                                                
+                                                                <apex:selectOptions value="{!respuestas}"/>
+                                                                
+                                                            </apex:selectRadio>
+                                                        </div>
+                                                        
+                                                        <div >
+                                                            <em style="color: grey;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;5 {!$Label.Comercial}</em>
+                                                        </div>
+                                                        
+                                                    </td>
+                                                </tr>
+                                                
+                                                <tr class="bordesDeTabla" >
+                                                    <td class="data2Col first" style="width:100%">
+                                                        <div style="float:left;margin-left: 30%;width:10%">
+                                                            <em style="color: grey;">1 {!$Label.Tradicional}&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</em>
+                                                        </div> 
+                                                        
+                                                        <div style="float:left;">
+                                                            <apex:selectRadio value="{!contactoEjecutivo2}"> 
+                                                                
+                                                                <apex:selectOptions value="{!respuestas}"/>
+                                                                
+                                                            </apex:selectRadio>
+                                                        </div>
+                                                        
+                                                        <div >
+                                                            <em style="color: grey;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;5 {!$Label.Digital}</em>
+                                                        </div>
+                                                    </td>
+                                                </tr>
+                                                
+                                                
+                                                <tr class="bordesDeTabla">
+                                                    <td class="data2Col first" style="width:100%">
+                                                        <div style="float:left;margin-left: 30%;width:10%">
+                                                            <em style="color: grey;">1 {!$Label.Renegociacion}&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</em>
+                                                        </div> 
+                                                        
+                                                        <div style="float:left;">
+                                                            <apex:selectRadio value="{!contactoEjecutivo3}"> 
+                                                                
+                                                                <apex:selectOptions value="{!respuestas}"/>
+                                                                
+                                                            </apex:selectRadio>
+                                                        </div>
+                                                        
+                                                        <div >
+                                                            <em style="color: grey;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;5 {!$Label.Desarrollo}</em>
+                                                        </div>
+                                                        
+                                                    </td>
+                                                </tr>
+                                                
+                                                <tr class="bordesDeTabla">
+                                                    <td class="data2Col first" style="width:100%">
+                                                        <div style="float:left;margin-left: 30%;width:10%">
+                                                            <em style="color: grey;">1 {!$Label.Conflictiva}</em>
+                                                        </div> 
+                                                        
+                                                        <div style="float:left;">
+                                                            
+                                                            <apex:selectRadio value="{!contactoEjecutivo4}"> 
+                                                                
+                                                                <apex:selectOptions value="{!respuestas}"/>
+                                                                
+                                                            </apex:selectRadio>
+                                                        </div>
+                                                        
+                                                        <div >
+                                                            <em style="color: grey;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;5 {!$Label.Constructiva}
+                                                            </em>
+                                                        </div>
+                                                        
+                                                    </td>
+                                                </tr>
+                                                
+                                            </tbody>
+                                        </table>
+                                        
+                                    </apex:outputPanel>
+                                    
+                                </apex:pageBlockSection>
+                            </apex:pageBlock>
+                        </div>
+                        
+                        <!-- Cobertura del portfolio ---------------------------------------------------------------------- -->
+                        <div id="div-presupuesto{!idCuenta}" class="tab-pane fade">
+                            <apex:pageBlock title="" mode="maindetail" id="presupuesto">
+                                
+                                
+                                <apex:pageBlockSection id="todo" title="{!$Label.certa_scp__cobertura_del_portfolio}" columns="1">
+                                    
+                                    
+                                    <apex:pageBlockSectionItem >
+                                        <apex:outputPanel id="panelSoluciones" layout="none"  >
+                                            
+                                            <br/>
+                                            <button type="button" class="btn btn-default btn-sm pull-right" data-toggle="modal" data-target="#myModalNuevoVencimiento{!idCuenta}">
+                                                <span class="glyphicon glyphicon-plus icon-btn-left"></span>&nbsp;{!$Label.Nuevo_Servicio}
+                                            </button>    
+                                            
+                                            <br/>
+                                            <apex:outputPanel id="tablaPortfolio">
+                                                <table id="tablaSoluciones" style="width: 90%;margin-left: 6%;margin-bottom: 0px;margin-top: 45px;" class ="table table-striped table-bordered table-condensed">
+                                                    <thead>
+                                                        <tr>
+                                                            <th style= "font-weight: bold; color: white; width: 20%;padding-left: 0;text-align: center; font-size: 14px; height:32px; background-color: #1a3a54;">{!$Label.Cuenta}</th>
+                                                            <th style= "font-weight: bold; color: white; width: 15%;padding-left: 0;text-align: center; font-size: 14px; height:32px; background-color: #1a3a54;">{!$Label.Rama_Local}</th>
+                                                            <th style= "font-weight: bold; color: white; width: 15%;padding-left: 0;text-align: center; background-color: #1a3a54;">{!$Label.Familia_Local}</th>
+                                                            <th style= "font-weight: bold; color: white; width: 20%;padding-left: 0;text-align: center; background-color: #1a3a54;">{!$Label.Status}</th>
+                                                            <th style= "font-weight: bold; color: white; width: 15%;padding-left: 0;text-align: center; background-color: #1a3a54;">{!$Label.Proveedor_Actual}</th>
+                                                            <th style= "font-weight: bold; color: white; width: 20%;padding-left: 0;text-align: center; background-color: #1a3a54;">{!$Label.Buying_Level}</th>
+                                                            <th style= "font-weight: bold; color: white; width: 15%;padding-left: 0;text-align: center; background-color: #1a3a54;">{!$Label.Main_Decision_maker}</th>
+                                                            <th style= "font-weight: bold; color: white; width: 10%;padding-left: 0;text-align: center; background-color: #1a3a54;">{!$Label.Agregar_Vincular_Reto}</th>
+                                                            <th style= "font-weight: bold; color: white; width: 10%;padding-left: 0;text-align: center; background-color: #1a3a54;"></th>
+                                                            
+                                                        </tr>
+                                                    </thead>
+                                                    <tbody>
+                                                        <apex:repeat value="{!solucionesEnCuenta}" var="sol">
+                                                            <tr>
+                                                                <td style="text-align: center; vertical-align:middle;">
+                                                                    <apex:outputField value="{!sol.cuenta__r.name}"/>
+                                                                </td>
+                                                                <td style="text-align: center; vertical-align:middle;">
+                                                                    <apex:outputField value="{!sol.TipoSolucion__r.Linea_de_Servicio__r.Name}">
+                                                                    </apex:outputField>
+                                                                </td>
+                                                                <td style="text-align: center; vertical-align:middle;">
+                                                                    <apex:outputField value="{!sol.TipoSolucion__r.Name}">
+                                                                    </apex:outputField>
+                                                                </td>
+                                                                <td id="{!sol.id}" style="text-align: center;vertical-align:middle;
+                                                                                          border: 1px solid #cfd0d2;
+                                                                                          background-color:
+                                                                                          {!IF(sol.estado__c = 'Oportunidades Ganadas', '#337ab7',
+                                                                                          IF(sol.estado__c = 'Oportunidades en Funnel','green',
+                                                                                          IF(sol.estado__c = 'Lineas de trabajo Priorizadas','orange',
+                                                                                          IF(sol.estado__c = 'Lineas a Explorar','grey',
+                                                                                          IF(sol.estado__c = 'Lineas que no Aplican en el Cliente','red','black')))))}"
+                                                                    >
+                                                                    
+                                                                    <apex:inputField styleClass="{!sol.id}" style="width: 100%;" value="{!sol.Estado__c}" onchange="cambiarColor('{!sol.id}')"/>
+                                                                    
+                                                                </td>
+                                                                <td style="text-align: center;vertical-align:middle;">
+                                                                    <apex:outputField value="{!sol.Proveedor__c}">
+                                                                        <apex:inlineEditSupport event="ondblclick"/>
+                                                                    </apex:outputField>
+                                                                </td>
+                                                                <td style="text-align: center; vertical-align:middle;">
+                                                                    <apex:outputField value="{!sol.Nivel_de_Compra__c}">
+                                                                    	<apex:inlineEditSupport event="ondblclick"/>
+                                                                    </apex:outputField>
+                                                                </td>
+                                                                <td style="text-align: center;vertical-align:middle;">
+                                                                    <apex:outputField value="{!sol.Busqueda_Key_Decision_Maker__c}">
+                                                                    	<apex:inlineEditSupport event="ondblclick"/>
+                                                                    </apex:outputField>
+                                                                </td>
+                                                                <td style="text-align: center;vertical-align:middle;">
+                                                                   <apex:outputPanel rendered="{!sol.Reto__c == null}" style="vertical-align:middle;">
+                                                                        <button   type="button" onclick="setearValorIdDeSolucionActual{!idCuenta}('{!sol.id}')" 
+                                                                                class="btn btn-default btn-sm" style="vertical-align:middle;" data-toggle="modal" 
+                                                                                data-target="#myModalSoluciones{!idCuenta}">
+                                                                            <span class="glyphicon glyphicon-plus icon-btn-left" style="vertical-align:middle;"></span>
+                                                                        </button>
+                                                                    </apex:outputPanel>
+                                                                    
+                                                                    <apex:outPutPanel rendered="{!sol.Reto__c != null}">
+                                                                        <apex:outputText value="{!sol.Reto__r.Nombre_del_Reto__c}" style="vertical-align:middle;width:80%;"/>&nbsp; &nbsp;
+                                                                        
+                                                                        <apex:commandButton style="vertical-align:middle; padding: 1px 7px;" styleClass="btn btn-default btn-sm" value="X" reRender="todo, tablaModalRetos" action="{!desvincularReto}"> 
+                                                            
+                                                                            
+                                                                            <apex:param assignTo="{!solucionADesvincular}" name="solucionADesvincular" value="{!sol.id}"/>
+                                                                            
+                                                                        </apex:commandButton>   
+                                                                        
+                                                                    </apex:outPutPanel>
+                                                                    
+                                                                    
+                                                                </td>
+                                                                
+                                                                <td style="text-align:center;">
+                                                                    <apex:commandButton styleClass="btn btn-default btn-sm" value="{!$Label.certa_scp__delete}" reRender="tablaPortfolio" action="{!borrarSolucionEnCuenta}">
+                                                                        <apex:param assignTo="{!delid}" name="delid" value="{!sol.id}"/>
+                                                                    </apex:commandButton>
+                                                                </td>
+                                                            </tr>
+                                                        </apex:repeat>
+                                                    </tbody>
+                                                </table> 
+                                            </apex:outputPanel>
+                                            <br/>
+                                            <br/>
+
+                                            
+                                        </apex:outputPanel>
+                                    </apex:pageBlockSectionItem>
+                                    
+                                    
+                                </apex:pageBlockSection>
+
+                            </apex:pageBlock>
+                        </div>
+                        
+                        <!-- modal - Nuevo Vencimiento -->
+                        <div class="modal fade" id="myModalNuevoVencimiento{!idCuenta}" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+                            <div class="modal-dialog" style="z-index:9999;">
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                                        <h4 class="modal-title" id="myModalLabel">{!$Label.Nuevo_vencimiento}</h4>
+                                    </div>
+                                    <div class="modal-body">
+                                        <table style="border-collapse: separate;border-spacing: 5px;width:80%">
+                                            
+                                            <tr>
+                                                <td style="text-align: right;width: 40%;">
+                                                    &nbsp;{!$Label.Rama}:
+                                                </td>
+                                                <td style="width:100%">
+                                                    <apex:actionFunction name="renderizar" reRender="serviciosRender"  />
+                                                    <apex:selectList style="width:100%" size="1" multiselect="false" onchange="renderizar();"  value="{!lineaDeServicioSeleccionado}">
+                                                        <apex:selectOptions value="{!ramas}"/>
+                                                    </apex:selectList>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td style="text-align: right;width: 40%;">
+                                                    &nbsp;{!$Label.Familia}:
+                                                </td>
+                                                <td style="width:100%">
+                                                    <apex:selectList style="width:100%" id="serviciosRender" size="1" multiselect="false"  value="{!familiaSeleccionada}">
+                                                        <apex:selectOptions value="{!familias}"/>
+                                                    </apex:selectList>
+                                                </td>
+                                            </tr>
+                                            
+                                        </table>		        
+                                    </div>
+                                    <div class="modal-footer">
+                                        <button type="button" class="btn btn-default" data-dismiss="modal">{!$Label.Close}</button>
+                                        <button type="button" class="btn btn-primary" data-dismiss="modal" onclick="InsertVencimiento{!idCuenta}()">{!$Label.add_buttom}</button>
+                                        <apex:actionFunction action="{!InsertVencimiento}" name="InsertVencimiento{!idCuenta}" rerender="tablaPortfolio"/>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <!-- modal - Nueva Iniciativa Comercial -->
+                        <div class="modal fade" id="myModal{!idCuenta}" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+                            <div class="modal-dialog" style="z-index:9999;">
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                                        <h4 class="modal-title" id="myModalLabel">{!$Label.New_Initiative}</h4>
+                                    </div>
+                                    <div class="modal-body">
+                                        <table style="border-collapse: separate;border-spacing: 5px;">
+                                            <tr>
+                                                <td style="text-align: right;">
+                                                    <apex:outputText value="{!$ObjectType.Strategic_Initiative__c.fields.Title__c.label}" />:
+                                                </td>
+                                                <td>
+                                                    <apex:inputField styleClass="resetIniciativa nombreIniciativa" style="width: 100%;" value="{!newInitiative.Titulo_Iniciativa__c}"/><br/><br/>
+                                                    
+                                                    
+                                                    <apex:outputPanel styleClass="campoIniciativa ocultar" >
+                                                        
+                                                        <table >
+                                                            <tbody>
+                                                                <tr class="">
+                                                                    
+                                                                    <td class="data2Col">
+                                                                        <apex:inputField value="{!newInitiative.Title__c}"/> 
+                                                                    </td>
+                                                                </tr>
+                                                            </tbody>
+                                                        </table>
+                                                        
+                                                    </apex:outputPanel>
+                                                    
+                                                    
+                                                    
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td style="text-align: right;">
+                                                    <apex:outputText value="{!$Label.certa_scp__description}" />:
+                                                </td>
+                                                <td>
+                                                    <textarea id="textIniciative{!idCuenta}" cols="52" rows="6"></textarea> 
+                                                    <span id="spanIniciative{!idCuenta}" style="display:none;">
+                                                        <apex:inputField styleClass="resetIniciativa" style="width: 100%;" value="{!newInitiative.Strategic_Initiative__c}"/><br/>
+                                                    </span>
+                                                </td>
+                                            </tr>
+                                        </table>		        
+                                    </div>
+                                    <div class="modal-footer">
+                                        <button type="button" class="btn btn-default" data-dismiss="modal">{!$Label.Close}</button>
+                                        <button type="button" class="btn btn-primary" data-dismiss="modal" onclick="fillInitiative{!idCuenta}();InsertIniciative{!idCuenta}()">{!$Label.add_buttom}</button>
+                                        <apex:actionFunction action="{!InsertIniciative}" name="InsertIniciative{!idCuenta}" rerender="tablaIniciativasDeNegocio" oncomplete="resetCamposIniciativa()" />
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <!-- modal - Nuevo Presupuesto -->
+                        <div class="modal fade" id="myModalPresupuesto" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+                            <div class="modal-dialog" style="z-index:9999;">
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                                        <h4 class="modal-title" id="myModalLabel">{!$Label.Nuevo_Presupuesto}</h4>
+                                    </div>
+                                    <div class="modal-body" style ="height: 9%;">
+                                        <table style="border-collapse: separate;border-spacing: 5px;">
+                                            <tr>
+                                                <td style="text-align: right;">
+                                                    <apex:outputText value="{!$Label.certa_scp__anio}" />:
+                                                </td>
+                                                <td style= "text-align: center;">
+                                                    <apex:inputField styleClass="resetHito" style="width: 200%;" value="{!presupuestoAInsertar.Anio__c}"/><br/> 
+                                                </td>
+                                            </tr>
+                                            
+                                            
+                                            
+                                            <tr>
+                                                <td style="text-align: right;">
+                                                    <apex:outputText value="{!$Label.certa_scp__categoria}:" />
+                                                </td>
+                                                <td>
+                                                    <apex:inputField styleClass="resetHito" style="width: 200%;" value="{!presupuestoAInsertar.Categoria__c}"/> 
+                                                </td>
+                                            </tr>
+                                            
+                                            
+                                            <tr >
+                                                <td style="text-align: right;">
+                                                    <apex:outputText value="{!$Label.certa_scp__presupuesto_total} ({!monedaDeLaCuenta}): "/>
+                                                </td>
+                                                <td>
+                                                    <apex:inputField styleClass="resetHito" style="width:200%;" value="{!presupuestoAInsertar.Presupuesto_Total__c}"/>
+                                                </td>
+                                            </tr>
+                                            
+                                            <!--<apex:inputField label="" styleClass="totalInput" style="display:none" value="{!presupuestoAInsertar.Presupuesto_Total__c}" />-->
+                                            
+                                            
+                                            <tr>
+                                                <td style="text-align: right;">
+                                                    <apex:outputText style="width: 100%;" value="{!$Label.certa_scp__cuanto_tenemos_nosotros}" /> <apex:outputText value="({!monedaDeLaCuenta}):" />
+                                                </td>
+                                                <td>
+                                                    <apex:inputField styleClass="resetHito" style="width:200%;"  value="{!presupuestoAInsertar.Presupuesto_Nosotros__c}"/>
+                                                    <br/><!--<div id="sliderNosotros" style="width: 170%; margin-left: 20%; ">
+<div id="custom-handle-nosotros" class="ui-slider-handle"></div>
+</div>
+
+<apex:inputField label="" styleClass="nosotrosInput" style="display:none" value="{!presupuestoAInsertar.Presupuesto_Nosotros__c}" />
+-->
+                                                    
+                                                </td>
+                                            </tr>
+                                            
+                                            <tr>
+                                                <td style="text-align: right;">
+                                                    <apex:outputText style="width: 100%;" value="{!$Label.certa_scp__cuanto_tiene_la_competencia}" /> <apex:outputText value="({!monedaDeLaCuenta}):" />
+                                                </td>
+                                                <td>
+                                                    <apex:inputField styleClass="resetHito" style="width:200%;" value="{!presupuestoAInsertar.Presupuesto_Competencia__c}"/>
+                                                    <br/><!--<div id="sliderCompetencia" style="width: 170%; margin-left: 20%; ">
+<div id="custom-handle-competencia" class="ui-slider-handle"></div>
+</div>
+
+<apex:inputField label="" styleClass="competenciaInput" style="display:none" value="{!presupuestoAInsertar.Presupuesto_Competencia__c}" />
+-->
+                                                    
+                                                </td>
+                                            </tr>
+                                            
+                                            
+                                        </table>		        
+                                    </div>
+                                    <div class="modal-footer">
+                                        <button type="button" class="btn btn-default" data-dismiss="modal">{!$Label.Close}</button>
+                                        <button type="button" class="btn btn-primary" data-dismiss="modal" onclick="InsertPresupuesto()">{!$Label.add_buttom}</button>
+                                        <apex:actionFunction action="{!InsertarPresupuesto}" name="InsertPresupuesto" rerender="presupuesto" oncomplete="resetCamposHito()" />
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <!-- modal - vincular reto a solucion tabla -->
+                        <div class="modal fade" id="myModalSoluciones{!idCuenta}" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+                            <div class="modal-dialog" style="z-index:9999;">
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                                        <h4 class="modal-title" id="myModalLabel">{!$Label.agregar_vincular_reto}</h4>
+                                    </div>
+                                    <div class="modal-body">
+                                        
+                                        <apex:outputPanel id="tablaModalRetos">
+                                            <div class="modal-body">
+                                                
+                                                <table style="border-collapse: separate;border-spacing: 5px;width:80%;margin-left: 10%;">
+                                                    <thead>
+                                                        <tr>
+                                                            <th style="padding-left:0% !important; text-align: center;">{!$Label.certa_scp__reto}</th>
+                                                            <th style="padding-left:0% !important; text-align: center;">{!$Label.certa_scp__vincular}</th>
+                                                        </tr>
+                                                    </thead>
+                                                    <tbody>
+                                                        
+                                                        
+                                                        <apex:repeat value="{!listaWrappersRetos}" var="reto">
+                                                            <tr>
+                                                                <td style="text-align: center;">
+                                                                    {!reto.reto.Nombre_del_Reto__c}
+                                                                </td>
+                                                                <td style="text-align: center;">
+                                                                    <apex:inputCheckBox styleClass="resetHito" value="{!reto.vincular}" />                                                            
+                                                                </td>
+                                                            </tr>
+                                                        </apex:repeat>
+                                                        
+                                                    </tbody>                                          
+                                                </table>
+                                            </div>
+                                        </apex:outputPanel>
+                                        
+                                        
+                                    </div>
+                                    <div class="modal-footer">
+                                        <button type="button" class="btn btn-default" data-dismiss="modal">{!$Label.Close}</button>
+                                        <button type="button" class="btn btn-primary" data-dismiss="modal" onclick="VincularRetoASolucion{!idCuenta}();">{!$Label.add_buttom}</button>
+                                        <apex:actionFunction action="{!vincularRetoASolucion}" rerender="todo, tablaModalRetos" name="VincularRetoASolucion{!idCuenta}" />
+                                    </div>
+                                </div>
+                            </div>
+                        </div> 
+                        
+                    </div>
+                </apex:form>
+                
+                
+            </div>
+            
+            <br/><br/>
+            <!-- Botonera inferior -->
+
+            <apex:pageBlock mode="maindetail">
+                <apex:pageBlockSection columns="1">         
+                    <apex:relatedList subject="{!fourPlanning}" list="CombinedAttachments" />
+                </apex:pageBlockSection>
+            </apex:pageBlock>
+            
+            <div class="row paddingRight">
+                <div class="btn-group pull-right" role="group" aria-label="...">
+                    
+                    <apex:outputPanel id="buttonPanelInferior">
+
+                    </apex:outputPanel>  
+                    
+                </div>
+            </div>
+            
+        </div>
+        
+        
+        
+    </apex:outputpanel>
+</apex:component>

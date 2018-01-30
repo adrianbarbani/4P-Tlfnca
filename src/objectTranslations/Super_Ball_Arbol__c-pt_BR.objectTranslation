@@ -13,6 +13,10 @@
         <name>Descripcion__c</name>
     </fields>
     <fields>
+        <label><!-- Link --></label>
+        <name>Link__c</name>
+    </fields>
+    <fields>
         <label><!-- Pais --></label>
         <name>Pais__c</name>
         <picklistValues>

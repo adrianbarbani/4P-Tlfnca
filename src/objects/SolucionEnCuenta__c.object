@@ -56,6 +56,7 @@
     <fields>
         <fullName>Busqueda_Key_Decision_Maker__c</fullName>
         <deleteConstraint>SetNull</deleteConstraint>
+        <deprecated>false</deprecated>
         <externalId>false</externalId>
         <label>Busqueda Key Decision Maker</label>
         <referenceTo>Contact</referenceTo>
@@ -202,6 +203,7 @@
     </fields>
     <fields>
         <fullName>Nivel_de_Compra__c</fullName>
+        <deprecated>false</deprecated>
         <externalId>false</externalId>
         <label>Nivel de Compra</label>
         <required>false</required>

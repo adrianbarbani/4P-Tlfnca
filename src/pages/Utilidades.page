@@ -58,9 +58,9 @@
                     <apex:outputPanel > <!--rendered="{!fourplanning.X4_Planning_Pro__c}"-->
                         <ul class="nav nav-tabs" role="tablist">
                             <li role="presentation" class="active"><a  id="section1" href="#div-one-click-report" aria-controls="div-one-click-report" role="tab" data-toggle="tab">One-Click-Report</a></li>
-                            <li role="presentation"><a id="section2" href="#div-hitos" aria-controls="div-hitos" role="tab" data-toggle="tab">Hitos Relevantes</a></li>
-                            <li role="presentation"><a id="section3" href="#div-retos" aria-controls="div-retos" role="tab" data-toggle="tab">Retos</a></li>
-                            <li role="presentation"><a id="section4" class="asd" href="#div-coecuenta" aria-controls="div-coecuenta" role="tab" data-toggle="tab">Coeficiente de Cuenta</a></li>
+                            <li role="presentation"><a id="section2" href="#div-hitos" aria-controls="div-hitos" role="tab" data-toggle="tab">{!$Label.certa_scp__hitos_relevantes}</a></li>
+                            <li role="presentation"><a id="section3" href="#div-retos" aria-controls="div-retos" role="tab" data-toggle="tab">{!$Label.certa_scp__retos_opps}</a></li>
+                            <!--li role="presentation"><a id="section4" class="asd" href="#div-coecuenta" aria-controls="div-coecuenta" role="tab" data-toggle="tab">Coeficiente de Cuenta</a></li-->
                         </ul>
                     </apex:outputPanel>
                 </apex:outputPanel>

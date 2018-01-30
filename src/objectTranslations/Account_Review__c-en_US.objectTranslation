@@ -23,6 +23,14 @@
         <name>Customer_Contacts__c</name>
     </fields>
     <fields>
+        <label><!-- Date --></label>
+        <name>Date__c</name>
+    </fields>
+    <fields>
+        <label><!-- Description --></label>
+        <name>Description__c</name>
+    </fields>
+    <fields>
         <label><!-- Engagement Plan Comments --></label>
         <name>Engagement_Plan_Description__c</name>
     </fields>

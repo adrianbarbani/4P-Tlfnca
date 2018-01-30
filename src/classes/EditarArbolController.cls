@@ -59,12 +59,12 @@ public class EditarArbolController {
             //Me traigo los hijos y los hijos de los hijos.
             List<Super_Ball_Nodo__c> hijosDeNodos = [select id, Nodo_Padre__c, name, Descripci_n__c, posicion__c,
                                                      (select id, name, Descripci_n__c from Super_Ball_Nodos__r),
-                                                     (select id, Pregunta__c, posicion__c, Dependencia_Si__c, Dependencia_No__c,  Dependencia_Si__r.pregunta__c, Dependencia_No__r.pregunta__c 
+                                                     (select id, Tipo_de_pregunta__c, Opciones_picklist__c, Pregunta__c, posicion__c, Dependencia_Si__c, Dependencia_No__c,  Dependencia_Si__r.pregunta__c, Dependencia_No__r.pregunta__c 
                                                       from Super_Ball_Preguntas__r 
                                                       where esHija__c != true order by createdDate asc),
                                                      (select id, name, posicion__c from Super_Ball_Soluciones__r order by createdDate asc),
                                                      (select id, name, contacto__c from Super_Ball_Interlocutores__r order by createdDate asc),
-                                                     (select id, name, link__c from Super_Ball_Recursos__r order by createdDate asc)
+                                                     (select id, name, link__c, posici_n__c from Super_Ball_Recursos__r order by createdDate asc)
                                                      from Super_Ball_Nodo__c 
                                                      where Nodo_Padre__c in: idNodosCentrales
                                                      order by createdDate asc];

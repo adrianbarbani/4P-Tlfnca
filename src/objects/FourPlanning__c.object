@@ -311,7 +311,7 @@
         <fullName>Area_que_fracasamos_en_el_pasado__c</fullName>
         <deprecated>false</deprecated>
         <externalId>false</externalId>
-        <inlineHelpText>&quot;¿Existen áreas en el cliente con las que, teniendo productos y soluciones, no estamos teniendo relación?&quot;</inlineHelpText>
+        <inlineHelpText>¿Existen áreas en el cliente con las que, teniendo productos y soluciones, no estamos teniendo relación?</inlineHelpText>
         <label>Area que fracasamos en el pasado</label>
         <length>2000</length>
         <trackHistory>false</trackHistory>
@@ -1301,7 +1301,7 @@
         <fullName>Mejoraria_Relacion_Con_El_Cliente__c</fullName>
         <deprecated>false</deprecated>
         <externalId>false</externalId>
-        <inlineHelpText>&quot;En las áreas con las que tenemos relación, ¿Crees que esta mejoraría si tuviésemos más reuniones?&quot;</inlineHelpText>
+        <inlineHelpText>En las áreas con las que tenemos relación, ¿Crees que esta mejoraría si tuviésemos más reuniones?</inlineHelpText>
         <label>Mejoraria Relacion Con El Cliente</label>
         <required>false</required>
         <trackHistory>false</trackHistory>
@@ -1648,6 +1648,17 @@
         <trackTrending>false</trackTrending>
         <type>Text</type>
         <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Pais__c</fullName>
+        <deprecated>false</deprecated>
+        <description>pais de origen de la cuenta en hitos</description>
+        <externalId>false</externalId>
+        <label>Pais</label>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>TextArea</type>
     </fields>
     <fields>
         <fullName>Parque_Automotor_Propio_o_Gestionado__c</fullName>

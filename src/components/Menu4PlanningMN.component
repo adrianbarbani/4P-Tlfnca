@@ -1,0 +1,327 @@
+<apex:component controller="MenuSCPEnCuentaController">
+    
+    <apex:includeScript value="{!URLFOR($Resource.bootstrapSF, 'js/JQueryToBS.js')}"/>
+    
+    <style>
+        #menuContainer {
+        	background-color: #F3F3EC;
+        	padding-top: 20px;
+        }
+        
+        .menu {
+        width: 100%;
+        height: 110px;
+        position: relative;
+        font-family: inherit;
+        font-size: 11px;
+        font-style: initial;
+        font-weight: bold;
+        margin-left: 100px;       
+        }
+        
+        .links{
+        text-decoration: none;
+        font-family: inherit;
+        font-size: 11px;
+        font-style: initial;
+        }
+        
+        .cursorDefault{
+        cursor: default !important;
+        }
+        
+        .item{
+        position:relative;
+        background-color:#f0f0f0;
+        background-color:#EAEAEA;        
+        float:left;
+        width:90px;
+        margin:0px 0px;
+        height:90px;
+        border:2px solid #ddd;
+        -moz-border-radius:47px;
+        -webkit-border-radius:47px;
+        border-radius:47px;
+        -moz-box-shadow:1px 1px 3px #555;
+        -webkit-box-shadow:1px 1px 3px #555;
+        box-shadow:1px 1px 3px #555;
+        cursor:pointer;
+        overflow:hidden;
+        }
+        
+        .item-first {
+        width:400px;
+        }
+        
+        .item-last {
+        /*float:right;*/
+        }
+        
+        .link{
+        left:1px;
+        top:1px;
+        position:absolute;
+        width:90px;
+        height:90px;
+        }
+        
+        .icon_home{
+        background:transparent url("{!URLFOR($Resource.Iconos, '256/unlock-icon.png')}") no-repeat top left;
+        background-size: 90px, 90px;
+        }
+        .icon_mail{
+        background:transparent url("{!URLFOR($Resource.Iconos, '256/system-settings-icon.png')}") no-repeat top left;
+        background-size: 90px, 90px;
+        }
+        .icon_help{
+        background:transparent url("{!URLFOR($Resource.IconosLightning, 'icons/custom/custom102_120.png')}") no-repeat top left;
+        background-size: 90px, 90px;
+        width: 90px;
+        height: 90px;
+        background-color: #8199af;
+        border-radius: 50px;  
+        }
+        
+        .icon_find{
+        background:transparent url("{!URLFOR($Resource.IconosLightning, 'icons/custom/custom111_120.png')}") no-repeat top left;
+        background-size: 90px, 90px;
+        width: 90px;
+        height: 90px;
+        background-color: #f2cf5b;
+        border-radius: 50px;  
+        }
+        .icon_photos{
+        background:transparent url("{!URLFOR($Resource.Iconos, '256/settings-icon.png')}") no-repeat top left;
+        background-size: 90px, 90px;
+        }
+        
+        .icon_world{
+        background:transparent url("{!URLFOR($Resource.IconosLightning, 'icons/custom/custom43_120.png')}") no-repeat top left;
+        background-size: 90px, 90px;
+        width: 90px;
+        height: 90px;
+        background-color: #f5675b;
+        border-radius: 50px;  
+        }
+        
+        .icon_lock{
+        background:transparent url("{!URLFOR($Resource.IconosLightning, 'icons/custom/custom19_120.png')}") no-repeat top left;
+        background-size: 90px, 90px;
+        width: 90px;
+        height: 90px;
+        background-color: #83b6ff;
+        border-radius: 50px;  
+        }
+        
+        .icon_negocioCliente{
+        background:transparent url("{!URLFOR($Resource.IconosLightning, 'icons/custom/custom41_120.png')}") no-repeat top left;
+        background-size: 90px, 90px;
+        width: 90px;
+        height: 90px;
+        background-color: #83b6ff;
+        border-radius: 50px;  
+        }
+        
+        .icon_fourPlanning{
+        background:transparent url("{!URLFOR($Resource.IconosLightning, 'icons/custom/custom18_120.png')}") no-repeat top left;
+        background-size: 90px, 90px;
+        width: 90px;
+        height: 90px;
+        background-color: #92cab1;
+        border-radius: 50px;        
+        }
+        
+        .item_content{
+        position:absolute;
+        height:90px;
+        width:320px;
+        overflow:hidden;
+        left:70px;
+        top:0px;
+        background:transparent;		
+        }
+        
+        .centerVertical {
+        position: relative;
+        top: 40%;
+        transform: translateY(-50%);
+        }
+        
+        .panelTitulos{
+        width: 100%;
+        height: 14px;
+        position: relative;
+        font-family: inherit;
+        font-size: 11px;
+        font-style: initial;
+        font-weight: bold;
+        margin-left: 100px;
+        }
+        
+        .titulo{
+        float:left;
+        width:95px;
+        text-align: center !important;
+        margin:0px 0px;
+        }
+        
+        .primerTitulo{
+        width:404px;
+        }
+        
+        .linkadmin{
+        font-size:9px;
+        }
+    </style>
+    
+    <script>
+    $j = jQuery.noConflict();
+    
+    $j(document).ready(function() {
+        
+        $j(window).on("resize", function () {
+                ajustarTamanioMenu();
+            }).resize();      
+        
+        $j('.item').hover(
+            function(){
+                $j('.item').stop().animate({width:'90px'}, 1000);                
+                $j(this).stop().animate({width:'400px'}, 1000);
+                
+                
+                $j('.titulo').stop().animate({width:'94px'}, 1000);
+                $j("."+$j(this).attr("id")).stop().animate({width:'404px'}, 1000);
+            },
+            function(){}
+        );
+             
+    })
+    
+    function ajustarTamanioMenu(){
+        var menuWidth = $j('.menu').width();
+        var margin = (menuWidth - 94*6 - 400) / 12;			
+
+        if(menuWidth>1500){
+            $j('.item').css("margin","0px " + margin + "px");
+            $j('.item-first').css("margin-left",margin + "px");
+            $j('.item-last').css("margin-right",margin + "px");
+            
+            $j('.titulo').css("margin","0px " + margin + "px");
+            $j('.primerTitulo').css("margin-left",margin + "px");
+            $j('.quintoTitulo').css("margin-right",margin + "px"); 
+        }else{
+            $j('.item').css("margin","0px " + margin + "px");
+            $j('.item-first').css("margin-left",margin*2 + "px");
+            $j('.item-last').css("margin-right",margin*2 + "px");
+            
+            $j('.titulo').css("margin","0px " + margin + "px");
+            $j('.primerTitulo').css("margin-left",margin*2 + "px");
+            $j('.quintoTitulo').css("margin-right",margin*2 + "px"); 
+        }
+    }
+    </script>
+    <div id="menuContainer" style="background-color:white">    
+
+        <div class="menu">
+            
+            <div class="item item-first" id = "primerTitulo">
+                <a class="link"><div class="icon_fourPlanning"></div></a>
+                <div class="item_content">
+                    <ul class = "centerVertical">
+                        
+                        <li><apex:outputLink styleClass="links" target="_parent" value="{!$Page.InformacionDeLaCuentaMultiNacional}?id={!AcctId}&section=section1">{!$Label.certa_scp__descripcion_del_cliente}</apex:outputLink></li>
+                        <li><apex:outputLink styleClass="links" target="_parent" value="{!$Page.InformacionDeLaCuentaMultiNacional}?id={!AcctId}&section=section2">{!$Label.certa_scp__iniciativas_estrategicas}</apex:outputLink></li>
+                        <li><apex:outputLink styleClass="links" target="_parent" value="{!$Page.InformacionDeLaCuentaMultiNacional}?id={!AcctId}&section=section4">{!$Label.certa_scp__cobertura_del_portfolio}</apex:outputLink></li>
+                        <li><apex:outputLink styleClass="links" target="_parent" value="{!$Page.InformacionDeLaCuentaMultiNacional}?id={!AcctId}&section=section5">{!$Label.certa_scp__relacion}</apex:outputLink></li>
+
+                    </ul>
+                </div>
+            </div>
+
+            
+            <div class="item " id = "segundoTitulo">        	
+                <a class="link "><div class="icon_find"></div></a>
+                <div class="item_content" ><!-- style="font-size: 8px;"-->
+                    <ul class = "centerVertical">
+                        
+                        <li><apex:outputLink styleClass="links" target="_parent" value="{!$Page.PlanificacionMN}?id={!AcctId}&section=section1">{!$Label.certa_scp__retos_opps}</apex:outputLink></li>
+                        <li><apex:outputLink styleClass="links" target="_parent" value="{!$Page.PlanificacionMN}?id={!AcctId}&section=section4">{!$Label.certa_scp__vencimientos}</apex:outputLink></li>
+                        <li><apex:outputLink styleClass="links" target="_parent" value="{!$Page.PlanificacionMN}?id={!AcctId}&section=section2">{!$Label.certa_scp__hitos_relevantes}</apex:outputLink></li>
+                        <!--li><apex:outputLink styleClass="links" target="_parent" value="{!$Page.PlanificacionMN}?id={!AcctId}&section=section3">{!$Label.certa_scp__up_cross_selling}</apex:outputLink></li-->
+                        <li><apex:outputLink styleClass="links" target="_parent" value="{!$Page.PlanificacionMN}?id={!AcctId}&section=section5">{!$Label.certa_scp__plan_de_action}</apex:outputLink></li>
+
+                    </ul> 
+                </div>
+            </div>
+            
+            <!-- Acerca de nuestro negocio con el cliente
+            <div class="item" id = "tercerTitulo">
+                <a class="link "><div class="icon_world"></div></a>
+                <div class="item_content">
+                    <ul class = "centerVertical">
+                        <li><apex:outputLink styleClass="links" target="_parent" value="{!$Page.PantallaPrincipalPowerBalls}?id={!AcctId}">{!$Label.certa_scp__mapa_sectorial}</apex:outputLink></li>
+                    </ul>
+                </div>
+            </div-->
+             
+            
+            <div class="item" id = "cuartoTitulo">
+                <a class="link "><div class="icon_help"></div></a>            
+                <div class="item_content">
+                    <ul class = "centerVertical">
+						<li><apex:outputLink styleClass="links" target="_parent" value="{!$Page.UtilidadesMN}?id={!AcctId}&section=section1">{!$Label.certa_scp__one_click_report}</apex:outputLink></li>
+                        <li><apex:outputLink styleClass="links" target="_parent" value="{!$Page.UtilidadesMN}?id={!AcctId}&section=section2">{!$Label.certa_scp__cronograma_de_la_cuenta}</apex:outputLink></li>
+                        <li><apex:outputLink styleClass="links" target="_parent" value="{!$Page.UtilidadesMN}?id={!AcctId}&section=section3">{!$Label.certa_scp__retos}</apex:outputLink></li>
+                        <!--li><apex:outputLink styleClass="links" target="_parent" value="{!$Page.UtilidadesMN}?id={!AcctId}&section=section4">{!$Label.certa_scp__coeficiente_de_cuenta}</apex:outputLink></li-->
+                    </ul>
+                </div>
+            </div>
+            
+
+            <!-- si no tiene permisos de admin se muestra solo las opciones a las que puede llegar a acceder si lo fuera -->
+            <apex:outputPanel layout="block" rendered="{! !hasPermission }" >	        
+                <div class = "item item-last cursorDefault" id = "quintoTitulo">
+                    
+                    <a class="link "><div class="icon_lock"></div></a>
+                    <div class="item_content">
+                            <ul class="centerVertical">              
+                                <li><apex:outputText styleClass="links " >{!$Label.certa_scp__administracion_catalogo_vencimientos}</apex:outputText></li>
+                                <li><apex:outputText styleClass="links " >{!$Label.certa_scp__administracion_power_bi}</apex:outputText></li>
+                            </ul>
+                    </div>
+                </div>   
+            </apex:outputPanel>
+            
+            
+            <!-- con permisos de admin -->
+            <apex:outputPanel layout="block" rendered="{!hasPermission}" >	        
+                <div class = "item item-last" id = "quintoTitulo">
+                    
+                    <a class="link "><div class="icon_lock"></div></a>
+                    <div class="item_content">
+                            <ul class="centerVertical">                        
+                                <li><apex:outputLink styleClass="links " target="_parent" value="{!$Page.CrearCatalogo}">{!$Label.certa_scp__administracion_catalogo_vencimientos}</apex:outputLink></li>
+                                <li><apex:outputLink styleClass="links " target="_parent" value="{!$Page.AdminPowerBi}">{!$Label.certa_scp__administracion_power_bi}</apex:outputLink></li>
+                                <!--li><apex:outputLink styleClass="links " target="_parent" value="{!$Page.AdminSuperBall}">{!$Label.certa_scp__administracion_mapa_sectorial}</apex:outputLink></li-->
+                            </ul>
+                    </div>
+                </div>   
+            </apex:outputPanel>
+        </div>
+        
+        <!-- con 5 bolas poner el margin-left = 90px -->
+        <div class = "panelTitulos" style="">
+            
+            <div class="titulo primerTitulo">{!$Label.Informacion_de_la_cuenta}</div>
+            
+            <div class="titulo segundoTitulo">{!$Label.Planificacion}</div>
+
+            <!--div class="titulo tercerTitulo">{!$Label.Mapa_Sectorial}</div-->
+
+            <div class="titulo cuartoTitulo ">{!$Label.Utilidades}</div>
+                    
+            <div class="titulo quintoTitulo ">{!$Label.Administracion}</div> 
+        </div>          
+        <br/><br/><br/><br/><br/><br/><br/><br/><br/>
+    </div>
+</apex:component>

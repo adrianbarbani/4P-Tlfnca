@@ -80,13 +80,33 @@
         <fullName>Customer_Contacts__c</fullName>
         <deprecated>false</deprecated>
         <externalId>false</externalId>
-        <inlineHelpText>Are there enough relevant customer contacts with the correct level of authority and influence that are Key Decision Makers included in the Relationship Development Mosaic?   0 : Poor  5: More is needed  20: Good  25: Outstanding Performance</inlineHelpText>
+        <inlineHelpText>¿Hay suficientes contactos de clientes relevantes con el nivel correcto de autoridad e influencia que son los principales tomadores de decisiones incluidos en el mosaico de desarrollo de relaciones?  0: Pobre 5:Necesita más 20:Bueno 25:Desempeño destacado</inlineHelpText>
         <label>Customer Contacts (0~25)</label>
         <precision>2</precision>
         <required>false</required>
         <scale>0</scale>
         <trackTrending>false</trackTrending>
         <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Date__c</fullName>
+        <deprecated>false</deprecated>
+        <externalId>false</externalId>
+        <label>Date</label>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Date</type>
+    </fields>
+    <fields>
+        <fullName>Description__c</fullName>
+        <deprecated>false</deprecated>
+        <externalId>false</externalId>
+        <label>Description</label>
+        <length>250</length>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
         <unique>false</unique>
     </fields>
     <fields>
@@ -103,7 +123,7 @@
         <fullName>Engagement_Plan__c</fullName>
         <deprecated>false</deprecated>
         <externalId>false</externalId>
-        <inlineHelpText>&quot;Does the Salesperson have the relevant amount of customer meetings, calls and actions planned to develop the account and progress opportunities?   0 : Poor  5: More is needed  20: Good  25: Outstanding Performance&quot;</inlineHelpText>
+        <inlineHelpText>¿Tiene el Vendedor la cantidad relevante de reuniones de clientes, llamadas y acciones planeadas para desarrollar la cuenta y las oportunidades de progreso?  0: Pobre 5: se necesita más 20: Bueno 25: Desempeño destacado</inlineHelpText>
         <label>Engagement Plan (0~25)</label>
         <precision>2</precision>
         <required>false</required>
@@ -126,7 +146,7 @@
         <fullName>Growth_Strategy__c</fullName>
         <deprecated>false</deprecated>
         <externalId>false</externalId>
-        <inlineHelpText>Does the Growth Strategy tool contain ideas on how the Salesperson will open up new opportunities/sources of revenues?   0 : Poor  5: More is needed  20: Good  25: Outstanding Performance</inlineHelpText>
+        <inlineHelpText>¿La herramienta de Estrategia de Crecimiento contiene ideas sobre cómo el Vendedor abrirá nuevas oportunidades / fuentes de ingresos?  0: Pobre 5: se necesita más 20: Bueno 25: Desempeño destacado</inlineHelpText>
         <label>Growth Strategy (0~25)</label>
         <precision>2</precision>
         <required>false</required>
@@ -149,7 +169,7 @@
         <fullName>Seles_Revenues__c</fullName>
         <deprecated>false</deprecated>
         <externalId>false</externalId>
-        <inlineHelpText>Does the Salesperson have enough quality opportunities with a high percentage outcome in their pipeline that will their deliver Sales and Revenue in order to achieve their target?   0 : Poor  5: More is needed  20: Good  25: Outstanding Performance</inlineHelpText>
+        <inlineHelpText>¿Tiene el vendedor suficiente oportunidades de calidad con un alto porcentaje de resultados en su pipeline que su entrega de ventas e ingresos para alcanzar su objetivo?  0: Pobre 5: se necesita más 20: Bueno 25: Desempeño destacado</inlineHelpText>
         <label>Sales/Revenues (0~25)</label>
         <precision>2</precision>
         <required>false</required>

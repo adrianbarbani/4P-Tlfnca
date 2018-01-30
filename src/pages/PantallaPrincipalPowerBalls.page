@@ -358,13 +358,21 @@
                                 <p style="color: rgba(42, 148, 214, 0.84);
                                           font-size: 13px;
                                           font-weight: 900;">
-                                     NECESIDAD
+                                     
                                 </p>
                                 <p style="color: rgba(0, 0, 0, 0.78);
                                           font-size: 27px;
                                           font-weight: 900;">
                                     {!arbol.name}
                                 </p>
+                            </div>
+                        </div>
+                    </td>
+                    <td>
+                        <div style="margin-left: 5%;">
+                            <div style="margin-top: -9%;">
+								<a Class="btn btn-primary btn-sm pull-right" style="margin-right: 10px;" target="_blank" href="https://{!arbol.Link__c}">
+                                    <span class="glyphicon glyphicon-share-alt"></span>&nbsp;Recursos</a>
                             </div>
                         </div>
                     </td>
@@ -400,7 +408,7 @@
                                                     <p style="color: rgba(42, 148, 214, 0.84);
                                                               font-size: 11px;
                                                               font-weight: 900;">
-                                                        &nbsp;&nbsp;PROPUESTA COMERCIAL
+                                                        &nbsp;&nbsp;
                                                     </p>
                                                     <p style="font-size: 17px;
                                                               font-weight: 900;">

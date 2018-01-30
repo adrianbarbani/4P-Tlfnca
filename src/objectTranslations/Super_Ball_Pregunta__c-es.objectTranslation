@@ -19,6 +19,10 @@
         <relationshipLabel><!-- Super Ball - Preguntas --></relationshipLabel>
     </fields>
     <fields>
+        <label><!-- Opciones picklist --></label>
+        <name>Opciones_picklist__c</name>
+    </fields>
+    <fields>
         <label><!-- Posicion --></label>
         <name>Posicion__c</name>
     </fields>
@@ -30,6 +34,22 @@
         <label><!-- Super Ball - Nodo --></label>
         <name>Super_Ball_Nodo__c</name>
         <relationshipLabel><!-- Super Ball - Preguntas --></relationshipLabel>
+    </fields>
+    <fields>
+        <label><!-- Tipo de pregunta --></label>
+        <name>Tipo_de_pregunta__c</name>
+        <picklistValues>
+            <masterLabel>Libre</masterLabel>
+            <translation><!-- Libre --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Lista</masterLabel>
+            <translation><!-- Lista --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Si/no</masterLabel>
+            <translation><!-- Si/no --></translation>
+        </picklistValues>
     </fields>
     <fields>
         <label><!-- esHija --></label>

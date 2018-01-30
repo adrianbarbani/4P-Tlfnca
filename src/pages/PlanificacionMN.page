@@ -1,0 +1,121 @@
+<apex:page controller="PlanificacionMNController" tabStyle="Strategic_Client_Plan__tab" sidebar="false" showHeader="true" docType="html-5.0">
+    
+     <c:FourPlanningMenuSuperior />
+    
+    <apex:includeScript value="{!$Resource.JQueryUI}"  />
+    <apex:includeScript value="{!$Resource.JQueryUITouch}" />
+    <apex:includeScript value="{!$Resource.DataTable}"  />
+    
+    <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css"/>
+    <link rel="stylesheet" href="/resources/demos/style.css"/>
+    <apex:includeScript value="{!$Resource.Ploty}"/>
+    
+    <script>
+    
+    $j = jq213; //jQuery.noConflict();
+    
+    $j(document).ready(function() {
+        $j("#" + GetURLParameter("section")).click();
+        
+        agregarEstiloAlTabActivo();
+        
+        $j('.verSeccion').on('click', function() {
+            console.log( $j( this ).attr('Id') );
+            paraFunction($j( this ).attr('Id'));
+        });
+
+    });     
+    
+
+    
+    function agregarEstiloAlTabActivo(){
+        $j("#li" + GetURLParameter("id")).addClass("active");
+    }
+    
+    function GetURLParameter(sParam) {
+          
+          console.log('entre');
+        var sPageURL = window.location.search.substring(1);
+        var sURLVariables = sPageURL.split('&');
+        
+        for (var i = 0; i < sURLVariables.length; i++) {
+            var sParameterName = sURLVariables[i].split('=');
+            if (sParameterName[0] == sParam) {
+                console.log(sParameterName[1]);
+                 return sParameterName[1];
+                
+            }
+        }
+     
+    }
+    
+    
+    
+    </script>
+    
+    <style>
+        .taskColor {
+        background-color: #FEE ! important;
+        }
+        
+        table.dataTable thead .sorting {
+        background: #f2f3f3 url("{!URLFOR($Resource.DataTableImg, 'sort_both.png')}") no-repeat center right ! important;
+        }
+        table.dataTable thead .sorting_asc {
+        background: #f2f3f3 url("{!URLFOR($Resource.DataTableImg, 'sort_asc.png')}") no-repeat center right ! important;
+        }
+        table.dataTable thead .sorting_desc {
+        background: #f2f3f3 url("{!URLFOR($Resource.DataTableImg, 'sort_desc.png')}") no-repeat center right ! important;
+        }
+        table.dataTable thead .sorting_asc_disabled {
+        background: #f2f3f3 url("{!URLFOR($Resource.DataTableImg, 'sort_asc_disabled.png')}") no-repeat center right ! important;
+        }
+        table.dataTable thead .sorting_desc_disabled {
+        background: #f2f3f3 url("{!URLFOR($Resource.DataTableImg, 'sort_desc_disabled.png')}") no-repeat center right ! important;
+        }
+        
+        table.dataTable thead .sorting_asc,
+        table.dataTable thead .sorting_desc,
+        table.dataTable thead .sorting {
+        cursor: pointer;
+        *cursor: hand;
+        }
+        
+        .dataTables_filter {
+        text-align: right ! important;
+        padding-right: 15px ! important;
+        }
+    </style>
+    
+    <apex:outputpanel style="background-color:white" styleClass="container-fluid bootstrap-sf1" id="pageContent">
+        
+        <apex:form >
+            <apex:actionFunction name="paraFunction" action="{!guardarAtributo}" rerender="idDelForm" oncomplete="agregarEstiloAlTabActivo()" >     
+                <apex:param id="aname" name="interviewDate" value="" />
+            </apex:actionFunction>
+        </apex:form>
+                   
+        
+        <apex:outputPanel id="idDelForm" > 
+            <ul class="nav nav-tabs" role="tablist">
+                <li id="li{!idCuentaPrincipal}" role="presentation" class="liPrincipal "><a href="{!$Page.PlanificacionMN}?id={!idCuentaPrincipal}&section={!seccion}">{!cuenta.name}</a></li>
+                
+                <apex:repeat value="{!listaQueContieneTodasLasCuentasHijas}" var="cHijas">
+                    <li id="li{!cHijas.id}" role="presentation"><a href="{!$Page.PlanificacionMN}?id={!cHijas.id}&IdPadre={!idCuentaPrincipal}&section={!seccion}">{!cHijas.name}</a></li>
+                </apex:repeat>                
+                
+            </ul>
+        </apex:outputPanel>
+
+        <br/>
+        
+        <apex:outputText rendered="{!esCuentaPrincipal}">
+            <c:planificacionPrincipalComponent unId="{!idCuenta}"  />
+        </apex:outputText>
+        
+        <apex:outputText rendered="{! !esCuentaPrincipal}">
+            <c:planificacionComponent unId="{!idCuenta}"  />
+        </apex:outputText>
+        
+    </apex:outputpanel>
+</apex:page>

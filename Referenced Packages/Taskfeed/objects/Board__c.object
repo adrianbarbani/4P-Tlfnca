@@ -415,7 +415,7 @@
         <fullName>Type__c</fullName>
         <deprecated>false</deprecated>
         <externalId>false</externalId>
-        <inlineHelpText>&quot;The Type of Board can define the Lists, default Tasks and Sharing Rules for the Board.&quot;</inlineHelpText>
+        <inlineHelpText>The Type of Board can define the Lists, default Tasks and Sharing Rules for the Board.</inlineHelpText>
         <label>Type</label>
         <required>false</required>
         <trackFeedHistory>false</trackFeedHistory>

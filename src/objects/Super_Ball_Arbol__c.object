@@ -64,6 +64,15 @@
         <visibleLines>5</visibleLines>
     </fields>
     <fields>
+        <fullName>Link__c</fullName>
+        <deprecated>false</deprecated>
+        <externalId>false</externalId>
+        <label>Link</label>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Url</type>
+    </fields>
+    <fields>
         <fullName>Pais__c</fullName>
         <deprecated>false</deprecated>
         <externalId>false</externalId>

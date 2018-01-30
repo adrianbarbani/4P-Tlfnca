@@ -57,5 +57,13 @@
         <name>FourPlanning__c</name>
         <relationshipLabel><!-- FourPlanning Hitos --></relationshipLabel>
     </fields>
+    <fields>
+        <label><!-- Pais --></label>
+        <name>Pais__c</name>
+    </fields>
+    <fields>
+        <label><!-- Sector --></label>
+        <name>Sector__c</name>
+    </fields>
     <gender>Masculine</gender>
 </CustomObjectTranslation>

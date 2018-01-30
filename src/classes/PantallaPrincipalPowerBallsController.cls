@@ -27,7 +27,7 @@ public class PantallaPrincipalPowerBallsController {
     }
     
     public void traerArbol(){
-        List<Super_Ball_Arbol__c> arboles = [select id, name, descripcion__c
+        List<Super_Ball_Arbol__c> arboles = [select id, name, descripcion__c, link__c
                                              from Super_Ball_Arbol__c 
                                              where Pais__c =: cuenta.region__r.name and Sector__c =: cuenta.Micro_Industry__c];
         
@@ -42,7 +42,7 @@ public class PantallaPrincipalPowerBallsController {
                 sector = (String)cuentasTelefonica[0].get('bi_sector_global__c');
             }
             
-            arboles = [select id, name, descripcion__c
+            arboles = [select id, name, descripcion__c, link__c
                        from Super_Ball_Arbol__c 
                        where Pais__c =: pais and Sector__c =: sector];
         }

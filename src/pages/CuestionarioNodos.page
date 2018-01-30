@@ -513,19 +513,49 @@
                             <div>
                                 <br/>
                                 <apex:repeat value="{!nodo.SB_Cuenta_Preguntas__r}" var="pregunta">
-                                    <p style="color: rgba(22, 60, 93, 0.83);
-                                              font-size: 13px;
-                                              font-weight: 900;
-                                              width: 80%;
-                                              float:left;
-                                              ">
-                                        {!pregunta.Pregunta__c}
-                                    </p>
-                                    <p id="{!nodo.Id}" style="width:20%;
-                                              float:right;">
-                                        <apex:inputField styleClass="{!pregunta.id} seMuestra{!nodo.id} visible preguntasDe{!nodo.id} respuestaPreguntaPrincipal preguntaPrincipal{!nodo.id}" value="{!pregunta.Respuesta__c}" style="width: 100%;" onchange="mostrarSiONo('{!pregunta.id}');mostrarBloques('{!nodo.id}')" >
-                                        </apex:inputField> 
-                                    </p>
+                                    
+                                    <!-- pregunta de tipo si/no -->
+                                    <apex:outputPanel rendered="{!pregunta.Tipo_de_pregunta__c == null || pregunta.Tipo_de_pregunta__c == 'Si/no'}">
+                                        
+                                        <p style="color: rgba(22, 60, 93, 0.83);
+                                                  font-size: 13px;
+                                                  font-weight: 900;
+                                                  width: 80%;
+                                                  float:left;
+                                                  ">
+                                            {!pregunta.Pregunta__c}
+                                        </p>
+                                        <p id="{!nodo.Id}" style="width:20%;
+                                                                  float:right;">
+                                            <apex:inputField styleClass="{!pregunta.id} seMuestra{!nodo.id} visible preguntasDe{!nodo.id} respuestaPreguntaPrincipal preguntaPrincipal{!nodo.id}" value="{!pregunta.Respuesta__c}" style="width: 100%;" onchange="mostrarSiONo('{!pregunta.id}');mostrarBloques('{!nodo.id}')" >
+                                            </apex:inputField> 
+                                        </p>
+                                        
+                                    </apex:outputPanel>
+                                    
+                                    <!-- pregunta de tipo libre -->
+                                    <apex:outputPanel rendered="{!pregunta.Tipo_de_pregunta__c == 'Libre'}">
+                                        
+                                        <p style="color: rgba(22, 60, 93, 0.83);
+                                                  font-size: 13px;
+                                                  font-weight: 900;
+                                                  width: 100%;
+                                                  float:left;
+                                                  ">
+                                            {!pregunta.Pregunta__c}
+                                        </p>
+                                        <p id="{!nodo.Id}">
+											<apex:inputField style="width: 100%;" value="{!pregunta.Respuesta_libre__c}" />
+                                        </p>
+                                        
+                                    </apex:outputPanel>
+                                    
+                                    <!-- pregunta de tipo lista -->
+                                    <apex:outputPanel rendered="{!pregunta.Tipo_de_pregunta__c == 'Lista'}">
+                                        
+										<c:PreguntaTipoLista unId="{!pregunta.id}"  />
+                                        
+                                    </apex:outputPanel>
                                     
                                     <apex:outputPanel rendered="{!pregunta.dependenciaSi__c != null}">
                                         

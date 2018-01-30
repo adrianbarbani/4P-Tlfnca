@@ -399,6 +399,14 @@
         <value>1)Analistas 2)Fabricantes 3)Canales</value>
     </labels>
     <labels>
+        <fullName>Anio</fullName>
+        <categories>Multinacionales</categories>
+        <language>es</language>
+        <protected>true</protected>
+        <shortDescription>Año</shortDescription>
+        <value>Año</value>
+    </labels>
+    <labels>
         <fullName>Anterior</fullName>
         <categories>4Planning Lite</categories>
         <language>es</language>
@@ -652,6 +660,14 @@ conocimiento para cada área</value>
         <value>Buscar:</value>
     </labels>
     <labels>
+        <fullName>Buying_Level</fullName>
+        <categories>Buying Level</categories>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>Buying Level</shortDescription>
+        <value>Buying Level</value>
+    </labels>
+    <labels>
         <fullName>Cadena_de_Valor_y_Procesos</fullName>
         <categories>SCP</categories>
         <language>es_MX</language>
@@ -896,14 +912,6 @@ conocimiento para cada área</value>
         <protected>true</protected>
         <shortDescription>Coeficiente [d] Desarrollo de cuenta (%)</shortDescription>
         <value>Coeficiente [d] Desarrollo de cuenta (%)</value>
-    </labels>
-    <labels>
-        <fullName>Coeficiente_de_Cuenta</fullName>
-        <categories>Multinacionales</categories>
-        <language>es</language>
-        <protected>true</protected>
-        <shortDescription>Coeficiente de Cuenta</shortDescription>
-        <value>Coeficiente de Cuenta</value>
     </labels>
     <labels>
         <fullName>Coeficiente_de_Desarrollo_de_Cartera</fullName>
@@ -1241,6 +1249,14 @@ conocimiento para cada área</value>
         <value>Fecha de Creación</value>
     </labels>
     <labels>
+        <fullName>Created_by</fullName>
+        <categories>Created by</categories>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>Created by</shortDescription>
+        <value>Created by</value>
+    </labels>
+    <labels>
         <fullName>Crecimiento_y_transformaci_n_de_oficinas</fullName>
         <categories>4Planning Lite</categories>
         <language>es_MX</language>
@@ -1367,6 +1383,30 @@ conocimiento para cada área</value>
         <protected>true</protected>
         <shortDescription>Cuantificar_estimar_el_volumen_de_penalizaci_n_m_ximo_con_respecto_al_total_del</shortDescription>
         <value>Cuantificar/estimar el volumen de penalización máximo con respecto al total del importe económico (FCV) del proyecto, en %</value>
+    </labels>
+    <labels>
+        <fullName>Cuanto_tenemos_nosotros</fullName>
+        <categories>Multinacionales</categories>
+        <language>es</language>
+        <protected>true</protected>
+        <shortDescription>Cuanto tenemos nosotros</shortDescription>
+        <value>Cuánto tenemos nosotros</value>
+    </labels>
+    <labels>
+        <fullName>Cuanto_tiene_la_competencia</fullName>
+        <categories>Multinacionales</categories>
+        <language>es</language>
+        <protected>true</protected>
+        <shortDescription>Cuanto tiene la competencia</shortDescription>
+        <value>Cuánto tiene la competencia</value>
+    </labels>
+    <labels>
+        <fullName>Cuenta</fullName>
+        <categories>Multinacionales</categories>
+        <language>es</language>
+        <protected>true</protected>
+        <shortDescription>Cuenta</shortDescription>
+        <value>Cuenta</value>
     </labels>
     <labels>
         <fullName>Cuestionario</fullName>
@@ -1596,6 +1636,14 @@ conocimiento para cada área</value>
         <protected>true</protected>
         <shortDescription>Digital</shortDescription>
         <value>Digital</value>
+    </labels>
+    <labels>
+        <fullName>Digital_Services</fullName>
+        <categories>Digital_Services_Vencimientos</categories>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>Digital_Services</shortDescription>
+        <value>Digital_Services</value>
     </labels>
     <labels>
         <fullName>Dise_o</fullName>
@@ -2086,6 +2134,22 @@ conocimiento para cada área</value>
         <value>Ampliar la fecha de comienzo a un plazo de tres semanas</value>
     </labels>
     <labels>
+        <fullName>Familia</fullName>
+        <categories>Multinacionales</categories>
+        <language>es</language>
+        <protected>true</protected>
+        <shortDescription>Familia</shortDescription>
+        <value>Familia</value>
+    </labels>
+    <labels>
+        <fullName>Familia_Local</fullName>
+        <categories>Multinacionales</categories>
+        <language>es</language>
+        <protected>true</protected>
+        <shortDescription>Familia Local</shortDescription>
+        <value>Familia Local</value>
+    </labels>
+    <labels>
         <fullName>Fecha</fullName>
         <categories>4Planning Lite</categories>
         <language>es_MX</language>
@@ -2323,6 +2387,14 @@ conocimiento para cada área</value>
         <value>Generar Plan de Acción para este Reto</value>
     </labels>
     <labels>
+        <fullName>Generate_Action_Plan</fullName>
+        <categories>Action Plan &amp; Account Plan Review</categories>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>Action Plan &amp; Account Plan Review</shortDescription>
+        <value>Action Plan &amp; Account Plan Review</value>
+    </labels>
+    <labels>
         <fullName>Get_SLA_definitions</fullName>
         <categories>Big Deals</categories>
         <language>es</language>
@@ -2377,6 +2449,22 @@ conocimiento para cada área</value>
         <protected>false</protected>
         <shortDescription>Global Strategic Initiative</shortDescription>
         <value>Iniciativas Estratégicas</value>
+    </labels>
+    <labels>
+        <fullName>Go_to_Value_Map</fullName>
+        <categories>Go to Value Map</categories>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>Go to Value Map</shortDescription>
+        <value>Go to Value Map</value>
+    </labels>
+    <labels>
+        <fullName>Go_to_the_Opportunity</fullName>
+        <categories>Go to the Opportunity</categories>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>Go to the Opportunity</shortDescription>
+        <value>Go to the Opportunity</value>
     </labels>
     <labels>
         <fullName>Guardar_Datos</fullName>
@@ -2976,6 +3064,14 @@ conocimiento para cada área</value>
         <value>Los tres principales retos</value>
     </labels>
     <labels>
+        <fullName>Main_Decision_maker</fullName>
+        <categories>Main Decision maker</categories>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>Main Decision maker</shortDescription>
+        <value>Main Decision Maker</value>
+    </labels>
+    <labels>
         <fullName>Mala</fullName>
         <categories>4Planning Lite</categories>
         <language>es_MX</language>
@@ -3040,6 +3136,14 @@ conocimiento para cada área</value>
         <value>El campo %f es obligatorio</value>
     </labels>
     <labels>
+        <fullName>Mobil</fullName>
+        <categories>Mobil_Vencimientos</categories>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>Mobil</shortDescription>
+        <value>Mobil</value>
+    </labels>
+    <labels>
         <fullName>Modify_RDM</fullName>
         <categories>SCP</categories>
         <language>es</language>
@@ -3070,6 +3174,14 @@ conocimiento para cada área</value>
         <protected>false</protected>
         <shortDescription>Months to go</shortDescription>
         <value>Meses hasta el Vencimiento</value>
+    </labels>
+    <labels>
+        <fullName>Name_Account</fullName>
+        <categories>Account_Name_Vencimiento</categories>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>Name_Account</shortDescription>
+        <value>Account Name</value>
     </labels>
     <labels>
         <fullName>Name_of_our_Competitors</fullName>
@@ -3188,6 +3300,14 @@ conocimiento para cada área</value>
         <protected>true</protected>
         <shortDescription>Nivel de relación</shortDescription>
         <value>Nivel de relación</value>
+    </labels>
+    <labels>
+        <fullName>Niveles_interlocucion_cliente</fullName>
+        <categories>Multinacionales</categories>
+        <language>es</language>
+        <protected>true</protected>
+        <shortDescription>Niveles interlocucion cliente</shortDescription>
+        <value>¿Cuáles son los niveles de interlocución que tienes en el cliente?</value>
     </labels>
     <labels>
         <fullName>No</fullName>
@@ -3485,12 +3605,36 @@ conocimiento para cada área</value>
         <value>Nuevo Hito Relevante</value>
     </labels>
     <labels>
+        <fullName>Nuevo_Presupuesto</fullName>
+        <categories>Multinacionales</categories>
+        <language>es</language>
+        <protected>true</protected>
+        <shortDescription>Nuevo Presupuesto</shortDescription>
+        <value>Nuevo Presupuesto</value>
+    </labels>
+    <labels>
         <fullName>Nuevo_Reto</fullName>
         <categories>Multinacionales</categories>
         <language>es</language>
         <protected>true</protected>
         <shortDescription>Nuevo Reto</shortDescription>
         <value>Nuevo Reto</value>
+    </labels>
+    <labels>
+        <fullName>Nuevo_Servicio</fullName>
+        <categories>Multinacionales</categories>
+        <language>es</language>
+        <protected>true</protected>
+        <shortDescription>Nuevo Servicio</shortDescription>
+        <value>Nuevo Servicio</value>
+    </labels>
+    <labels>
+        <fullName>Nuevo_vencimiento</fullName>
+        <categories>Multinacionales</categories>
+        <language>es</language>
+        <protected>true</protected>
+        <shortDescription>Nuevo vencimiento</shortDescription>
+        <value>Nuevo Vencimiento</value>
     </labels>
     <labels>
         <fullName>Numero_Centros_Crece</fullName>
@@ -3684,6 +3828,14 @@ conocimiento para cada área</value>
         <value>¿El Organismo dispone de parque automotor?</value>
     </labels>
     <labels>
+        <fullName>Ot</fullName>
+        <categories>Others_Vencimientos</categories>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>Others</shortDescription>
+        <value>Others</value>
+    </labels>
+    <labels>
         <fullName>Other</fullName>
         <categories>SCP</categories>
         <language>es</language>
@@ -3727,8 +3879,8 @@ conocimiento para cada área</value>
         <categories>SCP</categories>
         <language>en_US</language>
         <protected>true</protected>
-        <shortDescription>Otros</shortDescription>
-        <value>Otros</value>
+        <shortDescription>Others</shortDescription>
+        <value>Others</value>
     </labels>
     <labels>
         <fullName>Otros_Hitos_Relevantes</fullName>
@@ -3978,6 +4130,14 @@ conocimiento para cada área</value>
         <value>¿Qué presupuesto anual maneja tu cliente?</value>
     </labels>
     <labels>
+        <fullName>Presupuesto_Total</fullName>
+        <categories>Multinacionales</categories>
+        <language>es</language>
+        <protected>true</protected>
+        <shortDescription>Presupuesto Total</shortDescription>
+        <value>Presupuesto Total</value>
+    </labels>
+    <labels>
         <fullName>Previsi_n_Cierre_TOP_3_deals</fullName>
         <categories>4Planning Lite</categories>
         <language>es_MX</language>
@@ -4094,6 +4254,14 @@ conocimiento para cada área</value>
         <protected>true</protected>
         <shortDescription>Prospección</shortDescription>
         <value>Prospección</value>
+    </labels>
+    <labels>
+        <fullName>Proveedor_Actual</fullName>
+        <categories>Multinacionales</categories>
+        <language>es</language>
+        <protected>true</protected>
+        <shortDescription>Proveedor Actual</shortDescription>
+        <value>Proveedor Actual</value>
     </labels>
     <labels>
         <fullName>Proveedores_Importantes</fullName>
@@ -4266,6 +4434,22 @@ conocimiento para cada área</value>
         <protected>true</protected>
         <shortDescription>RRHH, ventas, Etc</shortDescription>
         <value>RRHH, ventas, Etc</value>
+    </labels>
+    <labels>
+        <fullName>Rama</fullName>
+        <categories>Multinacionales</categories>
+        <language>es</language>
+        <protected>true</protected>
+        <shortDescription>Rama</shortDescription>
+        <value>Rama</value>
+    </labels>
+    <labels>
+        <fullName>Rama_Local</fullName>
+        <categories>Multinacionales</categories>
+        <language>es</language>
+        <protected>true</protected>
+        <shortDescription>Rama Local</shortDescription>
+        <value>Rama Local</value>
     </labels>
     <labels>
         <fullName>Reach</fullName>
@@ -4761,6 +4945,14 @@ conocimiento para cada área</value>
         <protected>false</protected>
         <shortDescription>Statu Quo help</shortDescription>
         <value>Statu Quo</value>
+    </labels>
+    <labels>
+        <fullName>Status</fullName>
+        <categories>Multinacionales</categories>
+        <language>es</language>
+        <protected>true</protected>
+        <shortDescription>Status</shortDescription>
+        <value>Status</value>
     </labels>
     <labels>
         <fullName>Step1</fullName>
@@ -5574,6 +5766,14 @@ conocimiento para cada área</value>
         <protected>true</protected>
         <shortDescription>cual es el nivel de desarrollo de nuestra oferta</shortDescription>
         <value>¿Cuál es el nivel de desarrollo de nuestra oferta?</value>
+    </labels>
+    <labels>
+        <fullName>date_of_the_event</fullName>
+        <categories>date of the event</categories>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>date of the event</shortDescription>
+        <value>date of the event</value>
     </labels>
     <labels>
         <fullName>dblClickToAddCapability</fullName>

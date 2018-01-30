@@ -29,6 +29,20 @@
         $j(".textoTituloEditable").mouseout(function(){
             $j(this).removeClass('seleccionadoTitulo');
         });
+        
+        $j(".tipoDePregunta").change(function(){
+            
+            console.log($j(this).val);
+            if($j(this).val() == 'Lista'){
+                $j("#opcionesLista").removeClass('noVer');
+                $j("#infoPreguntasLista").removeClass('noVer');
+            }
+            if($j(this).val() != 'Lista'){
+                $j("#opcionesLista").addClass('noVer');
+                $j("#infoPreguntasLista").addClass('noVer');
+            }
+        });
+        
     });
     
     
@@ -63,6 +77,10 @@
     
     
     <style>
+        .noVer{
+        display:none;
+        }
+        
         .container {
         width:100%;
         border:1px solid #d3d3d3;
@@ -263,11 +281,28 @@
                                                             
                                                             <div class="textoEditable">
                                                                 <p>
+                                                                    Tipo:&nbsp; 
+                                                                    <apex:outputText rendered="{!pregunta.Tipo_de_pregunta__c != null}" 
+                                                                    value="{!pregunta.Tipo_de_pregunta__c}" />
+                                                                    
+                                                                    <apex:outputText rendered="{!pregunta.Tipo_de_pregunta__c == null}" >
+                                                                    Si/no
+                                                                    </apex:outputText>
+
                                                                     <apex:outputField value="{!pregunta.Pregunta__c}">
                                                                         <apex:inlineEditSupport event="ondblclick"/>
                                                                     </apex:outputField>
                                                                 </p>
                                                             </div>
+                                                            
+                                                            <apex:outputText rendered="{!pregunta.Tipo_de_pregunta__c == 'Lista'}">
+                                                                <div class="textoEditable" style="margin-bottom: 10px;">
+                                                                    Opciones:
+                                                                    <apex:outputField value="{!pregunta.Opciones_picklist__c}">
+                                                                        <apex:inlineEditSupport event="ondblclick"/>
+                                                                    </apex:outputField>
+                                                                </div>
+                                                            </apex:outputText>
                                                             
                                                             <div class="textoEditable">
                                                                 Posición:&nbsp;<apex:inputField label="Posicion"  value="{!pregunta.Posicion__c}"/>
@@ -277,15 +312,19 @@
                                                                 <apex:param name="idPreguntaABorrar" value="{!pregunta.id}" assignTo="{!idPreguntaABorrar}"/>
                                                             </apex:commandButton>
                                                             
-                                                            <button type="button" style="margin-right: 2px;" 
-                                                                    onclick="setearValorPreguntaPadre('{!pregunta.id}', '{!ramaHija.nodo.id}')" class="btn btn-default btn-sm pull-right" data-toggle="modal" data-target="#myModalPreguntaNo">
-                                                                <span class="glyphicon glyphicon-plus icon-btn-left"></span>&nbsp;Respuesta No
-                                                            </button>
-                                                            
-                                                            <button type="button" style="margin-right: 2px;" 
-                                                                    onclick="setearValorPreguntaPadre('{!pregunta.id}', '{!ramaHija.nodo.id}')" class="btn btn-default btn-sm pull-right" data-toggle="modal" data-target="#myModalPreguntaSi">
-                                                                <span class="glyphicon glyphicon-plus icon-btn-left"></span>&nbsp;Respuesta Si
-                                                            </button>
+                                                            <apex:outputText rendered="{!pregunta.Tipo_de_pregunta__c == 'Si/no' || pregunta.Tipo_de_pregunta__c == null}">
+                                                                <button type="button" style="margin-right: 2px;" 
+                                                                        onclick="setearValorPreguntaPadre('{!pregunta.id}', '{!ramaHija.nodo.id}')" class="btn btn-default btn-sm pull-right" data-toggle="modal" data-target="#myModalPreguntaNo">
+                                                                    <span class="glyphicon glyphicon-plus icon-btn-left"></span>&nbsp;Respuesta No
+                                                                </button>
+                                                            </apex:outputText>
+
+                                                            <apex:outputText rendered="{!pregunta.Tipo_de_pregunta__c == 'Si/no' || pregunta.Tipo_de_pregunta__c == null}">
+                                                                <button type="button" style="margin-right: 2px;" 
+                                                                        onclick="setearValorPreguntaPadre('{!pregunta.id}', '{!ramaHija.nodo.id}')" class="btn btn-default btn-sm pull-right" data-toggle="modal" data-target="#myModalPreguntaSi">
+                                                                    <span class="glyphicon glyphicon-plus icon-btn-left"></span>&nbsp;Respuesta Si
+                                                                </button>
+                                                            </apex:outputText>
                                                             
                                                         </div>
                                                     </div>
@@ -430,6 +469,8 @@
                                                                     <apex:inlineEditSupport event="ondblclick"/>
                                                                 </apex:outputField> 
                                                             </div>
+                                                            
+                                                            Posición:&nbsp;<apex:inputField label="Posicion"  value="{!recursos.Posici_n__c}"/>
                                                             
                                                             <apex:commandButton styleClass="btn btn-default btn-sm pull-right" action="{!borrarRecurso}" value="{!$Label.certa_scp__delete}" reRender="pageContent">
                                                                 <apex:param name="idRecursoABorrar" value="{!recursos.id}" assignTo="{!idRecursoABorrar}"/>
@@ -591,7 +632,21 @@ Contactos
                         </div>
                         <div class="modal-body">
                             
+                            <div id="infoPreguntasLista" class="alert alert-warning noVer" role="alert">
+                                <span class="glyphicon glyphicon-info-sign" aria-hidden="true"></span>
+                                <span class="sr-only">Error:</span>
+                                El formato en el cual deben estar las opciones que va a tener la pregunta es separando cada una por un ";" . Ejemplo: Opcion 1;Opcion 2;Opcion 3
+                            </div>
+                            
                             <table style="border-collapse: separate;border-spacing: 5px;width: 100%;">
+                                <tr>
+                                    <td style="text-align: right;">
+                                        <apex:outputText value="Tipo de pregunta:" />
+                                    </td>
+                                    <td>
+                                        <apex:inputField styleClass="tipoDePregunta" style="width: 50%;" value="{!preguntaAInsertar.Tipo_de_pregunta__c}" />
+                                    </td>
+                                </tr>
                                 <tr>
                                     <td style="text-align: right;">
                                         <apex:outputText value="Pregunta:" />
@@ -600,6 +655,15 @@ Contactos
                                         <apex:inputField style="width: 50%;" value="{!preguntaAInsertar.Pregunta__c}" />
                                     </td>
                                 </tr>
+                                
+                                <tr id="opcionesLista" class="noVer">
+                                    <td style="text-align: left;width: 25%;">
+                                        <apex:outputText value="Opciones de la lista:" />
+                                    </td>
+                                    <td>
+                                        <apex:inputField style="width: 100%;" value="{!preguntaAInsertar.Opciones_picklist__c}" />
+                                    </td>
+                                </tr>                                
                                 
                             </table>		        
                         </div>

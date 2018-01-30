@@ -75,10 +75,10 @@
         <fullName>Calculated_Win_Probability__c</fullName>
         <deprecated>false</deprecated>
         <externalId>false</externalId>
-        <inlineHelpText>&quot;= S (FCV * win probability) / S Calculated FCV
+        <inlineHelpText>= S (FCV * win probability) / S Calculated FCV
 Is the probability considered for commercial dashboard and reporting
 Possible Values: Calculated field, depending on the opportunity status and sub status, in %
-Filled in by: Calculated Automatically&quot;</inlineHelpText>
+Filled in by: Calculated Automatically</inlineHelpText>
         <label>Campo Inactivo</label>
         <precision>3</precision>
         <required>false</required>

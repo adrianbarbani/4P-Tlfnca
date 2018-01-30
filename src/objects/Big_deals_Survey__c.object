@@ -298,7 +298,7 @@
         <deprecated>false</deprecated>
         <description>Calcular el nº de jornadas =  &quot;Nº de FTES totales&quot; x &quot;meses de duración de la preventa y oferta&quot; x &quot;22 jornadas/mes&quot;</description>
         <externalId>false</externalId>
-        <inlineHelpText>&quot;Calcular el nº de jornadas =  &quot;&quot;Nº de FTES totales&quot;&quot; x &quot;&quot;meses de duración de la preventa y oferta&quot;&quot; x &quot;&quot;22 jornadas/mes&quot;&quot;&quot;</inlineHelpText>
+        <inlineHelpText>Calcular el nº de jornadas =  &quot;Nº de FTES totales&quot; x &quot;meses de duración de la preventa y oferta&quot; x &quot;22 jornadas/mes&quot;</inlineHelpText>
         <label>Cantidad jornadas preventa y oferta</label>
         <precision>18</precision>
         <required>false</required>
@@ -396,7 +396,7 @@
         <deprecated>false</deprecated>
         <description>¿Existen requisitos previos de empresa, de niveles de certificación, de exigencias fiscales, etc?</description>
         <externalId>false</externalId>
-        <inlineHelpText>&quot;¿Existen requisitos previos de empresa, de niveles de certificación, de exigencias fiscales, etc?&quot;</inlineHelpText>
+        <inlineHelpText>¿Existen requisitos previos de empresa, de niveles de certificación, de exigencias fiscales, etc?</inlineHelpText>
         <label>Condiciones previas para licitar</label>
         <trackTrending>false</trackTrending>
         <type>Checkbox</type>
@@ -473,7 +473,7 @@
         <deprecated>false</deprecated>
         <description>Descripción de los distintos entregables: productos, servicios, proyectos a medida</description>
         <externalId>false</externalId>
-        <inlineHelpText>&quot;Descripción de los distintos entregables: productos, servicios, proyectos a medida&quot;</inlineHelpText>
+        <inlineHelpText>Descripción de los distintos entregables: productos, servicios, proyectos a medida</inlineHelpText>
         <label>Descripción de los entregables</label>
         <length>32768</length>
         <trackTrending>false</trackTrending>
@@ -497,7 +497,7 @@
         <deprecated>false</deprecated>
         <description>Describir los perfiles necesarios, tanto para los recursos de TEF que no están en la OB, como para los recursos de terceros</description>
         <externalId>false</externalId>
-        <inlineHelpText>&quot;Describir los perfiles necesarios, tanto para los recursos de TEF que no están en la OB, como para los recursos de terceros&quot;</inlineHelpText>
+        <inlineHelpText>Describir los perfiles necesarios, tanto para los recursos de TEF que no están en la OB, como para los recursos de terceros</inlineHelpText>
         <label>Detalle de perfiles necesarios</label>
         <length>32768</length>
         <trackTrending>false</trackTrending>
@@ -563,7 +563,7 @@
         <deprecated>false</deprecated>
         <description>Duración de la garantia, si procede (años)</description>
         <externalId>false</externalId>
-        <inlineHelpText>&quot;Duración de la garantia, si procede (años)&quot;</inlineHelpText>
+        <inlineHelpText>Duración de la garantia, si procede (años)</inlineHelpText>
         <label>Duracion de la garantia</label>
         <required>false</required>
         <trackTrending>false</trackTrending>
@@ -764,7 +764,7 @@
         <deprecated>false</deprecated>
         <description>¿Ha tenido el cliente concurso de mora o similar en algún momento, o tiene deuda superior a 1 año con TEF?</description>
         <externalId>false</externalId>
-        <inlineHelpText>&quot;¿Ha tenido el cliente concurso de mora o similar en algún momento, o tiene deuda superior a 1 año con TEF?&quot;</inlineHelpText>
+        <inlineHelpText>¿Ha tenido el cliente concurso de mora o similar en algún momento, o tiene deuda superior a 1 año con TEF?</inlineHelpText>
         <label>Estabilidad financiera del cliente</label>
         <trackTrending>false</trackTrending>
         <type>Checkbox</type>
@@ -1017,7 +1017,7 @@
         <deprecated>false</deprecated>
         <description>Concretar el número de FTEs de TEF que son necesarios para el equipo de oferta, que no forman parte de la OB</description>
         <externalId>false</externalId>
-        <inlineHelpText>&quot;Concretar el número de FTEs de TEF que son necesarios para el equipo de oferta, que no forman parte de la OB&quot;</inlineHelpText>
+        <inlineHelpText>Concretar el número de FTEs de TEF que son necesarios para el equipo de oferta, que no forman parte de la OB</inlineHelpText>
         <label>FTE no presentes</label>
         <required>false</required>
         <trackTrending>false</trackTrending>

@@ -80,6 +80,16 @@
         <type>Lookup</type>
     </fields>
     <fields>
+        <fullName>Opciones_picklist__c</fullName>
+        <deprecated>false</deprecated>
+        <externalId>false</externalId>
+        <label>Opciones picklist</label>
+        <length>131072</length>
+        <trackTrending>false</trackTrending>
+        <type>LongTextArea</type>
+        <visibleLines>8</visibleLines>
+    </fields>
+    <fields>
         <fullName>Posicion__c</fullName>
         <deprecated>false</deprecated>
         <externalId>false</externalId>
@@ -126,6 +136,16 @@
         </valueSet>
     </fields>
     <fields>
+        <fullName>Respuesta_libre__c</fullName>
+        <deprecated>false</deprecated>
+        <externalId>false</externalId>
+        <label>Respuesta libre</label>
+        <length>32768</length>
+        <trackTrending>false</trackTrending>
+        <type>LongTextArea</type>
+        <visibleLines>5</visibleLines>
+    </fields>
+    <fields>
         <fullName>Super_Ball_Nodo__c</fullName>
         <deprecated>false</deprecated>
         <externalId>false</externalId>
@@ -152,6 +172,33 @@
         <trackTrending>false</trackTrending>
         <type>MasterDetail</type>
         <writeRequiresMasterRead>false</writeRequiresMasterRead>
+    </fields>
+    <fields>
+        <fullName>Tipo_de_pregunta__c</fullName>
+        <deprecated>false</deprecated>
+        <externalId>false</externalId>
+        <label>Tipo de pregunta</label>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Picklist</type>
+        <valueSet>
+            <restricted>true</restricted>
+            <valueSetDefinition>
+                <sorted>false</sorted>
+                <value>
+                    <fullName>Si/no</fullName>
+                    <default>false</default>
+                </value>
+                <value>
+                    <fullName>Libre</fullName>
+                    <default>false</default>
+                </value>
+                <value>
+                    <fullName>Lista</fullName>
+                    <default>false</default>
+                </value>
+            </valueSetDefinition>
+        </valueSet>
     </fields>
     <fields>
         <fullName>dependenciaSi__c</fullName>

@@ -1,0 +1,21 @@
+<apex:component controller="PreguntaTipoListaController" allowDML="true">
+
+    <apex:attribute name="unId" assignTo="{!idPregunta}" description="El id de la pregunta de tipo lista" type="String" required="true"/>
+    
+    <apex:actionFunction name="guardarCambios" action="{!guardar}" reRender="null" />
+    
+    <p style="color: rgba(22, 60, 93, 0.83);
+              font-size: 13px;
+              font-weight: 900;
+              width: 100%;
+              float:left;
+              ">
+        {!pregunta.Pregunta__c}
+    </p>
+    <p >
+        <apex:selectList value="{!preguntaCuenta.Respuesta_libre__c}" size="1" style="width:100%" onchange="guardarCambios();">
+            <apex:selectOptions value="{!ValoresPickList}"/>
+        </apex:selectList>
+    </p>
+    
+</apex:component>

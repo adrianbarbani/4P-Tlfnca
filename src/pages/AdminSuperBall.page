@@ -65,7 +65,7 @@
                                 {!$Label.titulo}
                             </th>
                             <th>
-                            	Descripción
+                            	Link
                             </th>
                             <th >
                                 {!$Label.Sector}
@@ -92,7 +92,7 @@
                                     </apex:outputField>
                                 </td>
                                 <td>
-                                    <apex:outputField value="{!arbol.Descripcion__c}">
+                                    <apex:outputField value="{!arbol.Link__c}">
                                         <apex:inlineEditSupport event="ondblclick"/>
                                     </apex:outputField>
                                 	
@@ -162,10 +162,10 @@
                                     </tr>
                                     <tr>
                                         <td style="text-align: right;">
-                                            <apex:outputText value="Descripción:" />
+                                            <apex:outputText value="Link:" />
                                         </td>
                                         <td>
-                                            <apex:inputField style="width: 50%;" value="{!arbolAInsertar.Descripcion__c}" />
+                                            <apex:inputField style="width: 50%;" value="{!arbolAInsertar.Link__c}" />
                                         </td>
                                     </tr>
                                     <tr>

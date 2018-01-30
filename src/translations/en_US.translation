@@ -190,6 +190,10 @@
         <name>Analistas_Fabricantes_Canales</name>
     </customLabels>
     <customLabels>
+        <label>Year</label>
+        <name>Anio</name>
+    </customLabels>
+    <customLabels>
         <label>&lt; Previous</label>
         <name>Anterior</name>
     </customLabels>
@@ -318,6 +322,10 @@
         <name>Buscar</name>
     </customLabels>
     <customLabels>
+        <label><!-- Buying Level --></label>
+        <name>Buying_Level</name>
+    </customLabels>
+    <customLabels>
         <label>Value Chain and Processes</label>
         <name>Cadena_de_Valor_y_Procesos</name>
     </customLabels>
@@ -426,7 +434,7 @@
         <name>Clientes_con_4Plannning</name>
     </customLabels>
     <customLabels>
-        <label>Portfolio Coverage</label>
+        <label>Account Business Landscape</label>
         <name>Cobertura_del_portfolio</name>
     </customLabels>
     <customLabels>
@@ -444,10 +452,6 @@
     <customLabels>
         <label>Account Development Index (%)</label>
         <name>Coeficiente_d_Desarrollo_de_cuenta_porciento</name>
-    </customLabels>
-    <customLabels>
-        <label>Account Coefficient</label>
-        <name>Coeficiente_de_Cuenta</name>
     </customLabels>
     <customLabels>
         <label>development coefficient accounts</label>
@@ -622,11 +626,15 @@
         <name>Created_Date</name>
     </customLabels>
     <customLabels>
+        <label><!-- Created by --></label>
+        <name>Created_by</name>
+    </customLabels>
+    <customLabels>
         <label>Growth</label>
         <name>Crecimiento_y_transformaci_n_de_oficinas</name>
     </customLabels>
     <customLabels>
-        <label>Account Schedule</label>
+        <label>Customer Engagement</label>
         <name>Cronograma_de_la_Cuenta</name>
     </customLabels>
     <customLabels>
@@ -684,6 +692,18 @@
     <customLabels>
         <label>&quot;Cuantificar/estimar el volumen de penalización máximo con respecto al total del importe económico (FCV) del proyecto, en %&quot;</label>
         <name>Cuantificar_estimar_el_volumen_de_penalizaci_n_m_ximo_con_respecto_al_total_del</name>
+    </customLabels>
+    <customLabels>
+        <label>Our Share</label>
+        <name>Cuanto_tenemos_nosotros</name>
+    </customLabels>
+    <customLabels>
+        <label>Competition Share</label>
+        <name>Cuanto_tiene_la_competencia</name>
+    </customLabels>
+    <customLabels>
+        <label>Account</label>
+        <name>Cuenta</name>
     </customLabels>
     <customLabels>
         <label>Questionnaire</label>
@@ -800,6 +820,10 @@
     <customLabels>
         <label><!-- Digital --></label>
         <name>Digital</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- Digital_Services --></label>
+        <name>Digital_Services</name>
     </customLabels>
     <customLabels>
         <label>Design</label>
@@ -1050,6 +1074,14 @@
         <name>Extend_the_start_date_to_three_weeks</name>
     </customLabels>
     <customLabels>
+        <label>Family</label>
+        <name>Familia</name>
+    </customLabels>
+    <customLabels>
+        <label>Subcategory</label>
+        <name>Familia_Local</name>
+    </customLabels>
+    <customLabels>
         <label>Date</label>
         <name>Fecha</name>
     </customLabels>
@@ -1170,6 +1202,10 @@
         <name>Generar_plan_de_accion</name>
     </customLabels>
     <customLabels>
+        <label><!-- Action Plan &amp; Account Plan Review --></label>
+        <name>Generate_Action_Plan</name>
+    </customLabels>
+    <customLabels>
         <label>Get the SLAs definition</label>
         <name>Get_SLA_definitions</name>
     </customLabels>
@@ -1196,6 +1232,14 @@
     <customLabels>
         <label>Strategic Initiatives</label>
         <name>Global_Strategic_Initiative</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- Go to Value Map --></label>
+        <name>Go_to_Value_Map</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- Go to the Opportunity --></label>
+        <name>Go_to_the_Opportunity</name>
     </customLabels>
     <customLabels>
         <label>Save Data</label>
@@ -1234,7 +1278,7 @@
         <name>Hitos_Globales</name>
     </customLabels>
     <customLabels>
-        <label>Relevant Milestones</label>
+        <label>Edit Relevant Milestones</label>
         <name>Hitos_Relevantes</name>
     </customLabels>
     <customLabels>
@@ -1342,7 +1386,7 @@
         <name>Informacion_adicional_que_se_adjunta</name>
     </customLabels>
     <customLabels>
-        <label>Account Information</label>
+        <label>Getting to Know the Customer</label>
         <name>Informacion_de_la_cuenta</name>
     </customLabels>
     <customLabels>
@@ -1502,6 +1546,10 @@
         <name>Los_tres_principales_retos</name>
     </customLabels>
     <customLabels>
+        <label><!-- Main Decision maker --></label>
+        <name>Main_Decision_maker</name>
+    </customLabels>
+    <customLabels>
         <label>Bad</label>
         <name>Mala</name>
     </customLabels>
@@ -1534,6 +1582,10 @@
         <name>Missing_field_error_base</name>
     </customLabels>
     <customLabels>
+        <label><!-- Mobil --></label>
+        <name>Mobil</name>
+    </customLabels>
+    <customLabels>
         <label>Modify Mosaic</label>
         <name>Modify_RDM</name>
     </customLabels>
@@ -1548,6 +1600,10 @@
     <customLabels>
         <label>Months to Contract expiration</label>
         <name>Months_to_go</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- Name_Account --></label>
+        <name>Name_Account</name>
     </customLabels>
     <customLabels>
         <label>Our competitor´s needs</label>
@@ -1608,6 +1664,10 @@
     <customLabels>
         <label>Level of Relationship</label>
         <name>Nivel_de_relaci_n</name>
+    </customLabels>
+    <customLabels>
+        <label>Who do you talk to in the client ?</label>
+        <name>Niveles_interlocucion_cliente</name>
     </customLabels>
     <customLabels>
         <label><!-- No --></label>
@@ -1762,8 +1822,20 @@
         <name>Nuevo_Hito_Relevante</name>
     </customLabels>
     <customLabels>
+        <label>New budget</label>
+        <name>Nuevo_Presupuesto</name>
+    </customLabels>
+    <customLabels>
         <label>New Challenge</label>
         <name>Nuevo_Reto</name>
+    </customLabels>
+    <customLabels>
+        <label>New Service</label>
+        <name>Nuevo_Servicio</name>
+    </customLabels>
+    <customLabels>
+        <label>New Due Date</label>
+        <name>Nuevo_vencimiento</name>
     </customLabels>
     <customLabels>
         <label>&quot;The number of Centers grow, decrease or remain?&quot;</label>
@@ -1866,6 +1938,10 @@
         <name>Organismo_Parque_Automotor</name>
     </customLabels>
     <customLabels>
+        <label><!-- Others --></label>
+        <name>Ot</name>
+    </customLabels>
+    <customLabels>
         <label>Other</label>
         <name>Other</name>
     </customLabels>
@@ -1966,7 +2042,7 @@
         <name>Planes_Cliente</name>
     </customLabels>
     <customLabels>
-        <label>Planification</label>
+        <label>Account Growth Strategy</label>
         <name>Planificacion</name>
     </customLabels>
     <customLabels>
@@ -2016,6 +2092,10 @@
     <customLabels>
         <label>What annual budget does your client handle?</label>
         <name>Presupuesto_Anual_Cliente</name>
+    </customLabels>
+    <customLabels>
+        <label>Total budget</label>
+        <name>Presupuesto_Total</name>
     </customLabels>
     <customLabels>
         <label>Top 3 Deals Estimated Closing Date</label>
@@ -2078,6 +2158,10 @@
         <name>Prospecci_n</name>
     </customLabels>
     <customLabels>
+        <label>Current Provider</label>
+        <name>Proveedor_Actual</name>
+    </customLabels>
+    <customLabels>
         <label>&quot;Of these providers, what is the most important for this Agency?&quot;</label>
         <name>Proveedores_Importantes</name>
     </customLabels>
@@ -2110,7 +2194,7 @@
         <name>Que_es_reto_gestion</name>
     </customLabels>
     <customLabels>
-        <label><!-- Que es reto negocio --></label>
+        <label>Ideally the account team should link every initiative of our client with one or several services of the portfolio and connect to specific opportunities in our pipeline</label>
         <name>Que_es_reto_negocio</name>
     </customLabels>
     <customLabels>
@@ -2150,7 +2234,7 @@
         <name>RDM_role</name>
     </customLabels>
     <customLabels>
-        <label>Relationship</label>
+        <label>Customer Engagement</label>
         <name>RELACIONAMIENTO</name>
     </customLabels>
     <customLabels>
@@ -2164,6 +2248,14 @@
     <customLabels>
         <label>&quot;HHRR, Sales, etc&quot;</label>
         <name>RRHH_ventas_Etc</name>
+    </customLabels>
+    <customLabels>
+        <label>Branch</label>
+        <name>Rama</name>
+    </customLabels>
+    <customLabels>
+        <label>Category</label>
+        <name>Rama_Local</name>
     </customLabels>
     <customLabels>
         <label>Scope</label>
@@ -2198,7 +2290,7 @@
         <name>Regular</name>
     </customLabels>
     <customLabels>
-        <label>Relationship</label>
+        <label>Customer Engagement</label>
         <name>Relacion</name>
     </customLabels>
     <customLabels>
@@ -2250,7 +2342,7 @@
         <name>Reto_con_Oportunidad_vinculada</name>
     </customLabels>
     <customLabels>
-        <label>Challenges</label>
+        <label>View Value Chain</label>
         <name>Retos</name>
     </customLabels>
     <customLabels>
@@ -2258,11 +2350,11 @@
         <name>Retos_Actuales</name>
     </customLabels>
     <customLabels>
-        <label>Challenges/Opps</label>
+        <label>Edit Value Chain</label>
         <name>Retos_Oportunidades</name>
     </customLabels>
     <customLabels>
-        <label>Challenges and Opportunities</label>
+        <label>Edit Value Chain</label>
         <name>Retos_Opps</name>
     </customLabels>
     <customLabels>
@@ -2416,6 +2508,10 @@
     <customLabels>
         <label><!-- Statu Quo help --></label>
         <name>Statu_Quo_help</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- Status --></label>
+        <name>Status</name>
     </customLabels>
     <customLabels>
         <label>Review current Opportunities</label>
@@ -2622,7 +2718,7 @@
         <name>Usuarios_a_Seleccionar</name>
     </customLabels>
     <customLabels>
-        <label>Margin</label>
+        <label>4You</label>
         <name>Utilidades</name>
     </customLabels>
     <customLabels>
@@ -2828,6 +2924,10 @@
     <customLabels>
         <label>How mature is our offering ?</label>
         <name>cual_es_el_nivel_de_desarrollo_de_nuestra_oferta</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- date of the event --></label>
+        <name>date_of_the_event</name>
     </customLabels>
     <customLabels>
         <label>Double Click to add a Capability</label>

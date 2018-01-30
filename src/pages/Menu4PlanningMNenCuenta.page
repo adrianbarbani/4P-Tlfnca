@@ -1,0 +1,3 @@
+<apex:page standardController="Account">
+    <c:Menu4PlanningMN ></c:Menu4PlanningMN>    
+</apex:page>
